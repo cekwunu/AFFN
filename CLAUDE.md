@@ -87,6 +87,12 @@ table needs RLS, explicit grants, a `tests/db/matrix.ts` entry and fixture rows 
 If Docker cannot pull from public.ecr.aws, set `SUPABASE_INTERNAL_IMAGE_REGISTRY=docker.io`. If Docker Hub
 rate-limits, pull the image from `mirror.gcr.io/...` and `docker tag` it to the expected name.
 
+Cloud: Supabase project `nwllhsbhdftrucgndjpc` ("Affn", eu-north-1 Stockholm), URL
+`https://nwllhsbhdftrucgndjpc.supabase.co`. All migrations up to `20261016100000_vendor_onboarding` are
+applied (no seed data). Apply each new migration there too, after CI is green. The Supabase connection
+here cannot approve destructive statements: write migrations without them where possible (e.g.
+`alter policy` instead of drop/create). pg_graphql is not installed on the cloud project.
+
 Auth (P04): sign-in/up, reset and MFA run as server actions (`src/app/[locale]/(auth)/actions.ts`);
 `src/proxy.ts` routes by the `affn` JWT claim from `private.custom_access_token_hook`; layouts recheck
 live memberships with `requirePortal`. Admin helpers in RLS require `aal2`. Seed users all use password
