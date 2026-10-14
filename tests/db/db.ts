@@ -44,13 +44,18 @@ function db() {
  * Runs `fn` as the given role inside a transaction that is always rolled back, the way
  * PostgREST does it: `set local role` plus JWT claims for auth.uid().
  */
-export async function asRole<T>(role: Role, fn: (c: pg.Client) => Promise<T>): Promise<T> {
+export async function asRole<T>(
+  role: Role,
+  fn: (c: pg.Client) => Promise<T>,
+  { aal = 'aal2' }: { aal?: 'aal1' | 'aal2' } = {},
+): Promise<T> {
   const c = db();
   await c.query('begin');
   try {
     const uid = userId(role);
+    // Signed-in test users have passed MFA (aal2) unless a test asks for aal1.
     const claims = uid
-      ? { sub: uid, role: 'authenticated', aud: 'authenticated' }
+      ? { sub: uid, role: 'authenticated', aud: 'authenticated', aal }
       : { role: 'anon' };
     await c.query(`select set_config('request.jwt.claims', $1, true)`, [JSON.stringify(claims)]);
     await c.query(`set local role ${uid ? 'authenticated' : 'anon'}`);

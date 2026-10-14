@@ -20,9 +20,9 @@ async function errorCode(c: pg.Client, sql: string, params: unknown[] = []) {
 }
 
 /** Switches the current transaction to a signed-in user (after owner-level setup). */
-async function becomeUser(c: pg.Client, uid: string) {
+async function becomeUser(c: pg.Client, uid: string, aal: 'aal1' | 'aal2' = 'aal2') {
   await c.query(`select set_config('request.jwt.claims', $1, true)`, [
-    JSON.stringify({ sub: uid, role: 'authenticated' }),
+    JSON.stringify({ sub: uid, role: 'authenticated', aal }),
   ]);
   await c.query('set local role authenticated');
 }

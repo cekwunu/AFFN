@@ -131,6 +131,25 @@ export const MATRIX: TableSpec[] = [
     delete: { allowed: ['orgAdmin'], target: 'own' },
   },
   {
+    table: 'invitations',
+    rows: { own: is('id', row('8b000000', 'own')), foreign: is('id', row('8b000000', 'foreign')) },
+    read: { own: [P, 'orgAdmin'], foreign: FOREIGN },
+    insert: {
+      allowed: ['orgAdmin'],
+      row: (uid) => ({
+        organization_id: ORG1,
+        email: 'new-admin@affn.test',
+        token_hash: 'c'.repeat(64),
+        invited_by: uid,
+      }),
+    },
+    update: {
+      allowed: ['orgAdmin'],
+      target: 'own',
+      set: (uid) => `revoked_at = now(), revoked_by = ${uid ? `'${uid}'` : 'null'}`,
+    },
+  },
+  {
     table: 'events',
     rows: { own: is('id', EVENT1), other: is('id', EVENT2), foreign: is('id', EVENT3) },
     read: { own: [...ORG1_MEMBERS, 'anon'], other: ORG1_MEMBERS, foreign: FOREIGN },

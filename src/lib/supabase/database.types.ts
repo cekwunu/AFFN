@@ -225,6 +225,32 @@ isOneToOne: false
       referencedColumns: ["id","organization_id"]
     }
                   ]
+                },"invitations": {
+                  Row: {
+                    "accepted_at": string | null,"accepted_by": string | null,"created_at": string,"email": string,"event_id": string | null,"expires_at": string,"id": string,"invited_by": string,"locale": string,"organization_id": string,"revoked_at": string | null,"revoked_by": string | null,"role": Database["public"]['Enums']["membership_role"],"token_hash": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "accepted_at"?: string | null,"accepted_by"?: string | null,"created_at"?: string,"email": string,"event_id"?: string | null,"expires_at"?: string,"id"?: string,"invited_by": string,"locale"?: string,"organization_id": string,"revoked_at"?: string | null,"revoked_by"?: string | null,"role"?: Database["public"]['Enums']["membership_role"],"token_hash": string
+                  }
+                  Update: {
+                    "accepted_at"?: string | null,"accepted_by"?: string | null,"created_at"?: string,"email"?: string,"event_id"?: string | null,"expires_at"?: string,"id"?: string,"invited_by"?: string,"locale"?: string,"organization_id"?: string,"revoked_at"?: string | null,"revoked_by"?: string | null,"role"?: Database["public"]['Enums']["membership_role"],"token_hash"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "invitations_event_id_organization_id_fkey"
+      columns: ["event_id","organization_id"]
+isOneToOne: false
+      referencedRelation: "events"
+      referencedColumns: ["id","organization_id"]
+    },{
+      foreignKeyName: "invitations_organization_id_fkey"
+      columns: ["organization_id"]
+isOneToOne: false
+      referencedRelation: "organizations"
+      referencedColumns: ["id"]
+    }
+                  ]
                 },"invoice_counters": {
                   Row: {
                     "last_number": number,"organization_id": string
@@ -379,14 +405,14 @@ isOneToOne: false
                   ]
                 },"memberships": {
                   Row: {
-                    "created_at": string,"id": string,"organization_id": string,"role": Database["public"]['Enums']["membership_role"],"sponsor_id": string | null,"user_id": string,"vendor_id": string | null
+                    "created_at": string,"id": string,"organization_id": string,"role": Database["public"]['Enums']["membership_role"],"sponsor_id": string | null,"status": Database["public"]['Enums']["membership_status"],"user_id": string,"vendor_id": string | null
                   }
                   ComputedFields: never
                   Insert: {
-                    "created_at"?: string,"id"?: string,"organization_id": string,"role": Database["public"]['Enums']["membership_role"],"sponsor_id"?: string | null,"user_id": string,"vendor_id"?: string | null
+                    "created_at"?: string,"id"?: string,"organization_id": string,"role": Database["public"]['Enums']["membership_role"],"sponsor_id"?: string | null,"status"?: Database["public"]['Enums']["membership_status"],"user_id": string,"vendor_id"?: string | null
                   }
                   Update: {
-                    "created_at"?: string,"id"?: string,"organization_id"?: string,"role"?: Database["public"]['Enums']["membership_role"],"sponsor_id"?: string | null,"user_id"?: string,"vendor_id"?: string | null
+                    "created_at"?: string,"id"?: string,"organization_id"?: string,"role"?: Database["public"]['Enums']["membership_role"],"sponsor_id"?: string | null,"status"?: Database["public"]['Enums']["membership_status"],"user_id"?: string,"vendor_id"?: string | null
                   }
                   Relationships: [
                     {
@@ -1315,10 +1341,15 @@ isOneToOne: false
             [_ in never]: never
           }
           Functions: {
-            [_ in never]: never
+            "rate_limit_check":
+{ Args: { "p_key": string,"p_limit": number,"p_window_seconds": number }; Returns: boolean
+                           },
+"rate_limit_hit":
+{ Args: { "p_key": string,"p_limit": number,"p_window_seconds": number }; Returns: boolean
+                           }
           }
           Enums: {
-            "allergen": "gluten"|"crustaceans"|"eggs"|"fish"|"peanuts"|"soybeans"|"milk"|"nuts"|"celery"|"mustard"|"sesame"|"sulphites"|"lupin"|"molluscs","application_status": "draft"|"submitted"|"under_review"|"more_info_requested"|"approved"|"rejected"|"waitlisted"|"withdrawn","asset_kind": "logo"|"banner"|"video"|"other","assignment_status": "active"|"released","audit_action": "insert"|"update"|"delete","commission_scope": "organization"|"event"|"category"|"vendor","commission_type": "percentage"|"fixed"|"hybrid","dietary_tag": "vegetarian"|"vegan"|"halal"|"gluten_free"|"dairy_free"|"spicy","document_type": "mattilsynet_registration"|"insurance"|"other","event_status": "draft"|"published"|"closed"|"archived","invoice_kind": "commission"|"stall_fee","invoice_status": "issued"|"paid"|"credited","lead_kind": "contact"|"catering"|"quote","lead_status": "new"|"contacted"|"closed","ledger_account": "psp_clearing"|"vendor_payable"|"vendor_receivable"|"commission_revenue"|"mva_payable"|"psp_fee_expense","ledger_direction": "debit"|"credit","ledger_entry_type": "sale"|"commission"|"commission_mva"|"psp_fee"|"refund"|"refund_commission_reversal"|"payout"|"adjustment"|"dispute","link_kind": "qr"|"link","membership_role": "org_admin"|"event_admin"|"vendor"|"sponsor","order_status": "pending_payment"|"new"|"accepted"|"preparing"|"ready"|"collected"|"cancelled","payment_method": "vipps"|"card"|"apple_pay"|"google_pay","payment_provider": "mock"|"stripe"|"swedbank","payment_status": "pending"|"succeeded"|"failed"|"cancelled","payout_status": "pending"|"in_transit"|"paid"|"failed","psp_account_status": "not_started"|"pending"|"eligible"|"restricted","refund_status": "pending"|"succeeded"|"failed","review_status": "pending"|"accepted"|"rejected","settlement_status": "draft"|"prepared"|"approved"|"releasing"|"completed"|"completed_with_failures"|"cancelled","sponsorship_status": "inquiry"|"confirmed"|"invoiced"|"paid"|"cancelled","stall_fee_status": "open"|"invoiced"|"paid"|"cancelled","webhook_outcome": "processed"|"ignored"|"failed"
+            "allergen": "gluten"|"crustaceans"|"eggs"|"fish"|"peanuts"|"soybeans"|"milk"|"nuts"|"celery"|"mustard"|"sesame"|"sulphites"|"lupin"|"molluscs","application_status": "draft"|"submitted"|"under_review"|"more_info_requested"|"approved"|"rejected"|"waitlisted"|"withdrawn","asset_kind": "logo"|"banner"|"video"|"other","assignment_status": "active"|"released","audit_action": "insert"|"update"|"delete","commission_scope": "organization"|"event"|"category"|"vendor","commission_type": "percentage"|"fixed"|"hybrid","dietary_tag": "vegetarian"|"vegan"|"halal"|"gluten_free"|"dairy_free"|"spicy","document_type": "mattilsynet_registration"|"insurance"|"other","event_status": "draft"|"published"|"closed"|"archived","invoice_kind": "commission"|"stall_fee","invoice_status": "issued"|"paid"|"credited","lead_kind": "contact"|"catering"|"quote","lead_status": "new"|"contacted"|"closed","ledger_account": "psp_clearing"|"vendor_payable"|"vendor_receivable"|"commission_revenue"|"mva_payable"|"psp_fee_expense","ledger_direction": "debit"|"credit","ledger_entry_type": "sale"|"commission"|"commission_mva"|"psp_fee"|"refund"|"refund_commission_reversal"|"payout"|"adjustment"|"dispute","link_kind": "qr"|"link","membership_role": "org_admin"|"event_admin"|"vendor"|"sponsor","membership_status": "pending"|"active","order_status": "pending_payment"|"new"|"accepted"|"preparing"|"ready"|"collected"|"cancelled","payment_method": "vipps"|"card"|"apple_pay"|"google_pay","payment_provider": "mock"|"stripe"|"swedbank","payment_status": "pending"|"succeeded"|"failed"|"cancelled","payout_status": "pending"|"in_transit"|"paid"|"failed","psp_account_status": "not_started"|"pending"|"eligible"|"restricted","refund_status": "pending"|"succeeded"|"failed","review_status": "pending"|"accepted"|"rejected","settlement_status": "draft"|"prepared"|"approved"|"releasing"|"completed"|"completed_with_failures"|"cancelled","sponsorship_status": "inquiry"|"confirmed"|"invoiced"|"paid"|"cancelled","stall_fee_status": "open"|"invoiced"|"paid"|"cancelled","webhook_outcome": "processed"|"ignored"|"failed"
           }
           CompositeTypes: {
             [_ in never]: never
@@ -1434,7 +1465,7 @@ export type CompositeTypes<
 export const Constants = {
   "public": {
           Enums: {
-            "allergen": ["gluten", "crustaceans", "eggs", "fish", "peanuts", "soybeans", "milk", "nuts", "celery", "mustard", "sesame", "sulphites", "lupin", "molluscs"],"application_status": ["draft", "submitted", "under_review", "more_info_requested", "approved", "rejected", "waitlisted", "withdrawn"],"asset_kind": ["logo", "banner", "video", "other"],"assignment_status": ["active", "released"],"audit_action": ["insert", "update", "delete"],"commission_scope": ["organization", "event", "category", "vendor"],"commission_type": ["percentage", "fixed", "hybrid"],"dietary_tag": ["vegetarian", "vegan", "halal", "gluten_free", "dairy_free", "spicy"],"document_type": ["mattilsynet_registration", "insurance", "other"],"event_status": ["draft", "published", "closed", "archived"],"invoice_kind": ["commission", "stall_fee"],"invoice_status": ["issued", "paid", "credited"],"lead_kind": ["contact", "catering", "quote"],"lead_status": ["new", "contacted", "closed"],"ledger_account": ["psp_clearing", "vendor_payable", "vendor_receivable", "commission_revenue", "mva_payable", "psp_fee_expense"],"ledger_direction": ["debit", "credit"],"ledger_entry_type": ["sale", "commission", "commission_mva", "psp_fee", "refund", "refund_commission_reversal", "payout", "adjustment", "dispute"],"link_kind": ["qr", "link"],"membership_role": ["org_admin", "event_admin", "vendor", "sponsor"],"order_status": ["pending_payment", "new", "accepted", "preparing", "ready", "collected", "cancelled"],"payment_method": ["vipps", "card", "apple_pay", "google_pay"],"payment_provider": ["mock", "stripe", "swedbank"],"payment_status": ["pending", "succeeded", "failed", "cancelled"],"payout_status": ["pending", "in_transit", "paid", "failed"],"psp_account_status": ["not_started", "pending", "eligible", "restricted"],"refund_status": ["pending", "succeeded", "failed"],"review_status": ["pending", "accepted", "rejected"],"settlement_status": ["draft", "prepared", "approved", "releasing", "completed", "completed_with_failures", "cancelled"],"sponsorship_status": ["inquiry", "confirmed", "invoiced", "paid", "cancelled"],"stall_fee_status": ["open", "invoiced", "paid", "cancelled"],"webhook_outcome": ["processed", "ignored", "failed"]
+            "allergen": ["gluten", "crustaceans", "eggs", "fish", "peanuts", "soybeans", "milk", "nuts", "celery", "mustard", "sesame", "sulphites", "lupin", "molluscs"],"application_status": ["draft", "submitted", "under_review", "more_info_requested", "approved", "rejected", "waitlisted", "withdrawn"],"asset_kind": ["logo", "banner", "video", "other"],"assignment_status": ["active", "released"],"audit_action": ["insert", "update", "delete"],"commission_scope": ["organization", "event", "category", "vendor"],"commission_type": ["percentage", "fixed", "hybrid"],"dietary_tag": ["vegetarian", "vegan", "halal", "gluten_free", "dairy_free", "spicy"],"document_type": ["mattilsynet_registration", "insurance", "other"],"event_status": ["draft", "published", "closed", "archived"],"invoice_kind": ["commission", "stall_fee"],"invoice_status": ["issued", "paid", "credited"],"lead_kind": ["contact", "catering", "quote"],"lead_status": ["new", "contacted", "closed"],"ledger_account": ["psp_clearing", "vendor_payable", "vendor_receivable", "commission_revenue", "mva_payable", "psp_fee_expense"],"ledger_direction": ["debit", "credit"],"ledger_entry_type": ["sale", "commission", "commission_mva", "psp_fee", "refund", "refund_commission_reversal", "payout", "adjustment", "dispute"],"link_kind": ["qr", "link"],"membership_role": ["org_admin", "event_admin", "vendor", "sponsor"],"membership_status": ["pending", "active"],"order_status": ["pending_payment", "new", "accepted", "preparing", "ready", "collected", "cancelled"],"payment_method": ["vipps", "card", "apple_pay", "google_pay"],"payment_provider": ["mock", "stripe", "swedbank"],"payment_status": ["pending", "succeeded", "failed", "cancelled"],"payout_status": ["pending", "in_transit", "paid", "failed"],"psp_account_status": ["not_started", "pending", "eligible", "restricted"],"refund_status": ["pending", "succeeded", "failed"],"review_status": ["pending", "accepted", "rejected"],"settlement_status": ["draft", "prepared", "approved", "releasing", "completed", "completed_with_failures", "cancelled"],"sponsorship_status": ["inquiry", "confirmed", "invoiced", "paid", "cancelled"],"stall_fee_status": ["open", "invoiced", "paid", "cancelled"],"webhook_outcome": ["processed", "ignored", "failed"]
           }
         }
 } as const
