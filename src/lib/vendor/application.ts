@@ -158,9 +158,10 @@ export const stallSchema = z.object({
 export const DOCUMENT_TYPES = ['mattilsynet_registration', 'insurance', 'other'] as const;
 export type DocumentType = (typeof DOCUMENT_TYPES)[number];
 export const DOCUMENT_ACCEPT = ['application/pdf', 'image/jpeg', 'image/png'] as const;
-export const DOCUMENT_MAX_BYTES = 10 * 1024 * 1024;
+// Below the bucket limits (10 MiB / 5 MiB), and shown to vendors as "10 MB" / "5 MB".
+export const DOCUMENT_MAX_BYTES = 10_000_000;
 export const MEDIA_ACCEPT = ['image/jpeg', 'image/png', 'image/webp'] as const;
-export const MEDIA_MAX_BYTES = 5 * 1024 * 1024;
+export const MEDIA_MAX_BYTES = 5_000_000;
 
 export const documentSchema = z.object({
   documentType: z.enum(DOCUMENT_TYPES, 'required'),
@@ -218,6 +219,24 @@ export function documentsComplete(
   return documents.some(
     (d) => d.document_type === 'mattilsynet_registration' && d.status !== 'rejected',
   );
+}
+
+/**
+ * Facts for missingSteps/resumeStep. Documents only count as done once the profile (and so the
+ * category, which decides whether Mattilsynet proof is needed) is saved.
+ */
+export function applicationFacts(application: {
+  progress: ApplicationProgress;
+  agreement: unknown;
+  vendor: { category: string | null };
+  documents: readonly { document_type: string; status: string }[];
+}): { hasAgreement: boolean; documentsOk: boolean } {
+  return {
+    hasAgreement: !!application.agreement,
+    documentsOk:
+      (application.progress.completed ?? []).includes('profile') &&
+      documentsComplete(application.vendor.category, application.documents),
+  };
 }
 
 /** Only drafts and applications sent back for more information can be edited. */
