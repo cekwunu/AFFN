@@ -71,11 +71,19 @@ Package manager: pnpm (Node 22, see .nvmrc). Copy `.env.example` to `.env.local`
 | `pnpm check:budget` | After `pnpm build`: fails if a public page ships > 150 kB gzipped JS (NFR-01) |
 | `pnpm db:start` / `pnpm db:stop` | Local Supabase in Docker; `db:start` prints URL and keys |
 | `pnpm db:reset` | Recreate local DB from `supabase/migrations` + `supabase/seed.sql` |
-| `pnpm db:types` | Regenerate `src/lib/supabase/database.types.ts` from the local DB |
+| `pnpm db:types` | Regenerate `src/lib/supabase/database.types.ts` from the local DB (commit it) |
+| `pnpm test:db` | RLS and integrity tests against the local DB (`pnpm db:reset` first for a clean run) |
+| `pnpm db:advisors` | Supabase advisor lints (security + performance); fails on any warning |
 | `pnpm exec supabase migration new <name>` | New SQL migration file |
 
 CI (`.github/workflows/ci.yml`) runs lint, format:check, typecheck, test, build and check:budget on
-every push, plus a Playwright job (`test:e2e`, incl. axe WCAG 2.1 AA checks on `/design` and the shells).
+every push, a database job (migrations from scratch, `test:db`, `db:advisors`, types drift) and a
+Playwright job (`test:e2e`, incl. axe WCAG 2.1 AA checks on `/design` and the shells).
+
+Database: migrations in `supabase/migrations` (never edit an applied one; add a new file). Every new
+table needs RLS, explicit grants, a `tests/db/matrix.ts` entry and fixture rows in
+`tests/db/fixtures.sql` — `test:db` fails otherwise. Helpers for policies live in schema `private`.
+If Docker cannot pull from public.ecr.aws, set `SUPABASE_INTERNAL_IMAGE_REGISTRY=docker.io`.
 
 Public pages stay light: their client islands get translated strings as props and use
 `@/i18n/link` and `clsx` — no `useTranslations`, `cn` or Radix overlays in public client code.

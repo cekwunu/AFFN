@@ -27,6 +27,26 @@ jobs:
       - run: pnpm build
       - run: pnpm check:budget
 
+  db:
+    name: Database (migrations, RLS tests, advisors, types)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      # Applies every migration from scratch, then supabase/seed.sql.
+      - run: >-
+          pnpm exec supabase start -x
+          realtime,storage-api,imgproxy,kong,mailpit,postgrest,postgres-meta,studio,edge-runtime,logflare,vector,supavisor
+      - run: pnpm test:db
+      - run: pnpm db:advisors
+      - name: Generated types match the schema
+        run: pnpm db:types && git diff --exit-code src/lib/supabase/database.types.ts
+
   e2e:
     name: End-to-end and accessibility (Playwright + axe)
     runs-on: ubuntu-latest
