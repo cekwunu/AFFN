@@ -112,5 +112,18 @@ both under `{vendor_id}/`. Agreement text is versioned (`AGREEMENT_VERSION` in
 `src/lib/vendor/agreement.ts`): bump it when the Agreement messages change. Local e2e: start Supabase
 with storage (`-x realtime,imgproxy,studio,edge-runtime,logflare,vector,supavisor,postgres-meta`).
 
+Review centre (P06): `/admin/applications` (queue, URL filters) and `/admin/applications/[id]`. Decisions
+go through `public.review_application` (wrapper over `private.review_application`): one `event_vendors`
+audit row per action with the note as reason (`affn.audit_reason`); approval creates the stall fee
+(stall type fee + 25 % mva) and its invoice; commission override only for Organization Admins.
+
+Stalls and fees (P07): `/admin/stalls` (inventory, CSV import via `src/lib/stalls/csv.ts`),
+`/admin/stalls/assign` (`public.assign_stall`, audited) and `/admin/stalls/layout` (venue image in the
+public `event-media` bucket under `{event_id}/`, pins in basis points). Vendors see `/vendor/stall`; the
+stall shows only after the fee is paid. Fees are paid by payment link from `PaymentProvider`; the mock
+provider's checkout is `/pay/mock/[token]` and posts a signed webhook through `handlePaymentWebhook`
+(also `/api/webhooks/[provider]`), which stores the raw event and calls `public.record_fee_payment`
+(service role, idempotent, `fee_payments` only — never the vendor ledger). Prompt 09 replaces the mock.
+
 Public pages stay light: their client islands get translated strings as props and use
 `@/i18n/link` and `clsx` — no `useTranslations`, `cn` or Radix overlays in public client code.
