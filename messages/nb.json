@@ -1,0 +1,322 @@
+{
+  "Metadata": {
+    "title": "AFF Marketplace",
+    "description": "Mat, leverandører og sponsorer på African Food Festival Norway."
+  },
+  "Layout": {
+    "brand": "AFF Marketplace",
+    "skipToContent": "Gå til hovedinnhold"
+  },
+  "LocaleSwitcher": {
+    "label": "Språk",
+    "nb": "Norsk",
+    "en": "English"
+  },
+  "Theme": {
+    "toDark": "Bytt til mørkt tema",
+    "toLight": "Bytt til lyst tema"
+  },
+  "Shell": {
+    "menu": "Meny",
+    "openMenu": "Åpne meny",
+    "closeMenu": "Lukk meny",
+    "public": {
+      "navLabel": "Hovedmeny",
+      "home": "Forside",
+      "forVendors": "For leverandører",
+      "forSponsors": "For sponsorer"
+    },
+    "footer": {
+      "tagline": "Handel, leverandører og sponsorer for African Food Festival Norway.",
+      "festival": "Festivalen",
+      "language": "Språk",
+      "copyright": "© {year} African Food Festival Norway"
+    },
+    "portal": {
+      "navLabel": "Meny for {area}",
+      "overview": "Oversikt",
+      "account": "Konto",
+      "settings": "Innstillinger",
+      "signOut": "Logg ut",
+      "areas": {
+        "vendor": "Leverandør",
+        "sponsor": "Sponsor",
+        "admin": "Administrasjon",
+        "platform": "Plattform"
+      }
+    },
+    "storefront": {
+      "viewCart": "Se handlekurv ({count, plural, one {# vare} other {# varer}})"
+    }
+  },
+  "Components": {
+    "close": "Lukk",
+    "notifications": "Varsler",
+    "fileUpload": {
+      "choose": "Velg fil",
+      "orDrag": "eller dra den hit",
+      "types": "Filtyper: {types}",
+      "maxSize": "Maks {size}",
+      "maxFiles": "Opptil {count} filer",
+      "selected": "Valgte filer",
+      "remove": "Fjern {name}",
+      "rejected": {
+        "type": "{name} har en filtype som ikke er tillatt.",
+        "size": "{name} er for stor.",
+        "count": "{name} ble ikke lagt til: du har nådd maks antall filer."
+      }
+    },
+    "stepper": {
+      "complete": "fullført",
+      "current": "nåværende steg",
+      "upcoming": "ikke startet"
+    },
+    "dataTable": {
+      "search": "Søk",
+      "reset": "Nullstill filtre",
+      "results": "{count, plural, =0 {Ingen treff} one {# treff} other {# treff}}",
+      "selectedCount": "valgt",
+      "emptyTitle": "Ingen treff",
+      "emptyDescription": "Prøv et annet søk eller fjern noen filtre.",
+      "pagination": "Sidenavigasjon",
+      "page": "Side {page} av {total}",
+      "previous": "Forrige side",
+      "next": "Neste side"
+    }
+  },
+  "Home": {
+    "title": "African Food Festival Norway",
+    "intro": "Skann QR-koden ved boden, bestill og betal i nettleseren, og hent maten når den er klar."
+  },
+  "Areas": {
+    "comingSoon": "Dette området er under bygging.",
+    "vendor": "Leverandør",
+    "sponsor": "Sponsor",
+    "admin": "Administrasjon",
+    "platform": "Plattform"
+  },
+  "Design": {
+    "metaTitle": "Designsystem",
+    "eyebrow": "Designsystem",
+    "title": "AFF designsystem",
+    "intro": "Afrikansk fremragende kvalitet møter skandinavisk innovasjon. Rolig, trygg og varm: tydelige flater, sterk typografi og jordfarger med måte.",
+    "controls": "Visning",
+    "contents": "Innhold",
+    "sections": {
+      "colour": "Farger",
+      "typography": "Typografi",
+      "spacing": "Avstand",
+      "radius": "Hjørneradius",
+      "shadow": "Skygger",
+      "motion": "Bevegelse",
+      "motif": "Motiv",
+      "components": "Komponenter",
+      "shells": "Sideskall",
+      "photography": "Fotografi"
+    },
+    "colour": {
+      "scales": "Fargeskalaer",
+      "scalesIntro": "Råverdier. Brukes bare i tokenfilen; komponenter bruker de semantiske fargene under.",
+      "semantic": "Semantiske farger",
+      "semanticIntro": "Hvert par er kontrollert mot WCAG 2.1 AA, i lyst og mørkt tema.",
+      "light": "Lyst tema",
+      "dark": "Mørkt tema",
+      "ratio": "Kontrast {ratio}:1",
+      "pass": "AA bestått",
+      "scale": {
+        "sand": "Sand – varme nøytrale",
+        "terracotta": "Terrakotta – primær",
+        "ochre": "Oker – sekundær",
+        "forest": "Skog – suksess",
+        "amber": "Rav – advarsel",
+        "brick": "Tegl – fare",
+        "fjord": "Fjord – informasjon"
+      }
+    },
+    "typography": {
+      "intro": "Fraunces for overskrifter, Inter for alt annet. Begge har æ, ø og å.",
+      "display": "Overskrift: Fraunces",
+      "text": "Brødtekst: Inter",
+      "sample": "Blåbærsyltetøy, jollof og ærlig mat på Tøyen",
+      "alphabet": "Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz Ææ Øø Åå 0123456789"
+    },
+    "spacing": {
+      "intro": "4 px-rutenett. Romslig luft er en del av uttrykket."
+    },
+    "shadow": {
+      "intro": "Varme, myke skygger. Kort bruker sm, menyer og dialoger bruker lg."
+    },
+    "motion": {
+      "intro": "Korte, rolige overganger. Slås av når brukeren ber om redusert bevegelse.",
+      "play": "Spill av",
+      "duration": "Varighet",
+      "easing": "Kurve"
+    },
+    "motif": {
+      "intro": "Ett geometrisk motiv: en tynn rad med trappede ruter. Brukes sparsomt – i bunnteksten, øverst i butikken og som merke ved logoen. Aldri som bakgrunnsmønster.",
+      "band": "Bånd",
+      "mark": "Merke"
+    },
+    "components": {
+      "buttons": "Knapper",
+      "variants": "Varianter",
+      "sizes": "Størrelser",
+      "states": "Tilstander",
+      "primary": "Send søknad",
+      "secondary": "Lagre utkast",
+      "outline": "Forhåndsvis",
+      "ghost": "Avbryt",
+      "danger": "Slett produkt",
+      "link": "Les vilkårene",
+      "small": "Liten",
+      "medium": "Middels",
+      "large": "Stor",
+      "disabled": "Deaktivert",
+      "loading": "Lagrer",
+      "iconButton": "Legg til produkt",
+      "forms": "Skjemaelementer",
+      "businessName": "Virksomhetens navn",
+      "businessNamePlaceholder": "F.eks. Mama Afrika Kjøkken",
+      "orgNumber": "Organisasjonsnummer",
+      "orgNumberError": "Organisasjonsnummeret må ha 9 sifre.",
+      "email": "E-post",
+      "emailHint": "Vi sender bekreftelser og oppgjør hit.",
+      "category": "Kategori",
+      "categoryPlaceholder": "Velg kategori",
+      "categories": {
+        "food": "Mat",
+        "drinks": "Drikke",
+        "dessert": "Dessert",
+        "crafts": "Håndverk"
+      },
+      "description": "Beskrivelse",
+      "descriptionPlaceholder": "Fortell kort om maten og historien deres.",
+      "needs": "Behov ved standen",
+      "power": "Strøm",
+      "water": "Vann",
+      "size": "Standstørrelse",
+      "sizeSmall": "Liten (3 × 3 m)",
+      "sizeLarge": "Stor (3 × 6 m)",
+      "accepting": "Tar imot bestillinger",
+      "badges": "Merker",
+      "statuses": {
+        "draft": "Utkast",
+        "submitted": "Sendt inn",
+        "underReview": "Under vurdering",
+        "approved": "Godkjent",
+        "rejected": "Avslått",
+        "waitlisted": "Venteliste",
+        "moreInfo": "Trenger mer info",
+        "paid": "Betalt",
+        "new": "Ny"
+      },
+      "cards": "Kort",
+      "cardTitle": "Søknad om stand",
+      "cardDescription": "AFFN 2027 · Oslo",
+      "cardBody": "Fyll ut søknaden, last opp dokumentene og godta leverandøravtalen. Vi svarer innen to uker.",
+      "cardAction": "Fortsett",
+      "table": "Tabell",
+      "tableCaption": "Siste bestillinger",
+      "order": "Bestilling",
+      "time": "Tid",
+      "status": "Status",
+      "amount": "Beløp",
+      "tabs": "Faner",
+      "tabOverview": "Oversikt",
+      "tabProducts": "Produkter",
+      "tabSettlement": "Oppgjør",
+      "tabOverviewBody": "Salg, bestillinger og standinformasjon samlet på ett sted.",
+      "tabProductsBody": "Menyen din: priser, allergener og tilgjengelighet.",
+      "tabSettlementBody": "Oppgjør utbetales etter at festivalen er avsluttet.",
+      "overlays": "Overlegg",
+      "openDialog": "Åpne dialog",
+      "dialogTitle": "Godkjenne søknaden?",
+      "dialogDescription": "Leverandøren får e-post om godkjenningen og faktura for standleie.",
+      "approve": "Godkjenn",
+      "cancel": "Avbryt",
+      "openSheet": "Åpne panel",
+      "sheetTitle": "Filtre",
+      "sheetDescription": "Avgrens listen over leverandører.",
+      "apply": "Bruk filtre",
+      "showToast": "Vis varsel",
+      "toastTitle": "Produktet er lagret",
+      "toastDescription": "Endringene vises i menyen med en gang.",
+      "undo": "Angre",
+      "openMenu": "Handlinger",
+      "menuEdit": "Rediger",
+      "menuDuplicate": "Dupliser",
+      "menuArchive": "Arkiver",
+      "tooltipTrigger": "Hva er provisjon?",
+      "tooltipText": "Provisjonen trekkes per bestilling og vises med mva. på oppgjøret.",
+      "skeleton": "Skjelett",
+      "loadingLabel": "Laster inn bestillinger",
+      "emptyState": "Tom tilstand",
+      "emptyTitle": "Ingen produkter ennå",
+      "emptyDescription": "Legg til det første produktet, så vises det på menyen din.",
+      "emptyAction": "Legg til produkt",
+      "fileUpload": "Filopplasting",
+      "fileLabel": "Registrering hos Mattilsynet",
+      "fileDescription": "Last opp bekreftelsen på at virksomheten er registrert.",
+      "stepper": "Stegindikator",
+      "stepperLabel": "Søknadssteg",
+      "steps": {
+        "business": "Virksomhet",
+        "businessDesc": "Navn og org.nr.",
+        "contact": "Kontakt",
+        "contactDesc": "Hvem vi snakker med",
+        "documents": "Dokumenter",
+        "documentsDesc": "Mattilsynet og forsikring",
+        "agreement": "Avtale",
+        "agreementDesc": "Provisjon og vilkår"
+      },
+      "stats": "Nøkkeltall",
+      "statSales": "Salg i dag",
+      "statSalesDelta": "+12 % fra i går",
+      "statOrders": "Bestillinger",
+      "statOrdersDelta": "−3 % fra i går",
+      "statAverage": "Snittordre",
+      "statAverageDelta": "Uendret",
+      "statCaption": "per kl. 18.00",
+      "dataTable": "Datatabell",
+      "vendorsCaption": "Leverandører, AFFN 2027",
+      "vendor": "Leverandør",
+      "country": "Land",
+      "sales": "Salg",
+      "orders": "Bestillinger",
+      "searchVendors": "Søk etter leverandør"
+    },
+    "shells": {
+      "intro": "Tre skall dekker alle sider. Forhåndsvisningene under er de samme komponentene som brukes i appen.",
+      "public": "Offentlig side",
+      "portal": "Portal for leverandør, sponsor og administrasjon",
+      "storefront": "Butikk (mobil først)",
+      "sampleHeading": "Velkommen til festivalen",
+      "sampleBody": "Innholdet på siden kommer her.",
+      "vendorName": "Mama Afrika Kjøkken",
+      "vendorDetails": "Stand 14 · Nigeriansk",
+      "menuItem": "Jollof-ris med kylling",
+      "menuItemDesc": "Røkt tomat, paprika og grillet kylling.",
+      "add": "Legg i kurv",
+      "navOrders": "Bestillinger",
+      "navProducts": "Produkter",
+      "navSettlement": "Oppgjør"
+    },
+    "photography": {
+      "intro": "Bildene skal vise ekte mennesker, ekte mat og ekte stemning.",
+      "do": "Gjør",
+      "dont": "Unngå",
+      "doItems": [
+        "Naturlig lys, gjerne kveldssol og varme toner.",
+        "Ekte leverandører ved egne boder, i arbeid.",
+        "Maten tett på: tekstur, damp, hender som serverer.",
+        "Rolig bakgrunn og god luft rundt motivet."
+      ],
+      "dontItems": [
+        "Stockbilder og konstruerte smil.",
+        "Klisjeer som safari-motiver og stammemønstre.",
+        "Sterke filtre, overmettede farger eller blits.",
+        "Bilder av personer uten samtykke."
+      ]
+    }
+  }
+}
