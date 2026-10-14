@@ -11,6 +11,8 @@ export const RATE_LIMITS = {
   resetAccount: { limit: 3, windowSeconds: 60 * 60, perIp: false },
   resetIp: { limit: 10, windowSeconds: 60 * 60, perIp: true },
   signUpIp: { limit: 10, windowSeconds: 60 * 60, perIp: true },
+  // Brønnøysund lookups per signed-in user (VEN-02).
+  brregLookupUser: { limit: 30, windowSeconds: 60 * 60, perIp: false },
 } as const;
 export type RateLimitBucket = keyof typeof RATE_LIMITS;
 
