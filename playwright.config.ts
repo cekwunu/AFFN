@@ -16,6 +16,8 @@ export default defineConfig({
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: {
     command: `pnpm dev --port ${port}`,
+    // Every test request comes from one IP: scale per-IP rate limits (per-account limits stay).
+    env: { RATE_LIMIT_IP_SCALE: '50' },
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

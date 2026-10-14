@@ -59,6 +59,11 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec playwright install --with-deps chromium
+      # Auth tests need Auth, REST (behind Kong) and Mailpit for the emails.
+      - run: >-
+          pnpm exec supabase start -x
+          realtime,storage-api,imgproxy,studio,edge-runtime,logflare,vector,supavisor,postgres-meta
+      - run: pnpm db:env
       - run: pnpm test:e2e
       - uses: actions/upload-artifact@v4
         if: failure()

@@ -70,6 +70,7 @@ Package manager: pnpm (Node 22, see .nvmrc). Copy `.env.example` to `.env.local`
 | `pnpm test:e2e` | Playwright tests in `e2e/` (starts the dev server; `PORT` to change port) |
 | `pnpm check:budget` | After `pnpm build`: fails if a public page ships > 150 kB gzipped JS (NFR-01) |
 | `pnpm db:start` / `pnpm db:stop` | Local Supabase in Docker; `db:start` prints URL and keys |
+| `pnpm db:env` | Write `.env.local` from the running local Supabase (keys, Mailpit SMTP); needed by `test:e2e` |
 | `pnpm db:reset` | Recreate local DB from `supabase/migrations` + `supabase/seed.sql` |
 | `pnpm db:types` | Regenerate `src/lib/supabase/database.types.ts` from the local DB (commit it) |
 | `pnpm test:db` | RLS and integrity tests against the local DB (`pnpm db:reset` first for a clean run) |
@@ -83,7 +84,16 @@ Playwright job (`test:e2e`, incl. axe WCAG 2.1 AA checks on `/design` and the sh
 Database: migrations in `supabase/migrations` (never edit an applied one; add a new file). Every new
 table needs RLS, explicit grants, a `tests/db/matrix.ts` entry and fixture rows in
 `tests/db/fixtures.sql` — `test:db` fails otherwise. Helpers for policies live in schema `private`.
-If Docker cannot pull from public.ecr.aws, set `SUPABASE_INTERNAL_IMAGE_REGISTRY=docker.io`.
+If Docker cannot pull from public.ecr.aws, set `SUPABASE_INTERNAL_IMAGE_REGISTRY=docker.io`. If Docker Hub
+rate-limits, pull the image from `mirror.gcr.io/...` and `docker tag` it to the expected name.
+
+Auth (P04): sign-in/up, reset and MFA run as server actions (`src/app/[locale]/(auth)/actions.ts`);
+`src/proxy.ts` routes by the `affn` JWT claim from `private.custom_access_token_hook`; layouts recheck
+live memberships with `requirePortal`. Admin helpers in RLS require `aal2`. Seed users all use password
+`password`; platform@ and admin@ have the dev-only TOTP secret `KRSXG5CTMVRXEZLUKRSXG5CTMVRXEZLU`.
+Emails locally go to Mailpit (http://127.0.0.1:54324). For a cloud project, also configure: the
+access-token hook, TOTP MFA, custom SMTP (EU), the email templates in `supabase/templates`, site URL
+and redirect URL `<site>/api/auth/confirm`, and minimum password length 12.
 
 Public pages stay light: their client islands get translated strings as props and use
 `@/i18n/link` and `clsx` — no `useTranslations`, `cn` or Radix overlays in public client code.
