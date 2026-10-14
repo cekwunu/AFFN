@@ -126,7 +126,8 @@ describe('settlement workflow (four eyes)', () => {
       await c.query('reset role');
       const { rows } = await c.query(
         `select actor_id, new_data ->> 'status' as status from public.audit_log
-          where table_name = 'settlements' and row_id = $1 and action = 'update' order by created_at`,
+          where table_name = 'settlements' and row_id = $1 and action = 'update'
+          order by created_at, new_data ->> 'status' = 'approved'`,
         [settlement],
       );
       expect(rows.map((r) => [r.actor_id, r.status])).toEqual([

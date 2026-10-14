@@ -1379,6 +1379,9 @@ isOneToOne: false
 "rate_limit_hit":
 { Args: { "p_key": string,"p_limit": number,"p_window_seconds": number }; Returns: boolean
                            },
+"review_application":
+{ Args: { "p_commission_rate_bp"?: number,"p_commission_reason"?: string,"p_decision": Database["public"]['Enums']["application_status"],"p_event_vendor_id": string,"p_note": string }; Returns: Json
+                           },
 "start_vendor_application":
 { Args: { "p_brreg_status": string,"p_business_address": string,"p_business_form": string,"p_city": string,"p_display_name": string,"p_event_id": string,"p_legal_name": string,"p_org_number": string,"p_postal_code": string,"p_user_id": string }; Returns: string
                            }
