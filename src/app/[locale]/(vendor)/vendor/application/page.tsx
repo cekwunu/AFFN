@@ -6,6 +6,7 @@ import { buttonVariants } from '@/components/ui/button-variants';
 import { Link } from '@/i18n/link';
 import { initRequestLocale } from '@/i18n/server';
 import { formatDateOslo, formatDateTimeOslo } from '@/lib/format';
+import { STATUS_VARIANT } from '@/lib/review/status';
 import { isEditable } from '@/lib/vendor/application';
 import { currentApplicationEvent, getMyApplication } from '@/lib/vendor/server';
 
@@ -20,17 +21,6 @@ type Status =
   | 'rejected'
   | 'waitlisted'
   | 'withdrawn';
-
-const statusVariant: Record<Status, 'neutral' | 'info' | 'warning' | 'success' | 'danger'> = {
-  draft: 'neutral',
-  submitted: 'info',
-  under_review: 'info',
-  more_info_requested: 'warning',
-  approved: 'success',
-  rejected: 'danger',
-  waitlisted: 'warning',
-  withdrawn: 'neutral',
-};
 
 /** Application status with what happens next (VEN-04). */
 export default async function ApplicationStatusPage({
@@ -82,9 +72,11 @@ export default async function ApplicationStatusPage({
     }
   })();
   // The admin's latest message when more information is requested (REV-02).
+  // The reviewer's message when more information is requested or the application is rejected
+  // (REV-02); notes on other decisions stay internal to the review log.
   const request =
-    status === 'more_info_requested'
-      ? application.reviews.find((r) => r.to_status === 'more_info_requested')
+    status === 'more_info_requested' || status === 'rejected'
+      ? application.reviews.find((r) => r.to_status === status)
       : undefined;
 
   return (
@@ -104,7 +96,7 @@ export default async function ApplicationStatusPage({
           <h2 id="status-heading" className="text-heading-md font-semibold">
             {t('statusLabel')}
           </h2>
-          <Badge variant={statusVariant[status]} data-testid="application-status">
+          <Badge variant={STATUS_VARIANT[status]} data-testid="application-status">
             {t(`status.${status}`)}
           </Badge>
         </div>

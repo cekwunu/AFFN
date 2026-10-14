@@ -1,4 +1,4 @@
-import { LayoutDashboard, Users } from 'lucide-react';
+import { ClipboardCheck, LayoutDashboard, Users } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import { signOut } from '@/app/[locale]/(auth)/actions';
 import { ClientIntl } from '@/components/client-intl';
@@ -19,6 +19,7 @@ export default async function AdminLayout({ children, params }: LayoutProps<'/[l
         account={{ email: user.email, portals: user.portals, signOut }}
         nav={[
           { href: '/admin', label: t('overview'), icon: <LayoutDashboard /> },
+          { href: '/admin/applications', label: t('applications'), icon: <ClipboardCheck /> },
           { href: '/admin/team', label: t('team'), icon: <Users /> },
         ]}
       >
