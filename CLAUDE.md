@@ -73,4 +73,5 @@ Package manager: pnpm (Node 22, see .nvmrc). Copy `.env.example` to `.env.local`
 | `pnpm db:types` | Regenerate `src/lib/supabase/database.types.ts` from the local DB |
 | `pnpm exec supabase migration new <name>` | New SQL migration file |
 
-CI (`.github/workflows/ci.yml`) runs lint, format:check, typecheck and test on every push.
+CI (`.github/workflows/ci.yml`) runs lint, format:check, typecheck and test on every push, plus a
+Playwright job (`test:e2e`, incl. axe WCAG 2.1 AA checks on `/design` and the shells).
