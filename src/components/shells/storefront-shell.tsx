@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import type { ReactNode } from 'react';
 import { Motif } from '@/components/motif';
 import { Button } from '@/components/ui/button';
-import { Link } from '@/i18n/navigation';
+import { Link } from '@/i18n/link';
 import { cn } from '@/lib/utils';
 import { LocaleSwitcher } from '@/components/locale-switcher';
 

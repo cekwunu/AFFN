@@ -2,16 +2,13 @@
 
 import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';
-import { Toaster } from '@/components/ui/toast';
-import { TooltipProvider } from '@/components/ui/tooltip';
 
+// Keep this minimal: everything here ships on every page, including public ones (NFR-01).
+// Mount Toaster/Tooltip where they are used, not here.
 export function Providers({ children }: { children: ReactNode }) {
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-      <TooltipProvider delayDuration={300}>
-        {children}
-        <Toaster />
-      </TooltipProvider>
+      {children}
     </ThemeProvider>
   );
 }

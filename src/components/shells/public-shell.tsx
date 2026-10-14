@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { LocaleSwitcher } from '@/components/locale-switcher';
 import { Motif } from '@/components/motif';
 import { ThemeToggle } from '@/components/theme-toggle';
-import { Link } from '@/i18n/navigation';
+import { Link } from '@/i18n/link';
 import { cn } from '@/lib/utils';
 import { Brand } from './brand';
 import { MobileNav } from './mobile-nav';
@@ -56,7 +56,9 @@ export function PublicShell({
             <ThemeToggle />
             <MobileNav
               items={nav}
-              title={t('menu')}
+              label={t('public.navLabel')}
+              openLabel={t('openMenu')}
+              closeLabel={t('closeMenu')}
               className="md:hidden"
               footer={<LocaleSwitcher />}
             />

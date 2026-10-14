@@ -5,8 +5,19 @@ import type { ComponentProps } from 'react';
 import { cn } from '@/lib/utils';
 
 export const TooltipProvider = TooltipPrimitive.Provider;
-export const Tooltip = TooltipPrimitive.Root;
 export const TooltipTrigger = TooltipPrimitive.Trigger;
+
+/** Each tooltip carries its own provider, so tooltip code loads only where tooltips are used. */
+export function Tooltip({
+  delayDuration = 300,
+  ...props
+}: ComponentProps<typeof TooltipPrimitive.Root> & { delayDuration?: number }) {
+  return (
+    <TooltipPrimitive.Provider delayDuration={delayDuration}>
+      <TooltipPrimitive.Root {...props} />
+    </TooltipPrimitive.Provider>
+  );
+}
 
 export function TooltipContent({
   className,

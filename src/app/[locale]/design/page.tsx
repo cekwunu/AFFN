@@ -13,6 +13,9 @@ import { ThemeToggle } from '@/components/theme-toggle';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { StatCard } from '@/components/ui/stat-card';
+import { Toaster } from '@/components/ui/toast';
+import { ClientIntl } from '@/components/client-intl';
+import { CLIENT_NAMESPACES } from '@/i18n/client-messages';
 import { initRequestLocale } from '@/i18n/server';
 import { formatOre, ore } from '@/lib/money';
 import { ComponentDemos } from './_sections/component-demos';
@@ -48,9 +51,9 @@ const SECTIONS = [
 export default function DesignPage({ params }: PageProps<'/[locale]/design'>) {
   initRequestLocale(use(params).locale);
   const t = useTranslations('Design');
-
   return (
-    <>
+    // The design page's client demos also need the Design namespace.
+    <ClientIntl namespaces={[...CLIENT_NAMESPACES, 'Design']}>
       <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-4 sm:px-6">
           <Brand />
@@ -143,7 +146,8 @@ export default function DesignPage({ params }: PageProps<'/[locale]/design'>) {
           </div>
         </Section>
       </main>
-    </>
+      <Toaster />
+    </ClientIntl>
   );
 }
 

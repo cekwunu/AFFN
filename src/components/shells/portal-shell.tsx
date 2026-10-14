@@ -15,6 +15,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Toaster } from '@/components/ui/toast';
 import { cn } from '@/lib/utils';
 import { Brand } from './brand';
 import { MobileNav, NavList } from './mobile-nav';
@@ -66,8 +67,9 @@ export function PortalShell({
         <Header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-border bg-background/90 px-4 backdrop-blur sm:px-6">
           <MobileNav
             items={items}
-            title={t('portal.navLabel', { area: areaName })}
-            side="left"
+            label={t('portal.navLabel', { area: areaName })}
+            openLabel={t('openMenu')}
+            closeLabel={t('closeMenu')}
             className="lg:hidden"
           />
           <span className="text-body-sm font-semibold">{areaName}</span>
@@ -97,6 +99,7 @@ export function PortalShell({
           {children}
         </Main>
       </div>
+      <Toaster />
     </div>
   );
 }
