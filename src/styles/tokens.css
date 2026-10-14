@@ -1,0 +1,205 @@
+/*
+ * AFF design tokens. This is the ONLY file allowed to contain colour values
+ * (enforced by src/styles/no-hardcoded-colours.test.ts). Components use the
+ * semantic tokens below through Tailwind utilities (bg-primary, text-muted-foreground…).
+ * Every text/background pair is checked for WCAG AA by src/styles/tokens.test.ts.
+ */
+
+:root {
+  /* Raw scales ---------------------------------------------------------------- */
+  /* Sand: warm neutrals */
+  --sand-0: #ffffff;
+  --sand-50: #faf8f5;
+  --sand-100: #f3efe9;
+  --sand-200: #e7e0d6;
+  --sand-300: #d5cbbd;
+  --sand-400: #b3a696;
+  --sand-500: #8c7f70;
+  --sand-600: #6b6055;
+  --sand-700: #514840;
+  --sand-800: #38322c;
+  --sand-850: #2a2521;
+  --sand-900: #221e1a;
+  --sand-925: #1c1916;
+  --sand-950: #141110;
+
+  /* Terracotta: primary earth accent */
+  --terracotta-50: #fbf1ec;
+  --terracotta-100: #f6dfd4;
+  --terracotta-200: #edbda8;
+  --terracotta-300: #e0957a;
+  --terracotta-400: #d4775a;
+  --terracotta-500: #bb5636;
+  --terracotta-600: #a3472b;
+  --terracotta-700: #853923;
+  --terracotta-800: #682d1c;
+  --terracotta-900: #4a2015;
+  --terracotta-950: #2e140d;
+
+  /* Ochre: secondary accent */
+  --ochre-50: #fbf6ea;
+  --ochre-100: #f5e9c9;
+  --ochre-200: #ebd394;
+  --ochre-300: #ddb862;
+  --ochre-400: #cb9c3e;
+  --ochre-500: #b5832a;
+  --ochre-600: #956a21;
+  --ochre-700: #74521b;
+  --ochre-800: #573e16;
+  --ochre-900: #3b2a10;
+  --ochre-950: #241a0a;
+
+  /* Forest: success */
+  --forest-50: #eef6f0;
+  --forest-100: #d5eadb;
+  --forest-300: #8cc09c;
+  --forest-500: #3f7a52;
+  --forest-600: #336645;
+  --forest-700: #285137;
+  --forest-900: #15291c;
+
+  /* Amber: warning */
+  --amber-50: #fdf6e7;
+  --amber-100: #fae8bf;
+  --amber-300: #ebc266;
+  --amber-500: #d39a26;
+  --amber-700: #7a540b;
+  --amber-900: #3a2805;
+
+  /* Brick: danger */
+  --brick-50: #fcefed;
+  --brick-100: #f7d5d0;
+  --brick-300: #e8968c;
+  --brick-500: #c23b2e;
+  --brick-600: #a33026;
+  --brick-700: #82261e;
+  --brick-900: #3f130f;
+
+  /* Fjord: info */
+  --fjord-50: #edf3f7;
+  --fjord-100: #d3e2ec;
+  --fjord-300: #8db4ce;
+  --fjord-500: #3a6f92;
+  --fjord-600: #2f5b79;
+  --fjord-700: #254860;
+  --fjord-900: #12242f;
+
+  /* Radius -------------------------------------------------------------------- */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+
+  /* Motion -------------------------------------------------------------------- */
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 320ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-enter: cubic-bezier(0, 0, 0.2, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* Light theme (default). `.light` lets a section force light inside a dark page. */
+:root,
+.light {
+  color-scheme: light;
+  --background: var(--sand-50);
+  --foreground: var(--sand-950);
+  --card: var(--sand-0);
+  --card-foreground: var(--sand-950);
+  --popover: var(--sand-0);
+  --popover-foreground: var(--sand-950);
+  --primary: var(--terracotta-600);
+  --primary-hover: var(--terracotta-700);
+  --primary-foreground: var(--sand-0);
+  --secondary: var(--ochre-100);
+  --secondary-hover: var(--ochre-200);
+  --secondary-foreground: var(--ochre-800);
+  --muted: var(--sand-100);
+  --muted-foreground: var(--sand-600);
+  --accent: var(--sand-100);
+  --accent-foreground: var(--sand-900);
+  --border: var(--sand-200);
+  --input: var(--sand-500);
+  --ring: var(--terracotta-600);
+  --link: var(--terracotta-700);
+
+  --success: var(--forest-600);
+  --success-foreground: var(--sand-0);
+  --success-subtle: var(--forest-50);
+  --success-subtle-foreground: var(--forest-700);
+  --warning: var(--amber-500);
+  --warning-foreground: var(--sand-950);
+  --warning-subtle: var(--amber-50);
+  --warning-subtle-foreground: var(--amber-700);
+  --danger: var(--brick-600);
+  --danger-foreground: var(--sand-0);
+  --danger-subtle: var(--brick-50);
+  --danger-subtle-foreground: var(--brick-700);
+  --info: var(--fjord-600);
+  --info-foreground: var(--sand-0);
+  --info-subtle: var(--fjord-50);
+  --info-subtle-foreground: var(--fjord-700);
+
+  --overlay: rgb(20 17 16 / 0.48);
+  --shadow-xs: 0 1px 2px rgb(56 50 44 / 0.06);
+  --shadow-sm: 0 1px 3px rgb(56 50 44 / 0.08), 0 1px 2px rgb(56 50 44 / 0.04);
+  --shadow-md: 0 4px 12px -2px rgb(56 50 44 / 0.1), 0 2px 4px -2px rgb(56 50 44 / 0.06);
+  --shadow-lg: 0 16px 32px -8px rgb(56 50 44 / 0.16), 0 4px 8px -4px rgb(56 50 44 / 0.06);
+}
+
+.dark {
+  color-scheme: dark;
+  --background: var(--sand-950);
+  --foreground: var(--sand-50);
+  --card: var(--sand-925);
+  --card-foreground: var(--sand-50);
+  --popover: var(--sand-900);
+  --popover-foreground: var(--sand-50);
+  --primary: var(--terracotta-400);
+  --primary-hover: var(--terracotta-300);
+  --primary-foreground: var(--sand-950);
+  --secondary: var(--ochre-900);
+  --secondary-hover: var(--ochre-800);
+  --secondary-foreground: var(--ochre-200);
+  --muted: var(--sand-900);
+  --muted-foreground: var(--sand-400);
+  --accent: var(--sand-850);
+  --accent-foreground: var(--sand-50);
+  --border: var(--sand-800);
+  --input: var(--sand-500);
+  --ring: var(--terracotta-400);
+  --link: var(--terracotta-300);
+
+  --success: var(--forest-300);
+  --success-foreground: var(--sand-950);
+  --success-subtle: var(--forest-900);
+  --success-subtle-foreground: var(--forest-300);
+  --warning: var(--amber-300);
+  --warning-foreground: var(--sand-950);
+  --warning-subtle: var(--amber-900);
+  --warning-subtle-foreground: var(--amber-300);
+  --danger: var(--brick-300);
+  --danger-foreground: var(--sand-950);
+  --danger-subtle: var(--brick-900);
+  --danger-subtle-foreground: var(--brick-300);
+  --info: var(--fjord-300);
+  --info-foreground: var(--sand-950);
+  --info-subtle: var(--fjord-900);
+  --info-subtle-foreground: var(--fjord-300);
+
+  --overlay: rgb(0 0 0 / 0.64);
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.3);
+  --shadow-sm: 0 1px 3px rgb(0 0 0 / 0.36), 0 1px 2px rgb(0 0 0 / 0.24);
+  --shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.44), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 16px 32px -8px rgb(0 0 0 / 0.56), 0 4px 8px -4px rgb(0 0 0 / 0.3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+    --duration-slow: 0ms;
+  }
+}
