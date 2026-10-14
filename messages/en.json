@@ -1,0 +1,26 @@
+{
+  "Metadata": {
+    "title": "AFF Marketplace",
+    "description": "Food, vendors and sponsors at African Food Festival Norway."
+  },
+  "Layout": {
+    "brand": "AFF Marketplace",
+    "skipToContent": "Skip to main content"
+  },
+  "LocaleSwitcher": {
+    "label": "Language",
+    "nb": "Norsk",
+    "en": "English"
+  },
+  "Home": {
+    "title": "African Food Festival Norway",
+    "intro": "Scan the QR code at the stall, order and pay in your browser, and collect your food when it is ready."
+  },
+  "Areas": {
+    "comingSoon": "This area is under construction.",
+    "vendor": "Vendor",
+    "sponsor": "Sponsor",
+    "admin": "Administration",
+    "platform": "Platform"
+  }
+}
