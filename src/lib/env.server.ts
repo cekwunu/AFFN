@@ -4,6 +4,8 @@ import { z } from 'zod';
 const serverSchema = z.object({
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),
   PAYMENT_PROVIDER: z.enum(['mock', 'stripe', 'swedbank']).default('mock'),
+  // Signs mock payment links and webhooks (temporary stub until a real provider, P09).
+  MOCK_PAYMENT_SECRET: z.string().min(1).optional(),
   STRIPE_SECRET_KEY: z.string().min(1).optional(),
   STRIPE_WEBHOOK_SECRET: z.string().min(1).optional(),
   SWEDBANK_PAY_MERCHANT_TOKEN: z.string().min(1).optional(),
