@@ -56,4 +56,21 @@ src/components/ui and src/styles — never ad-hoc colours or spacing.
 - After each task: run lint, typecheck and tests, and report results.
 
 ## Commands
-(Filled in by Prompt 01.)
+Package manager: pnpm (Node 22, see .nvmrc). Copy `.env.example` to `.env.local` first.
+
+| Command | What it does |
+| --- | --- |
+| `pnpm install` | Install dependencies |
+| `pnpm dev` | Dev server at http://localhost:3000 (`/` = bokmål, `/en` = English) |
+| `pnpm build` / `pnpm start` | Production build / serve it |
+| `pnpm lint` | ESLint |
+| `pnpm format` / `pnpm format:check` | Prettier write / check |
+| `pnpm typecheck` | Generate Next route types, then `tsc --noEmit` |
+| `pnpm test` / `pnpm test:watch` | Vitest unit tests (`src/**/*.test.ts`) |
+| `pnpm test:e2e` | Playwright tests in `e2e/` (starts the dev server; `PORT` to change port) |
+| `pnpm db:start` / `pnpm db:stop` | Local Supabase in Docker; `db:start` prints URL and keys |
+| `pnpm db:reset` | Recreate local DB from `supabase/migrations` + `supabase/seed.sql` |
+| `pnpm db:types` | Regenerate `src/lib/supabase/database.types.ts` from the local DB |
+| `pnpm exec supabase migration new <name>` | New SQL migration file |
+
+CI (`.github/workflows/ci.yml`) runs lint, format:check, typecheck and test on every push.
