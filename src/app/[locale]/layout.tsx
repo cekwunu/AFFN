@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
-import { initRequestLocale } from '@/i18n/server';
 import { getTranslations } from 'next-intl/server';
 import type { ReactNode } from 'react';
-import { LocaleSwitcher } from '@/components/locale-switcher';
-import { Link } from '@/i18n/navigation';
+import { Providers } from '@/components/providers';
 import { routing } from '@/i18n/routing';
+import { initRequestLocale } from '@/i18n/server';
+import { fraunces, inter } from '@/lib/fonts';
+import { cn } from '@/lib/utils';
 import '@/styles/globals.css';
 
 export function generateStaticParams() {
@@ -16,7 +17,10 @@ export async function generateMetadata({ params }: LayoutProps<'/[locale]'>): Pr
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) return {};
   const t = await getTranslations({ locale, namespace: 'Metadata' });
-  return { title: t('title'), description: t('description') };
+  return {
+    title: { default: t('title'), template: `%s · ${t('title')}` },
+    description: t('description'),
+  };
 }
 
 export default async function LocaleLayout({
@@ -27,26 +31,16 @@ export default async function LocaleLayout({
   const t = await getTranslations('Layout');
 
   return (
-    <html lang={locale}>
-      <body className="min-h-screen">
+    <html lang={locale} className={cn(inter.variable, fraunces.variable)} suppressHydrationWarning>
+      <body className="min-h-dvh">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:m-2 focus:bg-surface focus:p-2"
+          className="sr-only z-50 rounded-md bg-card px-4 py-2 font-medium focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:shadow-lg"
         >
           {t('skipToContent')}
         </a>
         <NextIntlClientProvider>
-          <header className="border-b border-line bg-surface">
-            <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-              <Link href="/" className="font-semibold tracking-tight">
-                {t('brand')}
-              </Link>
-              <LocaleSwitcher />
-            </div>
-          </header>
-          <main id="main" className="mx-auto max-w-5xl px-6 py-12">
-            {children}
-          </main>
+          <Providers>{children}</Providers>
         </NextIntlClientProvider>
       </body>
     </html>
