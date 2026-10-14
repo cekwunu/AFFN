@@ -12,6 +12,79 @@
     "nb": "Norsk",
     "en": "English"
   },
+  "Theme": {
+    "label": "Colour theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "Match system"
+  },
+  "Shell": {
+    "menu": "Menu",
+    "openMenu": "Open menu",
+    "public": {
+      "navLabel": "Main menu",
+      "home": "Home",
+      "forVendors": "For vendors",
+      "forSponsors": "For sponsors"
+    },
+    "footer": {
+      "tagline": "Commerce, vendors and sponsors for African Food Festival Norway.",
+      "festival": "The festival",
+      "language": "Language",
+      "copyright": "© {year} African Food Festival Norway"
+    },
+    "portal": {
+      "navLabel": "{area} menu",
+      "overview": "Overview",
+      "account": "Account",
+      "settings": "Settings",
+      "signOut": "Sign out",
+      "areas": {
+        "vendor": "Vendor",
+        "sponsor": "Sponsor",
+        "admin": "Administration",
+        "platform": "Platform"
+      }
+    },
+    "storefront": {
+      "viewCart": "View cart ({count, plural, one {# item} other {# items}})"
+    }
+  },
+  "Components": {
+    "close": "Close",
+    "notifications": "Notifications",
+    "fileUpload": {
+      "choose": "Choose a file",
+      "orDrag": "or drag it here",
+      "types": "File types: {types}",
+      "maxSize": "Max {size}",
+      "maxFiles": "Up to {count} files",
+      "selected": "Selected files",
+      "remove": "Remove {name}",
+      "rejected": {
+        "type": "{name} is not an allowed file type.",
+        "size": "{name} is too large.",
+        "count": "{name} was not added: you have reached the maximum number of files."
+      }
+    },
+    "stepper": {
+      "complete": "completed",
+      "current": "current step",
+      "upcoming": "not started"
+    },
+    "dataTable": {
+      "search": "Search",
+      "reset": "Reset filters",
+      "results": "{count, plural, =0 {No results} one {# result} other {# results}}",
+      "selectedCount": "selected",
+      "emptyTitle": "No results",
+      "emptyDescription": "Try a different search or remove some filters.",
+      "pagination": "Pagination",
+      "page": "Page {page} of {total}",
+      "previous": "Previous page",
+      "next": "Next page"
+    }
+  },
   "Home": {
     "title": "African Food Festival Norway",
     "intro": "Scan the QR code at the stall, order and pay in your browser, and collect your food when it is ready."
@@ -22,5 +95,229 @@
     "sponsor": "Sponsor",
     "admin": "Administration",
     "platform": "Platform"
+  },
+  "Design": {
+    "metaTitle": "Design system",
+    "eyebrow": "Design system",
+    "title": "AFF design system",
+    "intro": "African excellence meets Scandinavian innovation. Calm, confident and warm: clear surfaces, strong typography and earth colours used with restraint.",
+    "controls": "Display",
+    "contents": "Contents",
+    "sections": {
+      "colour": "Colour",
+      "typography": "Typography",
+      "spacing": "Spacing",
+      "radius": "Radius",
+      "shadow": "Shadow",
+      "motion": "Motion",
+      "motif": "Motif",
+      "components": "Components",
+      "shells": "Page shells",
+      "photography": "Photography"
+    },
+    "colour": {
+      "scales": "Colour scales",
+      "scalesIntro": "Raw values. Used only in the token file; components use the semantic colours below.",
+      "semantic": "Semantic colours",
+      "semanticIntro": "Every pair is checked against WCAG 2.1 AA, in light and dark themes.",
+      "light": "Light theme",
+      "dark": "Dark theme",
+      "ratio": "Contrast {ratio}:1",
+      "pass": "AA pass",
+      "scale": {
+        "sand": "Sand – warm neutrals",
+        "terracotta": "Terracotta – primary",
+        "ochre": "Ochre – secondary",
+        "forest": "Forest – success",
+        "amber": "Amber – warning",
+        "brick": "Brick – danger",
+        "fjord": "Fjord – info"
+      }
+    },
+    "typography": {
+      "intro": "Fraunces for headings, Inter for everything else. Both include æ, ø and å.",
+      "display": "Display: Fraunces",
+      "text": "Text: Inter",
+      "sample": "Blåbærsyltetøy, jollof og ærlig mat på Tøyen",
+      "alphabet": "Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz Ææ Øø Åå 0123456789"
+    },
+    "spacing": {
+      "intro": "4 px grid. Generous space is part of the look."
+    },
+    "shadow": {
+      "intro": "Warm, soft shadows. Cards use sm; menus and dialogs use lg."
+    },
+    "motion": {
+      "intro": "Short, calm transitions. Turned off when the user asks for reduced motion.",
+      "play": "Play",
+      "duration": "Duration",
+      "easing": "Easing"
+    },
+    "motif": {
+      "intro": "One geometric motif: a thin band of stepped diamonds. Used sparingly – in the footer, at the top of the storefront and as the mark beside the logo. Never as a background pattern.",
+      "band": "Band",
+      "mark": "Mark"
+    },
+    "components": {
+      "buttons": "Buttons",
+      "variants": "Variants",
+      "sizes": "Sizes",
+      "states": "States",
+      "primary": "Submit application",
+      "secondary": "Save draft",
+      "outline": "Preview",
+      "ghost": "Cancel",
+      "danger": "Delete product",
+      "link": "Read the terms",
+      "small": "Small",
+      "medium": "Medium",
+      "large": "Large",
+      "disabled": "Disabled",
+      "loading": "Saving",
+      "iconButton": "Add product",
+      "forms": "Form controls",
+      "businessName": "Business name",
+      "businessNamePlaceholder": "E.g. Mama Africa Kitchen",
+      "orgNumber": "Organisation number",
+      "orgNumberError": "The organisation number must have 9 digits.",
+      "email": "Email",
+      "emailHint": "We send confirmations and settlements here.",
+      "category": "Category",
+      "categoryPlaceholder": "Choose a category",
+      "categories": {
+        "food": "Food",
+        "drinks": "Drinks",
+        "dessert": "Dessert",
+        "crafts": "Crafts"
+      },
+      "description": "Description",
+      "descriptionPlaceholder": "Tell us briefly about your food and your story.",
+      "needs": "Stall needs",
+      "power": "Power",
+      "water": "Water",
+      "size": "Stall size",
+      "sizeSmall": "Small (3 × 3 m)",
+      "sizeLarge": "Large (3 × 6 m)",
+      "accepting": "Accepting orders",
+      "badges": "Badges",
+      "statuses": {
+        "draft": "Draft",
+        "submitted": "Submitted",
+        "underReview": "Under review",
+        "approved": "Approved",
+        "rejected": "Rejected",
+        "waitlisted": "Waitlisted",
+        "moreInfo": "More info needed",
+        "paid": "Paid",
+        "new": "New"
+      },
+      "cards": "Cards",
+      "cardTitle": "Stall application",
+      "cardDescription": "AFFN 2027 · Oslo",
+      "cardBody": "Complete the application, upload your documents and accept the vendor agreement. We reply within two weeks.",
+      "cardAction": "Continue",
+      "table": "Table",
+      "tableCaption": "Latest orders",
+      "order": "Order",
+      "time": "Time",
+      "status": "Status",
+      "amount": "Amount",
+      "tabs": "Tabs",
+      "tabOverview": "Overview",
+      "tabProducts": "Products",
+      "tabSettlement": "Settlement",
+      "tabOverviewBody": "Sales, orders and stall details in one place.",
+      "tabProductsBody": "Your menu: prices, allergens and availability.",
+      "tabSettlementBody": "Settlements are paid out after the festival closes.",
+      "overlays": "Overlays",
+      "openDialog": "Open dialog",
+      "dialogTitle": "Approve this application?",
+      "dialogDescription": "The vendor is emailed about the approval and the stall fee invoice.",
+      "approve": "Approve",
+      "cancel": "Cancel",
+      "openSheet": "Open panel",
+      "sheetTitle": "Filters",
+      "sheetDescription": "Narrow down the vendor list.",
+      "apply": "Apply filters",
+      "showToast": "Show toast",
+      "toastTitle": "Product saved",
+      "toastDescription": "Changes show on the menu straight away.",
+      "undo": "Undo",
+      "openMenu": "Actions",
+      "menuEdit": "Edit",
+      "menuDuplicate": "Duplicate",
+      "menuArchive": "Archive",
+      "tooltipTrigger": "What is commission?",
+      "tooltipText": "Commission is taken per order and shown with VAT on the settlement.",
+      "skeleton": "Skeleton",
+      "loadingLabel": "Loading orders",
+      "emptyState": "Empty state",
+      "emptyTitle": "No products yet",
+      "emptyDescription": "Add your first product and it will appear on your menu.",
+      "emptyAction": "Add product",
+      "fileUpload": "File upload",
+      "fileLabel": "Mattilsynet registration",
+      "fileDescription": "Upload the confirmation that your business is registered.",
+      "stepper": "Stepper",
+      "stepperLabel": "Application steps",
+      "steps": {
+        "business": "Business",
+        "businessDesc": "Name and org. no.",
+        "contact": "Contact",
+        "contactDesc": "Who we talk to",
+        "documents": "Documents",
+        "documentsDesc": "Mattilsynet and insurance",
+        "agreement": "Agreement",
+        "agreementDesc": "Commission and terms"
+      },
+      "stats": "Stat cards",
+      "statSales": "Sales today",
+      "statSalesDelta": "+12% on yesterday",
+      "statOrders": "Orders",
+      "statOrdersDelta": "−3% on yesterday",
+      "statAverage": "Average order",
+      "statAverageDelta": "Unchanged",
+      "statCaption": "as of 18:00",
+      "dataTable": "Data table",
+      "vendorsCaption": "Vendors, AFFN 2027",
+      "vendor": "Vendor",
+      "country": "Country",
+      "sales": "Sales",
+      "orders": "Orders",
+      "searchVendors": "Search vendors"
+    },
+    "shells": {
+      "intro": "Three shells cover every page. The previews below are the same components the app uses.",
+      "public": "Public site",
+      "portal": "Portal for vendors, sponsors and admins",
+      "storefront": "Storefront (mobile first)",
+      "sampleHeading": "Welcome to the festival",
+      "sampleBody": "Page content goes here.",
+      "vendorName": "Mama Afrika Kjøkken",
+      "vendorDetails": "Stall 14 · Nigerian",
+      "menuItem": "Jollof rice with chicken",
+      "menuItemDesc": "Smoked tomato, pepper and grilled chicken.",
+      "add": "Add to cart",
+      "navOrders": "Orders",
+      "navProducts": "Products",
+      "navSettlement": "Settlement"
+    },
+    "photography": {
+      "intro": "Images show real people, real food and real atmosphere.",
+      "do": "Do",
+      "dont": "Avoid",
+      "doItems": [
+        "Natural light, ideally evening sun and warm tones.",
+        "Real vendors at their own stalls, at work.",
+        "Food up close: texture, steam, hands serving.",
+        "Calm backgrounds and space around the subject."
+      ],
+      "dontItems": [
+        "Stock photos and staged smiles.",
+        "Clichés such as safari imagery and tribal patterns.",
+        "Heavy filters, oversaturated colour or flash.",
+        "Photos of people without their consent."
+      ]
+    }
   }
 }
