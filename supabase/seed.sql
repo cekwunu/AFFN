@@ -7,6 +7,11 @@
 --   event@affn.test     Event Admin, assigned to AFFN 2027
 --   vendor@affn.test    Vendor user for "Mama Afrika Kjøkken"
 --   sponsor@affn.test   Sponsor user for "Nordlys Bank"
+--   multi@affn.test     Vendor for "Asmara Café" and sponsor for "Fjord Mobil" (role switcher)
+--
+-- MFA (AUTH-04): platform@ and admin@ have a verified TOTP factor with the dev-only secret
+--   KRSXG5CTMVRXEZLUKRSXG5CTMVRXEZLU
+-- Add it to an authenticator app (or use `otplib`) to sign in locally. Never use it elsewhere.
 
 -- Auth users -------------------------------------------------------------------------------------
 insert into auth.users (
@@ -24,8 +29,15 @@ from (values
   ('00000000-0000-4000-8000-000000000002'::uuid, 'admin@affn.test', 'Org Admin'),
   ('00000000-0000-4000-8000-000000000003'::uuid, 'event@affn.test', 'Event Admin'),
   ('00000000-0000-4000-8000-000000000004'::uuid, 'vendor@affn.test', 'Ada Okafor'),
-  ('00000000-0000-4000-8000-000000000005'::uuid, 'sponsor@affn.test', 'Sponsor Contact')
+  ('00000000-0000-4000-8000-000000000005'::uuid, 'sponsor@affn.test', 'Sponsor Contact'),
+  ('00000000-0000-4000-8000-000000000006'::uuid, 'multi@affn.test', 'Yonas Gebre')
 ) as u (id, email, name);
+
+insert into auth.mfa_factors (id, user_id, friendly_name, factor_type, status, secret, created_at, updated_at)
+select gen_random_uuid(), u.id, 'Dev authenticator', 'totp', 'verified',
+       'KRSXG5CTMVRXEZLUKRSXG5CTMVRXEZLU', now(), now()
+  from auth.users u
+ where u.email in ('platform@affn.test', 'admin@affn.test');
 
 insert into auth.identities (id, user_id, provider_id, provider, identity_data, last_sign_in_at, created_at, updated_at)
 select gen_random_uuid(), u.id, u.id::text, 'email',
@@ -183,6 +195,13 @@ insert into public.sponsors (id, organization_id, name, org_number, website_url,
 insert into public.memberships (organization_id, user_id, role, sponsor_id) values
   ('10000000-0000-4000-8000-000000000001', '00000000-0000-4000-8000-000000000005', 'sponsor',
    '80000000-0000-4000-8000-000000000001');
+
+-- One person with two roles, to exercise the role switcher.
+insert into public.memberships (organization_id, user_id, role, vendor_id, sponsor_id) values
+  ('10000000-0000-4000-8000-000000000001', '00000000-0000-4000-8000-000000000006', 'vendor',
+   '40000000-0000-4000-8000-000000000005', null),
+  ('10000000-0000-4000-8000-000000000001', '00000000-0000-4000-8000-000000000006', 'sponsor',
+   null, '80000000-0000-4000-8000-000000000002');
 
 insert into public.sponsor_packages (id, organization_id, event_id, name, tier, price_ore, description, deliverables) values
   ('81000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000001', '20000000-0000-4000-8000-000000000001',
