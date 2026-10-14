@@ -5,7 +5,7 @@ Commerce, vendor and sponsor platform for African Food Festival Norway (AFFN).
 Visitors scan a vendor QR code, order and pay in the browser, and collect their food.
 AFFN onboards vendors, takes commission, settles vendors after the event, and reports
 to sponsors.
-Full requirements: docs/PRD.md (v1.1). Requirement IDs such as VEN-02 refer to it.
+Full requirements: doc/PRD.md (v1.1). Requirement IDs such as VEN-02 refer to it.
 
 ## Locked decisions (never change without the owner's approval)
 - A licensed payment provider (PSP) holds all customer money. AFFN never receives
