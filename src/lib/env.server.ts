@@ -10,8 +10,19 @@ const serverSchema = z.object({
   SWEDBANK_PAY_PAYEE_ID: z.string().min(1).optional(),
   SWEDBANK_PAY_API_URL: z.url().optional(),
   BRREG_API_URL: z.url().default('https://data.brreg.no/enhetsregisteret/api'),
-  EMAIL_PROVIDER_API_KEY: z.string().min(1).optional(),
-  EMAIL_FROM: z.string().min(1).optional(),
+  // Email (invitations etc.) over SMTP: Mailpit locally, an EU provider in production.
+  SMTP_HOST: z.string().min(1).optional(),
+  SMTP_PORT: z.coerce.number().int().positive().default(587),
+  SMTP_USER: z.string().min(1).optional(),
+  SMTP_PASS: z.string().min(1).optional(),
+  SMTP_SECURE: z.enum(['true', 'false']).default('false'),
+  EMAIL_FROM: z.string().min(1).default('AFF Marketplace <no-reply@affn.no>'),
+  // Organization that self sign-up joins (single tenant today).
+  DEFAULT_ORGANIZATION_SLUG: z.string().min(1).default('affn'),
+  // Key for hashing rate-limit buckets; required in production.
+  RATE_LIMIT_SECRET: z.string().min(1).optional(),
+  // Multiplies per-IP limits (e.g. for end-to-end tests where every request has the same IP).
+  RATE_LIMIT_IP_SCALE: z.coerce.number().positive().default(1),
 });
 
 const emptyToUndefined = (value: string | undefined) => (value === '' ? undefined : value);

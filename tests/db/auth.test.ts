@@ -19,7 +19,10 @@ async function errorCode(c: pg.Client, sql: string, params: unknown[] = []) {
 }
 
 async function count(c: pg.Client, sql: string, params: unknown[] = []) {
-  const { rows } = await c.query<{ n: number }>(`select count(*)::int as n from (${sql}) q`, params);
+  const { rows } = await c.query<{ n: number }>(
+    `select count(*)::int as n from (${sql}) q`,
+    params,
+  );
   return rows[0]!.n;
 }
 
@@ -50,7 +53,9 @@ describe('MFA is required for admin powers (AUTH-04)', () => {
           ),
         ).toBe('denied');
         // They can still see their own memberships, so the app can send them to MFA.
-        expect(await count(c, `select 1 from public.memberships where user_id = $1`, [USERS.orgAdmin])).toBe(1);
+        expect(
+          await count(c, `select 1 from public.memberships where user_id = $1`, [USERS.orgAdmin]),
+        ).toBe(1);
       },
       { aal: 'aal1' },
     );
@@ -68,28 +73,41 @@ describe('MFA is required for admin powers (AUTH-04)', () => {
   });
 
   it('vendors do not need MFA', async () => {
-    await asRole('vendor', async (c) => {
-      expect(await count(c, `select 1 from public.vendors where id = $1`, [VENDOR(1)])).toBe(1);
-    }, { aal: 'aal1' });
+    await asRole(
+      'vendor',
+      async (c) => {
+        expect(await count(c, `select 1 from public.vendors where id = $1`, [VENDOR(1)])).toBe(1);
+      },
+      { aal: 'aal1' },
+    );
   });
 });
 
 describe('self sign-up (AUTH-03)', () => {
   it('creates a pending vendor membership in the named organization', async () => {
     await asOwner(async (c) => {
-      const id = await createUser(c, { signup_role: 'vendor', organization_slug: 'affn', locale: 'nb' });
+      const id = await createUser(c, {
+        signup_role: 'vendor',
+        organization_slug: 'affn',
+        locale: 'nb',
+      });
       const { rows } = await c.query(
         `select organization_id, role, status, vendor_id from public.memberships where user_id = $1`,
         [id],
       );
-      expect(rows).toEqual([{ organization_id: ORG1, role: 'vendor', status: 'pending', vendor_id: null }]);
+      expect(rows).toEqual([
+        { organization_id: ORG1, role: 'vendor', status: 'pending', vendor_id: null },
+      ]);
     });
   });
 
   it('creates a pending sponsor membership', async () => {
     await asOwner(async (c) => {
       const id = await createUser(c, { signup_role: 'sponsor', organization_slug: 'affn' });
-      const { rows } = await c.query(`select role, status from public.memberships where user_id = $1`, [id]);
+      const { rows } = await c.query(
+        `select role, status from public.memberships where user_id = $1`,
+        [id],
+      );
       expect(rows).toEqual([{ role: 'sponsor', status: 'pending' }]);
     });
   });
@@ -127,7 +145,9 @@ describe('self sign-up (AUTH-03)', () => {
     await asOwner(async (c) => {
       const id = await createUser(c, { signup_role: 'vendor', organization_slug: 'affn' });
       expect(
-        await errorCode(c, `update public.memberships set status = 'active' where user_id = $1`, [id]),
+        await errorCode(c, `update public.memberships set status = 'active' where user_id = $1`, [
+          id,
+        ]),
       ).toBe('23514');
     });
   });
@@ -138,9 +158,10 @@ describe('access token hook', () => {
     await asOwner(async (c) => {
       const call = async (uid: string) =>
         (
-          await c.query(`select private.custom_access_token_hook($1::jsonb) -> 'claims' -> 'affn' as affn`, [
-            JSON.stringify({ user_id: uid, claims: { sub: uid, aal: 'aal1' } }),
-          ])
+          await c.query(
+            `select private.custom_access_token_hook($1::jsonb) -> 'claims' -> 'affn' as affn`,
+            [JSON.stringify({ user_id: uid, claims: { sub: uid, aal: 'aal1' } })],
+          )
         ).rows[0].affn;
       expect(await call(USERS.platformOwner)).toEqual({ po: true, roles: [] });
       expect(await call(USERS.orgAdmin)).toEqual({
@@ -152,7 +173,9 @@ describe('access token hook', () => {
 
   it('cannot be called through the API', async () => {
     await asRole('vendor', async (c) => {
-      expect(await errorCode(c, `select private.custom_access_token_hook('{}'::jsonb)`)).toBe('42501');
+      expect(await errorCode(c, `select private.custom_access_token_hook('{}'::jsonb)`)).toBe(
+        '42501',
+      );
     });
   });
 });
@@ -169,9 +192,10 @@ describe('rate limiter', () => {
       expect([await hit(), await hit()]).toEqual([true, true]);
       expect(await check()).toBe(false);
       expect(await hit()).toBe(false);
-      await c.query(`update private.rate_limits set window_start = now() - interval '61 seconds' where key = $1`, [
-        key,
-      ]);
+      await c.query(
+        `update private.rate_limits set window_start = now() - interval '61 seconds' where key = $1`,
+        [key],
+      );
       expect(await check()).toBe(true);
       expect(await hit()).toBe(true);
     });

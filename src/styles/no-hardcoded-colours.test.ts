@@ -4,7 +4,8 @@ import { describe, expect, it } from 'vitest';
 
 /** Colour values may only appear in the token file. */
 const ROOT = join(process.cwd(), 'src');
-const ALLOWED = new Set(['styles/tokens.css']);
+// email/theme.ts: emails need literal colours; its test keeps them equal to the tokens.
+const ALLOWED = new Set(['styles/tokens.css', 'lib/email/theme.ts']);
 
 const COLOUR_LITERAL = /#[0-9a-fA-F]{3,8}\b|\b(?:rgba?|hsla?|oklch|oklab|lab|lch|hwb|color-mix)\(/;
 // Tailwind's default palette names (switched off in globals.css, but catch them early).
