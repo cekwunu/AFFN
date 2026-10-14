@@ -5,7 +5,8 @@ import { linkFrom, waitForEmail } from './support/mailpit';
 import { freshTotp, SEED_TOTP_SECRET } from './support/totp';
 
 // One worker and in order: some tests share seeded users and TOTP codes.
-test.describe.configure({ mode: 'serial' });
+// MFA steps may wait up to 30 s for a TOTP code not used before in this run.
+test.describe.configure({ mode: 'serial', timeout: 90_000 });
 
 async function passMfa(page: Page, secret = SEED_TOTP_SECRET) {
   await expect(page).toHaveURL(/\/mfa/);

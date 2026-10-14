@@ -95,5 +95,15 @@ Emails locally go to Mailpit (http://127.0.0.1:54324). For a cloud project, also
 access-token hook, TOTP MFA, custom SMTP (EU), the email templates in `supabase/templates`, site URL
 and redirect URL `<site>/api/auth/confirm`, and minimum password length 12.
 
+Vendor onboarding (P05): public `/become-a-vendor` reads stall types, key dates and the commission
+rule from the database; the application lives at `/vendor/apply/[step]` (server actions in
+`vendor/apply/actions.ts`, autosaved drafts in `event_vendors.application_progress`). The business is
+created by `public.start_vendor_application` (service role) after the Brønnøysund check, which also
+activates the pending vendor membership. Documents go to the private `vendor-documents` bucket
+(signed URLs via `/api/vendor/documents/[id]`), logo and cover to the public `vendor-media` bucket,
+both under `{vendor_id}/`. Agreement text is versioned (`AGREEMENT_VERSION` in
+`src/lib/vendor/agreement.ts`): bump it when the Agreement messages change. Local e2e: start Supabase
+with storage (`-x realtime,imgproxy,studio,edge-runtime,logflare,vector,supavisor,postgres-meta`).
+
 Public pages stay light: their client islands get translated strings as props and use
 `@/i18n/link` and `clsx` — no `useTranslations`, `cn` or Radix overlays in public client code.
