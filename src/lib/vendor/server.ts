@@ -86,8 +86,8 @@ export async function getMyApplication(eventId: string) {
     .select(
       `id, status, submitted_at, decided_at, stall_type_id, preferred_zone, needs_power, needs_water,
        application_progress, vendor_id,
-       vendor:vendors (id, org_number, legal_name, display_name, business_form, business_address,
-         postal_code, city, brreg_status, category, cuisine_country, description, website_url,
+       vendor:vendors (id, organization_id, org_number, legal_name, display_name, business_form, business_address,
+         postal_code, city, brreg_status, brreg_verified_at, category, cuisine_country, description, website_url,
          instagram_handle, facebook_url, tiktok_handle, logo_path, cover_image_path)`,
     )
     .eq('event_id', eventId)

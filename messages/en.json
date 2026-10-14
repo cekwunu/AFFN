@@ -47,7 +47,8 @@
       },
       "switchTo": "Switch portal",
       "signedInAs": "Signed in as",
-      "team": "Team"
+      "team": "Team",
+      "application": "Application"
     },
     "storefront": {
       "viewCart": "View cart ({count, plural, one {# item} other {# items}})"
@@ -99,7 +100,7 @@
     "admin": "Administration",
     "platform": "Platform",
     "pendingVendorTitle": "Welcome!",
-    "pendingVendorText": "Your account is ready. Next you will register your business and apply for a stall – coming here soon.",
+    "pendingVendorText": "Your account is ready. The next step is to apply for a stall.",
     "pendingSponsorTitle": "Welcome!",
     "pendingSponsorText": "Your account is ready. Next you will register your company and choose a sponsor package – coming here soon."
   },
@@ -492,5 +493,303 @@
         "unknown": "Something went wrong. Please try again."
       }
     }
+  },
+  "BecomeVendor": {
+    "metaTitle": "Become a vendor",
+    "metaDescription": "Apply for a stall at {event}: stall types and fees, commission and key dates.",
+    "eyebrow": "For vendors · {event}",
+    "title": "Sell your food at {event}",
+    "intro": "Apply for a stall at the festival. The application takes about 15 minutes, and you can save and continue whenever it suits you.",
+    "apply": "Apply for a stall",
+    "continue": "Go to your application",
+    "signIn": "Already have an account? Sign in",
+    "notOpenYet": "Applications open on {date}.",
+    "closed": "The application deadline has passed. Contact us if you would like to join the waiting list.",
+    "noEvent": "There is no festival to apply for right now. Please check back later.",
+    "benefitsTitle": "Why join the festival",
+    "benefits": {
+      "visitors": {
+        "title": "Lots of hungry guests",
+        "text": "Two days of food, music and culture in {venue}."
+      },
+      "payments": {
+        "title": "No till needed",
+        "text": "Guests scan your QR code, order and pay on their phone. You see the orders on the screen in your stall."
+      },
+      "payout": {
+        "title": "Safe payouts",
+        "text": "A licensed payment provider holds the money and pays it out to you after the festival."
+      },
+      "profile": {
+        "title": "Your own page",
+        "text": "A profile with your menu, story and links that guests find before, during and after the festival."
+      }
+    },
+    "stallsTitle": "Stall types and fees",
+    "stallsIntro": "The stall fee is invoiced once your application is approved. You can ask for power and water in the application.",
+    "stallType": "Stall type",
+    "size": "Size",
+    "fee": "Stall fee",
+    "commissionTitle": "Commission: {terms}",
+    "commissionIntro": "AFFN takes {terms} of every sale through the platform. The mva is 25 % of the commission. AFFN pays the payment provider's fee. You do not need to be registered for mva.",
+    "exampleCaption": "Example: a sale of {gross}",
+    "line": "Line",
+    "amount": "Amount",
+    "exampleGross": "The guest pays",
+    "exampleCommission": "Commission ({rate})",
+    "exampleMva": "Mva on the commission (25 %)",
+    "exampleFee": "Withheld for AFFN",
+    "examplePayout": "You are paid",
+    "datesTitle": "Key dates",
+    "opens": "Applications open",
+    "deadline": "Application deadline",
+    "decisions": "Answers by",
+    "festival": "The festival",
+    "howTitle": "How to apply",
+    "how": {
+      "1": "Create an account and confirm your email.",
+      "2": "Enter your organisation number. We fetch the name and address from Brønnøysundregistrene.",
+      "3": "Tell us about your food, choose a stall, upload documents and accept the agreement.",
+      "4": "Submit your application. You get the answer by email and can follow the status on your page."
+    },
+    "needTitle": "What you need",
+    "need": {
+      "orgNumber": "A Norwegian organisation number (for example a sole proprietorship or AS).",
+      "mattilsynet": "Registration with Mattilsynet if you sell food or drink.",
+      "extras": "Ideally proof of insurance, a logo and a photo of your food."
+    }
+  },
+  "Apply": {
+    "title": "Stall application",
+    "subtitle": "{event}",
+    "progressLabel": "Application progress",
+    "stepOf": "Step {current} of {total}",
+    "steps": {
+      "business": "Business",
+      "contact": "Contact person",
+      "profile": "Profile",
+      "stall": "Stall",
+      "documents": "Documents",
+      "agreement": "Agreement",
+      "review": "Submit"
+    },
+    "back": "Back",
+    "continue": "Save and continue",
+    "working": "Saving …",
+    "autosave": {
+      "idle": "Changes are saved automatically.",
+      "saving": "Saving …",
+      "saved": "Saved.",
+      "error": "Could not save. Check your connection and try again."
+    },
+    "optional": "optional",
+    "errors": {
+      "too_short": "Please write a little more.",
+      "too_long": "The text is too long.",
+      "email": "Enter a valid email address.",
+      "phone": "Enter a Norwegian phone number with 8 digits, for example 400 00 000.",
+      "url": "Enter a valid web address, for example mykitchen.no.",
+      "handle": "Enter the username without spaces, for example @mykitchen.",
+      "required": "This field is required.",
+      "date": "Enter a valid date.",
+      "expired": "This date has already passed.",
+      "invalid": "This organisation number is not valid. It has 9 digits – check that you typed it correctly.",
+      "not_found": "We could not find this organisation number in Enhetsregisteret.",
+      "deleted": "This business is deleted in Enhetsregisteret and cannot apply.",
+      "bankrupt": "This business is registered as bankrupt and cannot apply.",
+      "dissolving": "This business is being wound up and cannot apply.",
+      "unavailable": "We cannot reach Brønnøysundregistrene right now. Please try again shortly.",
+      "taken": "This business is already registered. Contact AFFN if you are applying for it.",
+      "rate_limited": "You have made many lookups. Please wait a moment and try again.",
+      "not_editable": "Your application has been submitted and cannot be changed now.",
+      "closed": "Applications are not open.",
+      "no_signup": "Your account is not registered as a vendor.",
+      "missing": "Some steps are missing before you can submit.",
+      "upload_failed": "The upload failed. Please try again.",
+      "file_type": "This file type is not supported.",
+      "file_size": "The file is too large.",
+      "stall_first": "Choose a stall type before accepting the agreement.",
+      "unknown": "Something went wrong. Please try again."
+    },
+    "business": {
+      "intro": "Start with your organisation number. We fetch the name, organisation form and address from Enhetsregisteret at Brønnøysundregistrene.",
+      "orgNumber": "Organisation number",
+      "orgNumberHint": "9 digits, for example 923 456 783.",
+      "lookup": "Look up",
+      "looking": "Looking up …",
+      "found": "We found the business",
+      "confirmIntro": "Is this right? Then we will create your application.",
+      "confirm": "Yes, this is us",
+      "starting": "Creating …",
+      "tryAnother": "Try another number",
+      "name": "Name",
+      "form": "Organisation form",
+      "address": "Address",
+      "orgNumberLabel": "Organisation number",
+      "registered": "Registered business",
+      "verified": "Fetched from Brønnøysundregistrene on {date}.",
+      "newEventTitle": "Apply for a stall at {event}",
+      "newEventText": "Your business is already registered. Start a new application for {event}.",
+      "newEventButton": "Start the application"
+    },
+    "contact": {
+      "intro": "Who should AFFN contact about the application? These details are not shown publicly.",
+      "name": "Full name",
+      "email": "Email",
+      "phone": "Mobile number",
+      "phoneHint": "Norwegian number, 8 digits. We add +47."
+    },
+    "profile": {
+      "intro": "This becomes the page guests see. Keep it simple and tempting.",
+      "displayName": "Stall name",
+      "displayNameHint": "The name guests see, for example “Mama Afrika Kjøkken”.",
+      "category": "What do you sell?",
+      "categoryPlaceholder": "Choose a category",
+      "cuisineCountry": "Cuisine country",
+      "cuisineCountryPlaceholder": "Choose a country",
+      "cuisineCountryHint": "Required for food and drink.",
+      "description": "Description",
+      "descriptionHint": "20–600 characters. What do you make, and what makes your food special?",
+      "linksTitle": "Website and social media",
+      "website": "Website",
+      "instagram": "Instagram",
+      "facebook": "Facebook page",
+      "tiktok": "TikTok",
+      "mediaTitle": "Logo and photo",
+      "logo": "Logo",
+      "logoHint": "Square image, JPG, PNG or WebP, max 5 MB.",
+      "cover": "Cover photo",
+      "coverHint": "A photo of your food or stall, landscape, max 5 MB.",
+      "upload": "Upload",
+      "replace": "Replace image",
+      "uploading": "Uploading …",
+      "uploaded": "The image is saved.",
+      "imageAlt": "Preview of the {kind}"
+    },
+    "categories": {
+      "hot-food": "Hot food",
+      "street-food": "Street food and snacks",
+      "bakery-desserts": "Bakery and desserts",
+      "drinks-coffee": "Drinks and coffee",
+      "groceries-spices": "Groceries and spices (packaged)",
+      "fashion-crafts": "Fashion and crafts",
+      "beauty-wellness": "Beauty and wellness",
+      "other": "Other"
+    },
+    "stall": {
+      "intro": "Which stall do you need? We do our best to meet your wishes but cannot promise a location.",
+      "type": "Stall type",
+      "needs": "Needs",
+      "power": "I need power",
+      "water": "I need water",
+      "zone": "Preferred area",
+      "zoneNone": "No preference",
+      "fee": "Stall fee {fee}"
+    },
+    "documents": {
+      "intro": "Upload documents as PDF, JPG or PNG (max 10 MB). Files are stored privately and only you and AFFN can see them.",
+      "mattilsynetRequired": "You sell food or drink, so you must upload your registration with Mattilsynet.",
+      "mattilsynetMissing": "Registration with Mattilsynet is missing.",
+      "addTitle": "Upload a document",
+      "type": "Document type",
+      "expires": "Valid until",
+      "expiresHint": "Leave empty if the document does not expire.",
+      "description": "What is this?",
+      "file": "File",
+      "add": "Upload document",
+      "adding": "Uploading …",
+      "listTitle": "Your documents",
+      "none": "No documents yet.",
+      "view": "View",
+      "delete": "Delete",
+      "deleteLabel": "Delete {name}",
+      "expiresOn": "Valid until {date}",
+      "noExpiry": "Does not expire",
+      "status": {
+        "pending": "Awaiting check",
+        "accepted": "Accepted",
+        "rejected": "Rejected"
+      }
+    },
+    "documentTypes": {
+      "mattilsynet_registration": "Registration with Mattilsynet",
+      "insurance": "Insurance",
+      "other": "Other"
+    },
+    "agreement": {
+      "intro": "Please read the agreement carefully. It applies to {event} only.",
+      "accept": "I have read and accept the vendor agreement",
+      "acceptButton": "Accept the agreement",
+      "accepting": "Saving …",
+      "accepted": "You accepted the agreement on {date} (version {version}).",
+      "draftNotice": "Draft: the agreement text will be reviewed by a lawyer before launch."
+    },
+    "review": {
+      "intro": "Check your application before you submit it. You can go back and change anything.",
+      "edit": "Change",
+      "editLabel": "Change {section}",
+      "missingTitle": "Still missing",
+      "submit": "Submit the application",
+      "submitting": "Submitting …",
+      "resubmit": "Submit again",
+      "yes": "Yes",
+      "no": "No",
+      "none": "Not given",
+      "documentsCount": "{count, plural, =0 {No documents} one {# document} other {# documents}}",
+      "agreementAccepted": "Accepted on {date}",
+      "agreementMissing": "Not accepted"
+    }
+  },
+  "Agreement": {
+    "title": "Vendor agreement – {event}",
+    "parties": "This agreement is between {vendor} (org. no. {orgNumber}), the “vendor”, and {organizer}, “AFFN”.",
+    "sellerTitle": "1. The vendor is the seller",
+    "seller": "The vendor is the seller of the goods and responsible to customers. Receipts show the vendor's name and organisation number.",
+    "commissionTitle": "2. Commission",
+    "commission": "AFFN takes {terms} of every sale through the platform. The commission and mva are withheld by the payment provider when the customer pays. AFFN pays the payment provider's fee.",
+    "stallFeeTitle": "3. Stall fee",
+    "stallFee": "The stall fee for {stall} is {fee}. It is invoiced when the application is approved, and the stall is confirmed once the fee is paid.",
+    "settlementTitle": "4. Settlement",
+    "settlement": "A licensed payment provider holds customers' payments. After the festival AFFN settles the sales and asks the payment provider to pay out the vendor's share. The vendor receives a statement with all sales, refunds and commission.",
+    "refundsTitle": "5. Refunds",
+    "refunds": "Refunds before settlement are deducted from the vendor's share, and the commission is reversed pro rata. Claims after payout are deducted from the next settlement or invoiced.",
+    "rulesTitle": "6. Festival rules",
+    "rules": "The vendor follows Mattilsynet's rules and AFFN's practical information about setting up, cleaning and opening hours."
+  },
+  "Application": {
+    "title": "Your application",
+    "event": "{event}",
+    "statusLabel": "Status",
+    "status": {
+      "draft": "Draft",
+      "submitted": "Submitted",
+      "under_review": "Under review",
+      "more_info_requested": "More info requested",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "waitlisted": "Waitlisted",
+      "withdrawn": "Withdrawn"
+    },
+    "next": {
+      "draft": "Your application has not been submitted yet. Complete the steps and submit it before the deadline on {deadline}.",
+      "draftNoDeadline": "Your application has not been submitted yet. Complete the steps and submit it.",
+      "submitted": "Thank you! We received your application on {date}. AFFN will review it and reply by email.",
+      "under_review": "AFFN is reviewing your application. You will get an answer by email no later than {decisions}.",
+      "under_reviewNoDate": "AFFN is reviewing your application. You will get an answer by email.",
+      "more_info_requested": "AFFN needs more information before reviewing your application. Read the message, make the changes and submit again.",
+      "approved": "Congratulations, you are in! You will get an invoice for the stall fee, and your stall is confirmed once it is paid. Next, set up payments and your menu.",
+      "rejected": "Unfortunately your application was not approved this time. Contact AFFN if you have questions.",
+      "waitlisted": "You are on the waiting list. We will contact you if a place becomes available.",
+      "withdrawn": "The application has been withdrawn."
+    },
+    "messageTitle": "Message from AFFN",
+    "messageDate": "Sent {date}",
+    "continue": "Continue the application",
+    "edit": "Change and submit again",
+    "view": "View the application",
+    "start": "Start the application",
+    "noApplicationTitle": "Apply for a stall at {event}",
+    "noApplicationText": "You have not applied for a stall yet. The application takes about 15 minutes, and everything is saved as you go.",
+    "submittedAt": "Submitted on {date}"
   }
 }

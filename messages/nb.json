@@ -47,7 +47,8 @@
       },
       "switchTo": "Bytt portal",
       "signedInAs": "Logget inn som",
-      "team": "Team"
+      "team": "Team",
+      "application": "Søknad"
     },
     "storefront": {
       "viewCart": "Se handlekurv ({count, plural, one {# vare} other {# varer}})"
@@ -99,7 +100,7 @@
     "admin": "Administrasjon",
     "platform": "Plattform",
     "pendingVendorTitle": "Velkommen!",
-    "pendingVendorText": "Kontoen din er klar. Neste steg er å registrere virksomheten og søke om stand – det kommer her snart.",
+    "pendingVendorText": "Kontoen din er klar. Neste steg er å søke om stand.",
     "pendingSponsorTitle": "Velkommen!",
     "pendingSponsorText": "Kontoen din er klar. Neste steg er å registrere bedriften og velge sponsorpakke – det kommer her snart."
   },
@@ -492,5 +493,303 @@
         "unknown": "Noe gikk galt. Prøv igjen."
       }
     }
+  },
+  "BecomeVendor": {
+    "metaTitle": "Bli leverandør",
+    "metaDescription": "Søk om stand på {event}: standtyper og priser, provisjon og viktige datoer.",
+    "eyebrow": "For leverandører · {event}",
+    "title": "Selg maten din på {event}",
+    "intro": "Søk om stand på festivalen. Søknaden tar rundt 15 minutter, og du kan lagre og fortsette når det passer deg.",
+    "apply": "Søk om stand",
+    "continue": "Gå til søknaden",
+    "signIn": "Har du allerede konto? Logg inn",
+    "notOpenYet": "Søknaden åpner {date}.",
+    "closed": "Søknadsfristen har gått ut. Ta kontakt med oss hvis du vil stå på venteliste.",
+    "noEvent": "Det er ingen festival å søke på akkurat nå. Kom gjerne tilbake senere.",
+    "benefitsTitle": "Hvorfor stå på festivalen",
+    "benefits": {
+      "visitors": {
+        "title": "Mange sultne gjester",
+        "text": "To dager med mat, musikk og kultur i {venue}."
+      },
+      "payments": {
+        "title": "Betaling uten kasse",
+        "text": "Gjestene skanner QR-koden din, bestiller og betaler på mobilen. Du ser bestillingene på skjermen i boden."
+      },
+      "payout": {
+        "title": "Trygg utbetaling",
+        "text": "Pengene holdes av en lisensiert betalingsleverandør og betales ut til deg etter festivalen."
+      },
+      "profile": {
+        "title": "Din egen side",
+        "text": "En profil med meny, historie og lenker som gjestene finner før, under og etter festivalen."
+      }
+    },
+    "stallsTitle": "Standtyper og priser",
+    "stallsIntro": "Standavgiften faktureres når søknaden er godkjent. Strøm og vann ber du om i søknaden.",
+    "stallType": "Standtype",
+    "size": "Størrelse",
+    "fee": "Standavgift",
+    "commissionTitle": "Provisjon: {terms}",
+    "commissionIntro": "AFFN tar {terms} av hvert salg gjennom plattformen. Mva-en er 25 % av provisjonen. Gebyret til betalingsleverandøren dekker AFFN. Du trenger ikke være mva-registrert.",
+    "exampleCaption": "Eksempel: et salg på {gross}",
+    "line": "Linje",
+    "amount": "Beløp",
+    "exampleGross": "Gjesten betaler",
+    "exampleCommission": "Provisjon ({rate})",
+    "exampleMva": "Mva på provisjonen (25 %)",
+    "exampleFee": "Holdes tilbake til AFFN",
+    "examplePayout": "Du får utbetalt",
+    "datesTitle": "Viktige datoer",
+    "opens": "Søknaden åpner",
+    "deadline": "Søknadsfrist",
+    "decisions": "Svar senest",
+    "festival": "Festivalen",
+    "howTitle": "Slik søker du",
+    "how": {
+      "1": "Opprett en konto og bekreft e-posten din.",
+      "2": "Skriv inn organisasjonsnummeret. Vi henter navn og adresse fra Brønnøysundregistrene.",
+      "3": "Fortell om maten, velg stand, last opp dokumenter og godta avtalen.",
+      "4": "Send inn søknaden. Du får svar på e-post og ser status på siden din."
+    },
+    "needTitle": "Dette trenger du",
+    "need": {
+      "orgNumber": "Et norsk organisasjonsnummer (for eksempel enkeltpersonforetak eller AS).",
+      "mattilsynet": "Registrering hos Mattilsynet hvis du selger mat eller drikke.",
+      "extras": "Gjerne forsikringsbevis, logo og et bilde av maten."
+    }
+  },
+  "Apply": {
+    "title": "Søknad om stand",
+    "subtitle": "{event}",
+    "progressLabel": "Fremdrift i søknaden",
+    "stepOf": "Steg {current} av {total}",
+    "steps": {
+      "business": "Virksomhet",
+      "contact": "Kontaktperson",
+      "profile": "Profil",
+      "stall": "Stand",
+      "documents": "Dokumenter",
+      "agreement": "Avtale",
+      "review": "Send inn"
+    },
+    "back": "Tilbake",
+    "continue": "Lagre og fortsett",
+    "working": "Lagrer …",
+    "autosave": {
+      "idle": "Endringer lagres automatisk.",
+      "saving": "Lagrer …",
+      "saved": "Lagret.",
+      "error": "Kunne ikke lagre. Sjekk nettet og prøv igjen."
+    },
+    "optional": "valgfritt",
+    "errors": {
+      "too_short": "Skriv litt mer.",
+      "too_long": "Teksten er for lang.",
+      "email": "Skriv en gyldig e-postadresse.",
+      "phone": "Skriv et norsk telefonnummer med 8 siffer, for eksempel 400 00 000.",
+      "url": "Skriv en gyldig nettadresse, for eksempel mittkjokken.no.",
+      "handle": "Skriv brukernavnet uten mellomrom, for eksempel @mittkjokken.",
+      "required": "Dette feltet må fylles ut.",
+      "date": "Skriv en gyldig dato.",
+      "expired": "Datoen har allerede passert.",
+      "invalid": "Organisasjonsnummeret er ikke gyldig. Det har 9 siffer – sjekk at du har skrevet det riktig.",
+      "not_found": "Vi fant ikke dette organisasjonsnummeret i Enhetsregisteret.",
+      "deleted": "Virksomheten er slettet i Enhetsregisteret og kan ikke søke.",
+      "bankrupt": "Virksomheten er registrert som konkurs og kan ikke søke.",
+      "dissolving": "Virksomheten er under avvikling og kan ikke søke.",
+      "unavailable": "Vi får ikke kontakt med Brønnøysundregistrene akkurat nå. Prøv igjen om litt.",
+      "taken": "Denne virksomheten er allerede registrert. Kontakt AFFN hvis du skal søke for den.",
+      "rate_limited": "Du har gjort mange oppslag. Vent litt og prøv igjen.",
+      "not_editable": "Søknaden er sendt inn og kan ikke endres nå.",
+      "closed": "Søknadsperioden er ikke åpen.",
+      "no_signup": "Kontoen din er ikke registrert som leverandør.",
+      "missing": "Noen steg mangler før du kan sende inn.",
+      "upload_failed": "Opplastingen feilet. Prøv igjen.",
+      "file_type": "Filtypen støttes ikke.",
+      "file_size": "Filen er for stor.",
+      "stall_first": "Velg standtype før du godtar avtalen.",
+      "unknown": "Noe gikk galt. Prøv igjen."
+    },
+    "business": {
+      "intro": "Start med organisasjonsnummeret. Vi henter navn, organisasjonsform og adresse fra Enhetsregisteret i Brønnøysundregistrene.",
+      "orgNumber": "Organisasjonsnummer",
+      "orgNumberHint": "9 siffer, for eksempel 923 456 783.",
+      "lookup": "Slå opp",
+      "looking": "Slår opp …",
+      "found": "Vi fant virksomheten",
+      "confirmIntro": "Stemmer dette? Da oppretter vi søknaden din.",
+      "confirm": "Ja, dette er oss",
+      "starting": "Oppretter …",
+      "tryAnother": "Prøv et annet nummer",
+      "name": "Navn",
+      "form": "Organisasjonsform",
+      "address": "Adresse",
+      "orgNumberLabel": "Organisasjonsnummer",
+      "registered": "Registrert virksomhet",
+      "verified": "Hentet fra Brønnøysundregistrene {date}.",
+      "newEventTitle": "Søk om stand på {event}",
+      "newEventText": "Virksomheten din er allerede registrert. Start en ny søknad for {event}.",
+      "newEventButton": "Start søknaden"
+    },
+    "contact": {
+      "intro": "Hvem skal AFFN kontakte om søknaden? Opplysningene vises ikke offentlig.",
+      "name": "Fullt navn",
+      "email": "E-post",
+      "phone": "Mobilnummer",
+      "phoneHint": "Norsk nummer, 8 siffer. Vi legger til +47."
+    },
+    "profile": {
+      "intro": "Dette blir siden gjestene ser. Skriv enkelt og fristende.",
+      "displayName": "Navn på boden",
+      "displayNameHint": "Navnet gjestene ser, for eksempel «Mama Afrika Kjøkken».",
+      "category": "Hva selger du?",
+      "categoryPlaceholder": "Velg kategori",
+      "cuisineCountry": "Matens opprinnelsesland",
+      "cuisineCountryPlaceholder": "Velg land",
+      "cuisineCountryHint": "Påkrevd for mat og drikke.",
+      "description": "Beskrivelse",
+      "descriptionHint": "20–600 tegn. Hva lager du, og hva gjør maten din spesiell?",
+      "linksTitle": "Nettsted og sosiale medier",
+      "website": "Nettsted",
+      "instagram": "Instagram",
+      "facebook": "Facebook-side",
+      "tiktok": "TikTok",
+      "mediaTitle": "Logo og bilde",
+      "logo": "Logo",
+      "logoHint": "Kvadratisk bilde, JPG, PNG eller WebP, maks 5 MB.",
+      "cover": "Forsidebilde",
+      "coverHint": "Et bilde av maten eller boden, liggende format, maks 5 MB.",
+      "upload": "Last opp",
+      "replace": "Bytt bilde",
+      "uploading": "Laster opp …",
+      "uploaded": "Bildet er lagret.",
+      "imageAlt": "Forhåndsvisning av {kind}"
+    },
+    "categories": {
+      "hot-food": "Varmmat",
+      "street-food": "Gatemat og snacks",
+      "bakery-desserts": "Bakst og dessert",
+      "drinks-coffee": "Drikke og kaffe",
+      "groceries-spices": "Dagligvarer og krydder (pakket)",
+      "fashion-crafts": "Klær og håndverk",
+      "beauty-wellness": "Skjønnhet og velvære",
+      "other": "Annet"
+    },
+    "stall": {
+      "intro": "Hvilken stand trenger du? Vi gjør vårt beste for å oppfylle ønskene, men kan ikke love plassering.",
+      "type": "Standtype",
+      "needs": "Behov",
+      "power": "Jeg trenger strøm",
+      "water": "Jeg trenger vann",
+      "zone": "Ønsket område",
+      "zoneNone": "Ingen preferanse",
+      "fee": "Standavgift {fee}"
+    },
+    "documents": {
+      "intro": "Last opp dokumentene som PDF, JPG eller PNG (maks 10 MB). Filene lagres privat og vises bare for deg og AFFN.",
+      "mattilsynetRequired": "Du selger mat eller drikke, så du må laste opp registreringen hos Mattilsynet.",
+      "mattilsynetMissing": "Registrering hos Mattilsynet mangler.",
+      "addTitle": "Last opp et dokument",
+      "type": "Type dokument",
+      "expires": "Gyldig til",
+      "expiresHint": "La stå tom hvis dokumentet ikke utløper.",
+      "description": "Hva er dette?",
+      "file": "Fil",
+      "add": "Last opp dokument",
+      "adding": "Laster opp …",
+      "listTitle": "Dine dokumenter",
+      "none": "Ingen dokumenter ennå.",
+      "view": "Vis",
+      "delete": "Slett",
+      "deleteLabel": "Slett {name}",
+      "expiresOn": "Gyldig til {date}",
+      "noExpiry": "Utløper ikke",
+      "status": {
+        "pending": "Venter på kontroll",
+        "accepted": "Godkjent",
+        "rejected": "Avvist"
+      }
+    },
+    "documentTypes": {
+      "mattilsynet_registration": "Registrering hos Mattilsynet",
+      "insurance": "Forsikring",
+      "other": "Annet"
+    },
+    "agreement": {
+      "intro": "Les avtalen nøye. Den gjelder bare for {event}.",
+      "accept": "Jeg har lest og godtar leverandøravtalen",
+      "acceptButton": "Godta avtalen",
+      "accepting": "Lagrer …",
+      "accepted": "Du godtok avtalen {date} (versjon {version}).",
+      "draftNotice": "Utkast: Avtaleteksten blir gjennomgått av advokat før lansering."
+    },
+    "review": {
+      "intro": "Se over søknaden før du sender den inn. Du kan gå tilbake og endre alt.",
+      "edit": "Endre",
+      "editLabel": "Endre {section}",
+      "missingTitle": "Dette mangler",
+      "submit": "Send inn søknaden",
+      "submitting": "Sender …",
+      "resubmit": "Send inn på nytt",
+      "yes": "Ja",
+      "no": "Nei",
+      "none": "Ikke oppgitt",
+      "documentsCount": "{count, plural, =0 {Ingen dokumenter} one {# dokument} other {# dokumenter}}",
+      "agreementAccepted": "Godtatt {date}",
+      "agreementMissing": "Ikke godtatt"
+    }
+  },
+  "Agreement": {
+    "title": "Leverandøravtale – {event}",
+    "parties": "Avtalen er mellom {vendor} (org.nr. {orgNumber}), heretter «leverandøren», og {organizer}, heretter «AFFN».",
+    "sellerTitle": "1. Leverandøren selger",
+    "seller": "Leverandøren er selger av varene og står ansvarlig overfor kundene. Kvitteringer viser leverandørens navn og organisasjonsnummer.",
+    "commissionTitle": "2. Provisjon",
+    "commission": "AFFN tar {terms} av hvert salg gjennom plattformen. Provisjonen og mva holdes tilbake av betalingsleverandøren når kunden betaler. AFFN betaler gebyret til betalingsleverandøren.",
+    "stallFeeTitle": "3. Standavgift",
+    "stallFee": "Standavgiften for {stall} er {fee}. Den faktureres når søknaden er godkjent, og standplassen bekreftes når avgiften er betalt.",
+    "settlementTitle": "4. Oppgjør",
+    "settlement": "Kundenes betaling holdes av en lisensiert betalingsleverandør. Etter festivalen gjør AFFN opp salget og ber betalingsleverandøren betale ut leverandørens andel. Leverandøren får en oversikt med alle salg, refusjoner og provisjon.",
+    "refundsTitle": "5. Refusjoner",
+    "refunds": "Refusjoner før oppgjøret trekkes fra leverandørens andel, og provisjonen tilbakeføres forholdsmessig. Krav etter utbetaling trekkes fra neste oppgjør eller faktureres.",
+    "rulesTitle": "6. Regler på festivalen",
+    "rules": "Leverandøren følger regelverket fra Mattilsynet og AFFNs praktiske informasjon om rigging, renhold og åpningstider."
+  },
+  "Application": {
+    "title": "Søknaden din",
+    "event": "{event}",
+    "statusLabel": "Status",
+    "status": {
+      "draft": "Utkast",
+      "submitted": "Sendt inn",
+      "under_review": "Under behandling",
+      "more_info_requested": "Trenger mer informasjon",
+      "approved": "Godkjent",
+      "rejected": "Avslått",
+      "waitlisted": "På venteliste",
+      "withdrawn": "Trukket"
+    },
+    "next": {
+      "draft": "Søknaden er ikke sendt inn ennå. Fullfør stegene og send den inn før fristen {deadline}.",
+      "draftNoDeadline": "Søknaden er ikke sendt inn ennå. Fullfør stegene og send den inn.",
+      "submitted": "Takk! Vi har mottatt søknaden {date}. AFFN går gjennom den og svarer på e-post.",
+      "under_review": "AFFN går gjennom søknaden nå. Du får svar på e-post, senest {decisions}.",
+      "under_reviewNoDate": "AFFN går gjennom søknaden nå. Du får svar på e-post.",
+      "more_info_requested": "AFFN trenger mer informasjon før søknaden kan behandles. Les meldingen, gjør endringene og send inn på nytt.",
+      "approved": "Gratulerer, du er med! Du får faktura for standavgiften, og standplassen bekreftes når den er betalt. Neste steg er å sette opp betaling og meny.",
+      "rejected": "Søknaden ble dessverre ikke godkjent denne gangen. Ta kontakt med AFFN hvis du har spørsmål.",
+      "waitlisted": "Du står på venteliste. Vi tar kontakt hvis det blir ledig plass.",
+      "withdrawn": "Søknaden er trukket."
+    },
+    "messageTitle": "Melding fra AFFN",
+    "messageDate": "Sendt {date}",
+    "continue": "Fortsett søknaden",
+    "edit": "Endre og send inn på nytt",
+    "view": "Se søknaden",
+    "start": "Start søknaden",
+    "noApplicationTitle": "Søk om stand på {event}",
+    "noApplicationText": "Du har ikke søkt om stand ennå. Søknaden tar rundt 15 minutter, og alt lagres underveis.",
+    "submittedAt": "Sendt inn {date}"
   }
 }
