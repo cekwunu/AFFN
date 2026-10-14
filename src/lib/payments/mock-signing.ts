@@ -26,9 +26,10 @@ export interface LinkPayload {
   exp: number;
 }
 
+/** Body and signature joined by "~": a "." in the path would make the proxy skip the page. */
 export function encodeLinkToken(payload: LinkPayload, secret: string): string {
   const body = encode(JSON.stringify(payload));
-  return `${body}.${sign(body, secret)}`;
+  return `${body}~${sign(body, secret)}`;
 }
 
 /** The link's payload when the token is authentic and not expired; otherwise null. */
@@ -37,7 +38,7 @@ export function decodeLinkToken(
   secret: string,
   now = Date.now(),
 ): LinkPayload | null {
-  const [body, signature] = token.split('.');
+  const [body, signature] = token.split('~');
   if (!body || !signature || !verify(body, signature, secret)) return null;
   try {
     const payload = JSON.parse(decode(body)) as LinkPayload;

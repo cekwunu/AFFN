@@ -17,9 +17,9 @@ describe('mock payment signing', () => {
     expect(decodeLinkToken(token, 'other-secret', Date.parse('2026-12-01'))).toBeNull();
     expect(decodeLinkToken(token, 'secret', Date.parse('2027-01-02'))).toBeNull();
 
-    const [body, signature] = token.split('.');
+    const [body, signature] = token.split('~');
     const forged = Buffer.from(JSON.stringify({ ...payload, amountOre: 1 })).toString('base64url');
-    expect(decodeLinkToken(`${forged}.${signature}`, 'secret', 0)).toBeNull();
+    expect(decodeLinkToken(`${forged}~${signature}`, 'secret', 0)).toBeNull();
     expect(decodeLinkToken(`${body}`, 'secret', 0)).toBeNull();
   });
 
