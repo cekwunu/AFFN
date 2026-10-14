@@ -13,14 +13,13 @@
     "en": "English"
   },
   "Theme": {
-    "label": "Fargetema",
-    "light": "Lyst",
-    "dark": "Mørkt",
-    "system": "Følg systemet"
+    "toDark": "Bytt til mørkt tema",
+    "toLight": "Bytt til lyst tema"
   },
   "Shell": {
     "menu": "Meny",
     "openMenu": "Åpne meny",
+    "closeMenu": "Lukk meny",
     "public": {
       "navLabel": "Hovedmeny",
       "home": "Forside",

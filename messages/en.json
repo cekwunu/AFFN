@@ -13,14 +13,13 @@
     "en": "English"
   },
   "Theme": {
-    "label": "Colour theme",
-    "light": "Light",
-    "dark": "Dark",
-    "system": "Match system"
+    "toDark": "Switch to dark theme",
+    "toLight": "Switch to light theme"
   },
   "Shell": {
     "menu": "Menu",
     "openMenu": "Open menu",
+    "closeMenu": "Close menu",
     "public": {
       "navLabel": "Main menu",
       "home": "Home",
