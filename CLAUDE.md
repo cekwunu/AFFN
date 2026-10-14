@@ -89,7 +89,8 @@ rate-limits, pull the image from `mirror.gcr.io/...` and `docker tag` it to the 
 
 Cloud: Supabase project `nwllhsbhdftrucgndjpc` ("Affn", eu-north-1 Stockholm), URL
 `https://nwllhsbhdftrucgndjpc.supabase.co`. All migrations up to `20261016100000_vendor_onboarding` are
-applied (no seed data). Apply each new migration there too, after CI is green. The Supabase connection
+applied (no seed data). Reference data (organization, AFFN 2027, categories, commission rule, stall types)
+is in `supabase/reference-data.sql`, applied once; no users or demo vendors. Apply each new migration there too, after CI is green. The Supabase connection
 here cannot approve destructive statements: write migrations without them where possible (e.g.
 `alter policy` instead of drop/create). pg_graphql is not installed on the cloud project.
 
