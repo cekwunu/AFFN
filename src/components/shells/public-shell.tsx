@@ -52,6 +52,12 @@ export function PublicShell({
             </ul>
           </nav>
           <div className="ml-auto flex items-center gap-2">
+            <Link
+              href="/sign-in"
+              className="hidden h-10 items-center rounded-md px-3 text-body-sm font-medium text-foreground hover:bg-accent sm:inline-flex"
+            >
+              {t('public.signIn')}
+            </Link>
             <LocaleSwitcher className="hidden sm:block" />
             <ThemeToggle />
             <MobileNav

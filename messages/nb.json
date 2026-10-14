@@ -24,7 +24,8 @@
       "navLabel": "Hovedmeny",
       "home": "Forside",
       "forVendors": "For leverandører",
-      "forSponsors": "For sponsorer"
+      "forSponsors": "For sponsorer",
+      "signIn": "Logg inn"
     },
     "footer": {
       "tagline": "Handel, leverandører og sponsorer for African Food Festival Norway.",
@@ -43,7 +44,10 @@
         "sponsor": "Sponsor",
         "admin": "Administrasjon",
         "platform": "Plattform"
-      }
+      },
+      "switchTo": "Bytt portal",
+      "signedInAs": "Logget inn som",
+      "team": "Team"
     },
     "storefront": {
       "viewCart": "Se handlekurv ({count, plural, one {# vare} other {# varer}})"
@@ -93,7 +97,11 @@
     "vendor": "Leverandør",
     "sponsor": "Sponsor",
     "admin": "Administrasjon",
-    "platform": "Plattform"
+    "platform": "Plattform",
+    "pendingVendorTitle": "Velkommen!",
+    "pendingVendorText": "Kontoen din er klar. Neste steg er å registrere virksomheten og søke om stand – det kommer her snart.",
+    "pendingSponsorTitle": "Velkommen!",
+    "pendingSponsorText": "Kontoen din er klar. Neste steg er å registrere bedriften og velge sponsorpakke – det kommer her snart."
   },
   "Design": {
     "metaTitle": "Designsystem",
@@ -317,6 +325,172 @@
         "Sterke filtre, overmettede farger eller blits.",
         "Bilder av personer uten samtykke."
       ]
+    }
+  },
+  "Auth": {
+    "common": {
+      "email": "E-post",
+      "password": "Passord",
+      "signOut": "Logg ut",
+      "back": "Tilbake",
+      "or": "eller",
+      "working": "Et øyeblikk …"
+    },
+    "signIn": {
+      "title": "Logg inn",
+      "intro": "Logg inn for å se søknader, salg og oppgjør.",
+      "submit": "Logg inn",
+      "forgot": "Glemt passordet?",
+      "noAccount": "Ny her?",
+      "signUpVendor": "Registrer deg som leverandør",
+      "signUpSponsor": "Registrer deg som sponsor",
+      "errors": {
+        "invalid": "Feil e-post eller passord.",
+        "rate_limited": "For mange forsøk. Vent litt før du prøver igjen.",
+        "email_not_confirmed": "Bekreft e-postadressen din først. Se etter e-posten fra oss.",
+        "link_invalid": "Lenken er ugyldig eller utløpt. Logg inn eller be om en ny.",
+        "unknown": "Noe gikk galt. Prøv igjen."
+      }
+    },
+    "signUp": {
+      "titleVendor": "Registrer deg som leverandør",
+      "titleSponsor": "Registrer deg som sponsor",
+      "titleInvite": "Opprett konto",
+      "introVendor": "Opprett konto for å søke om stand på African Food Festival Norway.",
+      "introSponsor": "Opprett konto for å bli sponsor på African Food Festival Norway.",
+      "introInvite": "Opprett konto med e-postadressen invitasjonen ble sendt til.",
+      "name": "Fullt navn",
+      "passwordHint": "Minst 12 tegn. En setning du husker fungerer godt.",
+      "terms": "Jeg godtar vilkårene og personvernerklæringen.",
+      "submit": "Opprett konto",
+      "haveAccount": "Har du allerede en konto?",
+      "signIn": "Logg inn",
+      "switchToSponsor": "Skal du heller registrere deg som sponsor?",
+      "switchToVendor": "Skal du heller registrere deg som leverandør?",
+      "errors": {
+        "weak_password": "Passordet er for svakt. Bruk minst 12 tegn.",
+        "invalid_email": "Skriv inn en gyldig e-postadresse.",
+        "terms_required": "Du må godta vilkårene for å fortsette.",
+        "rate_limited": "For mange registreringer fra denne enheten. Prøv igjen senere.",
+        "invalid": "Sjekk feltene og prøv igjen.",
+        "unknown": "Noe gikk galt. Prøv igjen."
+      }
+    },
+    "checkEmail": {
+      "title": "Sjekk e-posten din",
+      "signup": "Vi har sendt en lenke til e-postadressen din. Åpne den for å bekrefte kontoen.",
+      "reset": "Hvis det finnes en konto med denne adressen, har vi sendt en lenke for å velge nytt passord.",
+      "tip": "Finner du den ikke? Sjekk søppelposten.",
+      "back": "Til innlogging"
+    },
+    "forgot": {
+      "title": "Glemt passordet?",
+      "intro": "Skriv inn e-postadressen din, så sender vi en lenke for å velge nytt passord.",
+      "submit": "Send lenke",
+      "back": "Tilbake til innlogging",
+      "errors": {
+        "rate_limited": "For mange forespørsler. Prøv igjen om en stund.",
+        "invalid": "Skriv inn en gyldig e-postadresse.",
+        "unknown": "Noe gikk galt. Prøv igjen."
+      }
+    },
+    "reset": {
+      "title": "Velg nytt passord",
+      "intro": "Velg et nytt passord for kontoen din.",
+      "password": "Nytt passord",
+      "confirm": "Gjenta passordet",
+      "submit": "Lagre passord",
+      "errors": {
+        "weak_password": "Passordet er for svakt. Bruk minst 12 tegn.",
+        "mismatch": "Passordene er ikke like.",
+        "same_password": "Velg et annet passord enn det gamle.",
+        "session": "Lenken er utløpt. Be om en ny.",
+        "unknown": "Noe gikk galt. Prøv igjen."
+      }
+    },
+    "mfa": {
+      "enrolTitle": "Sett opp tofaktorinnlogging",
+      "enrolIntro": "Administratorer må bruke en autentiseringsapp. Skann koden med appen, og skriv inn den sekssifrede koden den viser.",
+      "qrAlt": "QR-kode for autentiseringsappen",
+      "manual": "Kan du ikke skanne? Skriv inn denne nøkkelen i appen:",
+      "challengeTitle": "Bekreft at det er deg",
+      "challengeIntro": "Skriv inn den sekssifrede koden fra autentiseringsappen.",
+      "code": "Kode fra appen",
+      "submit": "Bekreft",
+      "errors": {
+        "invalid_code": "Koden stemmer ikke. Prøv den neste koden appen viser.",
+        "unknown": "Noe gikk galt. Prøv igjen."
+      }
+    },
+    "portal": {
+      "noAccessTitle": "Ingen tilgang ennå",
+      "noAccessText": "Kontoen din har ikke fått en rolle ennå. Har du fått en invitasjon, åpne lenken i e-posten."
+    },
+    "selectRole": {
+      "title": "Velg portal",
+      "intro": "Du har flere roller. Hvor vil du gå?"
+    },
+    "forbidden": {
+      "title": "Ingen tilgang",
+      "text": "Du har ikke tilgang til denne delen av AFF Marketplace.",
+      "goToPortal": "Gå til din portal"
+    },
+    "invite": {
+      "title": "Invitasjon",
+      "intro": "{inviter} har invitert deg som arrangementsadministrator i {organization}.",
+      "introEvent": "{inviter} har invitert deg som arrangementsadministrator for {event} i {organization}.",
+      "someone": "En administrator",
+      "signInPrompt": "Logg inn eller opprett konto med {email} for å godta.",
+      "signIn": "Logg inn",
+      "createAccount": "Opprett konto",
+      "accept": "Godta invitasjonen",
+      "wrongAccount": "Du er logget inn som {current}, men invitasjonen gjelder {email}.",
+      "invalid": "Invitasjonen finnes ikke.",
+      "expired": "Invitasjonen er utløpt. Be om en ny.",
+      "used": "Invitasjonen er allerede brukt eller trukket tilbake."
+    }
+  },
+  "Email": {
+    "invitation": {
+      "subject": "Invitasjon til {organization}",
+      "title": "Du er invitert",
+      "intro": "{inviter} har invitert deg som arrangementsadministrator i {organization} på AFF Marketplace.",
+      "introEvent": "{inviter} har invitert deg som arrangementsadministrator for {event} i {organization} på AFF Marketplace.",
+      "cta": "Se invitasjonen",
+      "expiry": "Invitasjonen gjelder i 7 dager.",
+      "linkHint": "Virker ikke knappen? Lim inn denne lenken i nettleseren:",
+      "someone": "En administrator"
+    }
+  },
+  "Admin": {
+    "team": {
+      "title": "Team",
+      "intro": "Inviter arrangementsadministratorer og se hvem som har tilgang.",
+      "onlyOrgAdmin": "Bare organisasjonsadministratorer kan endre teamet.",
+      "inviteTitle": "Inviter arrangementsadministrator",
+      "event": "Arrangement",
+      "allEvents": "Ingen bestemt (tildeles senere)",
+      "language": "Språk i e-posten",
+      "submit": "Send invitasjon",
+      "sent": "Invitasjonen er sendt.",
+      "pendingTitle": "Ventende invitasjoner",
+      "noPending": "Ingen ventende invitasjoner.",
+      "membersTitle": "Medlemmer",
+      "expires": "Utløper {date}",
+      "revoke": "Fjern tilgang",
+      "revokeInvite": "Trekk tilbake",
+      "you": "deg",
+      "roles": {
+        "org_admin": "Organisasjonsadministrator",
+        "event_admin": "Arrangementsadministrator"
+      },
+      "errors": {
+        "invalid_email": "Skriv inn en gyldig e-postadresse.",
+        "duplicate": "Det finnes allerede en åpen invitasjon til denne adressen.",
+        "email_failed": "Invitasjonen er lagret, men e-posten kunne ikke sendes.",
+        "forbidden": "Du har ikke lov til å gjøre dette.",
+        "unknown": "Noe gikk galt. Prøv igjen."
+      }
     }
   }
 }

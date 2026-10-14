@@ -24,7 +24,8 @@
       "navLabel": "Main menu",
       "home": "Home",
       "forVendors": "For vendors",
-      "forSponsors": "For sponsors"
+      "forSponsors": "For sponsors",
+      "signIn": "Sign in"
     },
     "footer": {
       "tagline": "Commerce, vendors and sponsors for African Food Festival Norway.",
@@ -43,7 +44,10 @@
         "sponsor": "Sponsor",
         "admin": "Administration",
         "platform": "Platform"
-      }
+      },
+      "switchTo": "Switch portal",
+      "signedInAs": "Signed in as",
+      "team": "Team"
     },
     "storefront": {
       "viewCart": "View cart ({count, plural, one {# item} other {# items}})"
@@ -93,7 +97,11 @@
     "vendor": "Vendor",
     "sponsor": "Sponsor",
     "admin": "Administration",
-    "platform": "Platform"
+    "platform": "Platform",
+    "pendingVendorTitle": "Welcome!",
+    "pendingVendorText": "Your account is ready. Next you will register your business and apply for a stall – coming here soon.",
+    "pendingSponsorTitle": "Welcome!",
+    "pendingSponsorText": "Your account is ready. Next you will register your company and choose a sponsor package – coming here soon."
   },
   "Design": {
     "metaTitle": "Design system",
@@ -317,6 +325,172 @@
         "Heavy filters, oversaturated colour or flash.",
         "Photos of people without their consent."
       ]
+    }
+  },
+  "Auth": {
+    "common": {
+      "email": "Email",
+      "password": "Password",
+      "signOut": "Sign out",
+      "back": "Back",
+      "or": "or",
+      "working": "One moment …"
+    },
+    "signIn": {
+      "title": "Sign in",
+      "intro": "Sign in to see applications, sales and settlements.",
+      "submit": "Sign in",
+      "forgot": "Forgot your password?",
+      "noAccount": "New here?",
+      "signUpVendor": "Sign up as a vendor",
+      "signUpSponsor": "Sign up as a sponsor",
+      "errors": {
+        "invalid": "Wrong email or password.",
+        "rate_limited": "Too many attempts. Please wait a little before trying again.",
+        "email_not_confirmed": "Please confirm your email first. Look for our email.",
+        "link_invalid": "The link is invalid or has expired. Sign in or ask for a new one.",
+        "unknown": "Something went wrong. Please try again."
+      }
+    },
+    "signUp": {
+      "titleVendor": "Sign up as a vendor",
+      "titleSponsor": "Sign up as a sponsor",
+      "titleInvite": "Create your account",
+      "introVendor": "Create an account to apply for a stall at African Food Festival Norway.",
+      "introSponsor": "Create an account to become a sponsor of African Food Festival Norway.",
+      "introInvite": "Create an account with the email address the invitation was sent to.",
+      "name": "Full name",
+      "passwordHint": "At least 12 characters. A sentence you remember works well.",
+      "terms": "I accept the terms and the privacy policy.",
+      "submit": "Create account",
+      "haveAccount": "Already have an account?",
+      "signIn": "Sign in",
+      "switchToSponsor": "Signing up as a sponsor instead?",
+      "switchToVendor": "Signing up as a vendor instead?",
+      "errors": {
+        "weak_password": "The password is too weak. Use at least 12 characters.",
+        "invalid_email": "Enter a valid email address.",
+        "terms_required": "You need to accept the terms to continue.",
+        "rate_limited": "Too many sign-ups from this device. Please try again later.",
+        "invalid": "Check the fields and try again.",
+        "unknown": "Something went wrong. Please try again."
+      }
+    },
+    "checkEmail": {
+      "title": "Check your email",
+      "signup": "We have sent a link to your email address. Open it to confirm your account.",
+      "reset": "If an account exists for this address, we have sent a link to choose a new password.",
+      "tip": "Can't find it? Check your spam folder.",
+      "back": "Back to sign in"
+    },
+    "forgot": {
+      "title": "Forgot your password?",
+      "intro": "Enter your email address and we will send you a link to choose a new password.",
+      "submit": "Send link",
+      "back": "Back to sign in",
+      "errors": {
+        "rate_limited": "Too many requests. Please try again later.",
+        "invalid": "Enter a valid email address.",
+        "unknown": "Something went wrong. Please try again."
+      }
+    },
+    "reset": {
+      "title": "Choose a new password",
+      "intro": "Choose a new password for your account.",
+      "password": "New password",
+      "confirm": "Repeat the password",
+      "submit": "Save password",
+      "errors": {
+        "weak_password": "The password is too weak. Use at least 12 characters.",
+        "mismatch": "The passwords do not match.",
+        "same_password": "Choose a password different from the old one.",
+        "session": "The link has expired. Ask for a new one.",
+        "unknown": "Something went wrong. Please try again."
+      }
+    },
+    "mfa": {
+      "enrolTitle": "Set up two-factor sign-in",
+      "enrolIntro": "Administrators must use an authenticator app. Scan the code with the app and enter the six-digit code it shows.",
+      "qrAlt": "QR code for the authenticator app",
+      "manual": "Can't scan? Enter this key in the app:",
+      "challengeTitle": "Confirm it's you",
+      "challengeIntro": "Enter the six-digit code from your authenticator app.",
+      "code": "Code from the app",
+      "submit": "Confirm",
+      "errors": {
+        "invalid_code": "That code is not right. Try the next code the app shows.",
+        "unknown": "Something went wrong. Please try again."
+      }
+    },
+    "portal": {
+      "noAccessTitle": "No access yet",
+      "noAccessText": "Your account has not been given a role yet. If you received an invitation, open the link in the email."
+    },
+    "selectRole": {
+      "title": "Choose a portal",
+      "intro": "You have more than one role. Where would you like to go?"
+    },
+    "forbidden": {
+      "title": "No access",
+      "text": "You do not have access to this part of AFF Marketplace.",
+      "goToPortal": "Go to your portal"
+    },
+    "invite": {
+      "title": "Invitation",
+      "intro": "{inviter} has invited you to be an event administrator at {organization}.",
+      "introEvent": "{inviter} has invited you to be an event administrator for {event} at {organization}.",
+      "someone": "An administrator",
+      "signInPrompt": "Sign in or create an account with {email} to accept.",
+      "signIn": "Sign in",
+      "createAccount": "Create account",
+      "accept": "Accept the invitation",
+      "wrongAccount": "You are signed in as {current}, but the invitation is for {email}.",
+      "invalid": "This invitation does not exist.",
+      "expired": "This invitation has expired. Ask for a new one.",
+      "used": "This invitation has already been used or was withdrawn."
+    }
+  },
+  "Email": {
+    "invitation": {
+      "subject": "Invitation to {organization}",
+      "title": "You're invited",
+      "intro": "{inviter} has invited you to be an event administrator at {organization} on AFF Marketplace.",
+      "introEvent": "{inviter} has invited you to be an event administrator for {event} at {organization} on AFF Marketplace.",
+      "cta": "View the invitation",
+      "expiry": "The invitation is valid for 7 days.",
+      "linkHint": "Button not working? Paste this link into your browser:",
+      "someone": "An administrator"
+    }
+  },
+  "Admin": {
+    "team": {
+      "title": "Team",
+      "intro": "Invite event administrators and see who has access.",
+      "onlyOrgAdmin": "Only organization administrators can change the team.",
+      "inviteTitle": "Invite an event administrator",
+      "event": "Event",
+      "allEvents": "None yet (assign later)",
+      "language": "Email language",
+      "submit": "Send invitation",
+      "sent": "The invitation has been sent.",
+      "pendingTitle": "Pending invitations",
+      "noPending": "No pending invitations.",
+      "membersTitle": "Members",
+      "expires": "Expires {date}",
+      "revoke": "Remove access",
+      "revokeInvite": "Withdraw",
+      "you": "you",
+      "roles": {
+        "org_admin": "Organization administrator",
+        "event_admin": "Event administrator"
+      },
+      "errors": {
+        "invalid_email": "Enter a valid email address.",
+        "duplicate": "There is already an open invitation for this address.",
+        "email_failed": "The invitation was saved, but the email could not be sent.",
+        "forbidden": "You are not allowed to do this.",
+        "unknown": "Something went wrong. Please try again."
+      }
     }
   }
 }
