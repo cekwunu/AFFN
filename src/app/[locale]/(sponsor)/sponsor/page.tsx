@@ -1,9 +1,10 @@
-import { initRequestLocale } from '@/i18n/server';
-import { use } from 'react';
 import { AreaPlaceholder } from '@/components/area-placeholder';
+import { initRequestLocale } from '@/i18n/server';
+import { getCurrentUser } from '@/lib/auth/server';
 
-export default function SponsorHomePage({ params }: PageProps<'/[locale]/sponsor'>) {
-  const { locale } = use(params);
-  initRequestLocale(locale);
-  return <AreaPlaceholder area="sponsor" />;
+export default async function SponsorHomePage({ params }: PageProps<'/[locale]/sponsor'>) {
+  initRequestLocale((await params).locale);
+  const user = await getCurrentUser();
+  const active = user?.access.roles.some((r) => r.role === 'sponsor' && r.status === 'active');
+  return <AreaPlaceholder area="sponsor" pending={!active} />;
 }
