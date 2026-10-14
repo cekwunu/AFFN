@@ -56,3 +56,53 @@ export function invitationEmail(input: {
   const text = `${t('title')}\n\n${intro}\n\n${t('cta')}: ${input.link}\n\n${t('expiry')}`;
   return { to: input.to, subject, html, text };
 }
+
+export type DecisionEmailKind = 'approved' | 'rejected' | 'waitlisted' | 'more_info_requested';
+
+/**
+ * Tells the vendor about a review decision (REV-02). Rejections and information requests carry
+ * the reviewer's note; approvals and waitlisting do not (their notes stay in the review log).
+ */
+export function decisionEmail(input: {
+  to: string;
+  locale: Locale;
+  decision: DecisionEmailKind;
+  vendorName: string;
+  eventName: string;
+  note?: string | null;
+  link: string;
+}): EmailMessage {
+  const t = createTranslator({
+    locale: input.locale,
+    messages: MESSAGES[input.locale],
+    namespace: 'Email.decision',
+  });
+  const values = { vendor: input.vendorName, event: input.eventName };
+  const withNote = input.decision === 'rejected' || input.decision === 'more_info_requested';
+  const note = withNote && input.note?.trim() ? input.note.trim() : null;
+  const subject = t(`${input.decision}.subject`, values);
+  const title = t(`${input.decision}.title`, values);
+  const body = t(`${input.decision}.body`, values);
+  const html = layout(
+    input.locale,
+    `<h1 style="margin:0 0 12px;font-size:22px;">${escapeHtml(title)}</h1>
+<p style="margin:0;">${escapeHtml(body)}</p>
+${
+  note
+    ? `<div style="margin:20px 0 0;padding:16px;border-left:3px solid ${C.primary};background:${C.canvas};">
+<p style="margin:0 0 6px;font-weight:600;">${escapeHtml(t('noteTitle'))}</p>
+<p style="margin:0;white-space:pre-line;">${escapeHtml(note)}</p></div>`
+    : ''
+}
+<p style="margin:24px 0 0;"><a href="${escapeHtml(input.link)}" style="display:inline-block;background:${C.primary};color:${C.onPrimary};text-decoration:none;font-weight:600;padding:12px 20px;border-radius:8px;">${escapeHtml(t('cta'))}</a></p>`,
+  );
+  const text = [
+    title,
+    '',
+    body,
+    ...(note ? ['', t('noteTitle'), note] : []),
+    '',
+    `${t('cta')}: ${input.link}`,
+  ].join('\n');
+  return { to: input.to, subject, html, text };
+}

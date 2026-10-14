@@ -48,7 +48,10 @@
       "switchTo": "Bytt portal",
       "signedInAs": "Logget inn som",
       "team": "Team",
-      "application": "Søknad"
+      "application": "Søknad",
+      "applications": "Søknader",
+      "stalls": "Stander",
+      "stall": "Stand"
     },
     "storefront": {
       "viewCart": "Se handlekurv ({count, plural, one {# vare} other {# varer}})"
@@ -461,6 +464,30 @@
       "expiry": "Invitasjonen gjelder i 7 dager.",
       "linkHint": "Virker ikke knappen? Lim inn denne lenken i nettleseren:",
       "someone": "En administrator"
+    },
+    "decision": {
+      "approved": {
+        "subject": "Søknaden din til {event} er godkjent",
+        "title": "Gratulerer, du er med!",
+        "body": "Søknaden fra {vendor} til {event} er godkjent. Du får nå faktura for standavgiften. Standplassen bekreftes når den er betalt."
+      },
+      "rejected": {
+        "subject": "Svar på søknaden din til {event}",
+        "title": "Søknaden ble ikke godkjent",
+        "body": "Søknaden fra {vendor} til {event} ble dessverre ikke godkjent denne gangen."
+      },
+      "waitlisted": {
+        "subject": "Du står på venteliste til {event}",
+        "title": "Du står på venteliste",
+        "body": "Søknaden fra {vendor} til {event} er satt på venteliste. Vi tar kontakt hvis det blir ledig plass."
+      },
+      "more_info_requested": {
+        "subject": "Vi trenger mer informasjon – {event}",
+        "title": "Vi trenger mer informasjon",
+        "body": "For å behandle søknaden fra {vendor} til {event} trenger vi litt mer fra deg. Endre søknaden og send den inn på nytt."
+      },
+      "noteTitle": "Melding fra AFFN:",
+      "cta": "Se søknaden"
     }
   },
   "Admin": {
@@ -791,5 +818,143 @@
     "noApplicationTitle": "Søk om stand på {event}",
     "noApplicationText": "Du har ikke søkt om stand ennå. Søknaden tar rundt 15 minutter, og alt lagres underveis.",
     "submittedAt": "Sendt inn {date}"
+  },
+  "Review": {
+    "queue": {
+      "title": "Søknader",
+      "event": "{event}",
+      "search": "Søk",
+      "searchPlaceholder": "Navn, org.nr. eller kontaktperson",
+      "status": "Status",
+      "allStatuses": "Alle statuser",
+      "category": "Kategori",
+      "allCategories": "Alle kategorier",
+      "documents": "Dokumenter",
+      "allDocuments": "Alle",
+      "documentsComplete": "Komplette",
+      "documentsMissing": "Mangler",
+      "submittedFrom": "Sendt inn fra",
+      "submittedTo": "Sendt inn til",
+      "filter": "Filtrer",
+      "reset": "Nullstill",
+      "countsLabel": "Antall per status",
+      "all": "Alle",
+      "caption": "Søknader til {event}",
+      "empty": "Ingen søknader passer filtrene.",
+      "columns": {
+        "vendor": "Leverandør",
+        "category": "Kategori",
+        "status": "Status",
+        "submitted": "Sendt inn",
+        "documents": "Dokumenter",
+        "stall": "Standtype"
+      },
+      "docsOk": "Komplette",
+      "docsMissing": "Mangler",
+      "notSubmitted": "Ikke sendt inn",
+      "open": "Åpne søknaden fra {name}"
+    },
+    "detail": {
+      "back": "Tilbake til søknadene",
+      "orgNumber": "Org.nr. {number}",
+      "business": "Virksomhet",
+      "registry": "Brønnøysundregistrene",
+      "registryVerified": "Kontrollert {date}",
+      "registryStatus": "Status i registeret",
+      "active": "Aktiv",
+      "legalName": "Registrert navn",
+      "form": "Organisasjonsform",
+      "address": "Adresse",
+      "contact": "Kontaktperson",
+      "profile": "Profil",
+      "displayName": "Navn på boden",
+      "category": "Kategori",
+      "cuisine": "Opprinnelsesland",
+      "description": "Beskrivelse",
+      "links": "Lenker",
+      "stall": "Stand",
+      "stallType": "Standtype",
+      "power": "Strøm",
+      "water": "Vann",
+      "zone": "Ønsket område",
+      "yes": "Ja",
+      "no": "Nei",
+      "none": "Ikke oppgitt",
+      "agreement": "Avtale",
+      "agreementAccepted": "Godtatt {date} av {email} (versjon {version})",
+      "agreementMissing": "Ikke godtatt",
+      "commissionTerms": "Provisjon",
+      "stallFeeTerms": "Standavgift",
+      "settlementTerms": "Oppgjør",
+      "documents": "Dokumenter",
+      "noDocuments": "Ingen dokumenter er lastet opp.",
+      "preview": "Forhåndsvisning",
+      "openNewTab": "Åpne i ny fane",
+      "previewOf": "Forhåndsvisning av {name}",
+      "expires": "Gyldig til {date}",
+      "noExpiry": "Utløper ikke",
+      "expired": "Utløpt",
+      "expiresBeforeEvent": "Utløper før festivalen er over",
+      "mattilsynetMissing": "Mattilsynet-registrering mangler.",
+      "history": "Historikk",
+      "historySubmitted": "Sendt inn",
+      "historyAgreement": "Avtalen godtatt",
+      "historyReview": "{from} → {to}",
+      "by": "av {name}",
+      "stallFee": "Standavgift",
+      "invoice": "Faktura {number}: {total} ({status})",
+      "feeStatus": {
+        "open": "åpen",
+        "invoiced": "fakturert",
+        "paid": "betalt",
+        "cancelled": "kansellert"
+      },
+      "email": "E-post",
+      "phone": "Telefon"
+    },
+    "actions": {
+      "title": "Behandling",
+      "note": "Notat",
+      "noteHint": "Påkrevd. Ved avslag og forespørsel om mer informasjon sendes notatet til leverandøren.",
+      "startReview": "Start behandling",
+      "approve": "Godkjenn",
+      "reject": "Avslå",
+      "waitlist": "Sett på venteliste",
+      "moreInfo": "Be om mer informasjon",
+      "working": "Lagrer …",
+      "choose": "Velg handling",
+      "decision": "Handling",
+      "commission": "Provisjon",
+      "commissionDefault": "Standard: {terms}",
+      "overrideRate": "Egen provisjonssats (%)",
+      "overrideRateHint": "La stå tom for standard. Kun organisasjonsadministrator.",
+      "overrideReason": "Begrunnelse for egen sats",
+      "done": {
+        "under_review": "Søknaden er under behandling.",
+        "approved": "Søknaden er godkjent. Faktura for standavgiften er laget.",
+        "rejected": "Søknaden er avslått, og leverandøren har fått e-post.",
+        "waitlisted": "Leverandøren er satt på venteliste.",
+        "more_info_requested": "Leverandøren har fått beskjed om å sende mer informasjon."
+      },
+      "final": "Søknaden har status «{status}». Ingen flere handlinger er tilgjengelige."
+    },
+    "notes": {
+      "title": "Interne notater",
+      "hint": "Bare synlig for administratorer.",
+      "empty": "Ingen notater ennå.",
+      "add": "Legg til notat",
+      "label": "Nytt notat",
+      "working": "Lagrer …"
+    },
+    "errors": {
+      "required": "Skriv et notat.",
+      "rate": "Skriv en sats mellom 0 og 100 %.",
+      "reason": "Skriv en begrunnelse for egen sats.",
+      "forbidden": "Du har ikke tilgang til denne handlingen.",
+      "invalid": "Handlingen er ikke mulig for denne søknaden nå.",
+      "stall": "Søknaden mangler standtype.",
+      "agreement": "Leverandøren har ikke godtatt avtalen.",
+      "unknown": "Noe gikk galt. Prøv igjen."
+    }
   }
 }

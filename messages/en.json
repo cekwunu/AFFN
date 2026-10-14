@@ -48,7 +48,10 @@
       "switchTo": "Switch portal",
       "signedInAs": "Signed in as",
       "team": "Team",
-      "application": "Application"
+      "application": "Application",
+      "applications": "Applications",
+      "stalls": "Stalls",
+      "stall": "Stall"
     },
     "storefront": {
       "viewCart": "View cart ({count, plural, one {# item} other {# items}})"
@@ -461,6 +464,30 @@
       "expiry": "The invitation is valid for 7 days.",
       "linkHint": "Button not working? Paste this link into your browser:",
       "someone": "An administrator"
+    },
+    "decision": {
+      "approved": {
+        "subject": "Your application to {event} is approved",
+        "title": "Congratulations, you are in!",
+        "body": "The application from {vendor} to {event} is approved. You will now get an invoice for the stall fee. Your stall is confirmed once it is paid."
+      },
+      "rejected": {
+        "subject": "About your application to {event}",
+        "title": "The application was not approved",
+        "body": "Unfortunately the application from {vendor} to {event} was not approved this time."
+      },
+      "waitlisted": {
+        "subject": "You are on the waiting list for {event}",
+        "title": "You are on the waiting list",
+        "body": "The application from {vendor} to {event} is on the waiting list. We will contact you if a place becomes available."
+      },
+      "more_info_requested": {
+        "subject": "We need more information – {event}",
+        "title": "We need more information",
+        "body": "To review the application from {vendor} to {event} we need a little more from you. Change the application and submit it again."
+      },
+      "noteTitle": "Message from AFFN:",
+      "cta": "View the application"
     }
   },
   "Admin": {
@@ -791,5 +818,143 @@
     "noApplicationTitle": "Apply for a stall at {event}",
     "noApplicationText": "You have not applied for a stall yet. The application takes about 15 minutes, and everything is saved as you go.",
     "submittedAt": "Submitted on {date}"
+  },
+  "Review": {
+    "queue": {
+      "title": "Applications",
+      "event": "{event}",
+      "search": "Search",
+      "searchPlaceholder": "Name, org. no. or contact person",
+      "status": "Status",
+      "allStatuses": "All statuses",
+      "category": "Category",
+      "allCategories": "All categories",
+      "documents": "Documents",
+      "allDocuments": "All",
+      "documentsComplete": "Complete",
+      "documentsMissing": "Missing",
+      "submittedFrom": "Submitted from",
+      "submittedTo": "Submitted to",
+      "filter": "Filter",
+      "reset": "Reset",
+      "countsLabel": "Count per status",
+      "all": "All",
+      "caption": "Applications for {event}",
+      "empty": "No applications match the filters.",
+      "columns": {
+        "vendor": "Vendor",
+        "category": "Category",
+        "status": "Status",
+        "submitted": "Submitted",
+        "documents": "Documents",
+        "stall": "Stall type"
+      },
+      "docsOk": "Complete",
+      "docsMissing": "Missing",
+      "notSubmitted": "Not submitted",
+      "open": "Open the application from {name}"
+    },
+    "detail": {
+      "back": "Back to applications",
+      "orgNumber": "Org. no. {number}",
+      "business": "Business",
+      "registry": "Brønnøysundregistrene",
+      "registryVerified": "Checked on {date}",
+      "registryStatus": "Status in the register",
+      "active": "Active",
+      "legalName": "Registered name",
+      "form": "Organisation form",
+      "address": "Address",
+      "contact": "Contact person",
+      "profile": "Profile",
+      "displayName": "Stall name",
+      "category": "Category",
+      "cuisine": "Cuisine country",
+      "description": "Description",
+      "links": "Links",
+      "stall": "Stall",
+      "stallType": "Stall type",
+      "power": "Power",
+      "water": "Water",
+      "zone": "Preferred area",
+      "yes": "Yes",
+      "no": "No",
+      "none": "Not given",
+      "agreement": "Agreement",
+      "agreementAccepted": "Accepted on {date} by {email} (version {version})",
+      "agreementMissing": "Not accepted",
+      "commissionTerms": "Commission",
+      "stallFeeTerms": "Stall fee",
+      "settlementTerms": "Settlement",
+      "documents": "Documents",
+      "noDocuments": "No documents uploaded.",
+      "preview": "Preview",
+      "openNewTab": "Open in a new tab",
+      "previewOf": "Preview of {name}",
+      "expires": "Valid until {date}",
+      "noExpiry": "Does not expire",
+      "expired": "Expired",
+      "expiresBeforeEvent": "Expires before the festival ends",
+      "mattilsynetMissing": "Mattilsynet registration is missing.",
+      "history": "History",
+      "historySubmitted": "Submitted",
+      "historyAgreement": "Agreement accepted",
+      "historyReview": "{from} → {to}",
+      "by": "by {name}",
+      "stallFee": "Stall fee",
+      "invoice": "Invoice {number}: {total} ({status})",
+      "feeStatus": {
+        "open": "open",
+        "invoiced": "invoiced",
+        "paid": "paid",
+        "cancelled": "cancelled"
+      },
+      "email": "Email",
+      "phone": "Phone"
+    },
+    "actions": {
+      "title": "Review",
+      "note": "Note",
+      "noteHint": "Required. For rejections and information requests the note is sent to the vendor.",
+      "startReview": "Start review",
+      "approve": "Approve",
+      "reject": "Reject",
+      "waitlist": "Waitlist",
+      "moreInfo": "Request more information",
+      "working": "Saving …",
+      "choose": "Choose an action",
+      "decision": "Action",
+      "commission": "Commission",
+      "commissionDefault": "Default: {terms}",
+      "overrideRate": "Custom commission rate (%)",
+      "overrideRateHint": "Leave empty for the default. Organization Admins only.",
+      "overrideReason": "Reason for the custom rate",
+      "done": {
+        "under_review": "The application is under review.",
+        "approved": "The application is approved. The stall fee invoice has been created.",
+        "rejected": "The application is rejected and the vendor has been emailed.",
+        "waitlisted": "The vendor is on the waiting list.",
+        "more_info_requested": "The vendor has been asked for more information."
+      },
+      "final": "The application is “{status}”. No further actions are available."
+    },
+    "notes": {
+      "title": "Internal notes",
+      "hint": "Only visible to admins.",
+      "empty": "No notes yet.",
+      "add": "Add note",
+      "label": "New note",
+      "working": "Saving …"
+    },
+    "errors": {
+      "required": "Write a note.",
+      "rate": "Enter a rate between 0 and 100 %.",
+      "reason": "Give a reason for the custom rate.",
+      "forbidden": "You do not have access to this action.",
+      "invalid": "This action is not possible for the application right now.",
+      "stall": "The application has no stall type.",
+      "agreement": "The vendor has not accepted the agreement.",
+      "unknown": "Something went wrong. Please try again."
+    }
   }
 }

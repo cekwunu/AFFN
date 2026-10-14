@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { parseTokens } from '@/lib/design/tokens';
-import { invitationEmail } from './templates';
+import { decisionEmail, invitationEmail } from './templates';
 import { EMAIL_COLOUR_TOKENS, EMAIL_COLOURS } from './theme';
 
 const tokens = parseTokens(
@@ -42,5 +42,34 @@ describe('invitationEmail', () => {
     const email = invitationEmail({ ...base, locale: 'en', organizationName: '<b>Evil & Co</b>' });
     expect(email.html).not.toContain('<b>Evil');
     expect(email.html).toContain('&lt;b&gt;Evil &amp; Co&lt;/b&gt;');
+  });
+});
+
+describe('decisionEmail', () => {
+  const base = {
+    to: 'ada@example.no',
+    vendorName: 'Mama <Afrika>',
+    eventName: 'AFFN 2027',
+    note: 'Legg ved menyen.',
+    link: 'https://affn.example/vendor/application',
+  };
+
+  it('sends the note with rejections and information requests, escaped', () => {
+    const mail = decisionEmail({ ...base, locale: 'nb', decision: 'more_info_requested' });
+    expect(mail.subject).toBe('Vi trenger mer informasjon – AFFN 2027');
+    expect(mail.text).toContain('Melding fra AFFN:\nLegg ved menyen.');
+    expect(mail.html).toContain('Mama &lt;Afrika&gt;');
+    expect(decisionEmail({ ...base, locale: 'en', decision: 'rejected' }).text).toContain(
+      'Message from AFFN:',
+    );
+  });
+
+  it('keeps the note out of approvals and waitlisting', () => {
+    const mail = decisionEmail({ ...base, locale: 'en', decision: 'approved' });
+    expect(mail.subject).toBe('Your application to AFFN 2027 is approved');
+    expect(mail.text).not.toContain('Legg ved menyen');
+    expect(decisionEmail({ ...base, locale: 'nb', decision: 'waitlisted' }).html).not.toContain(
+      'Legg ved menyen',
+    );
   });
 });
