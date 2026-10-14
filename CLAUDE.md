@@ -68,10 +68,14 @@ Package manager: pnpm (Node 22, see .nvmrc). Copy `.env.example` to `.env.local`
 | `pnpm typecheck` | Generate Next route types, then `tsc --noEmit` |
 | `pnpm test` / `pnpm test:watch` | Vitest unit tests (`src/**/*.test.ts`) |
 | `pnpm test:e2e` | Playwright tests in `e2e/` (starts the dev server; `PORT` to change port) |
+| `pnpm check:budget` | After `pnpm build`: fails if a public page ships > 150 kB gzipped JS (NFR-01) |
 | `pnpm db:start` / `pnpm db:stop` | Local Supabase in Docker; `db:start` prints URL and keys |
 | `pnpm db:reset` | Recreate local DB from `supabase/migrations` + `supabase/seed.sql` |
 | `pnpm db:types` | Regenerate `src/lib/supabase/database.types.ts` from the local DB |
 | `pnpm exec supabase migration new <name>` | New SQL migration file |
 
-CI (`.github/workflows/ci.yml`) runs lint, format:check, typecheck and test on every push, plus a
-Playwright job (`test:e2e`, incl. axe WCAG 2.1 AA checks on `/design` and the shells).
+CI (`.github/workflows/ci.yml`) runs lint, format:check, typecheck, test, build and check:budget on
+every push, plus a Playwright job (`test:e2e`, incl. axe WCAG 2.1 AA checks on `/design` and the shells).
+
+Public pages stay light: their client islands get translated strings as props and use
+`@/i18n/link` and `clsx` — no `useTranslations`, `cn` or Radix overlays in public client code.

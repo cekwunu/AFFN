@@ -10,7 +10,7 @@ concurrency:
 
 jobs:
   check:
-    name: Lint, typecheck, unit tests
+    name: Lint, typecheck, unit tests, JS budget
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,6 +24,8 @@ jobs:
       - run: pnpm format:check
       - run: pnpm typecheck
       - run: pnpm test
+      - run: pnpm build
+      - run: pnpm check:budget
 
   e2e:
     name: End-to-end and accessibility (Playwright + axe)

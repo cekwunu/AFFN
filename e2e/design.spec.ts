@@ -105,11 +105,18 @@ test('data table sorts with aria-sort and filters by status', async ({ page }) =
   await expect(table.getByRole('row').nth(1)).toContainText('Kampala Rolex');
 });
 
-test('theme toggle switches to dark', async ({ page }) => {
-  await page.goto('/en/design');
-  await page.getByRole('button', { name: 'Colour theme' }).first().click();
-  await page.getByRole('menuitemradio', { name: 'Dark' }).click();
-  await expect(page.locator('html')).toHaveClass(/dark/);
+test.describe('theme toggle', () => {
+  test.use({ colorScheme: 'light' });
+
+  test('switches to dark and back, and remembers the choice', async ({ page }) => {
+    await page.goto('/en/design');
+    await page.getByRole('button', { name: 'Switch to dark theme' }).first().click();
+    await expect(page.locator('html')).toHaveClass(/dark/);
+    await page.reload();
+    await expect(page.locator('html')).toHaveClass(/dark/);
+    await page.getByRole('button', { name: 'Switch to light theme' }).first().click();
+    await expect(page.locator('html')).not.toHaveClass(/dark/);
+  });
 });
 
 for (const scheme of ['light', 'dark'] as const) {
@@ -120,9 +127,22 @@ for (const scheme of ['light', 'dark'] as const) {
       test(`${path} has no WCAG 2.1 AA violations`, async ({ page }) => {
         await page.goto(path);
         await expectNoAxeViolations(page);
-        await page.getByRole('button', { name: /Åpne meny|Open menu/ }).click();
-        await expect(page.getByRole('dialog')).toBeVisible();
-        await expectNoAxeViolations(page, '[role="dialog"]');
+
+        const menuButton = page.getByRole('button', { name: /Åpne meny|Open menu/ });
+        await expect(menuButton).toHaveAttribute('aria-expanded', 'false');
+        const panel = page.locator(`[id="${await menuButton.getAttribute('aria-controls')}"]`);
+        await menuButton.click();
+        await expect(panel).toBeVisible();
+        await expect(page.getByRole('button', { name: /Lukk meny|Close menu/ })).toHaveAttribute(
+          'aria-expanded',
+          'true',
+        );
+        await expectNoAxeViolations(page);
+
+        // Escape closes the menu and returns focus to the button.
+        await page.keyboard.press('Escape');
+        await expect(panel).toBeHidden();
+        await expect(page.getByRole('button', { name: /Åpne meny|Open menu/ })).toBeFocused();
       });
     }
   });
