@@ -123,14 +123,14 @@ isOneToOne: false
                   ]
                 },"event_vendors": {
                   Row: {
-                    "application_notes": string | null,"created_at": string,"decided_at": string | null,"event_id": string,"id": string,"is_paused": boolean,"is_published": boolean,"needs_power": boolean,"needs_water": boolean,"organization_id": string,"psp_account_id": string | null,"psp_account_status": Database["public"]['Enums']["psp_account_status"],"qr_slug": string,"requested_stall_size": string | null,"status": Database["public"]['Enums']["application_status"],"submitted_at": string | null,"updated_at": string,"vendor_id": string
+                    "application_notes": string | null,"application_progress": NonNullable<Json>,"created_at": string,"decided_at": string | null,"event_id": string,"id": string,"is_paused": boolean,"is_published": boolean,"needs_power": boolean,"needs_water": boolean,"organization_id": string,"preferred_zone": string | null,"psp_account_id": string | null,"psp_account_status": Database["public"]['Enums']["psp_account_status"],"qr_slug": string,"requested_stall_size": string | null,"stall_type_id": string | null,"status": Database["public"]['Enums']["application_status"],"submitted_at": string | null,"updated_at": string,"vendor_id": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "application_notes"?: string | null,"created_at"?: string,"decided_at"?: string | null,"event_id": string,"id"?: string,"is_paused"?: boolean,"is_published"?: boolean,"needs_power"?: boolean,"needs_water"?: boolean,"organization_id": string,"psp_account_id"?: string | null,"psp_account_status"?: Database["public"]['Enums']["psp_account_status"],"qr_slug"?: string,"requested_stall_size"?: string | null,"status"?: Database["public"]['Enums']["application_status"],"submitted_at"?: string | null,"updated_at"?: string,"vendor_id": string
+                    "application_notes"?: string | null,"application_progress"?: NonNullable<Json>,"created_at"?: string,"decided_at"?: string | null,"event_id": string,"id"?: string,"is_paused"?: boolean,"is_published"?: boolean,"needs_power"?: boolean,"needs_water"?: boolean,"organization_id": string,"preferred_zone"?: string | null,"psp_account_id"?: string | null,"psp_account_status"?: Database["public"]['Enums']["psp_account_status"],"qr_slug"?: string,"requested_stall_size"?: string | null,"stall_type_id"?: string | null,"status"?: Database["public"]['Enums']["application_status"],"submitted_at"?: string | null,"updated_at"?: string,"vendor_id": string
                   }
                   Update: {
-                    "application_notes"?: string | null,"created_at"?: string,"decided_at"?: string | null,"event_id"?: string,"id"?: string,"is_paused"?: boolean,"is_published"?: boolean,"needs_power"?: boolean,"needs_water"?: boolean,"organization_id"?: string,"psp_account_id"?: string | null,"psp_account_status"?: Database["public"]['Enums']["psp_account_status"],"qr_slug"?: string,"requested_stall_size"?: string | null,"status"?: Database["public"]['Enums']["application_status"],"submitted_at"?: string | null,"updated_at"?: string,"vendor_id"?: string
+                    "application_notes"?: string | null,"application_progress"?: NonNullable<Json>,"created_at"?: string,"decided_at"?: string | null,"event_id"?: string,"id"?: string,"is_paused"?: boolean,"is_published"?: boolean,"needs_power"?: boolean,"needs_water"?: boolean,"organization_id"?: string,"preferred_zone"?: string | null,"psp_account_id"?: string | null,"psp_account_status"?: Database["public"]['Enums']["psp_account_status"],"qr_slug"?: string,"requested_stall_size"?: string | null,"stall_type_id"?: string | null,"status"?: Database["public"]['Enums']["application_status"],"submitted_at"?: string | null,"updated_at"?: string,"vendor_id"?: string
                   }
                   Relationships: [
                     {
@@ -139,6 +139,12 @@ isOneToOne: false
 isOneToOne: false
       referencedRelation: "events"
       referencedColumns: ["id","organization_id"]
+    },{
+      foreignKeyName: "event_vendors_stall_type_fkey"
+      columns: ["stall_type_id","event_id"]
+isOneToOne: false
+      referencedRelation: "stall_types"
+      referencedColumns: ["id","event_id"]
     },{
       foreignKeyName: "event_vendors_vendor_id_fkey"
       columns: ["vendor_id"]
@@ -149,14 +155,14 @@ isOneToOne: false
                   ]
                 },"events": {
                   Row: {
-                    "created_at": string,"description": string | null,"ends_at": string | null,"id": string,"name": string,"organization_id": string,"slug": string,"starts_at": string | null,"status": Database["public"]['Enums']["event_status"],"updated_at": string,"venue_address": string | null,"venue_name": string | null
+                    "application_deadline": string | null,"applications_open_at": string | null,"created_at": string,"decisions_by": string | null,"description": string | null,"ends_at": string | null,"id": string,"name": string,"organization_id": string,"slug": string,"starts_at": string | null,"status": Database["public"]['Enums']["event_status"],"updated_at": string,"venue_address": string | null,"venue_name": string | null
                   }
                   ComputedFields: never
                   Insert: {
-                    "created_at"?: string,"description"?: string | null,"ends_at"?: string | null,"id"?: string,"name": string,"organization_id": string,"slug": string,"starts_at"?: string | null,"status"?: Database["public"]['Enums']["event_status"],"updated_at"?: string,"venue_address"?: string | null,"venue_name"?: string | null
+                    "application_deadline"?: string | null,"applications_open_at"?: string | null,"created_at"?: string,"decisions_by"?: string | null,"description"?: string | null,"ends_at"?: string | null,"id"?: string,"name": string,"organization_id": string,"slug": string,"starts_at"?: string | null,"status"?: Database["public"]['Enums']["event_status"],"updated_at"?: string,"venue_address"?: string | null,"venue_name"?: string | null
                   }
                   Update: {
-                    "created_at"?: string,"description"?: string | null,"ends_at"?: string | null,"id"?: string,"name"?: string,"organization_id"?: string,"slug"?: string,"starts_at"?: string | null,"status"?: Database["public"]['Enums']["event_status"],"updated_at"?: string,"venue_address"?: string | null,"venue_name"?: string | null
+                    "application_deadline"?: string | null,"applications_open_at"?: string | null,"created_at"?: string,"decisions_by"?: string | null,"description"?: string | null,"ends_at"?: string | null,"id"?: string,"name"?: string,"organization_id"?: string,"slug"?: string,"starts_at"?: string | null,"status"?: Database["public"]['Enums']["event_status"],"updated_at"?: string,"venue_address"?: string | null,"venue_name"?: string | null
                   }
                   Relationships: [
                     {
@@ -1143,6 +1149,26 @@ isOneToOne: false
       referencedColumns: ["id","organization_id"]
     }
                   ]
+                },"stall_types": {
+                  Row: {
+                    "created_at": string,"depth_cm": number | null,"description_en": string | null,"description_nb": string | null,"event_id": string,"fee_ore": number,"id": string,"name_en": string,"name_nb": string,"organization_id": string,"size_label": string,"sort_order": number,"updated_at": string,"width_cm": number | null
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"depth_cm"?: number | null,"description_en"?: string | null,"description_nb"?: string | null,"event_id": string,"fee_ore": number,"id"?: string,"name_en": string,"name_nb": string,"organization_id": string,"size_label": string,"sort_order"?: number,"updated_at"?: string,"width_cm"?: number | null
+                  }
+                  Update: {
+                    "created_at"?: string,"depth_cm"?: number | null,"description_en"?: string | null,"description_nb"?: string | null,"event_id"?: string,"fee_ore"?: number,"id"?: string,"name_en"?: string,"name_nb"?: string,"organization_id"?: string,"size_label"?: string,"sort_order"?: number,"updated_at"?: string,"width_cm"?: number | null
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "stall_types_event_id_organization_id_fkey"
+      columns: ["event_id","organization_id"]
+isOneToOne: false
+      referencedRelation: "events"
+      referencedColumns: ["id","organization_id"]
+    }
+                  ]
                 },"stalls": {
                   Row: {
                     "created_at": string,"depth_cm": number | null,"event_id": string,"fee_ore": number,"has_power": boolean,"has_water": boolean,"id": string,"is_premium": boolean,"map_x": number | null,"map_y": number | null,"number": string,"organization_id": string,"size_label": string | null,"updated_at": string,"width_cm": number | null,"zone": string | null
@@ -1285,14 +1311,14 @@ isOneToOne: false
                   ]
                 },"vendor_documents": {
                   Row: {
-                    "created_at": string,"document_type": Database["public"]['Enums']["document_type"],"expires_on": string | null,"file_name": string,"id": string,"organization_id": string,"reviewed_at": string | null,"reviewed_by": string | null,"status": Database["public"]['Enums']["review_status"],"storage_path": string,"updated_at": string,"uploaded_by": string | null,"vendor_id": string
+                    "created_at": string,"description": string | null,"document_type": Database["public"]['Enums']["document_type"],"expires_on": string | null,"file_name": string,"id": string,"organization_id": string,"reviewed_at": string | null,"reviewed_by": string | null,"status": Database["public"]['Enums']["review_status"],"storage_path": string,"updated_at": string,"uploaded_by": string | null,"vendor_id": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "created_at"?: string,"document_type": Database["public"]['Enums']["document_type"],"expires_on"?: string | null,"file_name": string,"id"?: string,"organization_id": string,"reviewed_at"?: string | null,"reviewed_by"?: string | null,"status"?: Database["public"]['Enums']["review_status"],"storage_path": string,"updated_at"?: string,"uploaded_by"?: string | null,"vendor_id": string
+                    "created_at"?: string,"description"?: string | null,"document_type": Database["public"]['Enums']["document_type"],"expires_on"?: string | null,"file_name": string,"id"?: string,"organization_id": string,"reviewed_at"?: string | null,"reviewed_by"?: string | null,"status"?: Database["public"]['Enums']["review_status"],"storage_path": string,"updated_at"?: string,"uploaded_by"?: string | null,"vendor_id": string
                   }
                   Update: {
-                    "created_at"?: string,"document_type"?: Database["public"]['Enums']["document_type"],"expires_on"?: string | null,"file_name"?: string,"id"?: string,"organization_id"?: string,"reviewed_at"?: string | null,"reviewed_by"?: string | null,"status"?: Database["public"]['Enums']["review_status"],"storage_path"?: string,"updated_at"?: string,"uploaded_by"?: string | null,"vendor_id"?: string
+                    "created_at"?: string,"description"?: string | null,"document_type"?: Database["public"]['Enums']["document_type"],"expires_on"?: string | null,"file_name"?: string,"id"?: string,"organization_id"?: string,"reviewed_at"?: string | null,"reviewed_by"?: string | null,"status"?: Database["public"]['Enums']["review_status"],"storage_path"?: string,"updated_at"?: string,"uploaded_by"?: string | null,"vendor_id"?: string
                   }
                   Relationships: [
                     {
@@ -1317,14 +1343,14 @@ isOneToOne: false
                   ]
                 },"vendors": {
                   Row: {
-                    "brreg_status": string | null,"brreg_verified_at": string | null,"business_form": string | null,"category": string | null,"cover_image_path": string | null,"created_at": string,"cuisine_country": string | null,"description": string | null,"display_name": string,"facebook_url": string | null,"id": string,"instagram_handle": string | null,"legal_name": string,"logo_path": string | null,"mva_registered": boolean,"offers_catering": boolean,"org_number": string,"organization_id": string,"profile_published": boolean,"public_email": string | null,"public_phone": string | null,"slug": string,"story": string | null,"tiktok_handle": string | null,"updated_at": string,"website_url": string | null
+                    "brreg_status": string | null,"brreg_verified_at": string | null,"business_address": string | null,"business_form": string | null,"category": string | null,"city": string | null,"cover_image_path": string | null,"created_at": string,"cuisine_country": string | null,"description": string | null,"display_name": string,"facebook_url": string | null,"id": string,"instagram_handle": string | null,"legal_name": string,"logo_path": string | null,"mva_registered": boolean,"offers_catering": boolean,"org_number": string,"organization_id": string,"postal_code": string | null,"profile_published": boolean,"public_email": string | null,"public_phone": string | null,"slug": string,"story": string | null,"tiktok_handle": string | null,"updated_at": string,"website_url": string | null
                   }
                   ComputedFields: never
                   Insert: {
-                    "brreg_status"?: string | null,"brreg_verified_at"?: string | null,"business_form"?: string | null,"category"?: string | null,"cover_image_path"?: string | null,"created_at"?: string,"cuisine_country"?: string | null,"description"?: string | null,"display_name": string,"facebook_url"?: string | null,"id"?: string,"instagram_handle"?: string | null,"legal_name": string,"logo_path"?: string | null,"mva_registered"?: boolean,"offers_catering"?: boolean,"org_number": string,"organization_id": string,"profile_published"?: boolean,"public_email"?: string | null,"public_phone"?: string | null,"slug": string,"story"?: string | null,"tiktok_handle"?: string | null,"updated_at"?: string,"website_url"?: string | null
+                    "brreg_status"?: string | null,"brreg_verified_at"?: string | null,"business_address"?: string | null,"business_form"?: string | null,"category"?: string | null,"city"?: string | null,"cover_image_path"?: string | null,"created_at"?: string,"cuisine_country"?: string | null,"description"?: string | null,"display_name": string,"facebook_url"?: string | null,"id"?: string,"instagram_handle"?: string | null,"legal_name": string,"logo_path"?: string | null,"mva_registered"?: boolean,"offers_catering"?: boolean,"org_number": string,"organization_id": string,"postal_code"?: string | null,"profile_published"?: boolean,"public_email"?: string | null,"public_phone"?: string | null,"slug": string,"story"?: string | null,"tiktok_handle"?: string | null,"updated_at"?: string,"website_url"?: string | null
                   }
                   Update: {
-                    "brreg_status"?: string | null,"brreg_verified_at"?: string | null,"business_form"?: string | null,"category"?: string | null,"cover_image_path"?: string | null,"created_at"?: string,"cuisine_country"?: string | null,"description"?: string | null,"display_name"?: string,"facebook_url"?: string | null,"id"?: string,"instagram_handle"?: string | null,"legal_name"?: string,"logo_path"?: string | null,"mva_registered"?: boolean,"offers_catering"?: boolean,"org_number"?: string,"organization_id"?: string,"profile_published"?: boolean,"public_email"?: string | null,"public_phone"?: string | null,"slug"?: string,"story"?: string | null,"tiktok_handle"?: string | null,"updated_at"?: string,"website_url"?: string | null
+                    "brreg_status"?: string | null,"brreg_verified_at"?: string | null,"business_address"?: string | null,"business_form"?: string | null,"category"?: string | null,"city"?: string | null,"cover_image_path"?: string | null,"created_at"?: string,"cuisine_country"?: string | null,"description"?: string | null,"display_name"?: string,"facebook_url"?: string | null,"id"?: string,"instagram_handle"?: string | null,"legal_name"?: string,"logo_path"?: string | null,"mva_registered"?: boolean,"offers_catering"?: boolean,"org_number"?: string,"organization_id"?: string,"postal_code"?: string | null,"profile_published"?: boolean,"public_email"?: string | null,"public_phone"?: string | null,"slug"?: string,"story"?: string | null,"tiktok_handle"?: string | null,"updated_at"?: string,"website_url"?: string | null
                   }
                   Relationships: [
                     {
@@ -1341,11 +1367,20 @@ isOneToOne: false
             [_ in never]: never
           }
           Functions: {
-            "rate_limit_check":
+            "brreg_cache_get":
+{ Args: { "p_max_age_seconds": number,"p_org_number": string }; Returns: Json
+                           },
+"brreg_cache_put":
+{ Args: { "p_org_number": string,"p_payload": Json,"p_status": string }; Returns: undefined
+                           },
+"rate_limit_check":
 { Args: { "p_key": string,"p_limit": number,"p_window_seconds": number }; Returns: boolean
                            },
 "rate_limit_hit":
 { Args: { "p_key": string,"p_limit": number,"p_window_seconds": number }; Returns: boolean
+                           },
+"start_vendor_application":
+{ Args: { "p_brreg_status": string,"p_business_address": string,"p_business_form": string,"p_city": string,"p_display_name": string,"p_event_id": string,"p_legal_name": string,"p_org_number": string,"p_postal_code": string,"p_user_id": string }; Returns: string
                            }
           }
           Enums: {

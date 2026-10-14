@@ -24,6 +24,7 @@ export const CATEGORY1 = id('30000000', 1);
 export const VENDOR = (n: number) => id('40000000', n);
 export const EVENT_VENDOR = (n: number) => id('41000000', n);
 export const STALL = (n: number) => id('50000000', n);
+export const STALL_TYPE = (n: number) => id('52000000', n);
 export const PRODUCT = (n: number) => id('60000000', n);
 export const COMMISSION_DEFAULT = id('70000000', 1);
 export const SPONSOR = (n: number) => id('80000000', n);

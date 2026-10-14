@@ -57,6 +57,26 @@ insert into public.events (id, organization_id, name, slug, status, starts_at, e
    'Tøyenparken', 'Tøyenparken, 0578 Oslo',
    'African Food Festival Norway 2027 – to dager med mat, musikk og kultur.');
 
+-- Key dates and stall types for "Become a vendor" (placeholders until the price list is set,
+-- PRD §12; owner decision P05).
+update public.events
+   set applications_open_at = '2026-10-01 08:00:00+00',
+       application_deadline = '2027-03-31 21:59:00+00',
+       decisions_by = '2027-04-30 21:59:00+00'
+ where id = '20000000-0000-4000-8000-000000000001';
+
+insert into public.stall_types (id, organization_id, event_id, name_nb, name_en, description_nb,
+  description_en, size_label, width_cm, depth_cm, fee_ore, sort_order) values
+  ('52000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000001', '20000000-0000-4000-8000-000000000001',
+   'Standard', 'Standard', 'Plass til telt og ett kjøkken. Passer de fleste matboder.',
+   'Room for a tent and one kitchen. Suits most food stalls.', '3 × 3 m', 300, 300, 250000, 1),
+  ('52000000-0000-4000-8000-000000000002', '10000000-0000-4000-8000-000000000001', '20000000-0000-4000-8000-000000000001',
+   'Stor', 'Large', 'Dobbel plass for større kjøkken og kø.',
+   'Double space for a bigger kitchen and queue.', '3 × 6 m', 300, 600, 400000, 2),
+  ('52000000-0000-4000-8000-000000000003', '10000000-0000-4000-8000-000000000001', '20000000-0000-4000-8000-000000000001',
+   'Markedsbord', 'Market table', 'Bord i markedet for pakkede varer, klær og håndverk.',
+   'A table in the market for packaged goods, fashion and crafts.', '3 × 2 m', 300, 200, 150000, 3);
+
 insert into public.platform_admins (user_id) values ('00000000-0000-4000-8000-000000000001');
 
 insert into public.memberships (organization_id, user_id, role) values
@@ -80,20 +100,20 @@ insert into public.vendors (id, organization_id, org_number, legal_name, display
   offers_catering, profile_published) values
   ('40000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000001', '912345670',
    'Mama Afrika Kjøkken Okafor', 'Mama Afrika Kjøkken', 'mama-afrika-kjokken', 'ENK', now(), 'active',
-   'food', 'NG', 'Nigeriansk hjemmelaget mat: jollof, suya og puff-puff.', 'hei@mamaafrika.example',
+   'hot-food', 'NG', 'Nigeriansk hjemmelaget mat: jollof, suya og puff-puff.', 'hei@mamaafrika.example',
    'mamaafrikakjokken', true, true),
   ('40000000-0000-4000-8000-000000000002', '10000000-0000-4000-8000-000000000001', '923456789',
    'Jollof House Oslo AS', 'Jollof House Oslo', 'jollof-house-oslo', 'AS', now(), 'active',
-   'food', 'GH', 'Ghanesisk jollof og kelewele.', 'post@jollofhouse.example', 'jollofhouseoslo', true, true),
+   'hot-food', 'GH', 'Ghanesisk jollof og kelewele.', 'post@jollofhouse.example', 'jollofhouseoslo', true, true),
   ('40000000-0000-4000-8000-000000000003', '10000000-0000-4000-8000-000000000001', '934567890',
    'Addis Injera Tesfaye', 'Addis Injera', 'addis-injera', 'ENK', now(), 'active',
-   'food', 'ET', 'Etiopisk injera med wat og misir.', null, null, false, false),
+   'hot-food', 'ET', 'Etiopisk injera med wat og misir.', null, null, false, false),
   ('40000000-0000-4000-8000-000000000004', '10000000-0000-4000-8000-000000000001', '945678901',
    'Zanzibar Spice AS', 'Zanzibar Spice', 'zanzibar-spice', 'AS', now(), 'active',
-   'food', 'TZ', 'Krydret mat fra Zanzibar.', null, null, false, false),
+   'street-food', 'TZ', 'Krydret mat fra Zanzibar.', null, null, false, false),
   ('40000000-0000-4000-8000-000000000005', '10000000-0000-4000-8000-000000000001', '956789012',
    'Asmara Café Gebre', 'Asmara Café', 'asmara-cafe', 'ENK', now(), 'active',
-   'drinks', 'ER', 'Eritreisk kaffeseremoni og søtsaker.', 'kaffe@asmara.example', 'asmaracafe', false, true);
+   'drinks-coffee', 'ER', 'Eritreisk kaffeseremoni og søtsaker.', 'kaffe@asmara.example', 'asmaracafe', false, true);
 
 insert into public.vendor_contacts (vendor_id, organization_id, contact_name, contact_email, contact_phone)
 select v.id, v.organization_id, c.name, c.email, c.phone

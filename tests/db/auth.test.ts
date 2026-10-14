@@ -225,7 +225,7 @@ describe('role grants and revocations are audited', () => {
       await c.query(`delete from public.memberships where id = $1`, [rows[0].id]);
       await c.query('reset role');
       const log = await c.query(
-        `select action, actor_id from public.audit_log where table_name = 'memberships' and row_id = $1 order by created_at`,
+        `select action, actor_id from public.audit_log where table_name = 'memberships' and row_id = $1 order by created_at, action = 'delete'`,
         [rows[0].id],
       );
       expect(log.rows).toEqual([

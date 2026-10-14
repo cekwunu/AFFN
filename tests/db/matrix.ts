@@ -19,6 +19,7 @@ import {
   SPONSOR,
   SPONSORSHIP,
   STALL,
+  STALL_TYPE,
   USERS,
   VENDOR,
   row,
@@ -338,6 +339,27 @@ export const MATRIX: TableSpec[] = [
     insert: { allowed: EDITORS, row: () => ({ ...event1, number: 'C1' }) },
     update: { allowed: EDITORS, target: 'own', set: () => 'zone = zone' },
     delete: { allowed: EDITORS, target: 'spare' },
+  },
+  {
+    table: 'stall_types',
+    rows: {
+      own: is('id', STALL_TYPE(1)),
+      other: is('id', STALL_TYPE(20)),
+      foreign: is('id', STALL_TYPE(11)),
+      spare: is('id', STALL_TYPE(10)),
+    },
+    read: {
+      own: [...ORG1_MEMBERS, 'anon'],
+      other: ORG1_MEMBERS,
+      foreign: FOREIGN,
+      spare: [...ORG1_MEMBERS, 'anon'],
+    },
+    insert: {
+      allowed: ['orgAdmin'],
+      row: () => ({ ...event1, name_nb: 'Ny', name_en: 'New', size_label: '1 × 1 m', fee_ore: 1 }),
+    },
+    update: { allowed: ['orgAdmin'], target: 'own', set: () => 'fee_ore = fee_ore' },
+    delete: { allowed: ['orgAdmin'], target: 'spare' },
   },
   {
     table: 'stall_assignments',
