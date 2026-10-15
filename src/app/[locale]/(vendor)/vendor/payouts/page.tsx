@@ -7,6 +7,9 @@ import { StartPayouts } from '@/components/vendor/start-payouts';
 import { CLIENT_NAMESPACES } from '@/i18n/client-messages';
 import { initRequestLocale } from '@/i18n/server';
 import { myParticipation, myVendor } from '@/lib/catalogue/server';
+import { formatNok } from '@/lib/format';
+import { vendorBalances } from '@/lib/ledger/server';
+import { ore } from '@/lib/money';
 import { getPaymentProvider } from '@/lib/payments';
 import { toDbStatus } from '@/lib/payments/provider';
 import { createAdminClient } from '@/lib/supabase/admin';
@@ -86,6 +89,9 @@ export default async function PayoutsPage({
     eligible: null,
   }[status];
 
+  // Earnings from the ledger (net of commission, mva and refunds): pending until settlement.
+  const balance = (await vendorBalances(event!.id)).find((b) => b.vendorId === vendor.id) ?? null;
+
   return (
     <div className="mx-auto grid w-full max-w-3xl gap-6">
       <header className="grid gap-2">
@@ -122,6 +128,35 @@ export default async function PayoutsPage({
         {provider.testMode && (
           <p className="text-caption text-muted-foreground">{t('testModeHint')}</p>
         )}
+      </section>
+      <section
+        aria-labelledby="balance"
+        className="grid gap-4 rounded-xl border border-border bg-card p-6"
+      >
+        <h2 id="balance" className="text-heading-md font-semibold">
+          {t('balance.title')}
+        </h2>
+        <dl className="grid grid-cols-2 gap-4 sm:grid-cols-4" data-testid="vendor-balance">
+          {(
+            [
+              ['pending', balance?.pendingOre ?? 0],
+              ['inSettlement', balance?.inSettlementOre ?? 0],
+              ['paid', balance?.paidOre ?? 0],
+              ['lifetime', balance?.lifetimeOre ?? 0],
+            ] as const
+          ).map(([key, amount]) => (
+            <div key={key} className="grid gap-1">
+              <dt className="text-body-sm text-muted-foreground">{t(`balance.${key}`)}</dt>
+              <dd
+                className="text-heading-md font-semibold tabular-nums"
+                data-testid={`balance-${key}`}
+              >
+                {formatNok(ore(amount))}
+              </dd>
+            </div>
+          ))}
+        </dl>
+        <p className="text-caption text-muted-foreground">{t('balance.explain')}</p>
       </section>
     </div>
   );

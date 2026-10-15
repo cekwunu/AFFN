@@ -42,3 +42,13 @@ describe('Oslo dates', () => {
     expect(() => formatDateOslo('not a date', 'nb')).toThrow(RangeError);
   });
 });
+
+describe('osloLocalToUtc', () => {
+  it('converts Oslo wall-clock time to UTC, summer and winter', async () => {
+    const { osloLocalToUtc } = await import('./format');
+    expect(osloLocalToUtc('2027-06-12T10:30')?.toISOString()).toBe('2027-06-12T08:30:00.000Z');
+    expect(osloLocalToUtc('2027-01-15T00:00')?.toISOString()).toBe('2027-01-14T23:00:00.000Z');
+    expect(osloLocalToUtc('2027-03-28T03:30')?.toISOString()).toBe('2027-03-28T01:30:00.000Z');
+    expect(osloLocalToUtc('12.06.2027')).toBeNull();
+  });
+});

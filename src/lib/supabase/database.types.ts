@@ -1414,6 +1414,11 @@ isOneToOne: false
 "delete_product":
 { Args: { "p_product_id": string }; Returns: undefined
                            },
+"event_money_totals":
+{ Args: { "p_event_id": string }; Returns: {
+              "commission_mva_ore": number,"commission_ore": number,"gross_ore": number,"platform_fee_ore": number,"psp_fee_ore": number,"refunded_ore": number,"source": string,"vendor_ore": number
+            }[]
+                           },
 "rate_limit_check":
 { Args: { "p_key": string,"p_limit": number,"p_window_seconds": number }; Returns: boolean
                            },
@@ -1425,6 +1430,8 @@ isOneToOne: false
                            },
 "record_order_payment":
 { Args: { "p_amount_ore": number,"p_method": Database["public"]['Enums']["payment_method"],"p_platform_fee_ore": number,"p_provider": Database["public"]['Enums']["payment_provider"],"p_provider_payment_id": string,"p_reason": string,"p_succeeded": boolean }; Returns: string
+                           } |
+{ Args: { "p_amount_ore": number,"p_method": Database["public"]['Enums']["payment_method"],"p_platform_fee_ore": number,"p_provider": Database["public"]['Enums']["payment_provider"],"p_provider_payment_id": string,"p_psp_fee_ore": number,"p_reason": string,"p_succeeded": boolean }; Returns: string
                            },
 "record_order_refund":
 { Args: { "p_platform_fee_reversal_ore": number,"p_provider_refund_id": string,"p_refund_id": string,"p_succeeded": boolean }; Returns: undefined
@@ -1455,6 +1462,11 @@ isOneToOne: false
                            },
 "start_vendor_application":
 { Args: { "p_brreg_status": string,"p_business_address": string,"p_business_form": string,"p_city": string,"p_display_name": string,"p_event_id": string,"p_legal_name": string,"p_org_number": string,"p_postal_code": string,"p_user_id": string }; Returns: string
+                           },
+"vendor_balances":
+{ Args: { "p_event_id": string }; Returns: {
+              "in_settlement_ore": number,"lifetime_ore": number,"paid_ore": number,"pending_ore": number,"vendor_id": string
+            }[]
                            }
           }
           Enums: {
