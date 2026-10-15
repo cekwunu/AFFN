@@ -62,6 +62,12 @@ export interface MockProvider extends PaymentProvider {
     token: string,
     outcome: 'enabled' | 'action_required',
   ): Promise<{ delivery: WebhookDelivery; returnUrl: string } | null>;
+  /** TEST MODE: the payer's bank opens or closes a dispute on a paid payment. */
+  simulateDispute(input: {
+    providerPaymentId: string;
+    amountOre: number;
+    outcome: 'open' | 'won' | 'lost';
+  }): WebhookDelivery;
   /** The payer completes (or fails) the hosted payment. */
   completePayment(
     token: string,
@@ -255,6 +261,18 @@ export function createMockProvider({
         });
       }
       return { providerPayoutId: payoutId, status: 'paid' };
+    },
+
+    simulateDispute({ providerPaymentId, amountOre, outcome }) {
+      return deliver({
+        id: eventId(),
+        type: outcome === 'open' ? 'dispute.opened' : 'dispute.closed',
+        providerDisputeId: stableId('mock_dp', providerPaymentId),
+        providerPaymentId,
+        amountOre,
+        reason: outcome === 'open' ? 'fraudulent' : null,
+        outcome,
+      });
     },
 
     async fetchSettlementReport(range) {

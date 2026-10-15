@@ -148,6 +148,16 @@ export type WebhookEvent =
       platformFeeReversalOre: number;
     }
   | {
+      /** A customer disputes a payment with their bank (chargeback); closed as won or lost. */
+      id: string;
+      type: 'dispute.opened' | 'dispute.closed';
+      providerDisputeId: string;
+      providerPaymentId: string;
+      amountOre: number;
+      reason: string | null;
+      outcome: 'open' | 'won' | 'lost';
+    }
+  | {
       id: string;
       type: 'payout.paid' | 'payout.failed';
       providerPayoutId: string;

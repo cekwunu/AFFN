@@ -32,6 +32,15 @@ async function organizationOf(event: WebhookEvent): Promise<string | null> {
         .maybeSingle();
       return data?.organization_id ?? null;
     }
+    case 'dispute.opened':
+    case 'dispute.closed': {
+      const { data } = await createAdminClient()
+        .from('payments')
+        .select('organization_id')
+        .eq('provider_payment_id', event.providerPaymentId)
+        .maybeSingle();
+      return data?.organization_id ?? null;
+    }
     case 'payout.paid':
     case 'payout.failed': {
       const { data } = await admin
@@ -103,6 +112,19 @@ async function apply(
       )
         ? 'processed'
         : 'ignored';
+    case 'dispute.opened':
+    case 'dispute.closed':
+      check(
+        await admin.rpc('record_dispute', {
+          p_provider: provider,
+          p_provider_dispute_id: event.providerDisputeId,
+          p_provider_payment_id: event.providerPaymentId,
+          p_amount_ore: event.amountOre,
+          p_reason: event.reason ?? (null as never),
+          p_status: event.outcome,
+        }),
+      );
+      return 'processed';
     case 'payout.paid':
     case 'payout.failed':
       return check(
