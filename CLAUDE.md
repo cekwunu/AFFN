@@ -75,6 +75,7 @@ Package manager: pnpm (Node 22, see .nvmrc). Copy `.env.example` to `.env.local`
 | `pnpm test` / `pnpm test:watch` | Vitest unit tests (`src/**/*.test.ts`) |
 | `pnpm test:e2e` | Playwright tests in `e2e/` (starts the dev server; `PORT` to change port) |
 | `pnpm check:budget` | After `pnpm build`: fails if a public page ships > 150 kB gzipped JS (NFR-01) |
+| `pnpm check:lighthouse` | Lighthouse (mobile) on `LIGHTHOUSE_URL` against `pnpm start`: performance and accessibility ≥ 90 |
 | `pnpm db:start` / `pnpm db:stop` | Local Supabase in Docker; `db:start` prints URL and keys |
 | `pnpm db:env` | Write `.env.local` from the running local Supabase (keys, Mailpit SMTP); needed by `test:e2e` |
 | `pnpm db:reset` | Recreate local DB from `supabase/migrations` + `supabase/seed.sql` |
@@ -94,7 +95,7 @@ If Docker cannot pull from public.ecr.aws, set `SUPABASE_INTERNAL_IMAGE_REGISTRY
 rate-limits, pull the image from `mirror.gcr.io/...` and `docker tag` it to the expected name.
 
 Cloud: Supabase project `nwllhsbhdftrucgndjpc` ("Affn", eu-north-1 Stockholm), URL
-`https://nwllhsbhdftrucgndjpc.supabase.co`. All migrations up to `20261019100000_vendor_catalogue` are
+`https://nwllhsbhdftrucgndjpc.supabase.co`. All migrations up to `20261021100000_checkout` are
 applied (no seed data). Reference data (organization, AFFN 2027, categories, commission rule, stall types)
 is in `supabase/reference-data.sql`, applied once; no users or demo vendors. Apply each new migration there too, after CI is green. The Supabase connection
 here cannot approve destructive statements (including `delete from` inside function bodies): write
@@ -154,6 +155,28 @@ delete via `public.delete_product` only when no order refers to it), `/vendor/pr
 (14 EU allergens, mva 0 % unless `vendors.mva_registered`, also enforced by a trigger). Images are
 compressed in the browser (`src/lib/images/compress.ts`) and stored in `vendor-media/{vendor_id}/products|gallery/`.
 Vendor client components use `useTranslations` inside `<ClientIntl namespaces=…>` (portal pages only).
+
+Payments (P09): `src/lib/payments/provider.ts` is the `PaymentProvider` interface; `getPaymentProvider()`
+(`src/lib/payments/index.ts`, server-only) picks by `PAYMENT_PROVIDER` (only `mock` works; Stripe Connect
+and Swedbank Pay are TODO stubs for Prompt 22). Every provider must pass the contract suite
+`src/lib/payments/contract.ts`. The mock's hosted pages are `/pay/mock/[token]` (tokens joined with
+`~`, since the proxy skips paths with a dot), signed with `MOCK_PAYMENT_SECRET` (fallback derived from
+`RATE_LIMIT_SECRET`). Webhooks go through `processWebhook` (`src/lib/payments/webhooks.ts`): verify,
+store raw, `duplicate` when already processed, apply via service-role RPCs (`record_order_payment`,
+`set_payment_account_status`, `record_refund_result`, `record_payout_result`, `record_fee_payment`).
+Commission maths: `src/lib/money/commission.ts` (`resolveCommissionRule`: the category rule applies only
+when every item is in that category; `calculateCommission`: commission and 25 % mva each half-up).
+Vendors set up payouts at `/vendor/payouts` (VEN-06); selling needs status `eligible`.
+
+Storefront and checkout (P10): the QR points at `/e/[event]/[vendor]` (`getStorefront` in
+`src/lib/storefront/server.ts`, admin client with explicit public filters; blocked states paused /
+payouts / closed). Cart islands in `src/components/storefront` (sessionStorage, native `<dialog>`).
+The `checkout` server action prices the cart, resolves the rule, then `public.create_order` (service
+role, atomic; recomputes prices and the fee and rejects any mismatch) → `createPayment` →
+`attach_provider_payment`. Receipt and order status at `/o/[token]` (`getReceipt`), with an optional
+emailed copy. Vendors download the PNG and A5 PDF table sign at `/vendor/qr` (`/api/vendor/qr/[format]`,
+`src/lib/storefront/qr.ts`; URL from `NEXT_PUBLIC_SITE_URL`). `pnpm check:lighthouse` (mobile, median
+of 3, performance and accessibility ≥ 90) runs in CI against a production build of the seeded vendor page.
 
 Public pages stay light: their client islands get translated strings as props and use
 `@/i18n/link` and `clsx` — no `useTranslations`, `cn` or Radix overlays in public client code.
