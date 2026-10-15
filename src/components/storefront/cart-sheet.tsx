@@ -113,7 +113,7 @@ export function CartSheet({
       <dialog
         ref={dialog}
         aria-labelledby="cart-title"
-        className="backdrop:bg-overlay m-0 mt-auto max-h-[92dvh] w-full max-w-none rounded-t-2xl border border-border bg-card p-0 text-foreground sm:m-auto sm:max-w-lg sm:rounded-2xl"
+        className="m-0 mt-auto max-h-[92dvh] w-full max-w-none rounded-t-2xl border border-border bg-card p-0 text-foreground backdrop:bg-overlay sm:m-auto sm:max-w-lg sm:rounded-2xl"
       >
         <div className="grid gap-5 p-5">
           <div className="flex items-center justify-between gap-4">

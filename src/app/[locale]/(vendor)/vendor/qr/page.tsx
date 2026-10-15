@@ -53,7 +53,7 @@ export default async function VendorQrPage({ params }: PageProps<'/[locale]/vend
           alt={t('alt', { url })}
           width={224}
           height={224}
-          className="size-56 bg-card rounded-lg border border-border p-2"
+          className="size-56 rounded-lg border border-border bg-card p-2"
         />
         <div className="grid content-start gap-4">
           <div className="grid gap-1">
