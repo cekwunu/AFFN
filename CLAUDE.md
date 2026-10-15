@@ -95,12 +95,15 @@ If Docker cannot pull from public.ecr.aws, set `SUPABASE_INTERNAL_IMAGE_REGISTRY
 rate-limits, pull the image from `mirror.gcr.io/...` and `docker tag` it to the expected name.
 
 Cloud: Supabase project `nwllhsbhdftrucgndjpc` ("Affn", eu-north-1 Stockholm), URL
-`https://nwllhsbhdftrucgndjpc.supabase.co`. All migrations up to `20261021100000_checkout` are
+`https://nwllhsbhdftrucgndjpc.supabase.co`. All migrations up to `20261022100000_orders_kitchen` are
 applied (no seed data). Reference data (organization, AFFN 2027, categories, commission rule, stall types)
 is in `supabase/reference-data.sql`, applied once; no users or demo vendors. Apply each new migration there too, after CI is green. The Supabase connection
 here cannot approve destructive statements (including `delete from` inside function bodies): write
 migrations without them where possible (e.g. `alter policy` instead of drop/create), and put the
 unavoidable ones in a separate small migration the owner runs in the SQL editor. pg_graphql is not installed on the cloud project.
+Leaked-password protection (Auth) needs a paid Supabase plan: the owner turns it on when the plan is
+upgraded, so the advisor's `auth_leaked_password_protection` warning on the cloud project is expected
+until then.
 
 Auth (P04): sign-in/up, reset and MFA run as server actions (`src/app/[locale]/(auth)/actions.ts`);
 `src/proxy.ts` routes by the `affn` JWT claim from `private.custom_access_token_hook`; layouts recheck
@@ -118,7 +121,7 @@ activates the pending vendor membership. Documents go to the private `vendor-doc
 (signed URLs via `/api/vendor/documents/[id]`), logo and cover to the public `vendor-media` bucket,
 both under `{vendor_id}/`. Agreement text is versioned (`AGREEMENT_VERSION` in
 `src/lib/vendor/agreement.ts`): bump it when the Agreement messages change. Local e2e: start Supabase
-with storage (`-x realtime,imgproxy,studio,edge-runtime,logflare,vector,supavisor,postgres-meta`).
+with storage and Realtime (`-x imgproxy,studio,edge-runtime,logflare,vector,supavisor,postgres-meta`).
 
 Review centre (P06): `/admin/applications` (queue, URL filters) and `/admin/applications/[id]`. Decisions
 go through `public.review_application` (wrapper over `private.review_application`): one `event_vendors`
@@ -165,6 +168,20 @@ role, atomic; recomputes prices and the fee and rejects any mismatch) → `creat
 emailed copy. Vendors download the PNG and A5 PDF table sign at `/vendor/qr` (`/api/vendor/qr/[format]`,
 `src/lib/storefront/qr.ts`; URL from `NEXT_PUBLIC_SITE_URL`). `pnpm check:lighthouse` (mobile, median
 of 3, performance and accessibility ≥ 90) runs in CI against a production build of the seeded vendor page.
+
+Orders and kitchen (P11): order codes like `B·A1-007` (festival day letter from `events.starts_at` in
+Oslo, `T` outside festival days; active stall; daily number) are set at insert by
+`private.assign_order_number` and never change. Vendors move orders one step at a time
+(new → accepted → preparing → ready → collected), enforced by `private.guard_order_update` and
+audited; cancelling goes through `cancelOrder` (`src/app/[locale]/(kitchen)/vendor/kitchen/actions.ts`):
+`public.begin_order_cancellation` (cancel + pending full refund) → `PaymentProvider.refund` →
+`public.record_order_refund`. The kitchen (`/vendor/kitchen`, own full-screen route group) listens to
+`postgres_changes` on `orders` (set the Realtime auth token before subscribing) and refetches
+everything on each event and on reconnect; the customer's `/o/[token]` listens to the broadcast topic
+`order:{tracking_token}` (sent by triggers on orders and refunds) with `@supabase/realtime-js` only.
+History at `/vendor/orders`. Local e2e needs Realtime: start Supabase without `-x realtime`, and run
+`docker restart supabase_realtime_affn` after `pnpm db:reset`. The kitchen e2e runs after the other
+specs (Playwright project dependency) because the storefront spec briefly pauses the same vendor.
 
 Public pages stay light: their client islands get translated strings as props and use
 `@/i18n/link` and `clsx` — no `useTranslations`, `cn` or Radix overlays in public client code.
