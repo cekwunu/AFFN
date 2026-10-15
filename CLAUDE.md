@@ -130,7 +130,20 @@ public `event-media` bucket under `{event_id}/`, pins in basis points). Vendors 
 stall shows only after the fee is paid. Fees are paid by payment link from `PaymentProvider`; the mock
 provider's checkout is `/pay/mock/[token]` and posts a signed webhook through `handlePaymentWebhook`
 (also `/api/webhooks/[provider]`), which stores the raw event and calls `public.record_fee_payment`
-(service role, idempotent, `fee_payments` only — never the vendor ledger). Prompt 09 replaces the mock.
+(service role, idempotent, `fee_payments` only — never the vendor ledger).
+
+Payments (P09): `src/lib/payments/provider.ts` is the provider-agnostic interface (types only);
+`getPaymentProvider()` in `src/lib/payments/index.ts` picks it by `PAYMENT_PROVIDER`. The mock
+(`src/lib/payments/mock/`, always TEST MODE) has hosted onboarding and payment pages at
+`/pay/mock/[token]`; `providers/` holds TODO stubs for Stripe Connect and Swedbank Pay (Prompt 22).
+Every provider must pass `src/lib/payments/contract.ts` (run for the mock in
+`mock/mock.contract.test.ts`). Webhooks: `processWebhook` stores the raw event, skips ids already
+processed, and applies them via service-role functions (`record_order_payment`,
+`record_fee_payment`, `set_payment_account_status`, refund/payout results). Vendors onboard at
+`/vendor/payouts` (`set_payment_account`, audited with `affn.audit_actor`); selling needs
+`psp_account_status = 'eligible'` (shown as Enabled). Money maths: `src/lib/money`
+(`calculateCommission`, `resolveCommissionRule` — category rule only when the whole order is in
+that category — and `proRataFeeReversal`).
 
 Vendor portal and catalogue (P08): `/vendor` (status cards, next steps), `/vendor/profile` (story,
 contact, socials, catering, logo/cover, gallery in `vendor_gallery_images`, max 8, alt text required),
