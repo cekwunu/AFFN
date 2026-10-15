@@ -4,7 +4,7 @@
  * action there produces a signed webhook that goes through the same processing path as a real
  * provider's. Always in test mode.
  */
-import { ore } from '@/lib/money';
+import { ore, roundHalfUp } from '@/lib/money';
 import { proRataFeeReversal } from '@/lib/money/commission';
 import type {
   CreatePaymentInput,
@@ -15,6 +15,11 @@ import type {
 } from '../provider';
 import { decodeToken, encodeToken, sign, stableId, verify } from './signing';
 import type { MockStore } from './store';
+
+/** The mock's processing fee: 2.5 % of the payment, half-up (illustrative, PRD §6). */
+export function mockPspFee(amountOre: number): number {
+  return Number(roundHalfUp(BigInt(amountOre) * 250n, 10_000n));
+}
 
 export const MOCK_SIGNATURE_HEADER = 'x-affn-signature';
 const TOKEN_TTL_MS = 7 * 24 * 60 * 60 * 1000;
@@ -291,6 +296,7 @@ export function createMockProvider({
               providerPaymentId: payload.paymentId,
               amountOre: payload.amountOre,
               platformFeeOre: payload.platformFeeOre,
+              pspFeeOre: mockPspFee(payload.amountOre),
               method,
               metadata: payload.metadata,
             }

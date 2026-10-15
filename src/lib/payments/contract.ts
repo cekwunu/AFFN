@@ -152,6 +152,9 @@ export function providerContract(name: string, setup: () => Promise<ContractHarn
           platformFeeOre: 6_250,
           method: 'vipps',
         });
+        // The provider reports its own fee, a whole number of øre within the payment.
+        const pspFee = event.type === 'payment.succeeded' ? event.pspFeeOre : -1;
+        expect(Number.isSafeInteger(pspFee) && pspFee >= 0 && pspFee <= 50_000).toBe(true);
         expect(event.type === 'payment.succeeded' && event.metadata.kind).toBe('order');
       });
 

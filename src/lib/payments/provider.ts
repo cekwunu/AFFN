@@ -126,6 +126,8 @@ export type WebhookEvent =
       providerPaymentId: string;
       amountOre: number;
       platformFeeOre: number;
+      /** The provider's own processing fee, paid by AFFN out of its commission (PRD §6). */
+      pspFeeOre: number;
       method: PaymentMethod;
       metadata: PaymentMetadata;
     }

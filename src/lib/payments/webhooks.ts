@@ -79,6 +79,8 @@ async function apply(
           p_amount_ore: event.type === 'payment.succeeded' ? event.amountOre : 0,
           p_platform_fee_ore: event.type === 'payment.succeeded' ? event.platformFeeOre : 0,
           p_reason: event.type === 'payment.failed' ? event.reason : (null as never),
+          // Posts the ledger (PRD §5) with the provider's reported fee.
+          p_psp_fee_ore: event.type === 'payment.succeeded' ? event.pspFeeOre : (null as never),
         }),
       );
       return 'processed';
