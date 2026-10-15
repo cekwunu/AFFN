@@ -1,4 +1,5 @@
 import 'server-only';
+import { serverEnv } from '@/lib/env.server';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { fromDbStatus, type SettlementTransaction } from '../provider';
 import type { MockPayment, MockRefund, MockStore } from './store';
@@ -105,12 +106,26 @@ export function supabaseMockStore(): MockStore {
     },
     putPayout: noop,
     async transactions({ from, to }) {
+      // One merchant account per organization, as with a real provider: the deployment's own.
+      const { data: organization } = await db()
+        .from('organizations')
+        .select('id')
+        .eq('slug', serverEnv.DEFAULT_ORGANIZATION_SLUG)
+        .single();
       const range = <
-        T extends { gte: (c: string, v: string) => T; lt: (c: string, v: string) => T },
+        T extends {
+          eq: (c: string, v: string) => T;
+          gte: (c: string, v: string) => T;
+          lt: (c: string, v: string) => T;
+        },
       >(
         q: T,
         column: string,
-      ) => q.gte(column, from.toISOString()).lt(column, to.toISOString());
+      ) =>
+        q
+          .eq('organization_id', organization?.id ?? '')
+          .gte(column, from.toISOString())
+          .lt(column, to.toISOString());
       const [payments, fees, refunds, payouts] = await Promise.all([
         range(
           db()
@@ -183,7 +198,41 @@ export function supabaseMockStore(): MockStore {
           reference: p.settlement_line_id,
         })),
       ];
-      return list.sort((a, b) => a.occurredAt.localeCompare(b.occurredAt));
+      // TEST MODE: injected differences (public.mock_report_overrides), so reconciliation can be
+      // shown to catch them.
+      const { data: overrides } = await db()
+        .from('mock_report_overrides')
+        .select('provider_id, action, transaction_kind, amount_ore, fee_ore, occurred_at')
+        .eq('organization_id', organization?.id ?? '');
+      let report = list;
+      for (const o of overrides ?? []) {
+        if (o.action === 'drop') {
+          report = report.filter((t) => t.providerId !== o.provider_id);
+        } else if (o.action === 'amount' || o.action === 'fee') {
+          report = report.map((t) =>
+            t.providerId !== o.provider_id
+              ? t
+              : o.action === 'amount'
+                ? { ...t, amountOre: o.amount_ore ?? t.amountOre }
+                : { ...t, platformFeeOre: o.fee_ore ?? t.platformFeeOre },
+          );
+        } else if (
+          o.action === 'extra' &&
+          o.occurred_at >= from.toISOString() &&
+          o.occurred_at < to.toISOString()
+        ) {
+          report.push({
+            type: o.transaction_kind,
+            providerId: o.provider_id,
+            accountId: null,
+            amountOre: o.amount_ore ?? 0,
+            platformFeeOre: o.fee_ore ?? 0,
+            occurredAt: o.occurred_at,
+            reference: null,
+          });
+        }
+      }
+      return report.sort((a, b) => a.occurredAt.localeCompare(b.occurredAt));
     },
   };
 }

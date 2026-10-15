@@ -18,7 +18,7 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
-      testIgnore: /(kitchen|commission|settlements)\.spec\.ts/,
+      testIgnore: /(kitchen|commission|settlements|reconciliation)\.spec\.ts/,
     },
     // The kitchen and commission tests order from the same seeded vendor the storefront tests
     // briefly pause (and change its rate), so they run after the other tests.
@@ -27,6 +27,14 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
       testMatch: /(kitchen|commission|settlements)\.spec\.ts/,
       dependencies: ['chromium'],
+    },
+    // Reconciliation compares every transaction in the database with the provider's report, so it
+    // runs once the other tests have stopped creating payments.
+    {
+      name: 'reconciliation',
+      use: { ...devices['Desktop Chrome'] },
+      testMatch: /reconciliation\.spec\.ts/,
+      dependencies: ['kitchen'],
     },
   ],
   webServer: [
@@ -42,6 +50,8 @@ export default defineConfig({
         // Every test request comes from one IP: scale per-IP limits (per-account limits stay).
         RATE_LIMIT_IP_SCALE: '50',
         BRREG_API_URL: `http://127.0.0.1:${brregPort}`,
+        // Secret for the scheduled reconciliation route (e2e/reconciliation.spec.ts).
+        CRON_SECRET: 'e2e-cron-secret-0123456789abcdef',
       },
       url: baseURL,
       reuseExistingServer: !process.env.CI,

@@ -542,6 +542,49 @@ export const MATRIX: TableSpec[] = [
   },
   { table: 'payouts', rows: byId('99000000'), read: vendorEventRead },
   { table: 'disputes', rows: byId('a3000000'), read: vendorEventRead },
+  // Reconciliation (P14): organization staff work the mismatches.
+  {
+    table: 'reconciliation_runs',
+    rows: {
+      own: is('id', 'a4000000-0000-4000-8000-000000000001'),
+      foreign: is('id', 'a4000000-0000-4000-8000-000000000011'),
+    },
+    read: { own: ORG_STAFF, foreign: FOREIGN },
+  },
+  {
+    table: 'reconciliation_items',
+    rows: byId('a5000000'),
+    read: { own: ORG_STAFF, other: ORG_STAFF, foreign: FOREIGN },
+    update: {
+      allowed: ['orgAdmin', 'eventAdmin', 'eventAdminOther'],
+      target: 'own',
+      set: () => 'resolution_reason = resolution_reason',
+    },
+  },
+  {
+    table: 'reconciliation_comments',
+    rows: {
+      own: is('id', 'a6000000-0000-4000-8000-000000000001'),
+      foreign: is('id', 'a6000000-0000-4000-8000-000000000011'),
+    },
+    read: { own: ORG_STAFF, foreign: FOREIGN },
+    insert: {
+      allowed: ['orgAdmin', 'eventAdmin', 'eventAdminOther'],
+      row: (uid) => ({
+        organization_id: ORG1,
+        item_id: 'a5000000-0000-4000-8000-000000000001',
+        author_id: uid,
+        body: 'Ser på det',
+      }),
+    },
+  },
+  // TEST MODE helper for the mock provider's report: server code only.
+  {
+    table: 'mock_report_overrides',
+    pk: 'provider_id',
+    rows: { own: is('provider_id', 'fixture_override') },
+    read: { own: [] },
+  },
   { table: 'invoices', rows: byId('a2000000'), read: vendorEventRead },
   {
     table: 'invoice_counters',

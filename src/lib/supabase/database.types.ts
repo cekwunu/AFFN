@@ -479,6 +479,26 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
+                },"mock_report_overrides": {
+                  Row: {
+                    "action": string,"amount_ore": number | null,"created_at": string,"fee_ore": number | null,"occurred_at": string,"organization_id": string,"provider_id": string,"transaction_kind": Database["public"]['Enums']["transaction_kind"]
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "action": string,"amount_ore"?: number | null,"created_at"?: string,"fee_ore"?: number | null,"occurred_at"?: string,"organization_id": string,"provider_id": string,"transaction_kind"?: Database["public"]['Enums']["transaction_kind"]
+                  }
+                  Update: {
+                    "action"?: string,"amount_ore"?: number | null,"created_at"?: string,"fee_ore"?: number | null,"occurred_at"?: string,"organization_id"?: string,"provider_id"?: string,"transaction_kind"?: Database["public"]['Enums']["transaction_kind"]
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "mock_report_overrides_organization_id_fkey"
+      columns: ["organization_id"]
+isOneToOne: false
+      referencedRelation: "organizations"
+      referencedColumns: ["id"]
+    }
+                  ]
                 },"notifications": {
                   Row: {
                     "body": string | null,"created_at": string,"id": string,"kind": string,"link_path": string | null,"organization_id": string,"read_at": string | null,"title": string,"user_id": string
@@ -871,6 +891,108 @@ isOneToOne: false
 isOneToOne: false
       referencedRelation: "tracked_links"
       referencedColumns: ["id","organization_id"]
+    }
+                  ]
+                },"reconciliation_comments": {
+                  Row: {
+                    "author_id": string,"body": string,"created_at": string,"id": string,"item_id": string,"organization_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "author_id": string,"body": string,"created_at"?: string,"id"?: string,"item_id": string,"organization_id": string
+                  }
+                  Update: {
+                    "author_id"?: string,"body"?: string,"created_at"?: string,"id"?: string,"item_id"?: string,"organization_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "reconciliation_comments_item_id_fkey"
+      columns: ["item_id"]
+isOneToOne: false
+      referencedRelation: "reconciliation_items"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "reconciliation_comments_organization_id_fkey"
+      columns: ["organization_id"]
+isOneToOne: false
+      referencedRelation: "organizations"
+      referencedColumns: ["id"]
+    }
+                  ]
+                },"reconciliation_items": {
+                  Row: {
+                    "assigned_to": string | null,"created_at": string,"event_id": string | null,"id": string,"kind": Database["public"]['Enums']["reconciliation_kind"],"last_seen_run_id": string | null,"occurred_at": string | null,"organization_id": string,"our_amount_ore": number | null,"our_fee_ore": number | null,"payment_id": string | null,"payout_id": string | null,"provider_id": string,"refund_id": string | null,"resolution_reason": string | null,"resolved_at": string | null,"resolved_by": string | null,"run_id": string,"status": Database["public"]['Enums']["reconciliation_status"],"their_amount_ore": number | null,"their_fee_ore": number | null,"transaction_kind": Database["public"]['Enums']["transaction_kind"],"updated_at": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "assigned_to"?: string | null,"created_at"?: string,"event_id"?: string | null,"id"?: string,"kind": Database["public"]['Enums']["reconciliation_kind"],"last_seen_run_id"?: string | null,"occurred_at"?: string | null,"organization_id": string,"our_amount_ore"?: number | null,"our_fee_ore"?: number | null,"payment_id"?: string | null,"payout_id"?: string | null,"provider_id": string,"refund_id"?: string | null,"resolution_reason"?: string | null,"resolved_at"?: string | null,"resolved_by"?: string | null,"run_id": string,"status"?: Database["public"]['Enums']["reconciliation_status"],"their_amount_ore"?: number | null,"their_fee_ore"?: number | null,"transaction_kind": Database["public"]['Enums']["transaction_kind"],"updated_at"?: string
+                  }
+                  Update: {
+                    "assigned_to"?: string | null,"created_at"?: string,"event_id"?: string | null,"id"?: string,"kind"?: Database["public"]['Enums']["reconciliation_kind"],"last_seen_run_id"?: string | null,"occurred_at"?: string | null,"organization_id"?: string,"our_amount_ore"?: number | null,"our_fee_ore"?: number | null,"payment_id"?: string | null,"payout_id"?: string | null,"provider_id"?: string,"refund_id"?: string | null,"resolution_reason"?: string | null,"resolved_at"?: string | null,"resolved_by"?: string | null,"run_id"?: string,"status"?: Database["public"]['Enums']["reconciliation_status"],"their_amount_ore"?: number | null,"their_fee_ore"?: number | null,"transaction_kind"?: Database["public"]['Enums']["transaction_kind"],"updated_at"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "reconciliation_items_event_id_organization_id_fkey"
+      columns: ["event_id","organization_id"]
+isOneToOne: false
+      referencedRelation: "events"
+      referencedColumns: ["id","organization_id"]
+    },{
+      foreignKeyName: "reconciliation_items_last_seen_run_id_fkey"
+      columns: ["last_seen_run_id"]
+isOneToOne: false
+      referencedRelation: "reconciliation_runs"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "reconciliation_items_organization_id_fkey"
+      columns: ["organization_id"]
+isOneToOne: false
+      referencedRelation: "organizations"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "reconciliation_items_payment_id_organization_id_fkey"
+      columns: ["payment_id","organization_id"]
+isOneToOne: false
+      referencedRelation: "payments"
+      referencedColumns: ["id","organization_id"]
+    },{
+      foreignKeyName: "reconciliation_items_payout_id_fkey"
+      columns: ["payout_id"]
+isOneToOne: false
+      referencedRelation: "payouts"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "reconciliation_items_refund_id_fkey"
+      columns: ["refund_id"]
+isOneToOne: false
+      referencedRelation: "refunds"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "reconciliation_items_run_id_fkey"
+      columns: ["run_id"]
+isOneToOne: false
+      referencedRelation: "reconciliation_runs"
+      referencedColumns: ["id"]
+    }
+                  ]
+                },"reconciliation_runs": {
+                  Row: {
+                    "created_at": string,"id": string,"matched_count": number,"mismatch_count": number,"organization_id": string,"period_from": string,"period_to": string,"provider": Database["public"]['Enums']["payment_provider"],"provider_count": number,"triggered_by": string | null
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"id"?: string,"matched_count"?: number,"mismatch_count"?: number,"organization_id": string,"period_from": string,"period_to": string,"provider": Database["public"]['Enums']["payment_provider"],"provider_count"?: number,"triggered_by"?: string | null
+                  }
+                  Update: {
+                    "created_at"?: string,"id"?: string,"matched_count"?: number,"mismatch_count"?: number,"organization_id"?: string,"period_from"?: string,"period_to"?: string,"provider"?: Database["public"]['Enums']["payment_provider"],"provider_count"?: number,"triggered_by"?: string | null
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "reconciliation_runs_organization_id_fkey"
+      columns: ["organization_id"]
+isOneToOne: false
+      referencedRelation: "organizations"
+      referencedColumns: ["id"]
     }
                   ]
                 },"refunds": {
@@ -1428,7 +1550,15 @@ isOneToOne: false
                 }
           }
           Views: {
-            [_ in never]: never
+            "transactions": {
+                  Row: {
+                    "amount_ore": number | null,"customer_name": string | null,"event_id": string | null,"fee_ore": number | null,"id": string | null,"kind": Database["public"]['Enums']["transaction_kind"] | null,"method": Database["public"]['Enums']["payment_method"] | null,"occurred_at": string | null,"order_code": string | null,"order_id": string | null,"organization_id": string | null,"provider": Database["public"]['Enums']["payment_provider"] | null,"provider_id": string | null,"psp_fee_ore": number | null,"status": string | null,"vendor_id": string | null
+                  }
+                  ComputedFields: never
+                  Relationships: [
+                    
+                  ]
+                }
           }
           Functions: {
             "assign_stall":
@@ -1491,6 +1621,9 @@ isOneToOne: false
 "record_payout_result":
 { Args: { "p_paid": boolean,"p_provider_payout_id": string,"p_reason": string }; Returns: boolean
                            },
+"record_reconciliation":
+{ Args: { "p_from": string,"p_items": Json,"p_matched": number,"p_organization_id": string,"p_provider": Database["public"]['Enums']["payment_provider"],"p_provider_count": number,"p_to": string,"p_user": string }; Returns: string
+                           },
 "record_refund_result":
 { Args: { "p_provider_refund_id": string,"p_succeeded": boolean }; Returns: boolean
                            },
@@ -1527,7 +1660,7 @@ isOneToOne: false
                            }
           }
           Enums: {
-            "allergen": "gluten"|"crustaceans"|"eggs"|"fish"|"peanuts"|"soybeans"|"milk"|"nuts"|"celery"|"mustard"|"sesame"|"sulphites"|"lupin"|"molluscs","application_status": "draft"|"submitted"|"under_review"|"more_info_requested"|"approved"|"rejected"|"waitlisted"|"withdrawn","asset_kind": "logo"|"banner"|"video"|"other","assignment_status": "active"|"released","audit_action": "insert"|"update"|"delete","commission_scope": "organization"|"event"|"category"|"vendor","commission_type": "percentage"|"fixed"|"hybrid","dietary_tag": "vegetarian"|"vegan"|"halal"|"gluten_free"|"dairy_free"|"spicy","dispute_status": "open"|"won"|"lost","document_type": "mattilsynet_registration"|"insurance"|"other","event_status": "draft"|"published"|"closed"|"archived","invoice_kind": "commission"|"stall_fee","invoice_status": "issued"|"paid"|"credited","lead_kind": "contact"|"catering"|"quote","lead_status": "new"|"contacted"|"closed","ledger_account": "psp_clearing"|"vendor_payable"|"vendor_receivable"|"commission_revenue"|"mva_payable"|"psp_fee_expense"|"adjustments","ledger_direction": "debit"|"credit","ledger_entry_type": "sale"|"commission"|"commission_mva"|"psp_fee"|"refund"|"refund_commission_reversal"|"payout"|"adjustment"|"dispute","link_kind": "qr"|"link","membership_role": "org_admin"|"event_admin"|"vendor"|"sponsor","membership_status": "pending"|"active","order_status": "pending_payment"|"new"|"accepted"|"preparing"|"ready"|"collected"|"cancelled","payment_method": "vipps"|"card"|"apple_pay"|"google_pay","payment_provider": "mock"|"stripe"|"swedbank","payment_status": "pending"|"succeeded"|"failed"|"cancelled","payout_status": "pending"|"in_transit"|"paid"|"failed","psp_account_status": "not_started"|"pending"|"eligible"|"restricted","refund_status": "pending"|"succeeded"|"failed","review_status": "pending"|"accepted"|"rejected","settlement_status": "draft"|"prepared"|"approved"|"releasing"|"completed"|"completed_with_failures"|"cancelled","sponsorship_status": "inquiry"|"confirmed"|"invoiced"|"paid"|"cancelled","stall_fee_status": "open"|"invoiced"|"paid"|"cancelled","webhook_outcome": "processed"|"ignored"|"failed"
+            "allergen": "gluten"|"crustaceans"|"eggs"|"fish"|"peanuts"|"soybeans"|"milk"|"nuts"|"celery"|"mustard"|"sesame"|"sulphites"|"lupin"|"molluscs","application_status": "draft"|"submitted"|"under_review"|"more_info_requested"|"approved"|"rejected"|"waitlisted"|"withdrawn","asset_kind": "logo"|"banner"|"video"|"other","assignment_status": "active"|"released","audit_action": "insert"|"update"|"delete","commission_scope": "organization"|"event"|"category"|"vendor","commission_type": "percentage"|"fixed"|"hybrid","dietary_tag": "vegetarian"|"vegan"|"halal"|"gluten_free"|"dairy_free"|"spicy","dispute_status": "open"|"won"|"lost","document_type": "mattilsynet_registration"|"insurance"|"other","event_status": "draft"|"published"|"closed"|"archived","invoice_kind": "commission"|"stall_fee","invoice_status": "issued"|"paid"|"credited","lead_kind": "contact"|"catering"|"quote","lead_status": "new"|"contacted"|"closed","ledger_account": "psp_clearing"|"vendor_payable"|"vendor_receivable"|"commission_revenue"|"mva_payable"|"psp_fee_expense"|"adjustments","ledger_direction": "debit"|"credit","ledger_entry_type": "sale"|"commission"|"commission_mva"|"psp_fee"|"refund"|"refund_commission_reversal"|"payout"|"adjustment"|"dispute","link_kind": "qr"|"link","membership_role": "org_admin"|"event_admin"|"vendor"|"sponsor","membership_status": "pending"|"active","order_status": "pending_payment"|"new"|"accepted"|"preparing"|"ready"|"collected"|"cancelled","payment_method": "vipps"|"card"|"apple_pay"|"google_pay","payment_provider": "mock"|"stripe"|"swedbank","payment_status": "pending"|"succeeded"|"failed"|"cancelled","payout_status": "pending"|"in_transit"|"paid"|"failed","psp_account_status": "not_started"|"pending"|"eligible"|"restricted","reconciliation_kind": "missing_ours"|"missing_theirs"|"amount_differs"|"fee_differs","reconciliation_status": "open"|"assigned"|"resolved","refund_status": "pending"|"succeeded"|"failed","review_status": "pending"|"accepted"|"rejected","settlement_status": "draft"|"prepared"|"approved"|"releasing"|"completed"|"completed_with_failures"|"cancelled","sponsorship_status": "inquiry"|"confirmed"|"invoiced"|"paid"|"cancelled","stall_fee_status": "open"|"invoiced"|"paid"|"cancelled","transaction_kind": "payment"|"refund"|"payout","webhook_outcome": "processed"|"ignored"|"failed"
           }
           CompositeTypes: {
             [_ in never]: never
@@ -1643,7 +1776,7 @@ export type CompositeTypes<
 export const Constants = {
   "public": {
           Enums: {
-            "allergen": ["gluten", "crustaceans", "eggs", "fish", "peanuts", "soybeans", "milk", "nuts", "celery", "mustard", "sesame", "sulphites", "lupin", "molluscs"],"application_status": ["draft", "submitted", "under_review", "more_info_requested", "approved", "rejected", "waitlisted", "withdrawn"],"asset_kind": ["logo", "banner", "video", "other"],"assignment_status": ["active", "released"],"audit_action": ["insert", "update", "delete"],"commission_scope": ["organization", "event", "category", "vendor"],"commission_type": ["percentage", "fixed", "hybrid"],"dietary_tag": ["vegetarian", "vegan", "halal", "gluten_free", "dairy_free", "spicy"],"dispute_status": ["open", "won", "lost"],"document_type": ["mattilsynet_registration", "insurance", "other"],"event_status": ["draft", "published", "closed", "archived"],"invoice_kind": ["commission", "stall_fee"],"invoice_status": ["issued", "paid", "credited"],"lead_kind": ["contact", "catering", "quote"],"lead_status": ["new", "contacted", "closed"],"ledger_account": ["psp_clearing", "vendor_payable", "vendor_receivable", "commission_revenue", "mva_payable", "psp_fee_expense", "adjustments"],"ledger_direction": ["debit", "credit"],"ledger_entry_type": ["sale", "commission", "commission_mva", "psp_fee", "refund", "refund_commission_reversal", "payout", "adjustment", "dispute"],"link_kind": ["qr", "link"],"membership_role": ["org_admin", "event_admin", "vendor", "sponsor"],"membership_status": ["pending", "active"],"order_status": ["pending_payment", "new", "accepted", "preparing", "ready", "collected", "cancelled"],"payment_method": ["vipps", "card", "apple_pay", "google_pay"],"payment_provider": ["mock", "stripe", "swedbank"],"payment_status": ["pending", "succeeded", "failed", "cancelled"],"payout_status": ["pending", "in_transit", "paid", "failed"],"psp_account_status": ["not_started", "pending", "eligible", "restricted"],"refund_status": ["pending", "succeeded", "failed"],"review_status": ["pending", "accepted", "rejected"],"settlement_status": ["draft", "prepared", "approved", "releasing", "completed", "completed_with_failures", "cancelled"],"sponsorship_status": ["inquiry", "confirmed", "invoiced", "paid", "cancelled"],"stall_fee_status": ["open", "invoiced", "paid", "cancelled"],"webhook_outcome": ["processed", "ignored", "failed"]
+            "allergen": ["gluten", "crustaceans", "eggs", "fish", "peanuts", "soybeans", "milk", "nuts", "celery", "mustard", "sesame", "sulphites", "lupin", "molluscs"],"application_status": ["draft", "submitted", "under_review", "more_info_requested", "approved", "rejected", "waitlisted", "withdrawn"],"asset_kind": ["logo", "banner", "video", "other"],"assignment_status": ["active", "released"],"audit_action": ["insert", "update", "delete"],"commission_scope": ["organization", "event", "category", "vendor"],"commission_type": ["percentage", "fixed", "hybrid"],"dietary_tag": ["vegetarian", "vegan", "halal", "gluten_free", "dairy_free", "spicy"],"dispute_status": ["open", "won", "lost"],"document_type": ["mattilsynet_registration", "insurance", "other"],"event_status": ["draft", "published", "closed", "archived"],"invoice_kind": ["commission", "stall_fee"],"invoice_status": ["issued", "paid", "credited"],"lead_kind": ["contact", "catering", "quote"],"lead_status": ["new", "contacted", "closed"],"ledger_account": ["psp_clearing", "vendor_payable", "vendor_receivable", "commission_revenue", "mva_payable", "psp_fee_expense", "adjustments"],"ledger_direction": ["debit", "credit"],"ledger_entry_type": ["sale", "commission", "commission_mva", "psp_fee", "refund", "refund_commission_reversal", "payout", "adjustment", "dispute"],"link_kind": ["qr", "link"],"membership_role": ["org_admin", "event_admin", "vendor", "sponsor"],"membership_status": ["pending", "active"],"order_status": ["pending_payment", "new", "accepted", "preparing", "ready", "collected", "cancelled"],"payment_method": ["vipps", "card", "apple_pay", "google_pay"],"payment_provider": ["mock", "stripe", "swedbank"],"payment_status": ["pending", "succeeded", "failed", "cancelled"],"payout_status": ["pending", "in_transit", "paid", "failed"],"psp_account_status": ["not_started", "pending", "eligible", "restricted"],"reconciliation_kind": ["missing_ours", "missing_theirs", "amount_differs", "fee_differs"],"reconciliation_status": ["open", "assigned", "resolved"],"refund_status": ["pending", "succeeded", "failed"],"review_status": ["pending", "accepted", "rejected"],"settlement_status": ["draft", "prepared", "approved", "releasing", "completed", "completed_with_failures", "cancelled"],"sponsorship_status": ["inquiry", "confirmed", "invoiced", "paid", "cancelled"],"stall_fee_status": ["open", "invoiced", "paid", "cancelled"],"transaction_kind": ["payment", "refund", "payout"],"webhook_outcome": ["processed", "ignored", "failed"]
           }
         }
 } as const

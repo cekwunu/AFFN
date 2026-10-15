@@ -95,7 +95,7 @@ If Docker cannot pull from public.ecr.aws, set `SUPABASE_INTERNAL_IMAGE_REGISTRY
 rate-limits, pull the image from `mirror.gcr.io/...` and `docker tag` it to the expected name.
 
 Cloud: Supabase project `nwllhsbhdftrucgndjpc` ("Affn", eu-north-1 Stockholm), URL
-`https://nwllhsbhdftrucgndjpc.supabase.co`. All migrations up to `20261024100000_settlements` are
+`https://nwllhsbhdftrucgndjpc.supabase.co`. All migrations up to `20261025100000_reconciliation` are
 applied (no seed data). Reference data (organization, AFFN 2027, categories, commission rule, stall types)
 is in `supabase/reference-data.sql`, applied once; no users or demo vendors. Apply each new migration there too, after CI is green. The Supabase connection
 here cannot approve destructive statements (including `delete from` inside function bodies): write
@@ -211,6 +211,22 @@ adjustments to the ledger, one pending payout per unpaid line, new attempt on re
 (`dispute.opened/closed` webhook → `record_dispute`; lost = Dr vendor_payable / Cr psp_clearing);
 the mock's `simulateDispute` is wired to test-mode buttons on the batch page. Vendors see
 `/vendor/settlements`. Table containers are focusable (keyboard scrolling, axe).
+
+Transactions and reconciliation (P14): `/admin/transactions` lists payments, refunds and payouts
+(`public.transactions` view, security invoker) with URL filters and a detail panel (`?open=kind:id`;
+ledger, items, audit; raw provider events for Organization Admins). Reconciliation
+(`src/lib/reconciliation`: pure `reconcile()` in `match.ts`, `runReconciliation` in `server.ts`)
+compares `PaymentProvider.fetchSettlementReport` with our tables and stores the run with
+`public.record_reconciliation` (service role): one open `reconciliation_items` row per provider id
+and kind; open items resolve themselves when a later run no longer finds them. Vercel Cron
+(`vercel.json`) calls `/api/cron/reconcile` daily with `Authorization: Bearer CRON_SECRET` (last
+48 h); `/admin/reconciliation` has "Run now" and the assign / comment / resolve-with-reason workflow
+(audited). Open items for the event (or with no event) block settlement via
+`private.unreconciled_count`. TEST MODE: rows in `mock_report_overrides` (drop / amount / fee /
+extra) change the mock report so mismatches can be injected. CSV exports at `/admin/exports`
+(`/api/admin/exports`, `src/lib/exports`): semicolon, decimal comma, UTF-8 BOM, Oslo times; columns
+in `docs/exports.md` (update it when a column changes). The reconciliation e2e is its own
+Playwright project after `kitchen`.
 
 Public pages stay light: their client islands get translated strings as props and use
 `@/i18n/link` and `clsx` — no `useTranslations`, `cn` or Radix overlays in public client code.
