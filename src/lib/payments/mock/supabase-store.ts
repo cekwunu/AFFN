@@ -57,7 +57,9 @@ export function supabaseMockStore(): MockStore {
           'provider_refund_id, amount_ore, platform_fee_reversal_ore, created_at, payment:payments!inner(provider_payment_id)',
         )
         .eq('payment.provider_payment_id', paymentId)
-        .neq('status', 'failed');
+        .neq('status', 'failed')
+        // Only refunds the provider has seen: ours are recorded before the provider is asked.
+        .not('provider_refund_id', 'is', null);
       return (data ?? []).map((r): MockRefund => ({
         id: r.provider_refund_id ?? '',
         paymentId,
