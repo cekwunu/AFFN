@@ -55,7 +55,8 @@
       "profile": "Profil",
       "products": "Produkter",
       "preview": "Forhåndsvisning",
-      "payouts": "Utbetalinger"
+      "payouts": "Utbetalinger",
+      "qr": "QR-kode"
     },
     "storefront": {
       "viewCart": "Se handlekurv ({count, plural, one {# vare} other {# varer}})"
@@ -492,6 +493,11 @@
       },
       "noteTitle": "Melding fra AFFN:",
       "cta": "Se søknaden"
+    },
+    "receipt": {
+      "subject": "Kvittering fra {vendor} – bestilling {number}",
+      "intro": "Takk for bestillingen! Her er kvitteringen din.",
+      "footer": "Kvitteringen er sendt via {platform} på vegne av selgeren."
     }
   },
   "Admin": {
@@ -1379,5 +1385,116 @@
     "testMode": "TESTMODUS",
     "testModeHint": "Testmodus: ingen ekte konto opprettes.",
     "failed": "Oppsettet kunne ikke startes. Prøv igjen."
+  },
+  "Storefront": {
+    "menu": "Meny",
+    "other": "Annet",
+    "soldOut": "Utsolgt",
+    "add": "Legg til",
+    "addNamed": "Legg {name} i handlekurven",
+    "decrease": "Ta bort én {name}",
+    "increase": "Legg til én {name}",
+    "inCart": "{count} i handlekurven",
+    "about": "Om {name}",
+    "allergens": "Allergener",
+    "noAllergens": "Ingen av de 14 allergenene",
+    "mvaIncluded": "inkl. {rate} % mva",
+    "cuisine": "Mat fra {country}",
+    "coverAlt": "Bilde fra {name}",
+    "logoAlt": "Logo for {name}",
+    "categories": "Kategorier",
+    "blocked": {
+      "paused": "{name} tar ikke imot bestillinger akkurat nå. Prøv igjen litt senere.",
+      "payouts": "{name} kan ikke ta imot betaling ennå. Du kan se menyen, men ikke bestille.",
+      "closed": "{event} er avsluttet. Takk for i år!"
+    },
+    "paymentFailed": "Betalingen gikk ikke gjennom, og ingen penger er trukket. Handlekurven er tatt vare på – prøv igjen.",
+    "cart": {
+      "open": "Se bestillingen · {total}",
+      "title": "Din bestilling",
+      "close": "Lukk",
+      "empty": "Handlekurven er tom.",
+      "total": "Totalt",
+      "name": "Navn (valgfritt)",
+      "nameHint": "Vi roper opp navnet når maten er klar.",
+      "note": "Beskjed til kjøkkenet (valgfritt)",
+      "noteHint": "For eksempel bordnummer eller «uten løk».",
+      "pay": "Gå til betaling · {total}",
+      "paying": "Åpner betaling …",
+      "methods": "Vipps, kort, Apple Pay eller Google Pay",
+      "testMode": "TESTMODUS – ingen ekte betaling",
+      "errors": {
+        "empty": "Handlekurven er tom.",
+        "unavailable": "Noe i handlekurven er ikke lenger tilgjengelig. Sjekk bestillingen.",
+        "price_changed": "Prisene er endret. Sjekk bestillingen og prøv igjen.",
+        "not_selling": "Boden tar ikke imot bestillinger akkurat nå.",
+        "rate_limited": "For mange forsøk. Vent litt og prøv igjen.",
+        "failed": "Noe gikk galt. Prøv igjen."
+      },
+      "itemOne": "{count} vare",
+      "itemOther": "{count} varer"
+    }
+  },
+  "Receipt": {
+    "title": "Bestilling {number}",
+    "paidTitle": "Takk! Bestillingen er mottatt",
+    "paidText": "Hent maten hos {vendor} når nummeret ditt ropes opp.",
+    "pendingTitle": "Venter på betaling",
+    "pendingText": "Vi har ikke fått bekreftet betalingen ennå.",
+    "refresh": "Oppdater",
+    "cancelledTitle": "Betalingen ble ikke fullført",
+    "cancelledText": "Ingen penger er trukket.",
+    "back": "Tilbake til {vendor}",
+    "orderNumber": "Ordrenummer",
+    "receipt": "Kvittering",
+    "seller": "Selger",
+    "orgNumber": "Org.nr. {number}",
+    "platform": "Plattform",
+    "platformText": "{name} formidler bestillingen på vegne av selgeren.",
+    "item": "Vare",
+    "quantity": "Antall",
+    "amount": "Beløp",
+    "mva": "Herav mva {rate} %",
+    "noMva": "Selgeren er ikke mva-registrert.",
+    "total": "Totalt",
+    "method": "Betalt med",
+    "time": "Tidspunkt",
+    "pickup": "Beskjed",
+    "name": "Navn",
+    "email": {
+      "title": "Få kvitteringen på e-post",
+      "label": "E-postadresse",
+      "send": "Send kvittering",
+      "sent": "Kvitteringen er sendt til {email}.",
+      "invalid": "Skriv en gyldig e-postadresse.",
+      "limited": "For mange forsøk. Prøv igjen senere.",
+      "privacy": "Vi bruker adressen bare til å sende denne kvitteringen."
+    },
+    "methods": {
+      "vipps": "Vipps",
+      "card": "Kort",
+      "apple_pay": "Apple Pay",
+      "google_pay": "Google Pay"
+    },
+    "status": {
+      "pending_payment": "Venter på betaling",
+      "new": "Mottatt",
+      "accepted": "Godtatt",
+      "preparing": "Tilberedes",
+      "ready": "Klar til henting",
+      "collected": "Hentet",
+      "cancelled": "Kansellert"
+    }
+  },
+  "VendorQr": {
+    "title": "QR-kode",
+    "intro": "Gjestene skanner koden for å se menyen og bestille. Skriv ut bordskiltet og sett det godt synlig ved boden.",
+    "url": "Lenke til siden din",
+    "png": "Last ned QR-kode (PNG)",
+    "pdf": "Last ned bordskilt (A5, PDF)",
+    "alt": "QR-kode til {url}",
+    "notApproved": "Du får QR-koden når søknaden din er godkjent.",
+    "notPublished": "Siden din er ikke offentlig ennå. Slå på «Vis profilen offentlig» under Profil.",
+    "open": "Åpne siden"
   }
 }

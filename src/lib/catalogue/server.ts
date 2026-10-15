@@ -4,7 +4,7 @@ import { getCurrentUser } from '@/lib/auth/server';
 import { createClient } from '@/lib/supabase/server';
 
 const VENDOR_COLUMNS =
-  'id, organization_id, display_name, legal_name, org_number, category, cuisine_country, description, story, logo_path, cover_image_path, public_email, public_phone, website_url, instagram_handle, facebook_url, tiktok_handle, offers_catering, catering_offer, mva_registered, profile_published';
+  'id, organization_id, slug, display_name, legal_name, org_number, category, cuisine_country, description, story, logo_path, cover_image_path, public_email, public_phone, website_url, instagram_handle, facebook_url, tiktok_handle, offers_catering, catering_offer, mva_registered, profile_published';
 
 /** The signed-in user's vendor business (vendor membership), or null before applying. */
 export const myVendor = cache(async () => {

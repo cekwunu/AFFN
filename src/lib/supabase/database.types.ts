@@ -1396,11 +1396,17 @@ isOneToOne: false
             "assign_stall":
 { Args: { "p_event_vendor_id": string,"p_stall_id": string }; Returns: string
                            },
+"attach_provider_payment":
+{ Args: { "p_payment_id": string,"p_provider_payment_id": string }; Returns: undefined
+                           },
 "brreg_cache_get":
 { Args: { "p_max_age_seconds": number,"p_org_number": string }; Returns: Json
                            },
 "brreg_cache_put":
 { Args: { "p_org_number": string,"p_payload": Json,"p_status": string }; Returns: undefined
+                           },
+"create_order":
+{ Args: { "p_commission_mva_ore": number,"p_commission_ore": number,"p_commission_rule_id": string,"p_customer_name": string,"p_event_vendor_id": string,"p_expected_total_ore": number,"p_items": Json,"p_locale": string,"p_pickup_note": string,"p_provider": Database["public"]['Enums']["payment_provider"] }; Returns: Json
                            },
 "delete_product":
 { Args: { "p_product_id": string }; Returns: undefined
@@ -1434,6 +1440,9 @@ isOneToOne: false
                            },
 "set_payment_account_status":
 { Args: { "p_account_id": string,"p_status": Database["public"]['Enums']["psp_account_status"] }; Returns: number
+                           },
+"set_receipt_email":
+{ Args: { "p_email": string,"p_tracking_token": string }; Returns: boolean
                            },
 "set_venue_map":
 { Args: { "p_event_id": string,"p_path": string }; Returns: undefined
