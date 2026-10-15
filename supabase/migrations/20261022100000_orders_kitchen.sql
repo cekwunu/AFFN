@@ -190,7 +190,8 @@ end;
 $$;
 
 -- The provider's answer to the refund request (idempotent): keeps the provider's id and the fee
--- it reversed; status follows the provider.
+-- it reversed; status follows the provider. p_succeeded null = still pending at the provider
+-- (its refund webhook completes it through record_refund_result).
 create function public.record_order_refund(
   p_refund_id uuid,
   p_provider_refund_id text,
@@ -205,13 +206,14 @@ as $$
 begin
   update public.refunds
      set provider_refund_id = coalesce(provider_refund_id, p_provider_refund_id),
-         platform_fee_reversal_ore = case when status = 'pending'
+         platform_fee_reversal_ore = case when status = 'pending' and p_platform_fee_reversal_ore is not null
                                           then p_platform_fee_reversal_ore
                                           else platform_fee_reversal_ore end,
-         status = case when status = 'pending'
+         status = case when status = 'pending' and p_succeeded is not null
                        then (case when p_succeeded then 'succeeded' else 'failed' end)::public.refund_status
                        else status end,
-         succeeded_at = case when status = 'pending' and p_succeeded then now() else succeeded_at end
+         succeeded_at = case when status = 'pending' and p_succeeded is true then now()
+                             else succeeded_at end
    where id = p_refund_id;
 end;
 $$;
@@ -257,5 +259,29 @@ revoke all on function private.broadcast_order_status() from public;
 create trigger orders_broadcast_status after update of status on public.orders
   for each row when (old.status is distinct from new.status)
   execute function private.broadcast_order_status();
+
+-- A refund completing after the cancellation updates the customer's page too.
+create function private.broadcast_refund_status()
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $$
+begin
+  perform realtime.send(
+    jsonb_build_object('refund', new.status),
+    'status',
+    'order:' || o.tracking_token,
+    false
+  )
+  from public.orders o
+  where o.id = new.order_id;
+  return null;
+end;
+$$;
+revoke all on function private.broadcast_refund_status() from public;
+
+create trigger refunds_broadcast_status after insert or update of status on public.refunds
+  for each row execute function private.broadcast_refund_status();
 
 create index orders_event_vendor_status_idx on public.orders (event_vendor_id, status, paid_at);

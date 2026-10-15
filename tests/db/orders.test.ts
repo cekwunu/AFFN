@@ -1,7 +1,7 @@
 import type pg from 'pg';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { asOwner, asRole, connect, disconnect } from './db';
-import { EVENT1, EVENT_VENDOR, USERS } from './ids';
+import { EVENT_VENDOR, USERS } from './ids';
 
 beforeAll(connect);
 afterAll(disconnect);
@@ -249,11 +249,31 @@ describe('realtime (ORD-02, ORD-03)', () => {
         `select m.payload ->> 'status' as status, m.private
            from realtime.messages m
            join public.orders o on m.topic = 'order:' || o.tracking_token
-          where o.id = $1`,
+          where o.id = $1 and m.payload ? 'status'`,
         [ORDER],
       );
       expect(rows).toEqual([{ status: 'accepted', private: false }]);
-      void EVENT1;
+    });
+  });
+
+  it('broadcasts refund progress on the same topic', async () => {
+    await asOwner(async (c) => {
+      const { rows: started } = await c.query<{ result: { refund_id: string } }>(
+        `select public.begin_order_cancellation($1, 'Tomt', null) as result`,
+        [ORDER],
+      );
+      await c.query(`select public.record_order_refund($1, 'mock_re_x', true, 0)`, [
+        started[0]!.result.refund_id,
+      ]);
+      const { rows } = await c.query(
+        `select m.payload ->> 'refund' as refund
+           from realtime.messages m
+           join public.orders o on m.topic = 'order:' || o.tracking_token
+          where o.id = $1 and m.payload ? 'refund' and m.inserted_at >= now()
+          order by m.inserted_at, m.id`,
+        [ORDER],
+      );
+      expect(rows.map((r) => r.refund).sort()).toEqual(['pending', 'succeeded']);
     });
   });
 });
