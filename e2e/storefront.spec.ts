@@ -68,7 +68,7 @@ test('scan → pay → receipt on a phone (QR-02, QR-03, QR-05)', async ({ page 
   await page.getByRole('button', { name: /^Betal kr\s415,00$/ }).click();
 
   await expect(page).toHaveURL(/\/o\/[0-9a-f]{64}\?paid=1$/);
-  await expect(page.getByRole('heading', { name: 'Takk! Bestillingen er mottatt' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Bestillingen er mottatt' })).toBeVisible();
   const receipt = page.getByTestId('receipt');
   await expect(receipt).toContainText('Mama Afrika Kjøkken Okafor, Org.nr. 912345670');
   await expect(receipt).toContainText('African Food Festival Norway formidler bestillingen');

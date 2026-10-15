@@ -14,7 +14,21 @@ export default defineConfig({
     baseURL,
     trace: 'on-first-retry',
   },
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
+  projects: [
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+      testIgnore: /kitchen\.spec\.ts/,
+    },
+    // The kitchen tests order from the same seeded vendor the storefront tests briefly pause, so
+    // they run after the other tests instead of alongside them.
+    {
+      name: 'kitchen',
+      use: { ...devices['Desktop Chrome'] },
+      testMatch: /kitchen\.spec\.ts/,
+      dependencies: ['chromium'],
+    },
+  ],
   webServer: [
     {
       // Stand-in for Brønnøysundregistrene, so tests never depend on the real registry.

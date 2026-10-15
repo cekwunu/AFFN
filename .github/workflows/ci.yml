@@ -59,11 +59,11 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec playwright install --with-deps chromium
-      # Auth, REST and Storage (behind Kong) plus Mailpit for the emails. Playwright also starts
+      # Auth, REST, Storage and Realtime (behind Kong) plus Mailpit for the emails. Playwright also starts
       # a Brønnøysundregistrene stub (e2e/support/brreg-stub.mjs).
       - run: >-
           pnpm exec supabase start -x
-          realtime,imgproxy,studio,edge-runtime,logflare,vector,supavisor,postgres-meta
+          imgproxy,studio,edge-runtime,logflare,vector,supavisor,postgres-meta
       - run: pnpm db:env
       - run: pnpm test:e2e
       # Lighthouse (mobile) on the public vendor page of a production build: ≥ 90 (QR-02).
