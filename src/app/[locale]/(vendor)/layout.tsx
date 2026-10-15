@@ -3,6 +3,7 @@ import {
   Eye,
   LayoutDashboard,
   MapPin,
+  QrCode,
   Store,
   UtensilsCrossed,
   Wallet,
@@ -32,6 +33,7 @@ export default async function VendorLayout({ children, params }: LayoutProps<'/[
           { href: '/vendor/profile', label: t('profile'), icon: <Store /> },
           { href: '/vendor/products', label: t('products'), icon: <UtensilsCrossed /> },
           { href: '/vendor/payouts', label: t('payouts'), icon: <Wallet /> },
+          { href: '/vendor/qr', label: t('qr'), icon: <QrCode /> },
           { href: '/vendor/preview', label: t('preview'), icon: <Eye /> },
         ]}
       >
