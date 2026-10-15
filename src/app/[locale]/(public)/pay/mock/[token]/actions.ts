@@ -1,34 +1,38 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import { readMockLink, mockSecret } from '@/lib/payments/mock';
-import { sign } from '@/lib/payments/mock-signing';
-import type { VerifiedWebhookEvent } from '@/lib/payments/provider';
-import { handlePaymentWebhook } from '@/lib/payments/webhooks';
+import { getMockProvider } from '@/lib/payments';
+import { PAYMENT_METHODS, type PaymentMethod } from '@/lib/payments/provider';
+import { processWebhook } from '@/lib/payments/webhooks';
+
+/** Back into the app only: keep the path and query of a provider return URL. */
+function withinApp(url: string, extra: string): string {
+  const target = new URL(url);
+  return `${target.pathname}${target.search ? `${target.search}&` : '?'}${extra}`;
+}
 
 /**
- * "Pays" a mock payment link: sends the signed webhook the provider would send, through the same
- * handler as /api/webhooks/mock, then returns to the app. The payment id is fixed per link, so
- * paying twice records one payment.
+ * The mock provider's hosted pages: each action produces the signed webhook a real provider
+ * would send and delivers it through the same processing path as /api/webhooks/mock.
  */
+export async function completeMockOnboarding(formData: FormData): Promise<void> {
+  const token = String(formData.get('token') ?? '');
+  const outcome = formData.get('outcome') === 'action_required' ? 'action_required' : 'enabled';
+  const result = await getMockProvider().completeOnboarding(token, outcome);
+  if (!result) redirect('?error=invalid');
+  const processed = await processWebhook('mock', result.delivery.rawBody, result.delivery.headers);
+  if (processed === 'failed' || processed === 'invalid') redirect('?error=failed');
+  redirect(withinApp(result.returnUrl, 'returned=1'));
+}
+
 export async function completeMockPayment(formData: FormData): Promise<void> {
   const token = String(formData.get('token') ?? '');
-  const link = readMockLink(token);
-  if (!link) redirect('?error=invalid');
-
-  const event: VerifiedWebhookEvent = {
-    id: `evt_mock_${crypto.randomUUID()}`,
-    type: 'payment_link.paid',
-    kind: link.kind,
-    reference: link.reference,
-    providerPaymentId: `mock_pay_${link.reference}`,
-    amountOre: link.amountOre,
-  };
-  const rawBody = JSON.stringify(event);
-  const result = await handlePaymentWebhook('mock', rawBody, sign(rawBody, mockSecret()));
-  if (result === 'failed' || result === 'invalid') redirect('?error=failed');
-
-  // Only ever return within the app.
-  const back = new URL(link.returnUrl);
-  redirect(`${back.pathname}${back.search ? `${back.search}&` : '?'}paid=1`);
+  const method = String(formData.get('method') ?? '') as PaymentMethod;
+  const outcome = formData.get('result') === 'failed' ? 'failed' : 'succeeded';
+  if (!PAYMENT_METHODS.includes(method)) redirect('?error=method');
+  const result = await getMockProvider().completePayment(token, { result: outcome, method });
+  if (!result) redirect('?error=invalid');
+  const processed = await processWebhook('mock', result.delivery.rawBody, result.delivery.headers);
+  if (processed === 'failed' || processed === 'invalid') redirect('?error=failed');
+  redirect(withinApp(result.returnUrl, outcome === 'succeeded' ? 'paid=1' : 'payment=failed'));
 }

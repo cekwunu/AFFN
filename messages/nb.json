@@ -54,7 +54,8 @@
       "stall": "Stand",
       "profile": "Profil",
       "products": "Produkter",
-      "preview": "Forhåndsvisning"
+      "preview": "Forhåndsvisning",
+      "payouts": "Utbetalinger"
     },
     "storefront": {
       "viewCart": "Se handlekurv ({count, plural, one {# vare} other {# varer}})"
@@ -962,14 +963,30 @@
   },
   "MockPay": {
     "title": "Testbetaling",
-    "banner": "Dette er en testbetaling. Ingen penger trekkes. Den ekte betalingsløsningen kommer senere.",
+    "testMode": "TESTMODUS",
+    "banner": "Testmodus: ingen ekte penger trekkes eller utbetales. Den ekte betalingsleverandøren kobles på senere.",
     "amount": "Beløp",
     "for": "Gjelder",
     "pay": "Betal {amount}",
     "paying": "Betaler …",
     "cancel": "Avbryt",
-    "invalid": "Betalingslenken er ugyldig eller utløpt.",
-    "failed": "Betalingen kunne ikke registreres. Prøv igjen."
+    "invalid": "Lenken er ugyldig eller utløpt.",
+    "failed": "Betalingen kunne ikke registreres. Prøv igjen.",
+    "method": "Betalingsmåte",
+    "methods": {
+      "vipps": "Vipps",
+      "card": "Kort",
+      "apple_pay": "Apple Pay",
+      "google_pay": "Google Pay"
+    },
+    "simulateFailure": "Simuler avvist betaling",
+    "split": "Fordeling",
+    "toVendor": "Til leverandøren",
+    "toPlatform": "Plattformgebyr (provisjon + mva)",
+    "onboardingTitle": "Oppsett av utbetalinger",
+    "onboardingIntro": "Her ville {business} bekreftet identitet og bankkonto hos betalingsleverandøren.",
+    "completeOnboarding": "Fullfør verifiseringen",
+    "needsInfo": "Simuler at mer informasjon trengs"
   },
   "VendorStall": {
     "title": "Stand",
@@ -1288,12 +1305,12 @@
     "feeNone": "Faktura kommer når søknaden er godkjent",
     "paymentsTitle": "Betalingskonto",
     "payments": {
-      "not_started": "Ikke satt opp",
-      "pending": "Under kontroll",
-      "eligible": "Klar til salg",
-      "restricted": "Begrenset"
+      "not_started": "Ikke startet",
+      "pending": "Venter på kontroll",
+      "eligible": "Aktivert",
+      "restricted": "Krever handling"
     },
-    "paymentsHint": "Du setter opp betalingskontoen før salget åpner.",
+    "paymentsHint": "Du kan ikke selge før utbetalinger er aktivert.",
     "todayTitle": "I dag",
     "orders": "Bestillinger",
     "sales": "Salg",
@@ -1308,7 +1325,7 @@
       "profile": "Fullfør profilen: historie, logo og minst ett bilde",
       "products": "Legg inn minst ett produkt",
       "onSale": "Velg hva du selger på festivalen",
-      "payments": "Sett opp betalingskontoen"
+      "payments": "Sett opp utbetalinger"
     },
     "open": "Åpne"
   },
@@ -1336,5 +1353,31 @@
     "logoAlt": "Logo for {name}",
     "coverAlt": "Bilde fra {name}",
     "productImageAlt": "{name}"
+  },
+  "Payouts": {
+    "title": "Utbetalinger",
+    "intro": "Betalingene fra gjestene går til en betalingskonto i ditt navn hos betalingsleverandøren. Pengene utbetales til deg etter at AFFN har godkjent oppgjøret etter festivalen.",
+    "status": "Status",
+    "statuses": {
+      "not_started": "Ikke startet",
+      "pending": "Venter på kontroll",
+      "restricted": "Krever handling",
+      "eligible": "Aktivert"
+    },
+    "explain": {
+      "not_started": "Sett opp utbetalinger for å kunne selge på festivalen.",
+      "pending": "Betalingsleverandøren kontrollerer opplysningene dine. Du kan fortsette oppsettet om du ikke ble ferdig.",
+      "restricted": "Betalingsleverandøren trenger mer informasjon fra deg før du kan selge.",
+      "eligible": "Alt er klart. Gjestene kan betale deg på festivalen."
+    },
+    "start": "Sett opp utbetalinger",
+    "resume": "Fortsett oppsettet",
+    "fix": "Gi utfyllende informasjon",
+    "starting": "Åpner …",
+    "notApproved": "Du kan sette opp utbetalinger når søknaden din er godkjent.",
+    "cannotSell": "Du kan ikke selge før utbetalinger er aktivert.",
+    "testMode": "TESTMODUS",
+    "testModeHint": "Testmodus: ingen ekte konto opprettes.",
+    "failed": "Oppsettet kunne ikke startes. Prøv igjen."
   }
 }
