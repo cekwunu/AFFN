@@ -405,6 +405,26 @@ export const MATRIX: TableSpec[] = [
     update: { allowed: ['vendor', 'orgAdmin'], target: 'own', set: () => 'price_ore = price_ore' },
   },
   {
+    table: 'vendor_gallery_images',
+    rows: byId('46000000'),
+    read: {
+      own: [...vendorOrgRead.own, 'anon'],
+      other: [...vendorOrgRead.other, 'anon'],
+      foreign: FOREIGN,
+    },
+    insert: {
+      allowed: ['vendor', 'orgAdmin'],
+      row: () => ({
+        organization_id: ORG1,
+        vendor_id: VENDOR(1),
+        storage_path: `${VENDOR(1)}/gallery-2.jpg`,
+        alt_text: 'Suya på grillen',
+      }),
+    },
+    update: { allowed: ['vendor', 'orgAdmin'], target: 'own', set: () => 'alt_text = alt_text' },
+    delete: { allowed: ['vendor', 'orgAdmin'], target: 'own' },
+  },
+  {
     table: 'product_availability',
     rows: {
       own: is('product_id', PRODUCT(1)),

@@ -727,14 +727,14 @@ isOneToOne: false
                   ]
                 },"products": {
                   Row: {
-                    "allergens": (Database["public"]['Enums']["allergen"])[],"archived_at": string | null,"category_id": string | null,"created_at": string,"description": string | null,"dietary_tags": (Database["public"]['Enums']["dietary_tag"])[],"id": string,"image_path": string | null,"mva_rate_bp": number,"name": string,"organization_id": string,"price_ore": number,"updated_at": string,"vendor_id": string
+                    "allergens": (Database["public"]['Enums']["allergen"])[],"archived_at": string | null,"category_id": string | null,"created_at": string,"description": string | null,"dietary_tags": (Database["public"]['Enums']["dietary_tag"])[],"id": string,"image_path": string | null,"mva_rate_bp": number,"name": string,"organization_id": string,"price_ore": number,"sort_order": number,"updated_at": string,"vendor_id": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "allergens"?: (Database["public"]['Enums']["allergen"])[],"archived_at"?: string | null,"category_id"?: string | null,"created_at"?: string,"description"?: string | null,"dietary_tags"?: (Database["public"]['Enums']["dietary_tag"])[],"id"?: string,"image_path"?: string | null,"mva_rate_bp"?: number,"name": string,"organization_id": string,"price_ore": number,"updated_at"?: string,"vendor_id": string
+                    "allergens"?: (Database["public"]['Enums']["allergen"])[],"archived_at"?: string | null,"category_id"?: string | null,"created_at"?: string,"description"?: string | null,"dietary_tags"?: (Database["public"]['Enums']["dietary_tag"])[],"id"?: string,"image_path"?: string | null,"mva_rate_bp"?: number,"name": string,"organization_id": string,"price_ore": number,"sort_order"?: number,"updated_at"?: string,"vendor_id": string
                   }
                   Update: {
-                    "allergens"?: (Database["public"]['Enums']["allergen"])[],"archived_at"?: string | null,"category_id"?: string | null,"created_at"?: string,"description"?: string | null,"dietary_tags"?: (Database["public"]['Enums']["dietary_tag"])[],"id"?: string,"image_path"?: string | null,"mva_rate_bp"?: number,"name"?: string,"organization_id"?: string,"price_ore"?: number,"updated_at"?: string,"vendor_id"?: string
+                    "allergens"?: (Database["public"]['Enums']["allergen"])[],"archived_at"?: string | null,"category_id"?: string | null,"created_at"?: string,"description"?: string | null,"dietary_tags"?: (Database["public"]['Enums']["dietary_tag"])[],"id"?: string,"image_path"?: string | null,"mva_rate_bp"?: number,"name"?: string,"organization_id"?: string,"price_ore"?: number,"sort_order"?: number,"updated_at"?: string,"vendor_id"?: string
                   }
                   Relationships: [
                     {
@@ -1341,16 +1341,42 @@ isOneToOne: false
       referencedColumns: ["id","organization_id"]
     }
                   ]
-                },"vendors": {
+                },"vendor_gallery_images": {
                   Row: {
-                    "brreg_status": string | null,"brreg_verified_at": string | null,"business_address": string | null,"business_form": string | null,"category": string | null,"city": string | null,"cover_image_path": string | null,"created_at": string,"cuisine_country": string | null,"description": string | null,"display_name": string,"facebook_url": string | null,"id": string,"instagram_handle": string | null,"legal_name": string,"logo_path": string | null,"mva_registered": boolean,"offers_catering": boolean,"org_number": string,"organization_id": string,"postal_code": string | null,"profile_published": boolean,"public_email": string | null,"public_phone": string | null,"slug": string,"story": string | null,"tiktok_handle": string | null,"updated_at": string,"website_url": string | null
+                    "alt_text": string,"created_at": string,"id": string,"organization_id": string,"sort_order": number,"storage_path": string,"vendor_id": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "brreg_status"?: string | null,"brreg_verified_at"?: string | null,"business_address"?: string | null,"business_form"?: string | null,"category"?: string | null,"city"?: string | null,"cover_image_path"?: string | null,"created_at"?: string,"cuisine_country"?: string | null,"description"?: string | null,"display_name": string,"facebook_url"?: string | null,"id"?: string,"instagram_handle"?: string | null,"legal_name": string,"logo_path"?: string | null,"mva_registered"?: boolean,"offers_catering"?: boolean,"org_number": string,"organization_id": string,"postal_code"?: string | null,"profile_published"?: boolean,"public_email"?: string | null,"public_phone"?: string | null,"slug": string,"story"?: string | null,"tiktok_handle"?: string | null,"updated_at"?: string,"website_url"?: string | null
+                    "alt_text": string,"created_at"?: string,"id"?: string,"organization_id": string,"sort_order"?: number,"storage_path": string,"vendor_id": string
                   }
                   Update: {
-                    "brreg_status"?: string | null,"brreg_verified_at"?: string | null,"business_address"?: string | null,"business_form"?: string | null,"category"?: string | null,"city"?: string | null,"cover_image_path"?: string | null,"created_at"?: string,"cuisine_country"?: string | null,"description"?: string | null,"display_name"?: string,"facebook_url"?: string | null,"id"?: string,"instagram_handle"?: string | null,"legal_name"?: string,"logo_path"?: string | null,"mva_registered"?: boolean,"offers_catering"?: boolean,"org_number"?: string,"organization_id"?: string,"postal_code"?: string | null,"profile_published"?: boolean,"public_email"?: string | null,"public_phone"?: string | null,"slug"?: string,"story"?: string | null,"tiktok_handle"?: string | null,"updated_at"?: string,"website_url"?: string | null
+                    "alt_text"?: string,"created_at"?: string,"id"?: string,"organization_id"?: string,"sort_order"?: number,"storage_path"?: string,"vendor_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "vendor_gallery_images_organization_id_fkey"
+      columns: ["organization_id"]
+isOneToOne: false
+      referencedRelation: "organizations"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "vendor_gallery_images_vendor_id_fkey"
+      columns: ["vendor_id"]
+isOneToOne: false
+      referencedRelation: "vendors"
+      referencedColumns: ["id"]
+    }
+                  ]
+                },"vendors": {
+                  Row: {
+                    "brreg_status": string | null,"brreg_verified_at": string | null,"business_address": string | null,"business_form": string | null,"category": string | null,"catering_offer": string | null,"city": string | null,"cover_image_path": string | null,"created_at": string,"cuisine_country": string | null,"description": string | null,"display_name": string,"facebook_url": string | null,"id": string,"instagram_handle": string | null,"legal_name": string,"logo_path": string | null,"mva_registered": boolean,"offers_catering": boolean,"org_number": string,"organization_id": string,"postal_code": string | null,"profile_published": boolean,"public_email": string | null,"public_phone": string | null,"slug": string,"story": string | null,"tiktok_handle": string | null,"updated_at": string,"website_url": string | null
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "brreg_status"?: string | null,"brreg_verified_at"?: string | null,"business_address"?: string | null,"business_form"?: string | null,"category"?: string | null,"catering_offer"?: string | null,"city"?: string | null,"cover_image_path"?: string | null,"created_at"?: string,"cuisine_country"?: string | null,"description"?: string | null,"display_name": string,"facebook_url"?: string | null,"id"?: string,"instagram_handle"?: string | null,"legal_name": string,"logo_path"?: string | null,"mva_registered"?: boolean,"offers_catering"?: boolean,"org_number": string,"organization_id": string,"postal_code"?: string | null,"profile_published"?: boolean,"public_email"?: string | null,"public_phone"?: string | null,"slug": string,"story"?: string | null,"tiktok_handle"?: string | null,"updated_at"?: string,"website_url"?: string | null
+                  }
+                  Update: {
+                    "brreg_status"?: string | null,"brreg_verified_at"?: string | null,"business_address"?: string | null,"business_form"?: string | null,"category"?: string | null,"catering_offer"?: string | null,"city"?: string | null,"cover_image_path"?: string | null,"created_at"?: string,"cuisine_country"?: string | null,"description"?: string | null,"display_name"?: string,"facebook_url"?: string | null,"id"?: string,"instagram_handle"?: string | null,"legal_name"?: string,"logo_path"?: string | null,"mva_registered"?: boolean,"offers_catering"?: boolean,"org_number"?: string,"organization_id"?: string,"postal_code"?: string | null,"profile_published"?: boolean,"public_email"?: string | null,"public_phone"?: string | null,"slug"?: string,"story"?: string | null,"tiktok_handle"?: string | null,"updated_at"?: string,"website_url"?: string | null
                   }
                   Relationships: [
                     {
@@ -1376,6 +1402,9 @@ isOneToOne: false
 "brreg_cache_put":
 { Args: { "p_org_number": string,"p_payload": Json,"p_status": string }; Returns: undefined
                            },
+"delete_product":
+{ Args: { "p_product_id": string }; Returns: undefined
+                           },
 "rate_limit_check":
 { Args: { "p_key": string,"p_limit": number,"p_window_seconds": number }; Returns: boolean
                            },
@@ -1384,6 +1413,9 @@ isOneToOne: false
                            },
 "record_fee_payment":
 { Args: { "p_amount_ore": number,"p_provider": Database["public"]['Enums']["payment_provider"],"p_provider_payment_id": string,"p_stall_fee_id": string }; Returns: string
+                           },
+"reorder_products":
+{ Args: { "p_ids": (string)[],"p_vendor_id": string }; Returns: undefined
                            },
 "review_application":
 { Args: { "p_commission_rate_bp"?: number,"p_commission_reason"?: string,"p_decision": Database["public"]['Enums']["application_status"],"p_event_vendor_id": string,"p_note": string }; Returns: Json
