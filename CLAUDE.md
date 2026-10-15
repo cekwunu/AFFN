@@ -95,7 +95,7 @@ If Docker cannot pull from public.ecr.aws, set `SUPABASE_INTERNAL_IMAGE_REGISTRY
 rate-limits, pull the image from `mirror.gcr.io/...` and `docker tag` it to the expected name.
 
 Cloud: Supabase project `nwllhsbhdftrucgndjpc` ("Affn", eu-north-1 Stockholm), URL
-`https://nwllhsbhdftrucgndjpc.supabase.co`. All migrations up to `20261022100000_orders_kitchen` are
+`https://nwllhsbhdftrucgndjpc.supabase.co`. All migrations up to `20261023100000_ledger` are
 applied (no seed data). Reference data (organization, AFFN 2027, categories, commission rule, stall types)
 is in `supabase/reference-data.sql`, applied once; no users or demo vendors. Apply each new migration there too, after CI is green. The Supabase connection
 here cannot approve destructive statements (including `delete from` inside function bodies): write
@@ -182,6 +182,19 @@ everything on each event and on reconnect; the customer's `/o/[token]` listens t
 History at `/vendor/orders`. Local e2e needs Realtime: start Supabase without `-x realtime`, and run
 `docker restart supabase_realtime_affn` after `pnpm db:reset`. The kitchen e2e runs after the other
 specs (Playwright project dependency) because the storefront spec briefly pauses the same vendor.
+
+Commission and ledger (P12): Organization Admins add rules at `/admin/commission` (insert-only
+rules, reason required and audited, effective-from never in the past — `private.guard_commission_rule`;
+live "kr 500 sale" example in `src/components/admin/commission-form.tsx`). The ledger is posted by
+triggers when a payment or refund becomes `succeeded` (`private.post_order_ledger`,
+`private.post_refund_ledger`), in the same transaction, from the order's snapshot and the PSP fee the
+provider reports (`payment.succeeded.pspFeeOre`, stored in `payments.psp_fee_ore` by the 8-argument
+`record_order_payment`). `src/lib/money/ledger.ts` is the specification: property tests in
+`ledger.test.ts`, and `tests/db/ledger.test.ts` checks the SQL posts the same lines. Refunds reverse
+vendor share, commission and mva pro rata; the PSP fee is never reversed. `/admin/ledger` compares
+`public.event_money_totals` (ledger vs orders/refunds); vendor balances (`public.vendor_balances`,
+RLS) show on `/vendor/payouts`. The mock PSP fee is 2,5 % (illustrative). Commission e2e runs in the
+`kitchen` Playwright project after the other specs.
 
 Public pages stay light: their client islands get translated strings as props and use
 `@/i18n/link` and `clsx` — no `useTranslations`, `cn` or Radix overlays in public client code.
