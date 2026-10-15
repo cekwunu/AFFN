@@ -9,8 +9,9 @@ import type { Database } from './database.types';
  * Runs as the signed-in user, under RLS. Create one per request.
  */
 export async function createClient() {
-  const { url, anonKey } = requireSupabasePublicConfig();
+  // Read cookies first: it makes the route dynamic, so builds never need the Supabase config.
   const cookieStore = await cookies();
+  const { url, anonKey } = requireSupabasePublicConfig();
 
   return createServerClient<Database>(url, anonKey, {
     cookies: {

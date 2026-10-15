@@ -54,6 +54,8 @@ src/components/ui and src/styles — never ad-hoc colours or spacing.
 - If a requirement is unclear or conflicts with this file, stop and ask the owner.
   Do not guess.
 - After each task: run lint, typecheck and tests, and report results.
+- After each prompt: push, open a pull request into `main` and merge it once CI is green and
+  the cloud migrations are applied (standing owner instruction). Never merge with red CI.
 
 ## Commands
 Package manager: pnpm (Node 22, see .nvmrc). Copy `.env.example` to `.env.local` first.
@@ -70,12 +72,71 @@ Package manager: pnpm (Node 22, see .nvmrc). Copy `.env.example` to `.env.local`
 | `pnpm test:e2e` | Playwright tests in `e2e/` (starts the dev server; `PORT` to change port) |
 | `pnpm check:budget` | After `pnpm build`: fails if a public page ships > 150 kB gzipped JS (NFR-01) |
 | `pnpm db:start` / `pnpm db:stop` | Local Supabase in Docker; `db:start` prints URL and keys |
+| `pnpm db:env` | Write `.env.local` from the running local Supabase (keys, Mailpit SMTP); needed by `test:e2e` |
 | `pnpm db:reset` | Recreate local DB from `supabase/migrations` + `supabase/seed.sql` |
-| `pnpm db:types` | Regenerate `src/lib/supabase/database.types.ts` from the local DB |
+| `pnpm db:types` | Regenerate `src/lib/supabase/database.types.ts` from the local DB (commit it) |
+| `pnpm test:db` | RLS and integrity tests against the local DB (`pnpm db:reset` first for a clean run) |
+| `pnpm db:advisors` | Supabase advisor lints (security + performance); fails on any warning |
 | `pnpm exec supabase migration new <name>` | New SQL migration file |
 
 CI (`.github/workflows/ci.yml`) runs lint, format:check, typecheck, test, build and check:budget on
-every push, plus a Playwright job (`test:e2e`, incl. axe WCAG 2.1 AA checks on `/design` and the shells).
+every push, a database job (migrations from scratch, `test:db`, `db:advisors`, types drift) and a
+Playwright job (`test:e2e`, incl. axe WCAG 2.1 AA checks on `/design` and the shells).
+
+Database: migrations in `supabase/migrations` (never edit an applied one; add a new file). Every new
+table needs RLS, explicit grants, a `tests/db/matrix.ts` entry and fixture rows in
+`tests/db/fixtures.sql` — `test:db` fails otherwise. Helpers for policies live in schema `private`.
+If Docker cannot pull from public.ecr.aws, set `SUPABASE_INTERNAL_IMAGE_REGISTRY=docker.io`. If Docker Hub
+rate-limits, pull the image from `mirror.gcr.io/...` and `docker tag` it to the expected name.
+
+Cloud: Supabase project `nwllhsbhdftrucgndjpc` ("Affn", eu-north-1 Stockholm), URL
+`https://nwllhsbhdftrucgndjpc.supabase.co`. All migrations up to `20261019100000_vendor_catalogue` are
+applied (no seed data). Reference data (organization, AFFN 2027, categories, commission rule, stall types)
+is in `supabase/reference-data.sql`, applied once; no users or demo vendors. Apply each new migration there too, after CI is green. The Supabase connection
+here cannot approve destructive statements (including `delete from` inside function bodies): write
+migrations without them where possible (e.g. `alter policy` instead of drop/create), and put the
+unavoidable ones in a separate small migration the owner runs in the SQL editor. pg_graphql is not installed on the cloud project.
+
+Auth (P04): sign-in/up, reset and MFA run as server actions (`src/app/[locale]/(auth)/actions.ts`);
+`src/proxy.ts` routes by the `affn` JWT claim from `private.custom_access_token_hook`; layouts recheck
+live memberships with `requirePortal`. Admin helpers in RLS require `aal2`. Seed users all use password
+`password`; platform@ and admin@ have the dev-only TOTP secret `KRSXG5CTMVRXEZLUKRSXG5CTMVRXEZLU`.
+Emails locally go to Mailpit (http://127.0.0.1:54324). For a cloud project, also configure: the
+access-token hook, TOTP MFA, custom SMTP (EU), the email templates in `supabase/templates`, site URL
+and redirect URL `<site>/api/auth/confirm`, and minimum password length 12.
+
+Vendor onboarding (P05): public `/become-a-vendor` reads stall types, key dates and the commission
+rule from the database; the application lives at `/vendor/apply/[step]` (server actions in
+`vendor/apply/actions.ts`, autosaved drafts in `event_vendors.application_progress`). The business is
+created by `public.start_vendor_application` (service role) after the Brønnøysund check, which also
+activates the pending vendor membership. Documents go to the private `vendor-documents` bucket
+(signed URLs via `/api/vendor/documents/[id]`), logo and cover to the public `vendor-media` bucket,
+both under `{vendor_id}/`. Agreement text is versioned (`AGREEMENT_VERSION` in
+`src/lib/vendor/agreement.ts`): bump it when the Agreement messages change. Local e2e: start Supabase
+with storage (`-x realtime,imgproxy,studio,edge-runtime,logflare,vector,supavisor,postgres-meta`).
+
+Review centre (P06): `/admin/applications` (queue, URL filters) and `/admin/applications/[id]`. Decisions
+go through `public.review_application` (wrapper over `private.review_application`): one `event_vendors`
+audit row per action with the note as reason (`affn.audit_reason`); approval creates the stall fee
+(stall type fee + 25 % mva) and its invoice; commission override only for Organization Admins.
+
+Stalls and fees (P07): `/admin/stalls` (inventory, CSV import via `src/lib/stalls/csv.ts`),
+`/admin/stalls/assign` (`public.assign_stall`, audited) and `/admin/stalls/layout` (venue image in the
+public `event-media` bucket under `{event_id}/`, pins in basis points). Vendors see `/vendor/stall`; the
+stall shows only after the fee is paid. Fees are paid by payment link from `PaymentProvider`; the mock
+provider's checkout is `/pay/mock/[token]` and posts a signed webhook through `handlePaymentWebhook`
+(also `/api/webhooks/[provider]`), which stores the raw event and calls `public.record_fee_payment`
+(service role, idempotent, `fee_payments` only — never the vendor ledger). Prompt 09 replaces the mock.
+
+Vendor portal and catalogue (P08): `/vendor` (status cards, next steps), `/vendor/profile` (story,
+contact, socials, catering, logo/cover, gallery in `vendor_gallery_images`, max 8, alt text required),
+`/vendor/products` (menu in `products.sort_order`, one order per vendor; duplicate, archive/restore,
+delete via `public.delete_product` only when no order refers to it), `/vendor/products/availability`
+(`product_availability` per event + sold-out) and `/vendor/preview` (`VendorPage` in
+`src/components/vendor-page`, server-only, reused by the public page). Rules in `src/lib/catalogue`
+(14 EU allergens, mva 0 % unless `vendors.mva_registered`, also enforced by a trigger). Images are
+compressed in the browser (`src/lib/images/compress.ts`) and stored in `vendor-media/{vendor_id}/products|gallery/`.
+Vendor client components use `useTranslations` inside `<ClientIntl namespaces=…>` (portal pages only).
 
 Public pages stay light: their client islands get translated strings as props and use
 `@/i18n/link` and `clsx` — no `useTranslations`, `cn` or Radix overlays in public client code.

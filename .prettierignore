@@ -7,3 +7,4 @@ supabase/.temp
 src/lib/supabase/database.types.ts
 doc
 CLAUDE.md
+supabase/templates

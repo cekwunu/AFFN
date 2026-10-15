@@ -25,7 +25,7 @@ export function PublicShell({
   const t = useTranslations('Shell');
   const nav: NavItem[] = [
     { href: '/', label: t('public.home') },
-    { href: '/vendor', label: t('public.forVendors') },
+    { href: '/become-a-vendor', label: t('public.forVendors') },
     { href: '/sponsor', label: t('public.forSponsors') },
   ];
   const Header = embedded ? 'div' : 'header';
@@ -52,6 +52,12 @@ export function PublicShell({
             </ul>
           </nav>
           <div className="ml-auto flex items-center gap-2">
+            <Link
+              href="/sign-in"
+              className="hidden h-10 items-center rounded-md px-3 text-body-sm font-medium text-foreground hover:bg-accent sm:inline-flex"
+            >
+              {t('public.signIn')}
+            </Link>
             <LocaleSwitcher className="hidden sm:block" />
             <ThemeToggle />
             <MobileNav
@@ -84,7 +90,7 @@ export function PublicShell({
             <Link href="/" className="text-body-sm hover:text-link">
               {t('public.home')}
             </Link>
-            <Link href="/vendor" className="text-body-sm hover:text-link">
+            <Link href="/become-a-vendor" className="text-body-sm hover:text-link">
               {t('public.forVendors')}
             </Link>
             <Link href="/sponsor" className="text-body-sm hover:text-link">

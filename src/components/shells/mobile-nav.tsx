@@ -8,7 +8,10 @@ import { Link, useLocalePath } from '@/i18n/link';
 import type { NavItem } from './types';
 
 export function isActive(pathname: string, href: string) {
-  return href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
+  // Top-level links ("/", "/vendor") match exactly, so an area's overview is not marked active
+  // on its sub-pages; deeper links also cover their own sub-pages.
+  const topLevel = href.split('/').filter(Boolean).length <= 1;
+  return topLevel ? pathname === href : pathname === href || pathname.startsWith(`${href}/`);
 }
 
 // Public client island: uses clsx (not cn/tailwind-merge) and the light Link to stay within

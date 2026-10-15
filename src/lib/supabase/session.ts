@@ -5,11 +5,15 @@ import type { Database } from './database.types';
 
 /**
  * Refreshes the Supabase auth session on every page request and writes any updated
- * cookies onto `response`. A no-op when Supabase is not configured.
+ * cookies onto `response`. Returns the verified JWT claims (null when signed out or when
+ * Supabase is not configured).
  */
-export async function updateSession(request: NextRequest, response: NextResponse) {
+export async function updateSession(
+  request: NextRequest,
+  response: NextResponse,
+): Promise<{ response: NextResponse; claims: Record<string, unknown> | null }> {
   const config = supabasePublicConfig();
-  if (!config) return response;
+  if (!config) return { response, claims: null };
 
   const supabase = createServerClient<Database>(config.url, config.anonKey, {
     cookies: {
@@ -27,6 +31,6 @@ export async function updateSession(request: NextRequest, response: NextResponse
   });
 
   // Validates the JWT and refreshes it if needed. Do not remove.
-  await supabase.auth.getClaims();
-  return response;
+  const { data } = await supabase.auth.getClaims();
+  return { response, claims: (data?.claims as Record<string, unknown> | undefined) ?? null };
 }

@@ -1,5 +1,6 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
+import { signIn } from './support/auth';
 
 const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'];
 
@@ -10,7 +11,7 @@ async function expectNoAxeViolations(page: Page, include?: string) {
   const summary = violations.map(
     (v) =>
       `${v.id} (${v.impact}): ${v.nodes
-        .map((n) => n.target.join(' '))
+        .map((n) => `${n.target.join(' ')} — ${n.any[0]?.message ?? n.failureSummary ?? ''}`)
         .slice(0, 5)
         .join(' | ')}`,
   );
@@ -121,10 +122,25 @@ test.describe('theme toggle', () => {
 
 for (const scheme of ['light', 'dark'] as const) {
   test.describe(`app shells in ${scheme} mode, phone width`, () => {
-    test.use({ colorScheme: scheme, viewport: { width: 390, height: 844 } });
+    // Reduced motion: axe must measure settled colours, not a colour transition midway.
+    test.use({
+      colorScheme: scheme,
+      contextOptions: { reducedMotion: 'reduce' },
+      viewport: { width: 390, height: 844 },
+    });
 
-    for (const path of ['/', '/en/vendor', '/admin']) {
+    // Portals need a signed-in user with the role (the Event Admin needs no MFA).
+    const shells = [
+      { path: '/' },
+      { path: '/en/vendor', user: 'vendor@affn.test' },
+      { path: '/admin', user: 'event@affn.test' },
+    ];
+    for (const { path, user } of shells) {
       test(`${path} has no WCAG 2.1 AA violations`, async ({ page }) => {
+        if (user) {
+          await signIn(page, user);
+          await expect(page).not.toHaveURL(/\/sign-in/);
+        }
         await page.goto(path);
         await expectNoAxeViolations(page);
 

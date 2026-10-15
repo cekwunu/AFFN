@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="{{ if eq .Data.locale "en" }}en{{ else }}nb{{ end }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AFF Marketplace</title>
+</head>
+<body style="margin:0;padding:0;background:#faf8f5;font-family:Inter,Segoe UI,Helvetica,Arial,sans-serif;color:#141110;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#faf8f5;padding:32px 16px;">
+    <tr><td align="center">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background:#ffffff;border:1px solid #e7e0d6;border-radius:12px;">
+        <tr><td style="padding:32px 32px 8px;">
+          <p style="margin:0;font-family:Georgia,serif;font-size:20px;font-weight:600;">&#9670; AFF Marketplace</p>
+        </td></tr>
+        <tr><td style="padding:8px 32px 32px;font-size:16px;line-height:1.6;">
+{{ if eq .Data.locale "en" }}
+<h1 style="margin:0 0 12px;font-size:22px;">Confirm your new email</h1>
+<p style="margin:0;">Confirm that you want to use {{ .NewEmail }} for your account.</p>
+<p style="margin:24px 0;"><a href="{{ .RedirectTo }}?token_hash={{ .TokenHash }}&type=email_change" style="display:inline-block;background:#a3472b;color:#ffffff;text-decoration:none;font-weight:600;padding:12px 20px;border-radius:8px;">Confirm new email</a></p>
+<p style="margin:0 0 8px;font-size:14px;color:#6b6055;">If you did not ask for this, contact us straight away.</p>
+<p style="margin:0;font-size:12px;color:#6b6055;word-break:break-all;">Button not working? Paste this link into your browser: {{ .RedirectTo }}?token_hash={{ .TokenHash }}&type=email_change</p>
+{{ else }}
+<h1 style="margin:0 0 12px;font-size:22px;">Bekreft ny e-postadresse</h1>
+<p style="margin:0;">Bekreft at du vil bruke {{ .NewEmail }} for kontoen din.</p>
+<p style="margin:24px 0;"><a href="{{ .RedirectTo }}?token_hash={{ .TokenHash }}&type=email_change" style="display:inline-block;background:#a3472b;color:#ffffff;text-decoration:none;font-weight:600;padding:12px 20px;border-radius:8px;">Bekreft ny e-post</a></p>
+<p style="margin:0 0 8px;font-size:14px;color:#6b6055;">Hvis du ikke ba om dette, kontakt oss med en gang.</p>
+<p style="margin:0;font-size:12px;color:#6b6055;word-break:break-all;">Virker ikke knappen? Lim inn denne lenken i nettleseren: {{ .RedirectTo }}?token_hash={{ .TokenHash }}&type=email_change</p>
+{{ end }}
+        </td></tr>
+      </table>
+      <p style="margin:16px 0 0;font-size:12px;color:#6b6055;">African Food Festival Norway</p>
+    </td></tr>
+  </table>
+</body>
+</html>

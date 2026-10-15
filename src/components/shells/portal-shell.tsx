@@ -1,7 +1,7 @@
 'use client';
 
-import { CircleUserRound, LayoutDashboard, LogOut, Settings } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { ArrowLeftRight, CircleUserRound, LayoutDashboard, LogOut, Settings } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
 import type { ReactNode } from 'react';
 import { LocaleSwitcher } from '@/components/locale-switcher';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -17,11 +17,20 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Toaster } from '@/components/ui/toast';
 import { cn } from '@/lib/utils';
+import { Link } from '@/i18n/link';
+import type { Portal } from '@/lib/auth/roles';
 import { Brand } from './brand';
 import { MobileNav, NavList } from './mobile-nav';
 import type { NavItem } from './types';
 
-export type PortalArea = 'vendor' | 'sponsor' | 'admin' | 'platform';
+export type PortalArea = Portal;
+
+export interface PortalAccount {
+  email: string;
+  /** Every portal the user may open; others than the current one appear in the switcher. */
+  portals: Portal[];
+  signOut: (formData: FormData) => Promise<void>;
+}
 
 /**
  * Signed-in areas: sidebar (sheet on mobile) and top bar.
@@ -30,17 +39,21 @@ export type PortalArea = 'vendor' | 'sponsor' | 'admin' | 'platform';
 export function PortalShell({
   area,
   nav,
+  account,
   children,
   embedded = false,
   className,
 }: {
   area: PortalArea;
   nav?: NavItem[];
+  account?: PortalAccount;
   children: ReactNode;
   embedded?: boolean;
   className?: string;
 }) {
   const t = useTranslations('Shell');
+  const locale = useLocale();
+  const otherPortals = account?.portals.filter((portal) => portal !== area) ?? [];
   const items = nav ?? [
     { href: `/${area}`, label: t('portal.overview'), icon: <LayoutDashboard /> },
   ];
@@ -82,15 +95,47 @@ export function PortalShell({
                   <CircleUserRound />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>{t('portal.account')}</DropdownMenuLabel>
+              <DropdownMenuContent align="end" className="min-w-60">
+                <DropdownMenuLabel className="grid gap-0.5">
+                  {account ? (
+                    <>
+                      <span>{t('portal.signedInAs')}</span>
+                      <span className="truncate text-body-sm font-medium text-foreground">
+                        {account.email}
+                      </span>
+                    </>
+                  ) : (
+                    t('portal.account')
+                  )}
+                </DropdownMenuLabel>
+                {otherPortals.length > 0 && (
+                  <>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuLabel>{t('portal.switchTo')}</DropdownMenuLabel>
+                    {otherPortals.map((portal) => (
+                      <DropdownMenuItem key={portal} asChild>
+                        <Link href={`/${portal}`}>
+                          <ArrowLeftRight aria-hidden="true" /> {t(`portal.areas.${portal}`)}
+                        </Link>
+                      </DropdownMenuItem>
+                    ))}
+                  </>
+                )}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem disabled>
                   <Settings aria-hidden="true" /> {t('portal.settings')}
                 </DropdownMenuItem>
-                <DropdownMenuItem disabled>
-                  <LogOut aria-hidden="true" /> {t('portal.signOut')}
-                </DropdownMenuItem>
+                {account ? (
+                  <DropdownMenuItem asChild>
+                    <button type="submit" form="portal-sign-out" className="w-full">
+                      <LogOut aria-hidden="true" /> {t('portal.signOut')}
+                    </button>
+                  </DropdownMenuItem>
+                ) : (
+                  <DropdownMenuItem disabled>
+                    <LogOut aria-hidden="true" /> {t('portal.signOut')}
+                  </DropdownMenuItem>
+                )}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -100,6 +145,12 @@ export function PortalShell({
         </Main>
       </div>
       <Toaster />
+      {account && (
+        // Outside the menu (which renders in a portal); the menu item submits it by id.
+        <form id="portal-sign-out" action={account.signOut} hidden>
+          <input type="hidden" name="locale" value={locale} />
+        </form>
+      )}
     </div>
   );
 }
