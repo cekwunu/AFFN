@@ -290,6 +290,7 @@ as $$
   select 0;
 $$;
 revoke all on function private.unreconciled_count(uuid) from public;
+grant execute on function private.unreconciled_count(uuid) to authenticated, service_role;
 
 -- What stops a batch (SET-02): unreconciled transactions, open disputes, a payout account that
 -- is not enabled, a negative balance, or no lines at all. Runs as the caller (RLS applies).

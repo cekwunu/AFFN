@@ -305,6 +305,21 @@ describe('blockers (SET-02)', () => {
     });
   });
 
+  it('event staff can read the blockers (the function runs as the caller)', async () => {
+    await asOwner(async (c) => {
+      await setup(c);
+      const id = await newBatch(c);
+      await c.query(
+        `update public.event_vendors set psp_account_status = 'restricted' where id = $1`,
+        [EVENT_VENDOR(2)],
+      );
+      const rows = await as(c, USERS.eventAdmin, () =>
+        c.query(`select kind from public.settlement_blockers($1)`, [id]).then((r) => r.rows),
+      );
+      expect(rows).toEqual([{ kind: 'payout_account' }]);
+    });
+  });
+
   it('an empty batch cannot be prepared', async () => {
     await asOwner(async (c) => {
       await c.query(`update public.settlements set status = 'cancelled' where event_id = $1`, [
