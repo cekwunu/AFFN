@@ -55,7 +55,8 @@
       "profile": "Profile",
       "products": "Products",
       "preview": "Preview",
-      "payouts": "Payouts"
+      "payouts": "Payouts",
+      "qr": "QR code"
     },
     "storefront": {
       "viewCart": "View cart ({count, plural, one {# item} other {# items}})"
@@ -492,6 +493,11 @@
       },
       "noteTitle": "Message from AFFN:",
       "cta": "View the application"
+    },
+    "receipt": {
+      "subject": "Receipt from {vendor} – order {number}",
+      "intro": "Thank you for your order! Here is your receipt.",
+      "footer": "This receipt was sent via {platform} on behalf of the seller."
     }
   },
   "Admin": {
@@ -1379,5 +1385,116 @@
     "testMode": "TEST MODE",
     "testModeHint": "Test mode: no real account is created.",
     "failed": "The setup could not be started. Please try again."
+  },
+  "Storefront": {
+    "menu": "Menu",
+    "other": "Other",
+    "soldOut": "Sold out",
+    "add": "Add",
+    "addNamed": "Add {name} to the cart",
+    "decrease": "Remove one {name}",
+    "increase": "Add one {name}",
+    "inCart": "{count} in the cart",
+    "about": "About {name}",
+    "allergens": "Allergens",
+    "noAllergens": "None of the 14 allergens",
+    "mvaIncluded": "incl. {rate} % mva",
+    "cuisine": "Food from {country}",
+    "coverAlt": "Photo from {name}",
+    "logoAlt": "Logo of {name}",
+    "categories": "Categories",
+    "blocked": {
+      "paused": "{name} is not taking orders right now. Please try again a little later.",
+      "payouts": "{name} cannot take payments yet. You can see the menu but not order.",
+      "closed": "{event} has ended. Thank you for this year!"
+    },
+    "paymentFailed": "The payment did not go through and no money was taken. Your cart is saved – please try again.",
+    "cart": {
+      "open": "View order · {total}",
+      "title": "Your order",
+      "close": "Close",
+      "empty": "Your cart is empty.",
+      "total": "Total",
+      "name": "Name (optional)",
+      "nameHint": "We call out the name when the food is ready.",
+      "note": "Note to the kitchen (optional)",
+      "noteHint": "For example a table number or “no onions”.",
+      "pay": "Go to payment · {total}",
+      "paying": "Opening payment …",
+      "methods": "Vipps, card, Apple Pay or Google Pay",
+      "testMode": "TEST MODE – no real payment",
+      "errors": {
+        "empty": "Your cart is empty.",
+        "unavailable": "Something in your cart is no longer available. Please check your order.",
+        "price_changed": "Prices have changed. Please check your order and try again.",
+        "not_selling": "The stall is not taking orders right now.",
+        "rate_limited": "Too many attempts. Please wait a moment and try again.",
+        "failed": "Something went wrong. Please try again."
+      },
+      "itemOne": "{count} item",
+      "itemOther": "{count} items"
+    }
+  },
+  "Receipt": {
+    "title": "Order {number}",
+    "paidTitle": "Thank you! Your order is in",
+    "paidText": "Collect your food at {vendor} when your number is called.",
+    "pendingTitle": "Waiting for payment",
+    "pendingText": "The payment has not been confirmed yet.",
+    "refresh": "Refresh",
+    "cancelledTitle": "The payment was not completed",
+    "cancelledText": "No money was taken.",
+    "back": "Back to {vendor}",
+    "orderNumber": "Order number",
+    "receipt": "Receipt",
+    "seller": "Seller",
+    "orgNumber": "Org. no. {number}",
+    "platform": "Platform",
+    "platformText": "{name} handles the order on behalf of the seller.",
+    "item": "Item",
+    "quantity": "Qty",
+    "amount": "Amount",
+    "mva": "Of which mva {rate} %",
+    "noMva": "The seller is not registered for mva.",
+    "total": "Total",
+    "method": "Paid with",
+    "time": "Time",
+    "pickup": "Note",
+    "name": "Name",
+    "email": {
+      "title": "Get the receipt by email",
+      "label": "Email address",
+      "send": "Send receipt",
+      "sent": "The receipt was sent to {email}.",
+      "invalid": "Enter a valid email address.",
+      "limited": "Too many attempts. Please try again later.",
+      "privacy": "We use the address only to send this receipt."
+    },
+    "methods": {
+      "vipps": "Vipps",
+      "card": "Card",
+      "apple_pay": "Apple Pay",
+      "google_pay": "Google Pay"
+    },
+    "status": {
+      "pending_payment": "Waiting for payment",
+      "new": "Received",
+      "accepted": "Accepted",
+      "preparing": "Being prepared",
+      "ready": "Ready for pickup",
+      "collected": "Collected",
+      "cancelled": "Cancelled"
+    }
+  },
+  "VendorQr": {
+    "title": "QR code",
+    "intro": "Guests scan the code to see your menu and order. Print the table sign and place it where everyone can see it.",
+    "url": "Link to your page",
+    "png": "Download QR code (PNG)",
+    "pdf": "Download table sign (A5, PDF)",
+    "alt": "QR code for {url}",
+    "notApproved": "You get the QR code once your application is approved.",
+    "notPublished": "Your page is not public yet. Turn on “Show the profile publicly” under Profile.",
+    "open": "Open the page"
   }
 }
