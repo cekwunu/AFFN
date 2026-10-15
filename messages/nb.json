@@ -58,7 +58,9 @@
       "payouts": "Utbetalinger",
       "qr": "QR-kode",
       "kitchen": "Kjøkkenskjerm",
-      "orders": "Bestillinger"
+      "orders": "Bestillinger",
+      "commission": "Provisjon",
+      "ledger": "Regnskap"
     },
     "storefront": {
       "viewCart": "Se handlekurv ({count, plural, one {# vare} other {# varer}})"
@@ -1386,7 +1388,15 @@
     "cannotSell": "Du kan ikke selge før utbetalinger er aktivert.",
     "testMode": "TESTMODUS",
     "testModeHint": "Testmodus: ingen ekte konto opprettes.",
-    "failed": "Oppsettet kunne ikke startes. Prøv igjen."
+    "failed": "Oppsettet kunne ikke startes. Prøv igjen.",
+    "balance": {
+      "title": "Saldo",
+      "pending": "Til gode",
+      "inSettlement": "I oppgjør",
+      "paid": "Utbetalt",
+      "lifetime": "Totalt opptjent",
+      "explain": "Salg minus AFFNs provisjon med mva og eventuelle refusjoner. Utbetales etter festivalen når oppgjøret er godkjent."
+    }
   },
   "Storefront": {
     "menu": "Meny",
@@ -1603,6 +1613,107 @@
       "customer": "Kunde",
       "status": "Status",
       "total": "Beløp"
+    }
+  },
+  "Commission": {
+    "title": "Provisjon",
+    "intro": "AFFN tar «X % + mva» av hvert salg. Satsen kan settes for hele organisasjonen, for festivalen, for en produktkategori eller for én leverandør. En sats endres aldri: en ny regel gjelder fra sin dato, og tidligere bestillinger beholder satsen de ble betalt med.",
+    "inForce": "Gjelder nå for {event}",
+    "none": "Ingen egen sats.",
+    "precedence": "Den mest spesifikke satsen gjelder: leverandør → kategori (når hele bestillingen er i kategorien) → festival → organisasjon.",
+    "perOrder": "per ordre",
+    "exampleShort": "Salg på kr 500 → leverandøren får {vendor} (AFFN {fee})",
+    "exampleTooHigh": "Høyere enn et salg på kr 500",
+    "newRule": "Ny sats",
+    "onlyOrgAdmin": "Bare organisasjonsadministratorer kan endre satser.",
+    "history": "Alle satser",
+    "upcoming": "Kommer",
+    "scopes": {
+      "organization": "Organisasjon",
+      "event": "Festival",
+      "category": "Kategori",
+      "vendor": "Leverandør"
+    },
+    "columns": {
+      "level": "Nivå",
+      "applies": "Gjelder",
+      "terms": "Sats",
+      "from": "Gjelder fra",
+      "reason": "Begrunnelse"
+    },
+    "form": {
+      "scope": "Gjelder for",
+      "event": "Festival",
+      "category": "Kategori",
+      "categoryEvent": "Festival (valgfritt)",
+      "allEvents": "Alle festivaler",
+      "vendor": "Leverandør",
+      "choose": "Velg …",
+      "type": "Modell",
+      "types": {
+        "percentage": "Prosent",
+        "fixed": "Fast beløp per ordre",
+        "hybrid": "Prosent + fast beløp"
+      },
+      "rate": "Prosent",
+      "fixed": "Fast beløp (kr)",
+      "example": "Eksempel: salg på kr 500 → provisjon {commission} + mva {mva} → leverandøren får {vendor}.",
+      "exampleInvalid": "Fyll inn en gyldig sats for å se eksempelet.",
+      "effectiveFrom": "Gjelder fra (norsk tid)",
+      "effectiveHint": "Tomt = med en gang. Kan ikke settes tilbake i tid.",
+      "reason": "Begrunnelse (lagres i revisjonsloggen)",
+      "save": "Lagre sats",
+      "saving": "Lagrer …",
+      "saved": "Satsen er lagret.",
+      "errors": {
+        "forbidden": "Bare organisasjonsadministratorer kan endre satser.",
+        "failed": "Satsen ble ikke lagret. Prøv igjen.",
+        "target": {
+          "required": "Velg hva satsen gjelder for."
+        },
+        "rate": {
+          "invalid": "Skriv en prosent mellom 0 og 100, f.eks. 10 eller 12,5."
+        },
+        "fixed": {
+          "invalid": "Skriv et beløp i kroner, f.eks. 5 eller 5,50.",
+          "tooHigh": "Gebyret blir høyere enn et salg på kr 500."
+        },
+        "effectiveFrom": {
+          "past": "Datoen kan ikke være tilbake i tid."
+        },
+        "reason": {
+          "required": "Skriv en begrunnelse."
+        }
+      }
+    }
+  },
+  "Ledger": {
+    "title": "Regnskap",
+    "intro": "Pengene for {event} fra hovedboken (dobbel bokføring), side om side med de samme summene regnet ut fra bestillinger og refusjoner.",
+    "totals": "Summer",
+    "match": "Hovedboken stemmer med bestillingene, øre for øre.",
+    "mismatch": "Avvik mellom hovedboken og bestillingene – undersøk før oppgjør.",
+    "note": "Provisjon og mva vises bare fra hovedboken: refusjoner tilbakefører plattformgebyret som ett beløp.",
+    "balances": "Leverandørsaldoer",
+    "noBalances": "Ingen salg ennå.",
+    "rows": {
+      "grossOre": "Brutto salg",
+      "refundedOre": "Refundert",
+      "platformFeeOre": "Plattformgebyr (provisjon + mva)",
+      "commissionOre": "Provisjon",
+      "commissionMvaOre": "Mva på provisjon",
+      "pspFeeOre": "Betalingsgebyr (AFFNs kostnad)",
+      "vendorOre": "Til leverandørene"
+    },
+    "columns": {
+      "line": "Post",
+      "ledger": "Hovedbok",
+      "orders": "Bestillinger",
+      "vendor": "Leverandør",
+      "pending": "Til gode",
+      "inSettlement": "I oppgjør",
+      "paid": "Utbetalt",
+      "lifetime": "Totalt opptjent"
     }
   }
 }

@@ -58,7 +58,9 @@
       "payouts": "Payouts",
       "qr": "QR code",
       "kitchen": "Kitchen display",
-      "orders": "Orders"
+      "orders": "Orders",
+      "commission": "Commission",
+      "ledger": "Ledger"
     },
     "storefront": {
       "viewCart": "View cart ({count, plural, one {# item} other {# items}})"
@@ -1386,7 +1388,15 @@
     "cannotSell": "You cannot sell until payouts are enabled.",
     "testMode": "TEST MODE",
     "testModeHint": "Test mode: no real account is created.",
-    "failed": "The setup could not be started. Please try again."
+    "failed": "The setup could not be started. Please try again.",
+    "balance": {
+      "title": "Balance",
+      "pending": "Pending",
+      "inSettlement": "In settlement",
+      "paid": "Paid out",
+      "lifetime": "Lifetime earned",
+      "explain": "Sales minus AFFN’s commission with mva and any refunds. Paid out after the festival once the settlement is approved."
+    }
   },
   "Storefront": {
     "menu": "Menu",
@@ -1603,6 +1613,107 @@
       "customer": "Customer",
       "status": "Status",
       "total": "Amount"
+    }
+  },
+  "Commission": {
+    "title": "Commission",
+    "intro": "AFFN takes “X % + mva” of every sale. The rate can be set for the whole organization, the festival, a product category or a single vendor. A rate never changes: a new rule applies from its date, and earlier orders keep the rate they were paid at.",
+    "inForce": "In force now for {event}",
+    "none": "No rate of its own.",
+    "precedence": "The most specific rate applies: vendor → category (when the whole order is in the category) → festival → organization.",
+    "perOrder": "per order",
+    "exampleShort": "kr 500 sale → vendor receives {vendor} (AFFN {fee})",
+    "exampleTooHigh": "More than a kr 500 sale",
+    "newRule": "New rate",
+    "onlyOrgAdmin": "Only Organization Admins can change rates.",
+    "history": "All rates",
+    "upcoming": "Upcoming",
+    "scopes": {
+      "organization": "Organization",
+      "event": "Festival",
+      "category": "Category",
+      "vendor": "Vendor"
+    },
+    "columns": {
+      "level": "Level",
+      "applies": "Applies to",
+      "terms": "Rate",
+      "from": "Effective from",
+      "reason": "Reason"
+    },
+    "form": {
+      "scope": "Applies to",
+      "event": "Festival",
+      "category": "Category",
+      "categoryEvent": "Festival (optional)",
+      "allEvents": "All festivals",
+      "vendor": "Vendor",
+      "choose": "Choose …",
+      "type": "Model",
+      "types": {
+        "percentage": "Percentage",
+        "fixed": "Fixed amount per order",
+        "hybrid": "Percentage + fixed amount"
+      },
+      "rate": "Percent",
+      "fixed": "Fixed amount (kr)",
+      "example": "Example: kr 500 sale → commission {commission} + mva {mva} → vendor receives {vendor}.",
+      "exampleInvalid": "Enter a valid rate to see the example.",
+      "effectiveFrom": "Effective from (Norway time)",
+      "effectiveHint": "Empty = immediately. Cannot be back-dated.",
+      "reason": "Reason (kept in the audit log)",
+      "save": "Save rate",
+      "saving": "Saving …",
+      "saved": "The rate is saved.",
+      "errors": {
+        "forbidden": "Only Organization Admins can change rates.",
+        "failed": "The rate was not saved. Try again.",
+        "target": {
+          "required": "Choose what the rate applies to."
+        },
+        "rate": {
+          "invalid": "Enter a percentage between 0 and 100, e.g. 10 or 12.5."
+        },
+        "fixed": {
+          "invalid": "Enter an amount in kroner, e.g. 5 or 5.50.",
+          "tooHigh": "The fee would be more than a kr 500 sale."
+        },
+        "effectiveFrom": {
+          "past": "The date cannot be in the past."
+        },
+        "reason": {
+          "required": "Enter a reason."
+        }
+      }
+    }
+  },
+  "Ledger": {
+    "title": "Ledger",
+    "intro": "Money for {event} from the double-entry ledger, side by side with the same totals worked out from orders and refunds.",
+    "totals": "Totals",
+    "match": "The ledger matches the orders to the øre.",
+    "mismatch": "The ledger and the orders differ – investigate before settlement.",
+    "note": "Commission and mva come from the ledger only: refunds reverse the platform fee as one amount.",
+    "balances": "Vendor balances",
+    "noBalances": "No sales yet.",
+    "rows": {
+      "grossOre": "Gross sales",
+      "refundedOre": "Refunded",
+      "platformFeeOre": "Platform fee (commission + mva)",
+      "commissionOre": "Commission",
+      "commissionMvaOre": "Mva on commission",
+      "pspFeeOre": "Payment fees (AFFN’s cost)",
+      "vendorOre": "Owed to vendors"
+    },
+    "columns": {
+      "line": "Line",
+      "ledger": "Ledger",
+      "orders": "Orders",
+      "vendor": "Vendor",
+      "pending": "Pending",
+      "inSettlement": "In settlement",
+      "paid": "Paid",
+      "lifetime": "Lifetime earned"
     }
   }
 }
