@@ -101,6 +101,44 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
+                },"disputes": {
+                  Row: {
+                    "amount_ore": number,"closed_at": string | null,"created_at": string,"event_id": string,"id": string,"opened_at": string,"order_id": string,"organization_id": string,"payment_id": string,"provider": Database["public"]['Enums']["payment_provider"],"provider_dispute_id": string,"reason": string | null,"status": Database["public"]['Enums']["dispute_status"],"updated_at": string,"vendor_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "amount_ore": number,"closed_at"?: string | null,"created_at"?: string,"event_id": string,"id"?: string,"opened_at"?: string,"order_id": string,"organization_id": string,"payment_id": string,"provider": Database["public"]['Enums']["payment_provider"],"provider_dispute_id": string,"reason"?: string | null,"status"?: Database["public"]['Enums']["dispute_status"],"updated_at"?: string,"vendor_id": string
+                  }
+                  Update: {
+                    "amount_ore"?: number,"closed_at"?: string | null,"created_at"?: string,"event_id"?: string,"id"?: string,"opened_at"?: string,"order_id"?: string,"organization_id"?: string,"payment_id"?: string,"provider"?: Database["public"]['Enums']["payment_provider"],"provider_dispute_id"?: string,"reason"?: string | null,"status"?: Database["public"]['Enums']["dispute_status"],"updated_at"?: string,"vendor_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "disputes_event_id_organization_id_fkey"
+      columns: ["event_id","organization_id"]
+isOneToOne: false
+      referencedRelation: "events"
+      referencedColumns: ["id","organization_id"]
+    },{
+      foreignKeyName: "disputes_order_id_vendor_id_fkey"
+      columns: ["order_id","vendor_id"]
+isOneToOne: false
+      referencedRelation: "orders"
+      referencedColumns: ["id","vendor_id"]
+    },{
+      foreignKeyName: "disputes_payment_id_organization_id_fkey"
+      columns: ["payment_id","organization_id"]
+isOneToOne: false
+      referencedRelation: "payments"
+      referencedColumns: ["id","organization_id"]
+    },{
+      foreignKeyName: "disputes_vendor_id_fkey"
+      columns: ["vendor_id"]
+isOneToOne: false
+      referencedRelation: "vendors"
+      referencedColumns: ["id"]
+    }
+                  ]
                 },"event_admins": {
                   Row: {
                     "created_at": string,"event_id": string,"id": string,"organization_id": string,"user_id": string
@@ -901,14 +939,14 @@ isOneToOne: false
                   ]
                 },"settlement_lines": {
                   Row: {
-                    "adjustments_ore": number,"commission_mva_ore": number,"commission_ore": number,"created_at": string,"event_id": string,"event_vendor_id": string,"gross_sales_ore": number,"id": string,"net_payout_ore": number,"organization_id": string,"refunds_ore": number,"settlement_id": string,"updated_at": string,"vendor_id": string
+                    "adjustments_ore": number,"commission_mva_ore": number,"commission_ore": number,"created_at": string,"cutoff_at": string | null,"event_id": string,"event_vendor_id": string,"gross_sales_ore": number,"id": string,"net_payout_ore": number,"organization_id": string,"period_start": string | null,"refunds_ore": number,"settlement_id": string,"updated_at": string,"vendor_id": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "adjustments_ore"?: number,"commission_mva_ore"?: number,"commission_ore"?: number,"created_at"?: string,"event_id": string,"event_vendor_id": string,"gross_sales_ore": number,"id"?: string,"net_payout_ore": number,"organization_id": string,"refunds_ore"?: number,"settlement_id": string,"updated_at"?: string,"vendor_id": string
+                    "adjustments_ore"?: number,"commission_mva_ore"?: number,"commission_ore"?: number,"created_at"?: string,"cutoff_at"?: string | null,"event_id": string,"event_vendor_id": string,"gross_sales_ore": number,"id"?: string,"net_payout_ore": number,"organization_id": string,"period_start"?: string | null,"refunds_ore"?: number,"settlement_id": string,"updated_at"?: string,"vendor_id": string
                   }
                   Update: {
-                    "adjustments_ore"?: number,"commission_mva_ore"?: number,"commission_ore"?: number,"created_at"?: string,"event_id"?: string,"event_vendor_id"?: string,"gross_sales_ore"?: number,"id"?: string,"net_payout_ore"?: number,"organization_id"?: string,"refunds_ore"?: number,"settlement_id"?: string,"updated_at"?: string,"vendor_id"?: string
+                    "adjustments_ore"?: number,"commission_mva_ore"?: number,"commission_ore"?: number,"created_at"?: string,"cutoff_at"?: string | null,"event_id"?: string,"event_vendor_id"?: string,"gross_sales_ore"?: number,"id"?: string,"net_payout_ore"?: number,"organization_id"?: string,"period_start"?: string | null,"refunds_ore"?: number,"settlement_id"?: string,"updated_at"?: string,"vendor_id"?: string
                   }
                   Relationships: [
                     {
@@ -939,14 +977,14 @@ isOneToOne: false
                   ]
                 },"settlements": {
                   Row: {
-                    "approved_at": string | null,"approved_by": string | null,"created_at": string,"created_by": string | null,"event_id": string,"id": string,"notes": string | null,"organization_id": string,"prepared_at": string | null,"prepared_by": string | null,"released_at": string | null,"status": Database["public"]['Enums']["settlement_status"],"updated_at": string
+                    "approved_at": string | null,"approved_by": string | null,"created_at": string,"created_by": string | null,"cutoff_at": string,"event_id": string,"id": string,"notes": string | null,"organization_id": string,"prepared_at": string | null,"prepared_by": string | null,"released_at": string | null,"status": Database["public"]['Enums']["settlement_status"],"updated_at": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "approved_at"?: string | null,"approved_by"?: string | null,"created_at"?: string,"created_by"?: string | null,"event_id": string,"id"?: string,"notes"?: string | null,"organization_id": string,"prepared_at"?: string | null,"prepared_by"?: string | null,"released_at"?: string | null,"status"?: Database["public"]['Enums']["settlement_status"],"updated_at"?: string
+                    "approved_at"?: string | null,"approved_by"?: string | null,"created_at"?: string,"created_by"?: string | null,"cutoff_at"?: string,"event_id": string,"id"?: string,"notes"?: string | null,"organization_id": string,"prepared_at"?: string | null,"prepared_by"?: string | null,"released_at"?: string | null,"status"?: Database["public"]['Enums']["settlement_status"],"updated_at"?: string
                   }
                   Update: {
-                    "approved_at"?: string | null,"approved_by"?: string | null,"created_at"?: string,"created_by"?: string | null,"event_id"?: string,"id"?: string,"notes"?: string | null,"organization_id"?: string,"prepared_at"?: string | null,"prepared_by"?: string | null,"released_at"?: string | null,"status"?: Database["public"]['Enums']["settlement_status"],"updated_at"?: string
+                    "approved_at"?: string | null,"approved_by"?: string | null,"created_at"?: string,"created_by"?: string | null,"cutoff_at"?: string,"event_id"?: string,"id"?: string,"notes"?: string | null,"organization_id"?: string,"prepared_at"?: string | null,"prepared_by"?: string | null,"released_at"?: string | null,"status"?: Database["public"]['Enums']["settlement_status"],"updated_at"?: string
                   }
                   Relationships: [
                     {
@@ -1402,6 +1440,11 @@ isOneToOne: false
 "begin_order_cancellation":
 { Args: { "p_order_id": string,"p_reason": string,"p_user": string }; Returns: Json
                            },
+"begin_settlement_release":
+{ Args: { "p_settlement_id": string }; Returns: {
+              "amount_ore": number,"attempt": number,"payout_id": string,"psp_account_id": string,"vendor_id": string
+            }[]
+                           },
 "brreg_cache_get":
 { Args: { "p_max_age_seconds": number,"p_org_number": string }; Returns: Json
                            },
@@ -1419,11 +1462,17 @@ isOneToOne: false
               "commission_mva_ore": number,"commission_ore": number,"gross_ore": number,"platform_fee_ore": number,"psp_fee_ore": number,"refunded_ore": number,"source": string,"vendor_ore": number
             }[]
                            },
+"prepare_settlement_lines":
+{ Args: { "p_settlement_id": string,"p_vendor_ids": (string)[] }; Returns: number
+                           },
 "rate_limit_check":
 { Args: { "p_key": string,"p_limit": number,"p_window_seconds": number }; Returns: boolean
                            },
 "rate_limit_hit":
 { Args: { "p_key": string,"p_limit": number,"p_window_seconds": number }; Returns: boolean
+                           },
+"record_dispute":
+{ Args: { "p_amount_ore": number,"p_provider": Database["public"]['Enums']["payment_provider"],"p_provider_dispute_id": string,"p_provider_payment_id": string,"p_reason": string,"p_status": Database["public"]['Enums']["dispute_status"] }; Returns: string
                            },
 "record_fee_payment":
 { Args: { "p_amount_ore": number,"p_provider": Database["public"]['Enums']["payment_provider"],"p_provider_payment_id": string,"p_stall_fee_id": string }; Returns: string
@@ -1435,6 +1484,9 @@ isOneToOne: false
                            },
 "record_order_refund":
 { Args: { "p_platform_fee_reversal_ore": number,"p_provider_refund_id": string,"p_refund_id": string,"p_succeeded": boolean }; Returns: undefined
+                           },
+"record_payout":
+{ Args: { "p_payout_id": string,"p_provider_payout_id": string,"p_reason": string,"p_status": Database["public"]['Enums']["payout_status"] }; Returns: Database["public"]['Enums']["settlement_status"]
                            },
 "record_payout_result":
 { Args: { "p_paid": boolean,"p_provider_payout_id": string,"p_reason": string }; Returns: boolean
@@ -1460,6 +1512,11 @@ isOneToOne: false
 "set_venue_map":
 { Args: { "p_event_id": string,"p_path": string }; Returns: undefined
                            },
+"settlement_blockers":
+{ Args: { "p_settlement_id": string }; Returns: {
+              "amount_ore": number,"event_vendor_id": string,"kind": string,"vendor_id": string
+            }[]
+                           },
 "start_vendor_application":
 { Args: { "p_brreg_status": string,"p_business_address": string,"p_business_form": string,"p_city": string,"p_display_name": string,"p_event_id": string,"p_legal_name": string,"p_org_number": string,"p_postal_code": string,"p_user_id": string }; Returns: string
                            },
@@ -1470,7 +1527,7 @@ isOneToOne: false
                            }
           }
           Enums: {
-            "allergen": "gluten"|"crustaceans"|"eggs"|"fish"|"peanuts"|"soybeans"|"milk"|"nuts"|"celery"|"mustard"|"sesame"|"sulphites"|"lupin"|"molluscs","application_status": "draft"|"submitted"|"under_review"|"more_info_requested"|"approved"|"rejected"|"waitlisted"|"withdrawn","asset_kind": "logo"|"banner"|"video"|"other","assignment_status": "active"|"released","audit_action": "insert"|"update"|"delete","commission_scope": "organization"|"event"|"category"|"vendor","commission_type": "percentage"|"fixed"|"hybrid","dietary_tag": "vegetarian"|"vegan"|"halal"|"gluten_free"|"dairy_free"|"spicy","document_type": "mattilsynet_registration"|"insurance"|"other","event_status": "draft"|"published"|"closed"|"archived","invoice_kind": "commission"|"stall_fee","invoice_status": "issued"|"paid"|"credited","lead_kind": "contact"|"catering"|"quote","lead_status": "new"|"contacted"|"closed","ledger_account": "psp_clearing"|"vendor_payable"|"vendor_receivable"|"commission_revenue"|"mva_payable"|"psp_fee_expense","ledger_direction": "debit"|"credit","ledger_entry_type": "sale"|"commission"|"commission_mva"|"psp_fee"|"refund"|"refund_commission_reversal"|"payout"|"adjustment"|"dispute","link_kind": "qr"|"link","membership_role": "org_admin"|"event_admin"|"vendor"|"sponsor","membership_status": "pending"|"active","order_status": "pending_payment"|"new"|"accepted"|"preparing"|"ready"|"collected"|"cancelled","payment_method": "vipps"|"card"|"apple_pay"|"google_pay","payment_provider": "mock"|"stripe"|"swedbank","payment_status": "pending"|"succeeded"|"failed"|"cancelled","payout_status": "pending"|"in_transit"|"paid"|"failed","psp_account_status": "not_started"|"pending"|"eligible"|"restricted","refund_status": "pending"|"succeeded"|"failed","review_status": "pending"|"accepted"|"rejected","settlement_status": "draft"|"prepared"|"approved"|"releasing"|"completed"|"completed_with_failures"|"cancelled","sponsorship_status": "inquiry"|"confirmed"|"invoiced"|"paid"|"cancelled","stall_fee_status": "open"|"invoiced"|"paid"|"cancelled","webhook_outcome": "processed"|"ignored"|"failed"
+            "allergen": "gluten"|"crustaceans"|"eggs"|"fish"|"peanuts"|"soybeans"|"milk"|"nuts"|"celery"|"mustard"|"sesame"|"sulphites"|"lupin"|"molluscs","application_status": "draft"|"submitted"|"under_review"|"more_info_requested"|"approved"|"rejected"|"waitlisted"|"withdrawn","asset_kind": "logo"|"banner"|"video"|"other","assignment_status": "active"|"released","audit_action": "insert"|"update"|"delete","commission_scope": "organization"|"event"|"category"|"vendor","commission_type": "percentage"|"fixed"|"hybrid","dietary_tag": "vegetarian"|"vegan"|"halal"|"gluten_free"|"dairy_free"|"spicy","dispute_status": "open"|"won"|"lost","document_type": "mattilsynet_registration"|"insurance"|"other","event_status": "draft"|"published"|"closed"|"archived","invoice_kind": "commission"|"stall_fee","invoice_status": "issued"|"paid"|"credited","lead_kind": "contact"|"catering"|"quote","lead_status": "new"|"contacted"|"closed","ledger_account": "psp_clearing"|"vendor_payable"|"vendor_receivable"|"commission_revenue"|"mva_payable"|"psp_fee_expense"|"adjustments","ledger_direction": "debit"|"credit","ledger_entry_type": "sale"|"commission"|"commission_mva"|"psp_fee"|"refund"|"refund_commission_reversal"|"payout"|"adjustment"|"dispute","link_kind": "qr"|"link","membership_role": "org_admin"|"event_admin"|"vendor"|"sponsor","membership_status": "pending"|"active","order_status": "pending_payment"|"new"|"accepted"|"preparing"|"ready"|"collected"|"cancelled","payment_method": "vipps"|"card"|"apple_pay"|"google_pay","payment_provider": "mock"|"stripe"|"swedbank","payment_status": "pending"|"succeeded"|"failed"|"cancelled","payout_status": "pending"|"in_transit"|"paid"|"failed","psp_account_status": "not_started"|"pending"|"eligible"|"restricted","refund_status": "pending"|"succeeded"|"failed","review_status": "pending"|"accepted"|"rejected","settlement_status": "draft"|"prepared"|"approved"|"releasing"|"completed"|"completed_with_failures"|"cancelled","sponsorship_status": "inquiry"|"confirmed"|"invoiced"|"paid"|"cancelled","stall_fee_status": "open"|"invoiced"|"paid"|"cancelled","webhook_outcome": "processed"|"ignored"|"failed"
           }
           CompositeTypes: {
             [_ in never]: never
@@ -1586,7 +1643,7 @@ export type CompositeTypes<
 export const Constants = {
   "public": {
           Enums: {
-            "allergen": ["gluten", "crustaceans", "eggs", "fish", "peanuts", "soybeans", "milk", "nuts", "celery", "mustard", "sesame", "sulphites", "lupin", "molluscs"],"application_status": ["draft", "submitted", "under_review", "more_info_requested", "approved", "rejected", "waitlisted", "withdrawn"],"asset_kind": ["logo", "banner", "video", "other"],"assignment_status": ["active", "released"],"audit_action": ["insert", "update", "delete"],"commission_scope": ["organization", "event", "category", "vendor"],"commission_type": ["percentage", "fixed", "hybrid"],"dietary_tag": ["vegetarian", "vegan", "halal", "gluten_free", "dairy_free", "spicy"],"document_type": ["mattilsynet_registration", "insurance", "other"],"event_status": ["draft", "published", "closed", "archived"],"invoice_kind": ["commission", "stall_fee"],"invoice_status": ["issued", "paid", "credited"],"lead_kind": ["contact", "catering", "quote"],"lead_status": ["new", "contacted", "closed"],"ledger_account": ["psp_clearing", "vendor_payable", "vendor_receivable", "commission_revenue", "mva_payable", "psp_fee_expense"],"ledger_direction": ["debit", "credit"],"ledger_entry_type": ["sale", "commission", "commission_mva", "psp_fee", "refund", "refund_commission_reversal", "payout", "adjustment", "dispute"],"link_kind": ["qr", "link"],"membership_role": ["org_admin", "event_admin", "vendor", "sponsor"],"membership_status": ["pending", "active"],"order_status": ["pending_payment", "new", "accepted", "preparing", "ready", "collected", "cancelled"],"payment_method": ["vipps", "card", "apple_pay", "google_pay"],"payment_provider": ["mock", "stripe", "swedbank"],"payment_status": ["pending", "succeeded", "failed", "cancelled"],"payout_status": ["pending", "in_transit", "paid", "failed"],"psp_account_status": ["not_started", "pending", "eligible", "restricted"],"refund_status": ["pending", "succeeded", "failed"],"review_status": ["pending", "accepted", "rejected"],"settlement_status": ["draft", "prepared", "approved", "releasing", "completed", "completed_with_failures", "cancelled"],"sponsorship_status": ["inquiry", "confirmed", "invoiced", "paid", "cancelled"],"stall_fee_status": ["open", "invoiced", "paid", "cancelled"],"webhook_outcome": ["processed", "ignored", "failed"]
+            "allergen": ["gluten", "crustaceans", "eggs", "fish", "peanuts", "soybeans", "milk", "nuts", "celery", "mustard", "sesame", "sulphites", "lupin", "molluscs"],"application_status": ["draft", "submitted", "under_review", "more_info_requested", "approved", "rejected", "waitlisted", "withdrawn"],"asset_kind": ["logo", "banner", "video", "other"],"assignment_status": ["active", "released"],"audit_action": ["insert", "update", "delete"],"commission_scope": ["organization", "event", "category", "vendor"],"commission_type": ["percentage", "fixed", "hybrid"],"dietary_tag": ["vegetarian", "vegan", "halal", "gluten_free", "dairy_free", "spicy"],"dispute_status": ["open", "won", "lost"],"document_type": ["mattilsynet_registration", "insurance", "other"],"event_status": ["draft", "published", "closed", "archived"],"invoice_kind": ["commission", "stall_fee"],"invoice_status": ["issued", "paid", "credited"],"lead_kind": ["contact", "catering", "quote"],"lead_status": ["new", "contacted", "closed"],"ledger_account": ["psp_clearing", "vendor_payable", "vendor_receivable", "commission_revenue", "mva_payable", "psp_fee_expense", "adjustments"],"ledger_direction": ["debit", "credit"],"ledger_entry_type": ["sale", "commission", "commission_mva", "psp_fee", "refund", "refund_commission_reversal", "payout", "adjustment", "dispute"],"link_kind": ["qr", "link"],"membership_role": ["org_admin", "event_admin", "vendor", "sponsor"],"membership_status": ["pending", "active"],"order_status": ["pending_payment", "new", "accepted", "preparing", "ready", "collected", "cancelled"],"payment_method": ["vipps", "card", "apple_pay", "google_pay"],"payment_provider": ["mock", "stripe", "swedbank"],"payment_status": ["pending", "succeeded", "failed", "cancelled"],"payout_status": ["pending", "in_transit", "paid", "failed"],"psp_account_status": ["not_started", "pending", "eligible", "restricted"],"refund_status": ["pending", "succeeded", "failed"],"review_status": ["pending", "accepted", "rejected"],"settlement_status": ["draft", "prepared", "approved", "releasing", "completed", "completed_with_failures", "cancelled"],"sponsorship_status": ["inquiry", "confirmed", "invoiced", "paid", "cancelled"],"stall_fee_status": ["open", "invoiced", "paid", "cancelled"],"webhook_outcome": ["processed", "ignored", "failed"]
           }
         }
 } as const
