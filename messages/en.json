@@ -56,7 +56,9 @@
       "products": "Products",
       "preview": "Preview",
       "payouts": "Payouts",
-      "qr": "QR code"
+      "qr": "QR code",
+      "kitchen": "Kitchen display",
+      "orders": "Orders"
     },
     "storefront": {
       "viewCart": "View cart ({count, plural, one {# item} other {# items}})"
@@ -1437,8 +1439,6 @@
   },
   "Receipt": {
     "title": "Order {number}",
-    "paidTitle": "Thank you! Your order is in",
-    "paidText": "Collect your food at {vendor} when your number is called.",
     "pendingTitle": "Waiting for payment",
     "pendingText": "The payment has not been confirmed yet.",
     "refresh": "Refresh",
@@ -1484,6 +1484,32 @@
       "ready": "Ready for pickup",
       "collected": "Collected",
       "cancelled": "Cancelled"
+    },
+    "track": {
+      "title": {
+        "new": "Your order is in",
+        "accepted": "The kitchen has accepted your order",
+        "preparing": "Your food is being made",
+        "ready": "Ready for pickup!",
+        "collected": "Collected – enjoy!",
+        "cancelled": "Your order was cancelled"
+      },
+      "text": {
+        "ready": "Go to {vendor} and show your order number.",
+        "collected": "Thanks for ordering from {vendor}.",
+        "cancelled": "The vendor cancelled your order.",
+        "new": "",
+        "accepted": "",
+        "preparing": ""
+      },
+      "readyTitle": "Ready! {code}",
+      "stall": "Stall {number} · {vendor}",
+      "progress": "Progress",
+      "next": "You are next in the queue.",
+      "ahead": "{count, plural, one {# order} other {# orders}} ahead of you.",
+      "cancelledReason": "The vendor cancelled your order: {reason}",
+      "refunded": "{amount} has been refunded to you.",
+      "refundPending": "Your money is being refunded."
     }
   },
   "VendorQr": {
@@ -1496,5 +1522,87 @@
     "notApproved": "You get the QR code once your application is approved.",
     "notPublished": "Your page is not public yet. Turn on “Show the profile publicly” under Profile.",
     "open": "Open the page"
+  },
+  "Kitchen": {
+    "title": "Kitchen display",
+    "heading": "Kitchen – {vendor}",
+    "back": "Back to portal",
+    "stall": "Stall {number}",
+    "paused": "Sales are paused",
+    "notApproved": "The kitchen display opens once your application is approved for the festival.",
+    "status": {
+      "pending_payment": "Awaiting payment",
+      "new": "New",
+      "accepted": "Accepted",
+      "preparing": "Preparing",
+      "ready": "Ready",
+      "collected": "Collected",
+      "cancelled": "Cancelled"
+    },
+    "minutes": "{minutes, plural, =0 {now} one {# min ago} other {# min ago}}",
+    "newOrders": "{count, plural, one {# new order} other {# new orders}}",
+    "moved": "{code} moved to {status}.",
+    "cancelled": "{code} is cancelled and the customer is refunded.",
+    "refresh": "Refresh",
+    "soundOn": "Sound on",
+    "soundOff": "Turn on sound",
+    "offline": "Offline – new orders load as soon as the connection is back.",
+    "soldOutOn": "{name} is marked sold out.",
+    "soldOutOff": "{name} is back on sale.",
+    "soldOut": {
+      "open": "Sold out ({count})",
+      "title": "Sold out",
+      "toggle": "{name} sold out"
+    },
+    "actions": {
+      "accept": "Accept",
+      "start": "Start",
+      "ready": "Ready",
+      "collected": "Collected",
+      "cancel": "Cancel",
+      "acceptLabel": "Accept {code}",
+      "startLabel": "Start preparing {code}",
+      "readyLabel": "Mark {code} ready",
+      "collectedLabel": "Mark {code} collected",
+      "cancelLabel": "Cancel {code}"
+    },
+    "cancelDialog": {
+      "title": "Cancel {code}?",
+      "text": "The customer gets the full amount back automatically and sees the reason on their order page.",
+      "reason": "Reason (shown to the customer)",
+      "keep": "Keep the order",
+      "confirm": "Cancel and refund"
+    },
+    "errors": {
+      "failed": "That did not work. Try again.",
+      "refund_failed": "The order is cancelled, but the refund failed. Tap Cancel again to retry."
+    }
+  },
+  "Orders": {
+    "title": "Orders",
+    "intro": "All paid orders at the festival, newest first.",
+    "openKitchen": "Open the kitchen display",
+    "empty": "No orders to show.",
+    "pagination": "Pages",
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page {page} of {pages} · {total} orders",
+    "filters": {
+      "status": "Status",
+      "all": "All",
+      "date": "Date",
+      "search": "Search",
+      "searchHint": "Order number or name",
+      "apply": "Filter",
+      "clear": "Clear"
+    },
+    "columns": {
+      "code": "Order",
+      "time": "Paid",
+      "items": "Items",
+      "customer": "Customer",
+      "status": "Status",
+      "total": "Amount"
+    }
   }
 }

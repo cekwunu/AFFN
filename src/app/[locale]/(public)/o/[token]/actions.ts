@@ -46,7 +46,7 @@ export async function sendReceipt(formData: FormData): Promise<void> {
     receiptEmail({
       to: email.data!.toLowerCase(),
       locale,
-      orderNumber: r.order_number,
+      orderNumber: r.order_code,
       vendorName: r.vendor.display_name,
       sellerName: r.vendor.legal_name,
       sellerOrgNumber: r.vendor.org_number,

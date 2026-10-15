@@ -111,7 +111,7 @@ ${
 export function receiptEmail(input: {
   to: string;
   locale: Locale;
-  orderNumber: number;
+  orderNumber: string;
   vendorName: string;
   sellerName: string;
   sellerOrgNumber: string;
