@@ -156,18 +156,6 @@ delete via `public.delete_product` only when no order refers to it), `/vendor/pr
 compressed in the browser (`src/lib/images/compress.ts`) and stored in `vendor-media/{vendor_id}/products|gallery/`.
 Vendor client components use `useTranslations` inside `<ClientIntl namespaces=…>` (portal pages only).
 
-Payments (P09): `src/lib/payments/provider.ts` is the `PaymentProvider` interface; `getPaymentProvider()`
-(`src/lib/payments/index.ts`, server-only) picks by `PAYMENT_PROVIDER` (only `mock` works; Stripe Connect
-and Swedbank Pay are TODO stubs for Prompt 22). Every provider must pass the contract suite
-`src/lib/payments/contract.ts`. The mock's hosted pages are `/pay/mock/[token]` (tokens joined with
-`~`, since the proxy skips paths with a dot), signed with `MOCK_PAYMENT_SECRET` (fallback derived from
-`RATE_LIMIT_SECRET`). Webhooks go through `processWebhook` (`src/lib/payments/webhooks.ts`): verify,
-store raw, `duplicate` when already processed, apply via service-role RPCs (`record_order_payment`,
-`set_payment_account_status`, `record_refund_result`, `record_payout_result`, `record_fee_payment`).
-Commission maths: `src/lib/money/commission.ts` (`resolveCommissionRule`: the category rule applies only
-when every item is in that category; `calculateCommission`: commission and 25 % mva each half-up).
-Vendors set up payouts at `/vendor/payouts` (VEN-06); selling needs status `eligible`.
-
 Storefront and checkout (P10): the QR points at `/e/[event]/[vendor]` (`getStorefront` in
 `src/lib/storefront/server.ts`, admin client with explicit public filters; blocked states paused /
 payouts / closed). Cart islands in `src/components/storefront` (sessionStorage, native `<dialog>`).
