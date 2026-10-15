@@ -54,6 +54,8 @@ src/components/ui and src/styles — never ad-hoc colours or spacing.
 - If a requirement is unclear or conflicts with this file, stop and ask the owner.
   Do not guess.
 - After each task: run lint, typecheck and tests, and report results.
+- After each prompt: push, open a pull request into `main` and merge it once CI is green and
+  the cloud migrations are applied (standing owner instruction). Never merge with red CI.
 
 ## Commands
 Package manager: pnpm (Node 22, see .nvmrc). Copy `.env.example` to `.env.local` first.
