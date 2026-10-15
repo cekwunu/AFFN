@@ -417,6 +417,16 @@ describe('release (SET-03)', () => {
       );
       await c.query(`select public.prepare_settlement_lines($1, null)`, [id]);
       const settled = await lines(c, id);
+      // Ledger vs orders (/admin/ledger): the gap between the two vendor totals.
+      const totalsGap = async () => {
+        const { rows } = await c.query(
+          `select source, vendor_ore::int as v from public.event_money_totals($1)`,
+          [EVENT1],
+        );
+        const v = (s: string) => rows.find((r) => r.source === s)!.v;
+        return v('ledger') - v('orders');
+      };
+      const gapBefore = await totalsGap();
       await prepareAndApprove(c, id);
       // Users cannot release; only server code can.
       expect(await as(c, USERS.orgAdmin, () => setStatus(c, id, 'releasing'))).toMatch(
@@ -462,6 +472,8 @@ describe('release (SET-03)', () => {
          having sum(case when direction = 'debit' then amount_ore else -amount_ore end) <> 0`,
       );
       expect(unbalanced.rows).toEqual([]);
+      // Payouts and adjustments do not come from orders, so they leave the comparison unchanged.
+      expect(await totalsGap()).toBe(gapBefore);
     });
   });
 

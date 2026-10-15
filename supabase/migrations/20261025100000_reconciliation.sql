@@ -254,3 +254,60 @@ create view public.transactions with (security_invoker = true) as
          coalesce(po.paid_at, po.created_at), null
     from public.payouts po;
 grant select on public.transactions to authenticated;
+
+-- Ledger vs orders (P12): the vendor share compares sales and refunds only. Settlement adjustments
+-- and lost disputes (P13) move vendor_payable without an order or refund, so they are left out here
+-- as payouts already were.
+create or replace function public.event_money_totals(p_event_id uuid)
+returns table (
+  source text,
+  gross_ore bigint,
+  refunded_ore bigint,
+  platform_fee_ore bigint,
+  commission_ore bigint,
+  commission_mva_ore bigint,
+  psp_fee_ore bigint,
+  vendor_ore bigint
+)
+language sql
+stable
+security invoker
+set search_path = ''
+as $$
+  with l as (
+    select
+      coalesce(sum(amount_ore) filter (where entry_type = 'sale' and account = 'psp_clearing'), 0) as gross,
+      coalesce(sum(amount_ore) filter (where entry_type = 'refund' and account = 'psp_clearing'), 0) as refunded,
+      coalesce(sum(case when direction = 'credit' then amount_ore else -amount_ore end)
+               filter (where account = 'commission_revenue'), 0) as commission,
+      coalesce(sum(case when direction = 'credit' then amount_ore else -amount_ore end)
+               filter (where account = 'mva_payable'), 0) as mva,
+      coalesce(sum(amount_ore) filter (where account = 'psp_fee_expense'), 0) as psp_fee,
+      coalesce(sum(case when direction = 'credit' then amount_ore else -amount_ore end)
+               filter (where account = 'vendor_payable'
+                       and entry_type not in ('payout', 'adjustment', 'dispute')), 0) as vendor
+      from public.ledger_entries
+     where event_id = p_event_id
+  ),
+  o as (
+    select coalesce(sum(p.amount_ore), 0) as gross,
+           coalesce(sum(o.platform_fee_ore), 0) as fee,
+           coalesce(sum(p.psp_fee_ore), 0) as psp_fee
+      from public.payments p
+      join public.orders o on o.id = p.order_id
+     where p.event_id = p_event_id and p.status = 'succeeded'
+  ),
+  r as (
+    select coalesce(sum(amount_ore), 0) as refunded,
+           coalesce(sum(platform_fee_reversal_ore), 0) as fee
+      from public.refunds
+     where event_id = p_event_id and status = 'succeeded'
+  )
+  select 'ledger', l.gross::bigint, l.refunded::bigint, (l.commission + l.mva)::bigint,
+         l.commission::bigint, l.mva::bigint, l.psp_fee::bigint, l.vendor::bigint
+    from l
+  union all
+  select 'orders', o.gross::bigint, r.refunded::bigint, (o.fee - r.fee)::bigint, null, null,
+         o.psp_fee::bigint, (o.gross - r.refunded - (o.fee - r.fee))::bigint
+    from o, r;
+$$;
