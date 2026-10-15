@@ -2,6 +2,7 @@ import {
   ChefHat,
   ClipboardList,
   Eye,
+  HandCoins,
   LayoutDashboard,
   MapPin,
   QrCode,
@@ -37,6 +38,7 @@ export default async function VendorLayout({ children, params }: LayoutProps<'/[
           { href: '/vendor/orders', label: t('orders'), icon: <ReceiptText /> },
           { href: '/vendor/products', label: t('products'), icon: <UtensilsCrossed /> },
           { href: '/vendor/payouts', label: t('payouts'), icon: <Wallet /> },
+          { href: '/vendor/settlements', label: t('settlements'), icon: <HandCoins /> },
           { href: '/vendor/qr', label: t('qr'), icon: <QrCode /> },
           { href: '/vendor/preview', label: t('preview'), icon: <Eye /> },
         ]}

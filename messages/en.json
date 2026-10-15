@@ -60,7 +60,8 @@
       "kitchen": "Kitchen display",
       "orders": "Orders",
       "commission": "Commission",
-      "ledger": "Ledger"
+      "ledger": "Ledger",
+      "settlements": "Settlements"
     },
     "storefront": {
       "viewCart": "View cart ({count, plural, one {# item} other {# items}})"
@@ -1715,5 +1716,162 @@
       "paid": "Paid",
       "lifetime": "Lifetime earned"
     }
+  },
+  "Settlements": {
+    "title": "Settlements",
+    "intro": "Settlements for {event}: ledger balances are collected in a batch, approved by a second Organization Admin and paid out through the payment provider.",
+    "queue": "In progress",
+    "history": "History",
+    "empty": "No settlements here.",
+    "batchOf": "Settlement {date}",
+    "backToList": "← All settlements",
+    "cutoffAt": "Up to {time}",
+    "preparedAt": "prepared {time}",
+    "approvedAt": "approved {time}",
+    "steps": "Steps",
+    "actionsTitle": "Actions",
+    "status": {
+      "draft": "Draft",
+      "prepared": "Ready for approval",
+      "approved": "Approved",
+      "releasing": "Paying",
+      "completed": "Completed",
+      "completed_with_failures": "Partially failed",
+      "cancelled": "Cancelled"
+    },
+    "columns": {
+      "batch": "Settlement",
+      "cutoff": "Up to",
+      "status": "Status",
+      "vendors": "Vendors",
+      "net": "Net payout"
+    },
+    "new": {
+      "title": "New settlement",
+      "vendors": "Vendors",
+      "scope": {
+        "all": "All with a balance",
+        "some": "Choose vendors"
+      },
+      "payoutsNotEnabled": "payouts not enabled",
+      "cutoff": "Up to (Norway time)",
+      "cutoffHint": "Empty = now. Sales after this time go into the next settlement.",
+      "notes": "Name or note (optional)",
+      "create": "Create settlement",
+      "creating": "Creating …",
+      "errors": {
+        "cutoff": "The time cannot be in the future.",
+        "vendors": "Choose at least one vendor.",
+        "failed": "The settlement was not created. Try again."
+      }
+    },
+    "blockers": {
+      "title": "To fix before approval",
+      "none": "Nothing blocks this settlement.",
+      "kinds": {
+        "unreconciled": "{amount} transactions are not reconciled with the payment provider.",
+        "no_lines": "The settlement has no vendors with a balance.",
+        "dispute": "{vendor} has an open dispute of {amount}.",
+        "payout_account": "{vendor} has not enabled payouts (owed {amount}).",
+        "negative": "{vendor} has a negative balance ({amount})."
+      },
+      "fix": {
+        "payout_account": "Contact the vendor",
+        "negative": "Add an adjustment",
+        "dispute": "See the vendor"
+      }
+    },
+    "actions": {
+      "refresh": "Refresh lines",
+      "prepare": "Send for approval",
+      "approve": "Approve settlement",
+      "backToDraft": "Back to draft",
+      "cancel": "Cancel settlement",
+      "release": "Pay out",
+      "retry": "Retry failed payouts"
+    },
+    "fourEyes": "You prepared this settlement, so another Organization Admin must approve it.",
+    "needsOrgAdmin": "Only an Organization Admin can approve.",
+    "lines": {
+      "title": "Lines",
+      "vendor": "Vendor",
+      "gross": "Gross sales",
+      "refunds": "Refunds",
+      "commission": "Commission",
+      "mva": "Mva on commission",
+      "adjustments": "Adjustments",
+      "net": "Net payout",
+      "payout": "Payout",
+      "total": "Total",
+      "explain": "Taken from the ledger for the period. Refunds are the vendor’s share (refunded amount minus commission and mva given back), lost disputes included."
+    },
+    "payout": {
+      "pending": "Pending",
+      "in_transit": "In transit",
+      "paid": "Paid",
+      "failed": "Failed",
+      "attempt": "Attempt {attempt}"
+    },
+    "adjustments": {
+      "title": "Adjustments",
+      "vendor": "Vendor",
+      "direction": "Type",
+      "credit": "Credit (+)",
+      "debit": "Debit (−)",
+      "amount": "Amount (kr)",
+      "reason": "Reason",
+      "add": "Add adjustment",
+      "explain": "An adjustment counts once an Organization Admin (not the person who added it) has approved it.",
+      "approved": "Approved",
+      "awaiting": "Awaiting approval",
+      "approve": "Approve",
+      "delete": "Delete",
+      "none": "No adjustments."
+    },
+    "payouts": {
+      "title": "Payouts",
+      "amount": "Amount",
+      "attempt": "Attempt",
+      "status": "Status",
+      "reference": "Reference",
+      "time": "Time"
+    },
+    "test": {
+      "title": "Test mode",
+      "dispute": "Simulate dispute",
+      "disputeWon": "Test mode: dispute won"
+    },
+    "notices": {
+      "created": "The settlement is created.",
+      "refreshed": "The lines are refreshed.",
+      "prepared": "The settlement is sent for approval.",
+      "draft": "The settlement is back as a draft.",
+      "approved": "The settlement is approved.",
+      "cancelled": "The settlement is cancelled.",
+      "adjustment": "The adjustment is added and awaits approval.",
+      "adjustmentApproved": "The adjustment is approved and the lines refreshed.",
+      "adjustmentDeleted": "The adjustment is deleted.",
+      "released": "All payouts are done.",
+      "dispute_open": "Test mode: a dispute was opened.",
+      "dispute_won": "Test mode: the dispute was won.",
+      "dispute_lost": "Test mode: the dispute was lost."
+    },
+    "errors": {
+      "failed": "That did not work. Try again.",
+      "forbidden": "You do not have access to this.",
+      "blocked": "The settlement cannot move on until everything in the list is fixed.",
+      "same_person": "The person who prepared (or added) it cannot also approve it.",
+      "amount": "Enter an amount in kroner.",
+      "reason": "Enter a reason.",
+      "payouts_failed": "{count, plural, one {# payout failed} other {# payouts failed}}. Fix the cause and retry."
+    }
+  },
+  "VendorSettlements": {
+    "title": "Settlements",
+    "intro": "Each payout from AFFN: what it covers, and when it was paid.",
+    "empty": "No settlements yet. They come after the festival.",
+    "period": "{from} – {to}",
+    "until": "Up to {to}",
+    "paidAt": "Paid {time}"
   }
 }
