@@ -125,5 +125,15 @@ provider's checkout is `/pay/mock/[token]` and posts a signed webhook through `h
 (also `/api/webhooks/[provider]`), which stores the raw event and calls `public.record_fee_payment`
 (service role, idempotent, `fee_payments` only — never the vendor ledger). Prompt 09 replaces the mock.
 
+Vendor portal and catalogue (P08): `/vendor` (status cards, next steps), `/vendor/profile` (story,
+contact, socials, catering, logo/cover, gallery in `vendor_gallery_images`, max 8, alt text required),
+`/vendor/products` (menu in `products.sort_order`, one order per vendor; duplicate, archive/restore,
+delete via `public.delete_product` only when no order refers to it), `/vendor/products/availability`
+(`product_availability` per event + sold-out) and `/vendor/preview` (`VendorPage` in
+`src/components/vendor-page`, server-only, reused by the public page). Rules in `src/lib/catalogue`
+(14 EU allergens, mva 0 % unless `vendors.mva_registered`, also enforced by a trigger). Images are
+compressed in the browser (`src/lib/images/compress.ts`) and stored in `vendor-media/{vendor_id}/products|gallery/`.
+Vendor client components use `useTranslations` inside `<ClientIntl namespaces=…>` (portal pages only).
+
 Public pages stay light: their client islands get translated strings as props and use
 `@/i18n/link` and `clsx` — no `useTranslations`, `cn` or Radix overlays in public client code.
