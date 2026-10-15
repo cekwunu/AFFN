@@ -106,3 +106,64 @@ ${
   ].join('\n');
   return { to: input.to, subject, html, text };
 }
+
+/** A copy of the digital receipt (QR-05): the vendor is the seller, AFFN the platform. */
+export function receiptEmail(input: {
+  to: string;
+  locale: Locale;
+  orderNumber: number;
+  vendorName: string;
+  sellerName: string;
+  sellerOrgNumber: string;
+  platformName: string;
+  lines: { name: string; quantity: number; total: string }[];
+  mva: { rate: string; amount: string }[];
+  total: string;
+  method: string | null;
+  time: string;
+  link: string;
+}): EmailMessage {
+  const t = createTranslator({
+    locale: input.locale,
+    messages: MESSAGES[input.locale],
+    namespace: 'Email.receipt',
+  });
+  const r = createTranslator({
+    locale: input.locale,
+    messages: MESSAGES[input.locale],
+    namespace: 'Receipt',
+  });
+  const subject = t('subject', { vendor: input.vendorName, number: input.orderNumber });
+  const row = (left: string, right: string, strong = false) =>
+    `<tr><td style="padding:4px 0;${strong ? 'font-weight:600;' : ''}">${escapeHtml(left)}</td><td style="padding:4px 0;text-align:right;white-space:nowrap;${strong ? 'font-weight:600;' : ''}">${escapeHtml(right)}</td></tr>`;
+  const html = layout(
+    input.locale,
+    `<h1 style="margin:0 0 12px;font-size:22px;">${escapeHtml(r('title', { number: input.orderNumber }))}</h1>
+<p style="margin:0 0 16px;">${escapeHtml(t('intro'))}</p>
+<p style="margin:0 0 4px;"><strong>${escapeHtml(r('seller'))}:</strong> ${escapeHtml(input.sellerName)}, ${escapeHtml(r('orgNumber', { number: input.sellerOrgNumber }))}</p>
+<p style="margin:0 0 16px;"><strong>${escapeHtml(r('platform'))}:</strong> ${escapeHtml(input.platformName)}</p>
+<table style="width:100%;border-collapse:collapse;border-top:1px solid ${C.line};border-bottom:1px solid ${C.line};margin:0 0 16px;">
+${input.lines.map((l) => row(`${l.quantity} × ${l.name}`, l.total)).join('')}
+${input.mva.map((m) => row(r('mva', { rate: m.rate }), m.amount)).join('')}
+${row(r('total'), input.total, true)}
+</table>
+<p style="margin:0;">${input.method ? `${escapeHtml(r('method'))}: ${escapeHtml(input.method)} · ` : ''}${escapeHtml(input.time)}</p>
+<p style="margin:16px 0 0;font-size:13px;color:${C.muted};">${escapeHtml(t('footer', { platform: input.platformName }))}</p>
+<p style="margin:16px 0 0;"><a href="${escapeHtml(input.link)}" style="color:${C.primary};">${escapeHtml(input.link)}</a></p>`,
+  );
+  const text = [
+    r('title', { number: input.orderNumber }),
+    '',
+    `${r('seller')}: ${input.sellerName}, ${r('orgNumber', { number: input.sellerOrgNumber })}`,
+    `${r('platform')}: ${input.platformName}`,
+    '',
+    ...input.lines.map((l) => `${l.quantity} × ${l.name}  ${l.total}`),
+    ...input.mva.map((m) => `${r('mva', { rate: m.rate })}  ${m.amount}`),
+    `${r('total')}  ${input.total}`,
+    '',
+    `${input.method ? `${r('method')}: ${input.method} · ` : ''}${input.time}`,
+    '',
+    input.link,
+  ].join('\n');
+  return { to: input.to, subject, html, text };
+}

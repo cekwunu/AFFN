@@ -13,6 +13,9 @@ export const RATE_LIMITS = {
   signUpIp: { limit: 10, windowSeconds: 60 * 60, perIp: true },
   // Brønnøysund lookups per signed-in user (VEN-02).
   brregLookupUser: { limit: 30, windowSeconds: 60 * 60, perIp: false },
+  // Storefront checkout and receipt emails per visitor IP (QR-03, QR-05).
+  checkoutIp: { limit: 30, windowSeconds: 10 * 60, perIp: true },
+  receiptEmailIp: { limit: 10, windowSeconds: 60 * 60, perIp: true },
 } as const;
 export type RateLimitBucket = keyof typeof RATE_LIMITS;
 
