@@ -7,7 +7,7 @@ import { buttonVariants } from '@/components/ui/button-variants';
 import { Link } from '@/i18n/link';
 import type { Locale } from '@/i18n/routing';
 import { initRequestLocale } from '@/i18n/server';
-import { commissionBreakdown, formatCommissionTerms, formatPercent } from '@/lib/commission';
+import { calculateCommission, formatCommissionTerms, formatPercent } from '@/lib/money/commission';
 import { formatDateOslo, formatNok } from '@/lib/format';
 import { ore } from '@/lib/money';
 import {
@@ -54,7 +54,7 @@ export default async function BecomeVendorPage({ params }: PageProps<'/[locale]/
   ]);
   const perOrder = locale === 'en' ? 'per order' : 'per ordre';
   const terms = rule ? formatCommissionTerms(rule, perOrder) : null;
-  const example = rule ? commissionBreakdown(EXAMPLE_GROSS, rule) : null;
+  const example = rule ? calculateCommission(EXAMPLE_GROSS, rule) : null;
   const open = applicationsOpen(event);
   const notYet = event.applications_open_at && new Date(event.applications_open_at) > new Date();
   const date = (value: string) => formatDateOslo(value, locale, 'long');

@@ -1,7 +1,7 @@
 import 'server-only';
 import { cache } from 'react';
 import { currentOrganization } from '@/lib/auth/server';
-import { resolveCommissionRule, type CommissionRule } from '@/lib/commission';
+import { resolveCommissionRule, type CommissionRule } from '@/lib/money/commission';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { createClient } from '@/lib/supabase/server';
 import type { ApplicationProgress } from './application';

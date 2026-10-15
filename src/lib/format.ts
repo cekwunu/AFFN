@@ -3,7 +3,7 @@
  * Europe/Oslo, whatever the viewer's device time zone.
  */
 import type { Locale } from '@/i18n/routing';
-import { formatOre, type Ore } from './money';
+import { formatOre, type Ore } from './money/index';
 
 export const OSLO_TIME_ZONE = 'Europe/Oslo';
 

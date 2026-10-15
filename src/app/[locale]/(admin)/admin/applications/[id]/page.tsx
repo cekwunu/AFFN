@@ -10,7 +10,7 @@ import type { Locale } from '@/i18n/routing';
 import { initRequestLocale } from '@/i18n/server';
 import { getCurrentUser } from '@/lib/auth/server';
 import { formatOrgNumber } from '@/lib/brreg';
-import { formatCommissionTerms } from '@/lib/commission';
+import { formatCommissionTerms } from '@/lib/money/commission';
 import { formatDateOslo, formatDateTimeOslo, formatNok } from '@/lib/format';
 import { ore } from '@/lib/money';
 import { expiryWarning } from '@/lib/review/queue';
