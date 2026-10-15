@@ -95,7 +95,7 @@ If Docker cannot pull from public.ecr.aws, set `SUPABASE_INTERNAL_IMAGE_REGISTRY
 rate-limits, pull the image from `mirror.gcr.io/...` and `docker tag` it to the expected name.
 
 Cloud: Supabase project `nwllhsbhdftrucgndjpc` ("Affn", eu-north-1 Stockholm), URL
-`https://nwllhsbhdftrucgndjpc.supabase.co`. All migrations up to `20261023100000_ledger` are
+`https://nwllhsbhdftrucgndjpc.supabase.co`. All migrations up to `20261024100000_settlements` are
 applied (no seed data). Reference data (organization, AFFN 2027, categories, commission rule, stall types)
 is in `supabase/reference-data.sql`, applied once; no users or demo vendors. Apply each new migration there too, after CI is green. The Supabase connection
 here cannot approve destructive statements (including `delete from` inside function bodies): write
@@ -195,6 +195,22 @@ vendor share, commission and mva pro rata; the PSP fee is never reversed. `/admi
 `public.event_money_totals` (ledger vs orders/refunds); vendor balances (`public.vendor_balances`,
 RLS) show on `/vendor/payouts`. The mock PSP fee is 2,5 % (illustrative). Commission e2e runs in the
 `kitchen` Playwright project after the other specs.
+
+Settlements (P13): `/admin/settlements` (queue, history, new batch with vendors + cut-off) and
+`/admin/settlements/[id]`. Lines are snapshots written only by `private.prepare_settlement_lines`
+(public invoker wrapper; event staff, draft only): per vendor, ledger movements after its previous
+cut-off up to the batch cut-off (`private.vendor_period`); `refunds_ore` is the vendor's share of
+refunds and lost disputes. `public.settlement_blockers` (unreconciled — `private.unreconciled_count`,
+filled in by P14 —, open dispute, payout account not eligible, negative, no lines) stops
+`prepared`/`approved` (trigger). Four eyes: approver is an Organization Admin ≠ preparer
+(`private.settlement_workflow` + check). Adjustments only while draft, approved by an Org Admin ≠
+creator, counted after a refresh. Release (`releaseSettlement`): `begin_settlement_release` (posts
+adjustments to the ledger, one pending payout per unpaid line, new attempt on retry) →
+`PaymentProvider.releasePayout` → `record_payout` (paid → Dr vendor_payable / Cr psp_clearing; batch
+→ completed / completed_with_failures; retry from partially failed). Disputes come from the PSP
+(`dispute.opened/closed` webhook → `record_dispute`; lost = Dr vendor_payable / Cr psp_clearing);
+the mock's `simulateDispute` is wired to test-mode buttons on the batch page. Vendors see
+`/vendor/settlements`. Table containers are focusable (keyboard scrolling, axe).
 
 Public pages stay light: their client islands get translated strings as props and use
 `@/i18n/link` and `clsx` — no `useTranslations`, `cn` or Radix overlays in public client code.

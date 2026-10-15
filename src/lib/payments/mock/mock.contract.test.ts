@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { providerContract } from '../contract';
 import { createMockProvider } from './provider';
 import { memoryStore } from './store';
@@ -20,4 +21,33 @@ providerContract('MockProvider', async () => {
       return result.delivery;
     },
   };
+});
+
+describe('MockProvider disputes (TEST MODE)', () => {
+  it('reports a dispute as a signed webhook with a stable id', async () => {
+    const provider = createMockProvider({ secret: 'contract-test-secret', store: memoryStore() });
+    const opened = provider.simulateDispute({
+      providerPaymentId: 'mock_pay_1',
+      amountOre: 5_000,
+      outcome: 'open',
+    });
+    const closed = provider.simulateDispute({
+      providerPaymentId: 'mock_pay_1',
+      amountOre: 5_000,
+      outcome: 'lost',
+    });
+    const a = await provider.handleWebhook(opened.rawBody, opened.headers);
+    const b = await provider.handleWebhook(closed.rawBody, closed.headers);
+    expect(a).toMatchObject({
+      type: 'dispute.opened',
+      providerPaymentId: 'mock_pay_1',
+      outcome: 'open',
+    });
+    expect(b).toMatchObject({ type: 'dispute.closed', outcome: 'lost' });
+    expect(
+      a!.type === 'dispute.opened' && b!.type === 'dispute.closed' && a!.providerDisputeId,
+    ).toBe(b!.type === 'dispute.closed' && b!.providerDisputeId);
+    const forged = new Headers({ 'x-affn-signature': 'nope' });
+    await expect(provider.handleWebhook(opened.rawBody, forged)).resolves.toBeNull();
+  });
 });

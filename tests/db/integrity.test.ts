@@ -81,9 +81,16 @@ describe('settlement workflow (four eyes)', () => {
   const settlement = SETTLEMENT(1);
   const setStatus = (status: string) =>
     `update public.settlements set status = '${status}' where id = '${settlement}'`;
+  // Batch 1 also pays vendor 5, whose payout account is not enabled yet: a blocker (P13).
+  const unblock = (c: pg.Client) =>
+    c.query(
+      `update public.event_vendors set psp_account_status = 'eligible', psp_account_id = 'acct_5'
+        where id = '41000000-0000-4000-8000-000000000005'`,
+    );
 
   it('an Event Admin prepares, a different Organization Admin approves', async () => {
     await asOwner(async (c) => {
+      await unblock(c);
       await becomeUser(c, USERS.eventAdmin);
       expect(await attempt(c, setStatus('prepared'))).toBe('allowed');
       // The Event Admin cannot approve.
@@ -102,6 +109,7 @@ describe('settlement workflow (four eyes)', () => {
 
   it('the preparer cannot approve their own batch', async () => {
     await asOwner(async (c) => {
+      await unblock(c);
       await becomeUser(c, USERS.orgAdmin);
       expect(await attempt(c, setStatus('prepared'))).toBe('allowed');
       expect(await errorCode(c, setStatus('approved'))).toBe('23514');
@@ -118,6 +126,7 @@ describe('settlement workflow (four eyes)', () => {
 
   it('records approved settlements in the audit log', async () => {
     await asOwner(async (c) => {
+      await unblock(c);
       await becomeUser(c, USERS.eventAdmin);
       await c.query(setStatus('prepared'));
       await c.query('reset role');

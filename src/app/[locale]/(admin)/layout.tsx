@@ -1,6 +1,7 @@
 import {
   BookOpenCheck,
   ClipboardCheck,
+  HandCoins,
   LayoutDashboard,
   MapPinned,
   Percent,
@@ -30,6 +31,7 @@ export default async function AdminLayout({ children, params }: LayoutProps<'/[l
           { href: '/admin/stalls', label: t('stalls'), icon: <MapPinned /> },
           { href: '/admin/commission', label: t('commission'), icon: <Percent /> },
           { href: '/admin/ledger', label: t('ledger'), icon: <BookOpenCheck /> },
+          { href: '/admin/settlements', label: t('settlements'), icon: <HandCoins /> },
           { href: '/admin/team', label: t('team'), icon: <Users /> },
         ]}
       >

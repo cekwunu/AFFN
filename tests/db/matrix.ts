@@ -511,24 +511,11 @@ export const MATRIX: TableSpec[] = [
     insert: { allowed: EDITORS, row: () => ({ ...event1 }) },
     update: { allowed: EDITORS, target: 'own', set: () => 'notes = notes' },
   },
+  // Lines are snapshots made by public.prepare_settlement_lines; nobody writes them directly.
   {
     table: 'settlement_lines',
     rows: { ...byId('97000000'), spare: is('id', '97000000-0000-4000-8000-000000000003') },
     read: { ...vendorEventRead, spare: EVENT_STAFF },
-    insert: {
-      allowed: EDITORS,
-      row: () => ({
-        ...event1,
-        settlement_id: SETTLEMENT(1),
-        event_vendor_id: EVENT_VENDOR(3),
-        vendor_id: VENDOR(3),
-        gross_sales_ore: 1000,
-        net_payout_ore: 1000,
-      }),
-    },
-    update: { allowed: EDITORS, target: 'own', set: () => 'refunds_ore = refunds_ore' },
-    // The own line has a payout (foreign key), so deletion is tested on a spare line.
-    delete: { allowed: EDITORS, target: 'spare' },
   },
   {
     table: 'settlement_adjustments',
@@ -554,6 +541,7 @@ export const MATRIX: TableSpec[] = [
     delete: { allowed: EDITORS, target: 'own' },
   },
   { table: 'payouts', rows: byId('99000000'), read: vendorEventRead },
+  { table: 'disputes', rows: byId('a3000000'), read: vendorEventRead },
   { table: 'invoices', rows: byId('a2000000'), read: vendorEventRead },
   {
     table: 'invoice_counters',

@@ -60,7 +60,8 @@
       "kitchen": "Kjøkkenskjerm",
       "orders": "Bestillinger",
       "commission": "Provisjon",
-      "ledger": "Regnskap"
+      "ledger": "Regnskap",
+      "settlements": "Oppgjør"
     },
     "storefront": {
       "viewCart": "Se handlekurv ({count, plural, one {# vare} other {# varer}})"
@@ -1715,5 +1716,162 @@
       "paid": "Utbetalt",
       "lifetime": "Totalt opptjent"
     }
+  },
+  "Settlements": {
+    "title": "Oppgjør",
+    "intro": "Oppgjør for {event}: saldoene fra hovedboken samles i en bunt, godkjennes av en annen organisasjonsadministrator og betales ut gjennom betalingsleverandøren.",
+    "queue": "Pågår",
+    "history": "Historikk",
+    "empty": "Ingen oppgjør her.",
+    "batchOf": "Oppgjør {date}",
+    "backToList": "← Alle oppgjør",
+    "cutoffAt": "Til og med {time}",
+    "preparedAt": "klargjort {time}",
+    "approvedAt": "godkjent {time}",
+    "steps": "Steg",
+    "actionsTitle": "Handlinger",
+    "status": {
+      "draft": "Utkast",
+      "prepared": "Klar for godkjenning",
+      "approved": "Godkjent",
+      "releasing": "Utbetales",
+      "completed": "Fullført",
+      "completed_with_failures": "Delvis feilet",
+      "cancelled": "Avbrutt"
+    },
+    "columns": {
+      "batch": "Oppgjør",
+      "cutoff": "Til og med",
+      "status": "Status",
+      "vendors": "Leverandører",
+      "net": "Til utbetaling"
+    },
+    "new": {
+      "title": "Nytt oppgjør",
+      "vendors": "Leverandører",
+      "scope": {
+        "all": "Alle med saldo",
+        "some": "Velg leverandører"
+      },
+      "payoutsNotEnabled": "utbetaling ikke aktivert",
+      "cutoff": "Til og med (norsk tid)",
+      "cutoffHint": "Tomt = nå. Salg etter dette tidspunktet tas med i neste oppgjør.",
+      "notes": "Navn eller notat (valgfritt)",
+      "create": "Lag oppgjør",
+      "creating": "Lager …",
+      "errors": {
+        "cutoff": "Tidspunktet kan ikke være i fremtiden.",
+        "vendors": "Velg minst én leverandør.",
+        "failed": "Oppgjøret ble ikke laget. Prøv igjen."
+      }
+    },
+    "blockers": {
+      "title": "Må ordnes før godkjenning",
+      "none": "Ingenting hindrer dette oppgjøret.",
+      "kinds": {
+        "unreconciled": "{amount} transaksjoner er ikke avstemt mot betalingsleverandøren.",
+        "no_lines": "Oppgjøret har ingen leverandører med saldo.",
+        "dispute": "{vendor} har en åpen innsigelse på {amount}.",
+        "payout_account": "{vendor} har ikke aktivert utbetaling (skal ha {amount}).",
+        "negative": "{vendor} har negativ saldo ({amount})."
+      },
+      "fix": {
+        "payout_account": "Kontakt leverandøren",
+        "negative": "Legg inn justering",
+        "dispute": "Se leverandøren"
+      }
+    },
+    "actions": {
+      "refresh": "Oppdater linjer",
+      "prepare": "Send til godkjenning",
+      "approve": "Godkjenn oppgjøret",
+      "backToDraft": "Tilbake til utkast",
+      "cancel": "Avbryt oppgjøret",
+      "release": "Betal ut",
+      "retry": "Prøv mislykkede utbetalinger igjen"
+    },
+    "fourEyes": "Du klargjorde dette oppgjøret, så en annen organisasjonsadministrator må godkjenne det.",
+    "needsOrgAdmin": "Bare en organisasjonsadministrator kan godkjenne.",
+    "lines": {
+      "title": "Linjer",
+      "vendor": "Leverandør",
+      "gross": "Brutto salg",
+      "refunds": "Refusjoner",
+      "commission": "Provisjon",
+      "mva": "Mva på provisjon",
+      "adjustments": "Justeringer",
+      "net": "Til utbetaling",
+      "payout": "Utbetaling",
+      "total": "Totalt",
+      "explain": "Hentet fra hovedboken for perioden. Refusjoner er leverandørens andel (refundert beløp minus provisjon og mva som gis tilbake), inkludert tapte innsigelser."
+    },
+    "payout": {
+      "pending": "Venter",
+      "in_transit": "Underveis",
+      "paid": "Betalt",
+      "failed": "Feilet",
+      "attempt": "Forsøk {attempt}"
+    },
+    "adjustments": {
+      "title": "Justeringer",
+      "vendor": "Leverandør",
+      "direction": "Type",
+      "credit": "Tillegg (+)",
+      "debit": "Trekk (−)",
+      "amount": "Beløp (kr)",
+      "reason": "Begrunnelse",
+      "add": "Legg til justering",
+      "explain": "En justering teller først når en organisasjonsadministrator (ikke den som la den inn) har godkjent den.",
+      "approved": "Godkjent",
+      "awaiting": "Venter på godkjenning",
+      "approve": "Godkjenn",
+      "delete": "Slett",
+      "none": "Ingen justeringer."
+    },
+    "payouts": {
+      "title": "Utbetalinger",
+      "amount": "Beløp",
+      "attempt": "Forsøk",
+      "status": "Status",
+      "reference": "Referanse",
+      "time": "Tid"
+    },
+    "test": {
+      "title": "Testmodus",
+      "dispute": "Simuler innsigelse",
+      "disputeWon": "Testmodus: innsigelsen vunnet"
+    },
+    "notices": {
+      "created": "Oppgjøret er laget.",
+      "refreshed": "Linjene er oppdatert.",
+      "prepared": "Oppgjøret er sendt til godkjenning.",
+      "draft": "Oppgjøret er tilbake som utkast.",
+      "approved": "Oppgjøret er godkjent.",
+      "cancelled": "Oppgjøret er avbrutt.",
+      "adjustment": "Justeringen er lagt inn og venter på godkjenning.",
+      "adjustmentApproved": "Justeringen er godkjent og linjene oppdatert.",
+      "adjustmentDeleted": "Justeringen er slettet.",
+      "released": "Alle utbetalinger er gjennomført.",
+      "dispute_open": "Testmodus: en innsigelse er åpnet.",
+      "dispute_won": "Testmodus: innsigelsen er vunnet.",
+      "dispute_lost": "Testmodus: innsigelsen er tapt."
+    },
+    "errors": {
+      "failed": "Det gikk ikke. Prøv igjen.",
+      "forbidden": "Du har ikke tilgang til dette.",
+      "blocked": "Oppgjøret kan ikke sendes videre før alt i listen er ordnet.",
+      "same_person": "Den som klargjorde (eller la inn), kan ikke også godkjenne.",
+      "amount": "Skriv et beløp i kroner.",
+      "reason": "Skriv en begrunnelse.",
+      "payouts_failed": "{count, plural, one {# utbetaling feilet} other {# utbetalinger feilet}}. Ordne årsaken og prøv igjen."
+    }
+  },
+  "VendorSettlements": {
+    "title": "Oppgjør",
+    "intro": "Hver utbetaling fra AFFN: hva den dekker, og når den er betalt.",
+    "empty": "Ingen oppgjør ennå. De kommer etter festivalen.",
+    "period": "{from} – {to}",
+    "until": "Til og med {to}",
+    "paidAt": "Betalt {time}"
   }
 }
