@@ -91,10 +91,10 @@ export function normalizeHandle(input: string): string | null {
   return /^[A-Za-z0-9._]{1,30}$/.test(value) ? value : null;
 }
 
-const optional = <T extends z.ZodType>(schema: T) =>
+export const optional = <T extends z.ZodType>(schema: T) =>
   z.preprocess((value) => (value === '' || value == null ? undefined : value), schema.optional());
 
-const trimmed = (min: number, max: number) =>
+export const trimmed = (min: number, max: number) =>
   z.string().trim().min(min, 'too_short').max(max, 'too_long');
 
 export const contactSchema = z.object({
@@ -110,7 +110,7 @@ export const contactSchema = z.object({
   }),
 });
 
-const urlField = optional(
+export const urlField = optional(
   z.string().transform((value, ctx) => {
     const url = normalizeUrl(value);
     if (!url) {
@@ -120,7 +120,7 @@ const urlField = optional(
     return url;
   }),
 );
-const handleField = optional(
+export const handleField = optional(
   z.string().transform((value, ctx) => {
     const handle = normalizeHandle(value);
     if (!handle) {
