@@ -206,3 +206,17 @@ describe('formatting', () => {
     ).toBe('5\u00a0% + kr\u00a02,00 per ordre + mva');
   });
 });
+
+describe('parsePercent', () => {
+  it('reads per cent as basis points', async () => {
+    const { parsePercent } = await import('./commission');
+    expect(parsePercent('10')).toBe(1000);
+    expect(parsePercent('12,5')).toBe(1250);
+    expect(parsePercent('12.25 %')).toBe(1225);
+    expect(parsePercent('0')).toBe(0);
+    expect(parsePercent('100')).toBe(10_000);
+    expect(parsePercent('100,5')).toBeNull();
+    expect(parsePercent('1,234')).toBeNull();
+    expect(parsePercent('-1')).toBeNull();
+  });
+});

@@ -147,3 +147,11 @@ export function formatCommissionTerms(
   if (rule.type !== 'percentage') parts.push(`${formatOre(ore(rule.fixedOre ?? 0))} ${perOrder}`);
   return `${parts.join(' + ')} + mva`;
 }
+
+/** "10", "12,5" or "12.5" (per cent) as basis points; null unless 0–100 with ≤ 2 decimals. */
+export function parsePercent(input: string): number | null {
+  const match = /^(\d{1,3})(?:[.,](\d{1,2}))?$/.exec(input.trim().replace(/\s*%$/, ''));
+  if (!match) return null;
+  const bp = Number(match[1]) * 100 + Number((match[2] ?? '').padEnd(2, '0'));
+  return bp <= 10_000 ? bp : null;
+}
