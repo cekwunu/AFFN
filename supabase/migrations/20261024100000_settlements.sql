@@ -175,7 +175,7 @@ revoke all on function private.vendor_settled_until(uuid, uuid, uuid) from publi
 -- Snapshot (or refresh) a draft batch's lines (SET-02). First call: the given vendors, or every
 -- vendor with unsettled ledger movements; later calls refresh the vendors already in the batch
 -- (after an adjustment is approved). Vendors already in another open batch are skipped.
-create function public.prepare_settlement_lines(p_settlement_id uuid, p_vendor_ids uuid[])
+create function private.prepare_settlement_lines(p_settlement_id uuid, p_vendor_ids uuid[])
 returns integer
 language plpgsql
 security definer
@@ -263,6 +263,18 @@ begin
   end loop;
   return v_count;
 end;
+$$;
+revoke all on function private.prepare_settlement_lines(uuid, uuid[]) from public, anon;
+grant execute on function private.prepare_settlement_lines(uuid, uuid[]) to authenticated, service_role;
+
+-- Callable through the API; the work (and the staff check) is in the private function.
+create function public.prepare_settlement_lines(p_settlement_id uuid, p_vendor_ids uuid[])
+returns integer
+language sql
+security invoker
+set search_path = ''
+as $$
+  select private.prepare_settlement_lines(p_settlement_id, p_vendor_ids);
 $$;
 revoke all on function public.prepare_settlement_lines(uuid, uuid[]) from public, anon;
 grant execute on function public.prepare_settlement_lines(uuid, uuid[]) to authenticated, service_role;
