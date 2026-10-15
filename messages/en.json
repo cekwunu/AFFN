@@ -61,7 +61,10 @@
       "orders": "Orders",
       "commission": "Commission",
       "ledger": "Ledger",
-      "settlements": "Settlements"
+      "settlements": "Settlements",
+      "transactions": "Transactions",
+      "reconciliation": "Reconciliation",
+      "exports": "Exports"
     },
     "storefront": {
       "viewCart": "View cart ({count, plural, one {# item} other {# items}})"
@@ -1873,5 +1876,269 @@
     "period": "{from} – {to}",
     "until": "Up to {to}",
     "paidAt": "Paid {time}"
+  },
+  "Transactions": {
+    "title": "Transactions",
+    "intro": "All payments, refunds and payouts for {event}. Choose a row for details.",
+    "empty": "No transactions match the filter.",
+    "count": "{total, plural, one {# transaction} other {# transactions}}",
+    "open": "Open details for {id}",
+    "pagination": "Pages",
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page {page} of {pages}",
+    "filters": {
+      "q": "Search",
+      "qHint": "Order number, reference or customer name",
+      "kind": "Type",
+      "vendor": "Vendor",
+      "status": "Status",
+      "method": "Payment method",
+      "min": "Amount from (kr)",
+      "max": "Amount to (kr)",
+      "from": "From date",
+      "to": "To date",
+      "all": "All",
+      "apply": "Filter",
+      "clear": "Clear"
+    },
+    "kinds": {
+      "payment": "Payment",
+      "refund": "Refund",
+      "payout": "Payout"
+    },
+    "statuses": {
+      "pending": "Pending",
+      "succeeded": "Succeeded",
+      "failed": "Failed",
+      "cancelled": "Cancelled",
+      "in_transit": "In transit",
+      "paid": "Paid"
+    },
+    "methods": {
+      "vipps": "Vipps",
+      "card": "Card",
+      "apple_pay": "Apple Pay",
+      "google_pay": "Google Pay"
+    },
+    "columns": {
+      "time": "Time",
+      "kind": "Type",
+      "vendor": "Vendor",
+      "order": "Order",
+      "status": "Status",
+      "amount": "Amount",
+      "fee": "Platform fee"
+    },
+    "accounts": {
+      "psp_clearing": "Payment provider (clearing)",
+      "vendor_payable": "Owed to vendor",
+      "vendor_receivable": "Owed by vendor",
+      "commission_revenue": "Commission revenue",
+      "mva_payable": "Mva payable",
+      "psp_fee_expense": "Payment fees (expense)",
+      "adjustments": "Adjustments"
+    },
+    "directions": {
+      "debit": "Debit",
+      "credit": "Credit"
+    },
+    "outcomes": {
+      "processed": "processed",
+      "ignored": "ignored",
+      "failed": "failed"
+    },
+    "detail": {
+      "close": "Close details",
+      "pspFee": "Payment fee",
+      "items": "Items",
+      "ledger": "Ledger",
+      "webhooks": "Events from the payment provider",
+      "audit": "Audit trail",
+      "none": "None.",
+      "noneOrRestricted": "None (shown to Organization Admins only)."
+    }
+  },
+  "Reconciliation": {
+    "title": "Reconciliation",
+    "intro": "Every day the payment provider’s report is compared with our payments, refunds and payouts. Mismatches must be followed up before settlement.",
+    "run": {
+      "title": "Runs",
+      "last": "Last run {time}: {matched} matched, {mismatches} mismatches.",
+      "never": "Not run yet.",
+      "schedule": "Runs automatically every night.",
+      "from": "From date",
+      "to": "To date",
+      "now": "Run now",
+      "history": "Recent runs",
+      "time": "Run",
+      "period": "Period",
+      "provider": "At the provider",
+      "matched": "Matched",
+      "mismatches": "Mismatches",
+      "by": "Started by",
+      "scheduled": "Scheduled"
+    },
+    "items": {
+      "open": "Mismatches to follow up",
+      "resolved": "Resolved mismatches",
+      "showResolved": "Show resolved",
+      "showOpen": "Show open",
+      "none": "No open mismatches – everything matches.",
+      "noneResolved": "No resolved mismatches.",
+      "openTransaction": "Open the transaction"
+    },
+    "kinds": {
+      "missing_ours": "Missing on our side",
+      "missing_theirs": "Missing at the provider",
+      "amount_differs": "Amount differs",
+      "fee_differs": "Fee differs"
+    },
+    "transaction": {
+      "payment": "Payment",
+      "refund": "Refund",
+      "payout": "Payout"
+    },
+    "status": {
+      "open": "Open",
+      "assigned": "Assigned",
+      "resolved": "Resolved"
+    },
+    "fields": {
+      "ours": "Our amount",
+      "theirs": "Provider amount",
+      "ourFee": "Our fee",
+      "theirFee": "Provider fee",
+      "time": "Time",
+      "resolution": "Resolved"
+    },
+    "actions": {
+      "assignTo": "Assign to",
+      "assign": "Assign",
+      "comment": "Comment",
+      "addComment": "Add",
+      "reason": "Reason",
+      "resolve": "Mark resolved",
+      "reopen": "Reopen"
+    },
+    "notices": {
+      "ran": "Reconciliation ran: {matched} matched, {mismatches} mismatches.",
+      "assign": "The mismatch is assigned.",
+      "comment": "The comment is added.",
+      "commented": "The comment is added.",
+      "resolve": "The mismatch is resolved.",
+      "reopen": "The mismatch is reopened."
+    },
+    "errors": {
+      "failed": "That did not work. Try again.",
+      "forbidden": "You do not have access to this.",
+      "range": "The from date must be before the to date.",
+      "reason": "Enter a reason.",
+      "comment": "Enter a comment."
+    }
+  },
+  "Exports": {
+    "title": "Exports",
+    "intro": "CSV files for the accountant. They open correctly in Excel with Norwegian settings (semicolon, decimal comma, Norway time).",
+    "kinds": {
+      "transactions": "Transactions",
+      "ledger": "Ledger",
+      "settlements": "Settlements",
+      "invoices": "Invoices"
+    },
+    "form": {
+      "kind": "What",
+      "event": "Festival",
+      "from": "From date",
+      "to": "To date",
+      "download": "Download CSV",
+      "hint": "The columns are described in docs/exports.md."
+    },
+    "columns": {
+      "transactions": {
+        "time": "Time",
+        "type": "Type",
+        "status": "Status",
+        "vendor": "Vendor",
+        "orgNumber": "Org. no.",
+        "order": "Order",
+        "reference": "Payment provider reference",
+        "method": "Payment method",
+        "amount": "Amount",
+        "platformFee": "Platform fee",
+        "pspFee": "Payment fee",
+        "id": "Id"
+      },
+      "ledger": {
+        "time": "Time",
+        "transaction": "Voucher",
+        "entryType": "Type",
+        "account": "Account",
+        "debit": "Debit",
+        "credit": "Credit",
+        "vendor": "Vendor",
+        "orgNumber": "Org. no.",
+        "description": "Text",
+        "id": "Id"
+      },
+      "settlements": {
+        "settlement": "Settlement",
+        "status": "Status",
+        "cutoff": "Up to",
+        "approved": "Approved",
+        "vendor": "Vendor",
+        "orgNumber": "Org. no.",
+        "gross": "Gross sales",
+        "refunds": "Refunds",
+        "commission": "Commission",
+        "mva": "Mva on commission",
+        "adjustments": "Adjustments",
+        "net": "Net payout",
+        "paid": "Paid out",
+        "payoutReference": "Payout reference"
+      },
+      "invoices": {
+        "number": "Invoice no.",
+        "kind": "Type",
+        "issued": "Issued",
+        "due": "Due",
+        "vendor": "Vendor",
+        "orgNumber": "Org. no.",
+        "subtotal": "Net",
+        "mva": "Mva",
+        "total": "Total",
+        "status": "Status",
+        "settledByDeduction": "Deducted in settlement"
+      }
+    },
+    "values": {
+      "kinds": {
+        "payment": "Payment",
+        "refund": "Refund",
+        "payout": "Payout"
+      },
+      "status": {
+        "draft": "Draft",
+        "prepared": "Ready for approval",
+        "approved": "Approved",
+        "releasing": "Paying",
+        "completed": "Completed",
+        "completed_with_failures": "Partially failed",
+        "cancelled": "Cancelled"
+      },
+      "invoiceKinds": {
+        "commission": "Commission",
+        "stall_fee": "Stall fee"
+      },
+      "invoiceStatus": {
+        "issued": "Issued",
+        "paid": "Paid",
+        "credited": "Credited"
+      },
+      "yesNo": {
+        "yes": "Yes",
+        "no": "No"
+      }
+    }
   }
 }

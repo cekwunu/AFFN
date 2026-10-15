@@ -149,6 +149,20 @@ insert into public.disputes (id, organization_id, event_id, payment_id, order_id
   ('a3000000-0000-4000-8000-000000000002', '10000000-0000-4000-8000-000000000001', '20000000-0000-4000-8000-000000000001', '92000000-0000-4000-8000-000000000002', '90000000-0000-4000-8000-000000000002', '40000000-0000-4000-8000-000000000002', 'mock', 'dp_2', 1000, 'won', now()),
   ('a3000000-0000-4000-8000-000000000011', '10000000-0000-4000-8000-000000000002', '20000000-0000-4000-8000-000000000003', '92000000-0000-4000-8000-000000000011', '90000000-0000-4000-8000-000000000011', '40000000-0000-4000-8000-000000000011', 'mock', 'dp_11', 1000, 'won', now());
 
+-- Reconciliation (P14): one run per organization, resolved items (so nothing blocks settlement) ----
+insert into public.reconciliation_runs (id, organization_id, provider, period_from, period_to) values
+  ('a4000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000001', 'mock', now() - interval '1 day', now()),
+  ('a4000000-0000-4000-8000-000000000011', '10000000-0000-4000-8000-000000000002', 'mock', now() - interval '1 day', now());
+insert into public.reconciliation_items (id, organization_id, event_id, run_id, kind, transaction_kind, provider_id, their_amount_ore, status, resolution_reason, resolved_at) values
+  ('a5000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000001', '20000000-0000-4000-8000-000000000001', 'a4000000-0000-4000-8000-000000000001', 'missing_ours', 'payment', 'fx_1', 1000, 'resolved', 'Test', now()),
+  ('a5000000-0000-4000-8000-000000000002', '10000000-0000-4000-8000-000000000001', null, 'a4000000-0000-4000-8000-000000000001', 'missing_ours', 'payment', 'fx_2', 1000, 'resolved', 'Test', now()),
+  ('a5000000-0000-4000-8000-000000000011', '10000000-0000-4000-8000-000000000002', '20000000-0000-4000-8000-000000000003', 'a4000000-0000-4000-8000-000000000011', 'missing_ours', 'payment', 'fx_11', 1000, 'resolved', 'Test', now());
+insert into public.reconciliation_comments (id, organization_id, item_id, author_id, body) values
+  ('a6000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000001', 'a5000000-0000-4000-8000-000000000001', '00000000-0000-4000-8000-000000000002', 'Sjekket'),
+  ('a6000000-0000-4000-8000-000000000011', '10000000-0000-4000-8000-000000000002', 'a5000000-0000-4000-8000-000000000011', '00000000-0000-4000-8000-000000000014', 'Checked');
+insert into public.mock_report_overrides (provider_id, organization_id, action) values
+  ('fixture_override', '10000000-0000-4000-8000-000000000001', 'drop');
+
 -- Stall fees, fee payments, invoices ---------------------------------------------------------------
 insert into public.stall_fees (id, organization_id, event_id, event_vendor_id, vendor_id, stall_id, amount_ore, total_ore, status, paid_at) values
   ('a0000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000001', '20000000-0000-4000-8000-000000000001', '41000000-0000-4000-8000-000000000001', '40000000-0000-4000-8000-000000000001', '50000000-0000-4000-8000-000000000001', 400000, 400000, 'paid', now()),

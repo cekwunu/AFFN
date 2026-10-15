@@ -61,7 +61,10 @@
       "orders": "Bestillinger",
       "commission": "Provisjon",
       "ledger": "Regnskap",
-      "settlements": "Oppgjør"
+      "settlements": "Oppgjør",
+      "transactions": "Transaksjoner",
+      "reconciliation": "Avstemming",
+      "exports": "Eksport"
     },
     "storefront": {
       "viewCart": "Se handlekurv ({count, plural, one {# vare} other {# varer}})"
@@ -1873,5 +1876,269 @@
     "period": "{from} – {to}",
     "until": "Til og med {to}",
     "paidAt": "Betalt {time}"
+  },
+  "Transactions": {
+    "title": "Transaksjoner",
+    "intro": "Alle betalinger, refusjoner og utbetalinger for {event}. Velg en rad for detaljer.",
+    "empty": "Ingen transaksjoner passer filteret.",
+    "count": "{total, plural, one {# transaksjon} other {# transaksjoner}}",
+    "open": "Åpne detaljer for {id}",
+    "pagination": "Sider",
+    "previous": "Forrige",
+    "next": "Neste",
+    "page": "Side {page} av {pages}",
+    "filters": {
+      "q": "Søk",
+      "qHint": "Ordrenummer, referanse eller kundenavn",
+      "kind": "Type",
+      "vendor": "Leverandør",
+      "status": "Status",
+      "method": "Betalingsmåte",
+      "min": "Beløp fra (kr)",
+      "max": "Beløp til (kr)",
+      "from": "Fra dato",
+      "to": "Til dato",
+      "all": "Alle",
+      "apply": "Filtrer",
+      "clear": "Nullstill"
+    },
+    "kinds": {
+      "payment": "Betaling",
+      "refund": "Refusjon",
+      "payout": "Utbetaling"
+    },
+    "statuses": {
+      "pending": "Venter",
+      "succeeded": "Gjennomført",
+      "failed": "Feilet",
+      "cancelled": "Avbrutt",
+      "in_transit": "Underveis",
+      "paid": "Betalt"
+    },
+    "methods": {
+      "vipps": "Vipps",
+      "card": "Kort",
+      "apple_pay": "Apple Pay",
+      "google_pay": "Google Pay"
+    },
+    "columns": {
+      "time": "Tid",
+      "kind": "Type",
+      "vendor": "Leverandør",
+      "order": "Ordre",
+      "status": "Status",
+      "amount": "Beløp",
+      "fee": "Plattformgebyr"
+    },
+    "accounts": {
+      "psp_clearing": "Betalingsleverandør (oppgjørskonto)",
+      "vendor_payable": "Skyldig leverandør",
+      "vendor_receivable": "Til gode fra leverandør",
+      "commission_revenue": "Provisjonsinntekt",
+      "mva_payable": "Skyldig mva",
+      "psp_fee_expense": "Betalingsgebyr (kostnad)",
+      "adjustments": "Justeringer"
+    },
+    "directions": {
+      "debit": "Debet",
+      "credit": "Kredit"
+    },
+    "outcomes": {
+      "processed": "behandlet",
+      "ignored": "ignorert",
+      "failed": "feilet"
+    },
+    "detail": {
+      "close": "Lukk detaljer",
+      "pspFee": "Betalingsgebyr",
+      "items": "Varer",
+      "ledger": "Hovedbok",
+      "webhooks": "Hendelser fra betalingsleverandøren",
+      "audit": "Revisjonslogg",
+      "none": "Ingen.",
+      "noneOrRestricted": "Ingen (vises bare for organisasjonsadministratorer)."
+    }
+  },
+  "Reconciliation": {
+    "title": "Avstemming",
+    "intro": "Hver dag sammenlignes betalingsleverandørens rapport med våre betalinger, refusjoner og utbetalinger. Avvik må følges opp før oppgjør.",
+    "run": {
+      "title": "Kjøring",
+      "last": "Sist kjørt {time}: {matched} stemte, {mismatches} avvik.",
+      "never": "Ikke kjørt ennå.",
+      "schedule": "Kjører automatisk hver natt.",
+      "from": "Fra dato",
+      "to": "Til dato",
+      "now": "Kjør nå",
+      "history": "Siste kjøringer",
+      "time": "Kjørt",
+      "period": "Periode",
+      "provider": "Hos leverandøren",
+      "matched": "Stemte",
+      "mismatches": "Avvik",
+      "by": "Startet av",
+      "scheduled": "Automatisk"
+    },
+    "items": {
+      "open": "Avvik å følge opp",
+      "resolved": "Løste avvik",
+      "showResolved": "Vis løste",
+      "showOpen": "Vis åpne",
+      "none": "Ingen åpne avvik – alt stemmer.",
+      "noneResolved": "Ingen løste avvik.",
+      "openTransaction": "Åpne transaksjonen"
+    },
+    "kinds": {
+      "missing_ours": "Mangler hos oss",
+      "missing_theirs": "Mangler hos leverandøren",
+      "amount_differs": "Beløpet er ulikt",
+      "fee_differs": "Gebyret er ulikt"
+    },
+    "transaction": {
+      "payment": "Betaling",
+      "refund": "Refusjon",
+      "payout": "Utbetaling"
+    },
+    "status": {
+      "open": "Åpen",
+      "assigned": "Tildelt",
+      "resolved": "Løst"
+    },
+    "fields": {
+      "ours": "Vårt beløp",
+      "theirs": "Leverandørens beløp",
+      "ourFee": "Vårt gebyr",
+      "theirFee": "Leverandørens gebyr",
+      "time": "Tidspunkt",
+      "resolution": "Løst"
+    },
+    "actions": {
+      "assignTo": "Tildel",
+      "assign": "Tildel",
+      "comment": "Kommentar",
+      "addComment": "Legg til",
+      "reason": "Begrunnelse",
+      "resolve": "Marker som løst",
+      "reopen": "Åpne igjen"
+    },
+    "notices": {
+      "ran": "Avstemmingen er kjørt: {matched} stemte, {mismatches} avvik.",
+      "assign": "Avviket er tildelt.",
+      "comment": "Kommentaren er lagt til.",
+      "commented": "Kommentaren er lagt til.",
+      "resolve": "Avviket er løst.",
+      "reopen": "Avviket er åpnet igjen."
+    },
+    "errors": {
+      "failed": "Det gikk ikke. Prøv igjen.",
+      "forbidden": "Du har ikke tilgang til dette.",
+      "range": "Fra-datoen må være før til-datoen.",
+      "reason": "Skriv en begrunnelse.",
+      "comment": "Skriv en kommentar."
+    }
+  },
+  "Exports": {
+    "title": "Eksport",
+    "intro": "CSV-filer til regnskapsfører. De åpnes riktig i Excel med norske innstillinger (semikolon, desimalkomma, norsk tid).",
+    "kinds": {
+      "transactions": "Transaksjoner",
+      "ledger": "Hovedbok",
+      "settlements": "Oppgjør",
+      "invoices": "Fakturaer"
+    },
+    "form": {
+      "kind": "Hva",
+      "event": "Festival",
+      "from": "Fra dato",
+      "to": "Til dato",
+      "download": "Last ned CSV",
+      "hint": "Kolonnene er beskrevet i docs/exports.md."
+    },
+    "columns": {
+      "transactions": {
+        "time": "Tidspunkt",
+        "type": "Type",
+        "status": "Status",
+        "vendor": "Leverandør",
+        "orgNumber": "Org.nr.",
+        "order": "Ordre",
+        "reference": "Referanse hos betalingsleverandør",
+        "method": "Betalingsmåte",
+        "amount": "Beløp",
+        "platformFee": "Plattformgebyr",
+        "pspFee": "Betalingsgebyr",
+        "id": "Id"
+      },
+      "ledger": {
+        "time": "Tidspunkt",
+        "transaction": "Bilag",
+        "entryType": "Type",
+        "account": "Konto",
+        "debit": "Debet",
+        "credit": "Kredit",
+        "vendor": "Leverandør",
+        "orgNumber": "Org.nr.",
+        "description": "Tekst",
+        "id": "Id"
+      },
+      "settlements": {
+        "settlement": "Oppgjør",
+        "status": "Status",
+        "cutoff": "Til og med",
+        "approved": "Godkjent",
+        "vendor": "Leverandør",
+        "orgNumber": "Org.nr.",
+        "gross": "Brutto salg",
+        "refunds": "Refusjoner",
+        "commission": "Provisjon",
+        "mva": "Mva på provisjon",
+        "adjustments": "Justeringer",
+        "net": "Til utbetaling",
+        "paid": "Utbetalt",
+        "payoutReference": "Utbetalingsreferanse"
+      },
+      "invoices": {
+        "number": "Fakturanr.",
+        "kind": "Type",
+        "issued": "Utstedt",
+        "due": "Forfall",
+        "vendor": "Leverandør",
+        "orgNumber": "Org.nr.",
+        "subtotal": "Netto",
+        "mva": "Mva",
+        "total": "Totalt",
+        "status": "Status",
+        "settledByDeduction": "Trukket i oppgjør"
+      }
+    },
+    "values": {
+      "kinds": {
+        "payment": "Betaling",
+        "refund": "Refusjon",
+        "payout": "Utbetaling"
+      },
+      "status": {
+        "draft": "Utkast",
+        "prepared": "Klar for godkjenning",
+        "approved": "Godkjent",
+        "releasing": "Utbetales",
+        "completed": "Fullført",
+        "completed_with_failures": "Delvis feilet",
+        "cancelled": "Avbrutt"
+      },
+      "invoiceKinds": {
+        "commission": "Provisjon",
+        "stall_fee": "Standleie"
+      },
+      "invoiceStatus": {
+        "issued": "Utstedt",
+        "paid": "Betalt",
+        "credited": "Kreditert"
+      },
+      "yesNo": {
+        "yes": "Ja",
+        "no": "Nei"
+      }
+    }
   }
 }

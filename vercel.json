@@ -2,5 +2,11 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
   "outputDirectory": ".next",
-  "regions": ["arn1"]
+  "regions": ["arn1"],
+  "crons": [
+    {
+      "path": "/api/cron/reconcile",
+      "schedule": "15 3 * * *"
+    }
+  ]
 }

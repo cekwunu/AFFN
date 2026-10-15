@@ -23,6 +23,8 @@ const serverSchema = z.object({
   DEFAULT_ORGANIZATION_SLUG: z.string().min(1).default('affn'),
   // Key for hashing rate-limit buckets; required in production.
   RATE_LIMIT_SECRET: z.string().min(1).optional(),
+  // Vercel Cron sends it as a bearer token to /api/cron/* (daily reconciliation, P14).
+  CRON_SECRET: z.string().min(16).optional(),
   // Multiplies per-IP limits (e.g. for end-to-end tests where every request has the same IP).
   RATE_LIMIT_IP_SCALE: z.coerce.number().positive().default(1),
 });
