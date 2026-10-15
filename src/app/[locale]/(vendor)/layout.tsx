@@ -1,4 +1,4 @@
-import { ClipboardList, LayoutDashboard, MapPin } from 'lucide-react';
+import { ClipboardList, Eye, LayoutDashboard, MapPin, Store, UtensilsCrossed } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import { signOut } from '@/app/[locale]/(auth)/actions';
 import { ClientIntl } from '@/components/client-intl';
@@ -21,6 +21,9 @@ export default async function VendorLayout({ children, params }: LayoutProps<'/[
           { href: '/vendor', label: t('overview'), icon: <LayoutDashboard /> },
           { href: '/vendor/application', label: t('application'), icon: <ClipboardList /> },
           { href: '/vendor/stall', label: t('stall'), icon: <MapPin /> },
+          { href: '/vendor/profile', label: t('profile'), icon: <Store /> },
+          { href: '/vendor/products', label: t('products'), icon: <UtensilsCrossed /> },
+          { href: '/vendor/preview', label: t('preview'), icon: <Eye /> },
         ]}
       >
         {children}
