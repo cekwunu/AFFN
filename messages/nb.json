@@ -56,7 +56,9 @@
       "products": "Produkter",
       "preview": "Forhåndsvisning",
       "payouts": "Utbetalinger",
-      "qr": "QR-kode"
+      "qr": "QR-kode",
+      "kitchen": "Kjøkkenskjerm",
+      "orders": "Bestillinger"
     },
     "storefront": {
       "viewCart": "Se handlekurv ({count, plural, one {# vare} other {# varer}})"
@@ -1437,8 +1439,6 @@
   },
   "Receipt": {
     "title": "Bestilling {number}",
-    "paidTitle": "Takk! Bestillingen er mottatt",
-    "paidText": "Hent maten hos {vendor} når nummeret ditt ropes opp.",
     "pendingTitle": "Venter på betaling",
     "pendingText": "Vi har ikke fått bekreftet betalingen ennå.",
     "refresh": "Oppdater",
@@ -1484,6 +1484,32 @@
       "ready": "Klar til henting",
       "collected": "Hentet",
       "cancelled": "Kansellert"
+    },
+    "track": {
+      "title": {
+        "new": "Bestillingen er mottatt",
+        "accepted": "Kjøkkenet har godtatt bestillingen",
+        "preparing": "Maten lages nå",
+        "ready": "Klar til henting!",
+        "collected": "Hentet – velbekomme!",
+        "cancelled": "Bestillingen er kansellert"
+      },
+      "text": {
+        "ready": "Gå til {vendor} og vis ordrenummeret.",
+        "collected": "Takk for at du handlet hos {vendor}.",
+        "cancelled": "Selgeren har kansellert bestillingen.",
+        "new": "",
+        "accepted": "",
+        "preparing": ""
+      },
+      "readyTitle": "Klar! {code}",
+      "stall": "Stand {number} · {vendor}",
+      "progress": "Fremdrift",
+      "next": "Du er neste i køen.",
+      "ahead": "{count, plural, one {# bestilling} other {# bestillinger}} foran deg i køen.",
+      "cancelledReason": "Selgeren har kansellert bestillingen: {reason}",
+      "refunded": "{amount} er betalt tilbake til deg.",
+      "refundPending": "Pengene betales tilbake til deg."
     }
   },
   "VendorQr": {
@@ -1496,5 +1522,87 @@
     "notApproved": "Du får QR-koden når søknaden din er godkjent.",
     "notPublished": "Siden din er ikke offentlig ennå. Slå på «Vis profilen offentlig» under Profil.",
     "open": "Åpne siden"
+  },
+  "Kitchen": {
+    "title": "Kjøkkenskjerm",
+    "heading": "Kjøkken – {vendor}",
+    "back": "Til portalen",
+    "stall": "Stand {number}",
+    "paused": "Salget er satt på pause",
+    "notApproved": "Kjøkkenskjermen åpner når søknaden din er godkjent for festivalen.",
+    "status": {
+      "pending_payment": "Venter på betaling",
+      "new": "Nye",
+      "accepted": "Godtatt",
+      "preparing": "Tilberedes",
+      "ready": "Klar",
+      "collected": "Hentet",
+      "cancelled": "Kansellert"
+    },
+    "minutes": "{minutes, plural, =0 {nå} one {# min siden} other {# min siden}}",
+    "newOrders": "{count, plural, one {# ny bestilling} other {# nye bestillinger}}",
+    "moved": "{code} er flyttet til {status}.",
+    "cancelled": "{code} er kansellert, og kunden får pengene tilbake.",
+    "refresh": "Oppdater",
+    "soundOn": "Lyd på",
+    "soundOff": "Slå på lyd",
+    "offline": "Frakoblet – nye bestillinger hentes så snart nettet er tilbake.",
+    "soldOutOn": "{name} er merket utsolgt.",
+    "soldOutOff": "{name} er tilbake i salg.",
+    "soldOut": {
+      "open": "Utsolgt ({count})",
+      "title": "Utsolgt",
+      "toggle": "{name} utsolgt"
+    },
+    "actions": {
+      "accept": "Godta",
+      "start": "Start",
+      "ready": "Klar",
+      "collected": "Hentet",
+      "cancel": "Kanseller",
+      "acceptLabel": "Godta {code}",
+      "startLabel": "Start tilberedning av {code}",
+      "readyLabel": "Merk {code} som klar",
+      "collectedLabel": "Merk {code} som hentet",
+      "cancelLabel": "Kanseller {code}"
+    },
+    "cancelDialog": {
+      "title": "Kanseller {code}?",
+      "text": "Kunden får hele beløpet tilbake automatisk og ser grunnen på bestillingssiden.",
+      "reason": "Grunn (vises for kunden)",
+      "keep": "Behold bestillingen",
+      "confirm": "Kanseller og refunder"
+    },
+    "errors": {
+      "failed": "Det gikk ikke. Prøv igjen.",
+      "refund_failed": "Bestillingen er kansellert, men refusjonen feilet. Trykk Kanseller igjen for å prøve på nytt."
+    }
+  },
+  "Orders": {
+    "title": "Bestillinger",
+    "intro": "Alle betalte bestillinger på festivalen, nyeste først.",
+    "openKitchen": "Åpne kjøkkenskjermen",
+    "empty": "Ingen bestillinger å vise.",
+    "pagination": "Sider",
+    "previous": "Forrige",
+    "next": "Neste",
+    "page": "Side {page} av {pages} · {total} bestillinger",
+    "filters": {
+      "status": "Status",
+      "all": "Alle",
+      "date": "Dato",
+      "search": "Søk",
+      "searchHint": "Ordrenummer eller navn",
+      "apply": "Filtrer",
+      "clear": "Nullstill"
+    },
+    "columns": {
+      "code": "Ordre",
+      "time": "Betalt",
+      "items": "Varer",
+      "customer": "Kunde",
+      "status": "Status",
+      "total": "Beløp"
+    }
   }
 }
