@@ -56,6 +56,10 @@ src/components/ui and src/styles — never ad-hoc colours or spacing.
 - After each task: run lint, typecheck and tests, and report results.
 - After each prompt: push, open a pull request into `main` and merge it once CI is green and
   the cloud migrations are applied (standing owner instruction). Never merge with red CI.
+- Anything the owner must do outside Claude (Vercel, Supabase dashboard, SQL editor, DNS, PSP
+  accounts, …): assume no prior knowledge and give numbered step-by-step instructions — where to
+  click, exactly what to enter or paste, what they should see, and how to tell it worked
+  (standing owner instruction).
 
 ## Commands
 Package manager: pnpm (Node 22, see .nvmrc). Copy `.env.example` to `.env.local` first.
