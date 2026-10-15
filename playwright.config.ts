@@ -18,14 +18,14 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
-      testIgnore: /(kitchen|commission)\.spec\.ts/,
+      testIgnore: /(kitchen|commission|settlements)\.spec\.ts/,
     },
     // The kitchen and commission tests order from the same seeded vendor the storefront tests
     // briefly pause (and change its rate), so they run after the other tests.
     {
       name: 'kitchen',
       use: { ...devices['Desktop Chrome'] },
-      testMatch: /(kitchen|commission)\.spec\.ts/,
+      testMatch: /(kitchen|commission|settlements)\.spec\.ts/,
       dependencies: ['chromium'],
     },
   ],
