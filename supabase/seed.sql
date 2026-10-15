@@ -131,17 +131,17 @@ insert into public.memberships (organization_id, user_id, role, vendor_id) value
    '40000000-0000-4000-8000-000000000001');
 
 insert into public.event_vendors (id, organization_id, event_id, vendor_id, status, submitted_at, decided_at,
-  needs_power, needs_water, psp_account_status, is_published) values
+  needs_power, needs_water, psp_account_status, psp_account_id, is_published) values
   ('41000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000001', '20000000-0000-4000-8000-000000000001',
-   '40000000-0000-4000-8000-000000000001', 'approved', now() - interval '30 days', now() - interval '20 days', true, true, 'eligible', true),
+   '40000000-0000-4000-8000-000000000001', 'approved', now() - interval '30 days', now() - interval '20 days', true, true, 'eligible', 'mock_acct_seed_1', true),
   ('41000000-0000-4000-8000-000000000002', '10000000-0000-4000-8000-000000000001', '20000000-0000-4000-8000-000000000001',
-   '40000000-0000-4000-8000-000000000002', 'approved', now() - interval '28 days', now() - interval '18 days', true, false, 'eligible', true),
+   '40000000-0000-4000-8000-000000000002', 'approved', now() - interval '28 days', now() - interval '18 days', true, false, 'eligible', 'mock_acct_seed_2', true),
   ('41000000-0000-4000-8000-000000000003', '10000000-0000-4000-8000-000000000001', '20000000-0000-4000-8000-000000000001',
-   '40000000-0000-4000-8000-000000000003', 'under_review', now() - interval '5 days', null, true, true, 'not_started', false),
+   '40000000-0000-4000-8000-000000000003', 'under_review', now() - interval '5 days', null, true, true, 'not_started', null, false),
   ('41000000-0000-4000-8000-000000000004', '10000000-0000-4000-8000-000000000001', '20000000-0000-4000-8000-000000000001',
-   '40000000-0000-4000-8000-000000000004', 'draft', null, null, false, false, 'not_started', false),
+   '40000000-0000-4000-8000-000000000004', 'draft', null, null, false, false, 'not_started', null, false),
   ('41000000-0000-4000-8000-000000000005', '10000000-0000-4000-8000-000000000001', '20000000-0000-4000-8000-000000000001',
-   '40000000-0000-4000-8000-000000000005', 'approved', now() - interval '25 days', now() - interval '15 days', true, false, 'pending', true);
+   '40000000-0000-4000-8000-000000000005', 'approved', now() - interval '25 days', now() - interval '15 days', true, false, 'pending', 'mock_acct_seed_5', true);
 
 insert into public.commission_rules (id, organization_id, scope, type, rate_bp, effective_from, reason, created_by) values
   ('70000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000001', 'organization', 'percentage', 1000,
