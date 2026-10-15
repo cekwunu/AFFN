@@ -88,11 +88,12 @@ If Docker cannot pull from public.ecr.aws, set `SUPABASE_INTERNAL_IMAGE_REGISTRY
 rate-limits, pull the image from `mirror.gcr.io/...` and `docker tag` it to the expected name.
 
 Cloud: Supabase project `nwllhsbhdftrucgndjpc` ("Affn", eu-north-1 Stockholm), URL
-`https://nwllhsbhdftrucgndjpc.supabase.co`. All migrations up to `20261018100000_stalls_fees` are
+`https://nwllhsbhdftrucgndjpc.supabase.co`. All migrations up to `20261019100000_vendor_catalogue` are
 applied (no seed data). Reference data (organization, AFFN 2027, categories, commission rule, stall types)
 is in `supabase/reference-data.sql`, applied once; no users or demo vendors. Apply each new migration there too, after CI is green. The Supabase connection
-here cannot approve destructive statements: write migrations without them where possible (e.g.
-`alter policy` instead of drop/create). pg_graphql is not installed on the cloud project.
+here cannot approve destructive statements (including `delete from` inside function bodies): write
+migrations without them where possible (e.g. `alter policy` instead of drop/create), and put the
+unavoidable ones in a separate small migration the owner runs in the SQL editor. pg_graphql is not installed on the cloud project.
 
 Auth (P04): sign-in/up, reset and MFA run as server actions (`src/app/[locale]/(auth)/actions.ts`);
 `src/proxy.ts` routes by the `affn` JWT claim from `private.custom_access_token_hook`; layouts recheck
