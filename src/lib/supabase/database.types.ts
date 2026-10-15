@@ -501,14 +501,14 @@ isOneToOne: false
                   ]
                 },"orders": {
                   Row: {
-                    "accepted_at": string | null,"cancelled_at": string | null,"collected_at": string | null,"commission_fixed_ore": number | null,"commission_mva_ore": number | null,"commission_ore": number | null,"commission_rate_bp": number | null,"commission_rule_id": string | null,"commission_type": Database["public"]['Enums']["commission_type"] | null,"created_at": string,"customer_email": string | null,"customer_name": string | null,"event_id": string,"event_vendor_id": string,"id": string,"locale": string,"mva_ore": number,"order_number": number,"organization_id": string,"paid_at": string | null,"pickup_note": string | null,"platform_fee_ore": number | null,"ready_at": string | null,"service_date": string,"status": Database["public"]['Enums']["order_status"],"total_ore": number,"tracking_token": string,"updated_at": string,"vendor_id": string
+                    "accepted_at": string | null,"cancel_reason": string | null,"cancelled_at": string | null,"collected_at": string | null,"commission_fixed_ore": number | null,"commission_mva_ore": number | null,"commission_ore": number | null,"commission_rate_bp": number | null,"commission_rule_id": string | null,"commission_type": Database["public"]['Enums']["commission_type"] | null,"created_at": string,"customer_email": string | null,"customer_name": string | null,"event_id": string,"event_vendor_id": string,"id": string,"locale": string,"mva_ore": number,"order_code": string,"order_number": number,"organization_id": string,"paid_at": string | null,"pickup_note": string | null,"platform_fee_ore": number | null,"preparing_at": string | null,"ready_at": string | null,"service_date": string,"status": Database["public"]['Enums']["order_status"],"total_ore": number,"tracking_token": string,"updated_at": string,"vendor_id": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "accepted_at"?: string | null,"cancelled_at"?: string | null,"collected_at"?: string | null,"commission_fixed_ore"?: number | null,"commission_mva_ore"?: number | null,"commission_ore"?: number | null,"commission_rate_bp"?: number | null,"commission_rule_id"?: string | null,"commission_type"?: Database["public"]['Enums']["commission_type"] | null,"created_at"?: string,"customer_email"?: string | null,"customer_name"?: string | null,"event_id": string,"event_vendor_id": string,"id"?: string,"locale"?: string,"mva_ore"?: number,"order_number"?: number,"organization_id": string,"paid_at"?: string | null,"pickup_note"?: string | null,"platform_fee_ore"?: number | null,"ready_at"?: string | null,"service_date"?: string,"status"?: Database["public"]['Enums']["order_status"],"total_ore": number,"tracking_token"?: string,"updated_at"?: string,"vendor_id": string
+                    "accepted_at"?: string | null,"cancel_reason"?: string | null,"cancelled_at"?: string | null,"collected_at"?: string | null,"commission_fixed_ore"?: number | null,"commission_mva_ore"?: number | null,"commission_ore"?: number | null,"commission_rate_bp"?: number | null,"commission_rule_id"?: string | null,"commission_type"?: Database["public"]['Enums']["commission_type"] | null,"created_at"?: string,"customer_email"?: string | null,"customer_name"?: string | null,"event_id": string,"event_vendor_id": string,"id"?: string,"locale"?: string,"mva_ore"?: number,"order_code": string,"order_number"?: number,"organization_id": string,"paid_at"?: string | null,"pickup_note"?: string | null,"platform_fee_ore"?: number | null,"preparing_at"?: string | null,"ready_at"?: string | null,"service_date"?: string,"status"?: Database["public"]['Enums']["order_status"],"total_ore": number,"tracking_token"?: string,"updated_at"?: string,"vendor_id": string
                   }
                   Update: {
-                    "accepted_at"?: string | null,"cancelled_at"?: string | null,"collected_at"?: string | null,"commission_fixed_ore"?: number | null,"commission_mva_ore"?: number | null,"commission_ore"?: number | null,"commission_rate_bp"?: number | null,"commission_rule_id"?: string | null,"commission_type"?: Database["public"]['Enums']["commission_type"] | null,"created_at"?: string,"customer_email"?: string | null,"customer_name"?: string | null,"event_id"?: string,"event_vendor_id"?: string,"id"?: string,"locale"?: string,"mva_ore"?: number,"order_number"?: number,"organization_id"?: string,"paid_at"?: string | null,"pickup_note"?: string | null,"platform_fee_ore"?: number | null,"ready_at"?: string | null,"service_date"?: string,"status"?: Database["public"]['Enums']["order_status"],"total_ore"?: number,"tracking_token"?: string,"updated_at"?: string,"vendor_id"?: string
+                    "accepted_at"?: string | null,"cancel_reason"?: string | null,"cancelled_at"?: string | null,"collected_at"?: string | null,"commission_fixed_ore"?: number | null,"commission_mva_ore"?: number | null,"commission_ore"?: number | null,"commission_rate_bp"?: number | null,"commission_rule_id"?: string | null,"commission_type"?: Database["public"]['Enums']["commission_type"] | null,"created_at"?: string,"customer_email"?: string | null,"customer_name"?: string | null,"event_id"?: string,"event_vendor_id"?: string,"id"?: string,"locale"?: string,"mva_ore"?: number,"order_code"?: string,"order_number"?: number,"organization_id"?: string,"paid_at"?: string | null,"pickup_note"?: string | null,"platform_fee_ore"?: number | null,"preparing_at"?: string | null,"ready_at"?: string | null,"service_date"?: string,"status"?: Database["public"]['Enums']["order_status"],"total_ore"?: number,"tracking_token"?: string,"updated_at"?: string,"vendor_id"?: string
                   }
                   Relationships: [
                     {
@@ -1399,6 +1399,9 @@ isOneToOne: false
 "attach_provider_payment":
 { Args: { "p_payment_id": string,"p_provider_payment_id": string }; Returns: undefined
                            },
+"begin_order_cancellation":
+{ Args: { "p_order_id": string,"p_reason": string,"p_user": string }; Returns: Json
+                           },
 "brreg_cache_get":
 { Args: { "p_max_age_seconds": number,"p_org_number": string }; Returns: Json
                            },
@@ -1422,6 +1425,9 @@ isOneToOne: false
                            },
 "record_order_payment":
 { Args: { "p_amount_ore": number,"p_method": Database["public"]['Enums']["payment_method"],"p_platform_fee_ore": number,"p_provider": Database["public"]['Enums']["payment_provider"],"p_provider_payment_id": string,"p_reason": string,"p_succeeded": boolean }; Returns: string
+                           },
+"record_order_refund":
+{ Args: { "p_platform_fee_reversal_ore": number,"p_provider_refund_id": string,"p_refund_id": string,"p_succeeded": boolean }; Returns: undefined
                            },
 "record_payout_result":
 { Args: { "p_paid": boolean,"p_provider_payout_id": string,"p_reason": string }; Returns: boolean
