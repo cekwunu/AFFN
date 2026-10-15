@@ -2,7 +2,7 @@ import 'server-only';
 import { getTranslations } from 'next-intl/server';
 import type { Locale } from '@/i18n/routing';
 import { formatOrgNumber } from '@/lib/brreg';
-import { formatCommissionTerms } from '@/lib/commission';
+import { formatCommissionTerms } from '@/lib/money/commission';
 import { formatNok } from '@/lib/format';
 import { ore } from '@/lib/money';
 import { commissionRuleFor, stallTypesFor, type ApplicationEvent } from './server';

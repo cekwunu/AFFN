@@ -1414,11 +1414,26 @@ isOneToOne: false
 "record_fee_payment":
 { Args: { "p_amount_ore": number,"p_provider": Database["public"]['Enums']["payment_provider"],"p_provider_payment_id": string,"p_stall_fee_id": string }; Returns: string
                            },
+"record_order_payment":
+{ Args: { "p_amount_ore": number,"p_method": Database["public"]['Enums']["payment_method"],"p_platform_fee_ore": number,"p_provider": Database["public"]['Enums']["payment_provider"],"p_provider_payment_id": string,"p_reason": string,"p_succeeded": boolean }; Returns: string
+                           },
+"record_payout_result":
+{ Args: { "p_paid": boolean,"p_provider_payout_id": string,"p_reason": string }; Returns: boolean
+                           },
+"record_refund_result":
+{ Args: { "p_provider_refund_id": string,"p_succeeded": boolean }; Returns: boolean
+                           },
 "reorder_products":
 { Args: { "p_ids": (string)[],"p_vendor_id": string }; Returns: undefined
                            },
 "review_application":
 { Args: { "p_commission_rate_bp"?: number,"p_commission_reason"?: string,"p_decision": Database["public"]['Enums']["application_status"],"p_event_vendor_id": string,"p_note": string }; Returns: Json
+                           },
+"set_payment_account":
+{ Args: { "p_account_id": string,"p_actor": string,"p_event_vendor_id": string,"p_status": Database["public"]['Enums']["psp_account_status"] }; Returns: undefined
+                           },
+"set_payment_account_status":
+{ Args: { "p_account_id": string,"p_status": Database["public"]['Enums']["psp_account_status"] }; Returns: number
                            },
 "set_venue_map":
 { Args: { "p_event_id": string,"p_path": string }; Returns: undefined

@@ -10,7 +10,7 @@ import {
   roundHalfUp,
   subtractOre,
   sumOre,
-} from './money';
+} from './index';
 
 /** Test readability only: shows the non-breaking spaces as plain spaces. */
 const plain = (s: string) => s.replace(/ /g, ' ');

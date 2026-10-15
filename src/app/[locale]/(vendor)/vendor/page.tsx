@@ -94,7 +94,7 @@ export default async function VendorHomePage({ params }: PageProps<'/[locale]/ve
     },
     { key: 'products', done: active.length > 0, href: '/vendor/products/new' },
     { key: 'onSale', done: active.some((p) => p.onSale), href: '/vendor/products/availability' },
-    { key: 'payments', done: psp === 'eligible', href: '/vendor' },
+    { key: 'payments', done: psp === 'eligible', href: '/vendor/payouts' },
   ];
 
   return (
@@ -145,6 +145,12 @@ export default async function VendorHomePage({ params }: PageProps<'/[locale]/ve
             </Badge>
           </p>
           <p className="text-body-sm text-muted-foreground">{t('paymentsHint')}</p>
+          <Link
+            href="/vendor/payouts"
+            className="text-body-sm font-medium text-primary underline-offset-4 hover:underline"
+          >
+            {t('open')}
+          </Link>
         </Card>
         <Card icon={<ShoppingBag aria-hidden />} title={t('todayTitle')}>
           <dl className="grid grid-cols-2 gap-2">
@@ -180,7 +186,7 @@ export default async function VendorHomePage({ params }: PageProps<'/[locale]/ve
                 <CircleDashed aria-hidden className="size-5 shrink-0 text-muted-foreground" />
               )}
               <span className="sr-only">{step.done ? t('done') : t('todo')}: </span>
-              {step.done || step.key === 'payments' ? (
+              {step.done ? (
                 <span className={step.done ? 'text-muted-foreground' : undefined}>
                   {t(`steps.${step.key as 'submit'}`)}
                 </span>

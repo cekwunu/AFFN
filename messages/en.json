@@ -54,7 +54,8 @@
       "stall": "Stall",
       "profile": "Profile",
       "products": "Products",
-      "preview": "Preview"
+      "preview": "Preview",
+      "payouts": "Payouts"
     },
     "storefront": {
       "viewCart": "View cart ({count, plural, one {# item} other {# items}})"
@@ -962,14 +963,30 @@
   },
   "MockPay": {
     "title": "Test payment",
-    "banner": "This is a test payment. No money is taken. The real payment solution comes later.",
+    "testMode": "TEST MODE",
+    "banner": "Test mode: no real money is taken or paid out. The real payment provider is connected later.",
     "amount": "Amount",
     "for": "For",
     "pay": "Pay {amount}",
     "paying": "Paying …",
     "cancel": "Cancel",
-    "invalid": "The payment link is invalid or has expired.",
-    "failed": "The payment could not be recorded. Please try again."
+    "invalid": "The link is invalid or has expired.",
+    "failed": "The payment could not be recorded. Please try again.",
+    "method": "Payment method",
+    "methods": {
+      "vipps": "Vipps",
+      "card": "Card",
+      "apple_pay": "Apple Pay",
+      "google_pay": "Google Pay"
+    },
+    "simulateFailure": "Simulate a declined payment",
+    "split": "Split",
+    "toVendor": "To the vendor",
+    "toPlatform": "Platform fee (commission + mva)",
+    "onboardingTitle": "Payout setup",
+    "onboardingIntro": "Here {business} would confirm identity and bank account with the payment provider.",
+    "completeOnboarding": "Complete verification",
+    "needsInfo": "Simulate that more information is needed"
   },
   "VendorStall": {
     "title": "Stall",
@@ -1288,12 +1305,12 @@
     "feeNone": "The invoice comes when your application is approved",
     "paymentsTitle": "Payment account",
     "payments": {
-      "not_started": "Not set up",
-      "pending": "Being checked",
-      "eligible": "Ready to sell",
-      "restricted": "Restricted"
+      "not_started": "Not started",
+      "pending": "Pending",
+      "eligible": "Enabled",
+      "restricted": "Action required"
     },
-    "paymentsHint": "You set up the payment account before sales open.",
+    "paymentsHint": "You cannot sell until payouts are enabled.",
     "todayTitle": "Today",
     "orders": "Orders",
     "sales": "Sales",
@@ -1308,7 +1325,7 @@
       "profile": "Complete your profile: story, logo and at least one photo",
       "products": "Add at least one product",
       "onSale": "Choose what you sell at the festival",
-      "payments": "Set up the payment account"
+      "payments": "Set up payouts"
     },
     "open": "Open"
   },
@@ -1336,5 +1353,31 @@
     "logoAlt": "Logo of {name}",
     "coverAlt": "Photo from {name}",
     "productImageAlt": "{name}"
+  },
+  "Payouts": {
+    "title": "Payouts",
+    "intro": "Guests' payments go to a payment account in your name with the payment provider. The money is paid out to you after AFFN approves the settlement after the festival.",
+    "status": "Status",
+    "statuses": {
+      "not_started": "Not started",
+      "pending": "Pending",
+      "restricted": "Action required",
+      "eligible": "Enabled"
+    },
+    "explain": {
+      "not_started": "Set up payouts to be able to sell at the festival.",
+      "pending": "The payment provider is checking your details. You can resume the setup if you did not finish.",
+      "restricted": "The payment provider needs more information from you before you can sell.",
+      "eligible": "All set. Guests can pay you at the festival."
+    },
+    "start": "Set up payouts",
+    "resume": "Resume setup",
+    "fix": "Provide the missing information",
+    "starting": "Opening …",
+    "notApproved": "You can set up payouts once your application is approved.",
+    "cannotSell": "You cannot sell until payouts are enabled.",
+    "testMode": "TEST MODE",
+    "testModeHint": "Test mode: no real account is created.",
+    "failed": "The setup could not be started. Please try again."
   }
 }

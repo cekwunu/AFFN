@@ -115,7 +115,7 @@ test('stalls: inventory, CSV import, layout, approval, payment via the stub and 
   await expect(axe(page)).resolves.toEqual([]);
   await page.getByRole('button', { name: 'Betal standavgiften' }).click();
   await expect(page).toHaveURL(/\/pay\/mock\//);
-  await expect(page.getByText(/Ingen penger trekkes/)).toBeVisible();
+  await expect(page.getByText('TESTMODUS', { exact: true })).toBeVisible();
   await page.getByRole('button', { name: /^Betal kr\s3\s125,00$/ }).click();
 
   await expect(page).toHaveURL(/\/vendor\/stall\?paid=1$/);
