@@ -15,7 +15,8 @@ export type SettingsInput = Record<
   | 'bankAccount'
   | 'invoiceEmail'
   | 'invoiceDueDays'
-  | 'stallFeeMva',
+  | 'stallFeeMva'
+  | 'sponsorMva',
   string
 > & { vatRegistered: boolean };
 
@@ -52,7 +53,7 @@ export type OrganizationSettings = {
 export function parseSettings(
   input: SettingsInput,
 ):
-  | { ok: true; organization: OrganizationSettings; stallFeeMvaBp: number }
+  | { ok: true; organization: OrganizationSettings; stallFeeMvaBp: number; sponsorMvaBp: number }
   | { ok: false; errors: SettingsErrors } {
   const errors: SettingsErrors = {};
   const trimmed = Object.fromEntries(
@@ -70,6 +71,8 @@ export function parseSettings(
   if (!/^\d{1,2}$/.test(trimmed.invoiceDueDays) || due > 90) errors.invoiceDueDays = 'invalid';
   const mva = parsePercent(trimmed.stallFeeMva);
   if (mva === null || mva > 10_000) errors.stallFeeMva = 'invalid';
+  const sponsorMva = parsePercent(trimmed.sponsorMva);
+  if (sponsorMva === null || sponsorMva > 10_000) errors.sponsorMva = 'invalid';
   if (Object.keys(errors).length) return { ok: false, errors };
   return {
     ok: true,
@@ -85,5 +88,6 @@ export function parseSettings(
       invoice_due_days: due,
     },
     stallFeeMvaBp: mva!,
+    sponsorMvaBp: sponsorMva!,
   };
 }

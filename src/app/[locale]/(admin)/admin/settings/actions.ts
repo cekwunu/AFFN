@@ -39,6 +39,7 @@ export async function saveSettings(_: SettingsState, formData: FormData): Promis
     invoiceEmail: value('invoiceEmail'),
     invoiceDueDays: value('invoiceDueDays'),
     stallFeeMva: value('stallFeeMva'),
+    sponsorMva: value('sponsorMva'),
   });
   if (!parsed.ok) return { errors: parsed.errors };
 
@@ -53,7 +54,7 @@ export async function saveSettings(_: SettingsState, formData: FormData): Promis
   if (event) {
     const { error: eventError } = await supabase
       .from('events')
-      .update({ stall_fee_mva_bp: parsed.stallFeeMvaBp })
+      .update({ stall_fee_mva_bp: parsed.stallFeeMvaBp, sponsor_mva_bp: parsed.sponsorMvaBp })
       .eq('id', event.id);
     if (eventError) return { error: 'failed' };
   }

@@ -32,7 +32,11 @@ export default async function SettingsPage({ params }: PageProps<'/[locale]/admi
       .eq('id', organization.id)
       .single(),
     event
-      ? supabase.from('events').select('name, stall_fee_mva_bp').eq('id', event.id).single()
+      ? supabase
+          .from('events')
+          .select('name, stall_fee_mva_bp, sponsor_mva_bp')
+          .eq('id', event.id)
+          .single()
       : Promise.resolve({ data: null }),
   ]);
   const canEdit = user.access.roles.some(
@@ -70,6 +74,7 @@ export default async function SettingsPage({ params }: PageProps<'/[locale]/admi
             invoiceEmail: org?.invoice_email ?? '',
             invoiceDueDays: String(org?.invoice_due_days ?? 14),
             stallFeeMva: formatRate(eventRow?.stall_fee_mva_bp ?? 2500, locale).replace(' %', ''),
+            sponsorMva: formatRate(eventRow?.sponsor_mva_bp ?? 2500, locale).replace(' %', ''),
           }}
         />
       </ClientIntl>

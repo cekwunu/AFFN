@@ -17,6 +17,7 @@ const valid: SettingsInput = {
   invoiceEmail: 'faktura@affn.no',
   invoiceDueDays: '14',
   stallFeeMva: '25',
+  sponsorMva: '25',
 };
 
 describe('organization settings', () => {
@@ -46,6 +47,7 @@ describe('organization settings', () => {
         invoice_due_days: 14,
       },
       stallFeeMvaBp: 1250,
+      sponsorMvaBp: 2500,
     });
   });
 

@@ -8,6 +8,7 @@
 --   vendor@affn.test    Vendor user for "Mama Afrika Kjøkken"
 --   sponsor@affn.test   Sponsor user for "Nordlys Bank"
 --   multi@affn.test     Vendor for "Asmara Café" and sponsor for "Fjord Mobil" (role switcher)
+--   newsponsor@affn.test  Signed up as sponsor, not registered yet (pending membership, P16)
 --
 -- MFA (AUTH-04): platform@ and admin@ have a verified TOTP factor with the dev-only secret
 --   KRSXG5CTMVRXEZLUKRSXG5CTMVRXEZLU
@@ -30,7 +31,8 @@ from (values
   ('00000000-0000-4000-8000-000000000003'::uuid, 'event@affn.test', 'Event Admin'),
   ('00000000-0000-4000-8000-000000000004'::uuid, 'vendor@affn.test', 'Ada Okafor'),
   ('00000000-0000-4000-8000-000000000005'::uuid, 'sponsor@affn.test', 'Sponsor Contact'),
-  ('00000000-0000-4000-8000-000000000006'::uuid, 'multi@affn.test', 'Yonas Gebre')
+  ('00000000-0000-4000-8000-000000000006'::uuid, 'multi@affn.test', 'Yonas Gebre'),
+  ('00000000-0000-4000-8000-000000000007'::uuid, 'newsponsor@affn.test', 'Kari Nordmann')
 ) as u (id, email, name);
 
 insert into auth.mfa_factors (id, user_id, friendly_name, factor_type, status, secret, created_at, updated_at)
@@ -220,6 +222,10 @@ insert into public.memberships (organization_id, user_id, role, sponsor_id) valu
   ('10000000-0000-4000-8000-000000000001', '00000000-0000-4000-8000-000000000005', 'sponsor',
    '80000000-0000-4000-8000-000000000001');
 
+-- Signed up as sponsor, registers the company in the portal (P16 e2e).
+insert into public.memberships (organization_id, user_id, role, status) values
+  ('10000000-0000-4000-8000-000000000001', '00000000-0000-4000-8000-000000000007', 'sponsor', 'pending');
+
 -- One person with two roles, to exercise the role switcher.
 insert into public.memberships (organization_id, user_id, role, vendor_id, sponsor_id) values
   ('10000000-0000-4000-8000-000000000001', '00000000-0000-4000-8000-000000000006', 'vendor',
@@ -227,11 +233,11 @@ insert into public.memberships (organization_id, user_id, role, vendor_id, spons
   ('10000000-0000-4000-8000-000000000001', '00000000-0000-4000-8000-000000000006', 'sponsor',
    null, '80000000-0000-4000-8000-000000000002');
 
-insert into public.sponsor_packages (id, organization_id, event_id, name, tier, price_ore, description, deliverables) values
+insert into public.sponsor_packages (id, organization_id, event_id, name, tier, price_ore, description, deliverables, logo_level, qr_code_count) values
   ('81000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000001', '20000000-0000-4000-8000-000000000001',
-   'Gull', 1, 15000000, 'Hovedsponsor', '{"Logo på hovedscenen","QR-kode ved inngangen","Rapport etter festivalen"}'),
+   'Gull', 1, 15000000, 'Hovedsponsor', '{"Logo på hovedscenen","QR-kode ved inngangen","Rapport etter festivalen"}', 1, 2),
   ('81000000-0000-4000-8000-000000000002', '10000000-0000-4000-8000-000000000001', '20000000-0000-4000-8000-000000000001',
-   'Sølv', 2, 5000000, 'Partner', '{"Logo på nettsiden","Rapport etter festivalen"}');
+   'Sølv', 2, 5000000, 'Partner', '{"Logo på nettsiden","Rapport etter festivalen"}', 2, 1);
 
 insert into public.sponsorships (id, organization_id, event_id, sponsor_id, package_id, status, agreed_price_ore) values
   ('82000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000001', '20000000-0000-4000-8000-000000000001',

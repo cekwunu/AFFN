@@ -94,19 +94,20 @@ batches are left out.
 
 ## `invoices`: invoices issued
 
-There is one row per invoice issued in the range (stall fees and commission invoices), sorted by
-invoice number.
+There is one row per AFFN invoice issued in the range, sorted by invoice number: commission and
+stall fee invoices to vendors, and sponsorship invoices to sponsors. They share one gapless number
+series per organization.
 
-| Column (nb / en)                           | Content                                                             |
-| ------------------------------------------ | ------------------------------------------------------------------- |
-| Fakturanr. / Invoice no.                   | Invoice number                                                      |
-| Type                                       | Provisjon / Standleie (Commission / Stall fee)                      |
-| Utstedt / Issued                           | Issue time                                                          |
-| Forfall / Due                              | Due time                                                            |
-| Leverandør / Vendor                        | Vendor name                                                         |
-| Org.nr. / Org. no.                         | Vendor's organization number                                        |
-| Netto / Net                                | Amount excluding mva                                                |
-| Mva                                        | Mva                                                                 |
-| Totalt / Total                             | Amount including mva                                                |
-| Status                                     | Utstedt / Betalt / Kreditert (Issued / Paid / Credited)             |
-| Trukket i oppgjør / Deducted in settlement | Ja / Nei (Yes / No): paid by deduction from the vendor's settlement |
+| Column (nb / en)                           | Content                                                                  |
+| ------------------------------------------ | ------------------------------------------------------------------------ |
+| Fakturanr. / Invoice no.                   | Invoice number                                                           |
+| Type                                       | Provisjon / Standleie / Sponsorat (Commission / Stall fee / Sponsorship) |
+| Utstedt / Issued                           | Issue time                                                               |
+| Forfall / Due                              | Due time                                                                 |
+| Kunde / Customer                           | Vendor or sponsor name                                                   |
+| Org.nr. / Org. no.                         | Customer's organization number                                           |
+| Netto / Net                                | Amount excluding mva                                                     |
+| Mva                                        | Mva                                                                      |
+| Totalt / Total                             | Amount including mva                                                     |
+| Status                                     | Utstedt / Betalt / Kreditert (Issued / Paid / Credited)                  |
+| Trukket i oppgjør / Deducted in settlement | Ja / Nei (Yes / No): paid by deduction from the vendor's settlement      |

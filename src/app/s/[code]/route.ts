@@ -19,6 +19,10 @@ export async function GET(request: Request, { params }: RouteContext<'/s/[code]'
   const location = target ? new URL(target, site) : new URL('/', site);
   return new Response(null, {
     status: 302,
-    headers: { location: location.toString(), 'cache-control': 'no-store', 'referrer-policy': 'no-referrer' },
+    headers: {
+      location: location.toString(),
+      'cache-control': 'no-store',
+      'referrer-policy': 'no-referrer',
+    },
   });
 }

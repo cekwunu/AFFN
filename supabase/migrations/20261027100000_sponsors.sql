@@ -97,7 +97,7 @@ create table public.sponsor_invoices (
   organization_id uuid not null,
   event_id uuid not null,
   sponsorship_id uuid not null,
-  sponsor_id uuid not null,
+  sponsor_id uuid not null references public.sponsors (id) on delete restrict,
   invoice_number bigint not null default 0,
   description text not null,
   subtotal_ore bigint not null check (subtotal_ore >= 0),
@@ -124,6 +124,7 @@ create table public.sponsor_invoices (
 create index sponsor_invoices_event_org_idx on public.sponsor_invoices (event_id, organization_id);
 create index sponsor_invoices_sponsorship_sponsor_idx on public.sponsor_invoices (sponsorship_id, sponsor_id);
 create index sponsor_invoices_paid_marked_by_idx on public.sponsor_invoices (paid_marked_by);
+create index sponsor_invoices_sponsor_id_idx on public.sponsor_invoices (sponsor_id);
 create trigger sponsor_invoices_assign_number before insert on public.sponsor_invoices
   for each row execute function private.assign_invoice_number();
 create trigger sponsor_invoices_updated_at before update on public.sponsor_invoices

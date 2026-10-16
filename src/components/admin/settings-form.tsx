@@ -15,7 +15,8 @@ type Values = Record<
   | 'bankAccount'
   | 'invoiceEmail'
   | 'invoiceDueDays'
-  | 'stallFeeMva',
+  | 'stallFeeMva'
+  | 'sponsorMva',
   string
 > & { vatRegistered: boolean };
 
@@ -34,6 +35,7 @@ const FIELDS: {
   { name: 'bankAccount', auto: 'off' },
   { name: 'invoiceDueDays', auto: 'off' },
   { name: 'stallFeeMva', auto: 'off' },
+  { name: 'sponsorMva', auto: 'off' },
 ];
 
 /**

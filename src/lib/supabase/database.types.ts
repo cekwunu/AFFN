@@ -1236,6 +1236,12 @@ isOneToOne: false
       referencedRelation: "events"
       referencedColumns: ["id","organization_id"]
     },{
+      foreignKeyName: "sponsor_invoices_sponsor_id_fkey"
+      columns: ["sponsor_id"]
+isOneToOne: false
+      referencedRelation: "sponsors"
+      referencedColumns: ["id"]
+    },{
       foreignKeyName: "sponsor_invoices_sponsorship_id_organization_id_fkey"
       columns: ["sponsorship_id","organization_id"]
 isOneToOne: false

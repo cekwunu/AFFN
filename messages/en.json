@@ -64,7 +64,8 @@
       "settlements": "Settlements",
       "transactions": "Transactions",
       "reconciliation": "Reconciliation",
-      "exports": "Exports"
+      "exports": "Exports",
+      "sponsors": "Sponsors"
     },
     "storefront": {
       "viewCart": "View cart ({count, plural, one {# item} other {# items}})"
@@ -2131,7 +2132,7 @@
         "kind": "Type",
         "issued": "Issued",
         "due": "Due",
-        "vendor": "Vendor",
+        "vendor": "Customer",
         "orgNumber": "Org. no.",
         "subtotal": "Net",
         "mva": "Mva",
@@ -2157,7 +2158,8 @@
       },
       "invoiceKinds": {
         "commission": "Commission",
-        "stall_fee": "Stall fee"
+        "stall_fee": "Stall fee",
+        "sponsorship": "Sponsorship"
       },
       "invoiceStatus": {
         "issued": "Issued",
@@ -2346,7 +2348,7 @@
     "save": "Save",
     "saving": "Saving …",
     "saved": "The settings are saved.",
-    "mvaEvent": "The mva rate on stall fees applies to {event}. The change applies to new invoices; issued invoices do not change.",
+    "mvaEvent": "The mva rates apply to {event}. Changes apply to new invoices; issued invoices do not change.",
     "errors": {
       "forbidden": "Only Organization Admins can change the settings.",
       "failed": "Saving did not work. Try again."
@@ -2399,7 +2401,281 @@
       "vatRegistered": {
         "label": "Registered for mva (Merverdiavgiftsregisteret)",
         "hint": "Then “MVA” follows the organization number on invoices."
+      },
+      "sponsorMva": {
+        "label": "Mva on sponsor invoices (%)",
+        "hint": "25 % by default.",
+        "invalid": "Enter a rate from 0 to 100."
       }
+    }
+  },
+  "Sponsors": {
+    "title": "Sponsors",
+    "intro": "They make the festival possible. Thank you!",
+    "logosTitle": "Our sponsors",
+    "becomeOne": "Become a sponsor",
+    "sponsorOf": "{package} · {event}",
+    "thanks": "{sponsor} helps make {event} possible. Thank you for your support!",
+    "visit": "Visit {sponsor}",
+    "allSponsors": "All sponsors"
+  },
+  "BecomeSponsor": {
+    "metaTitle": "Become a sponsor",
+    "metaDescription": "Sponsor {event}: packages, visibility and a report after the festival.",
+    "title": "Sponsor African Food Festival Norway",
+    "intro": "Reach thousands of food-loving visitors. Choose a package, register your company and upload your logo. After the festival you get a report with scans, clicks and views.",
+    "register": "Register your company",
+    "signIn": "Already have an account? Sign in",
+    "packagesTitle": "Packages",
+    "noPackages": "The packages for the next festival are not ready yet. Check back soon.",
+    "exMva": "excl. mva",
+    "qrCodes": "{count, plural, one {# tracked QR code} other {# tracked QR codes}}",
+    "report": "Report after the festival (PDF and CSV)",
+    "privacy": "We count scans and clicks without personal data: only the time and device type, no IP addresses and no cookies."
+  },
+  "SponsorPortal": {
+    "title": "Sponsor portal",
+    "english": "English",
+    "registered": "Thank you! Your registration is sent. AFFN will let you know when the sponsorship is approved.",
+    "noSponsorship": "You have no sponsorship for the festival yet.",
+    "package": "Package: {name}",
+    "status": {
+      "inquiry": "Waiting for approval",
+      "confirmed": "Approved",
+      "invoiced": "Approved – invoice sent",
+      "paid": "Paid",
+      "cancelled": "Declined"
+    },
+    "statusText": {
+      "inquiry": "AFFN is looking at your registration and will be in touch soon.",
+      "confirmed": "The sponsorship is approved.",
+      "invoiced": "The sponsorship is approved. The invoice is below; pay to the account number on it.",
+      "paid": "Payment received. Thank you!",
+      "cancelled": "The sponsorship was not approved."
+    },
+    "deliverable": {
+      "pending": "Not started",
+      "in_progress": "In progress",
+      "delivered": "Delivered"
+    },
+    "invoice": {
+      "title": "Invoice no. {number}",
+      "summary": "{total} incl. {mva} mva, due {due}.",
+      "pdf": "Invoice (PDF)",
+      "status": {
+        "issued": "Not paid",
+        "paid": "Paid",
+        "credited": "Credited"
+      }
+    },
+    "links": {
+      "title": "QR codes and links",
+      "intro": "Use the QR codes on print and the link in campaigns. Every scan and click is counted without personal data.",
+      "qr": "QR code “{label}”",
+      "link": "Tracked link",
+      "scans": "{count, plural, one {# scan} other {# scans}}",
+      "clicks": "{count, plural, one {# click} other {# clicks}}",
+      "png": "PNG",
+      "pdf": "Print (PDF)"
+    },
+    "assets": {
+      "title": "Logo and material",
+      "intro": "Upload your logo (SVG or PNG), banners and video (max 50 MB). AFFN reviews everything before use; an approved logo is shown on the festival website.",
+      "uploadTitle": "Upload",
+      "kind": "Type",
+      "file": "File",
+      "upload": "Upload",
+      "uploading": "Uploading …",
+      "uploaded": "The file is uploaded and waiting for review.",
+      "remove": "Withdraw",
+      "feedback": "Feedback from AFFN: {text}",
+      "kinds": {
+        "logo": "Logo",
+        "banner": "Banner",
+        "video": "Video",
+        "other": "Other"
+      },
+      "status": {
+        "pending": "Waiting for review",
+        "accepted": "Approved",
+        "rejected": "Rejected"
+      },
+      "hints": {
+        "logo": "SVG or PNG, ideally with a transparent background.",
+        "banner": "PNG, JPG, WebP, SVG or PDF.",
+        "video": "MP4, WebM or MOV, max 50 MB. Larger files: send AFFN a link.",
+        "other": "PNG, JPG, WebP, SVG or PDF."
+      },
+      "errors": {
+        "required": "Choose a file.",
+        "type": "This file type does not fit this kind of material.",
+        "size": "The file is larger than 50 MB.",
+        "upload_failed": "The upload failed. Try again.",
+        "failed": "That did not work. Try again.",
+        "forbidden": "You do not have access to this.",
+        "kind": "Choose a type."
+      }
+    },
+    "report": {
+      "title": "Report",
+      "intro": "Package, deliverables, scans and clicks by day and hour, sponsor page views and the festival in numbers. The report updates until the festival is over.",
+      "pdf": "Report (PDF)",
+      "csv": "Figures (CSV)"
+    },
+    "register": {
+      "title": "Register your sponsorship",
+      "intro": "Fill in your company, contact person and invoice details, and choose a package. We check the organization number in Brønnøysundregistrene.",
+      "noPackages": "The packages for the next festival are not ready yet.",
+      "optional": "(optional)",
+      "package": "Package",
+      "groups": {
+        "company": "Company",
+        "contact": "Contact person",
+        "invoice": "Invoice"
+      },
+      "submit": "Send registration",
+      "submitting": "Sending …",
+      "fields": {
+        "orgNumber": {
+          "label": "Organization number",
+          "hint": "Nine digits. The name comes from Brønnøysundregistrene."
+        },
+        "name": {
+          "label": "Display name",
+          "hint": "If empty, the registered name is used."
+        },
+        "websiteUrl": {
+          "label": "Website",
+          "hint": "Scans and clicks go here, e.g. https://company.no."
+        },
+        "contactName": {
+          "label": "Name",
+          "hint": ""
+        },
+        "contactEmail": {
+          "label": "Email",
+          "hint": ""
+        },
+        "contactPhone": {
+          "label": "Phone",
+          "hint": ""
+        },
+        "invoiceEmail": {
+          "label": "Invoice email",
+          "hint": "The invoice is sent here."
+        },
+        "invoiceAddress": {
+          "label": "Invoice address",
+          "hint": ""
+        },
+        "invoiceReference": {
+          "label": "Invoice reference",
+          "hint": "E.g. a purchase order number or name."
+        }
+      },
+      "errors": {
+        "required": "Fill in this field.",
+        "invalid": "Check that this is correct.",
+        "package": "Choose a package.",
+        "not_found": "The organization number was not found in Brønnøysundregistrene.",
+        "deleted": "The entity is deleted in Brønnøysundregistrene.",
+        "bankrupt": "The entity is bankrupt.",
+        "dissolving": "The entity is being dissolved.",
+        "unavailable": "Brønnøysundregistrene is not answering right now. Try again shortly.",
+        "rate_limited": "Too many attempts. Wait a moment and try again.",
+        "unknown": "Sign in again and try again.",
+        "failed": "Registration did not work. Try again."
+      }
+    }
+  },
+  "AdminSponsors": {
+    "title": "Sponsors",
+    "intro": "Packages for the festival and sponsorships waiting for an answer. The packages are shown on the “Become a sponsor” page.",
+    "noEvent": "No festival is active.",
+    "queue": "Sponsorships",
+    "noSponsorships": "No sponsors have registered yet.",
+    "packages": "Packages",
+    "newPackage": "New package",
+    "createPackage": "Create package",
+    "savePackage": "Save package",
+    "inactive": "Hidden",
+    "summary": "Logo level {level} · {qr} QR codes",
+    "back": "← All sponsors",
+    "package": "Package: {name}",
+    "contact": "Contact",
+    "invoiceTo": "Invoice to",
+    "website": "Website",
+    "note": "Note",
+    "deliverables": "Deliverables",
+    "deliverableStatus": "Status of {title}",
+    "deliverableNote": "Note for {title}",
+    "notePlaceholder": "Note (optional)",
+    "save": "Save",
+    "assets": "Material",
+    "noAssets": "The sponsor has not uploaded anything yet.",
+    "preview": "Preview of {name}",
+    "open": "Open {name}",
+    "feedback": "Feedback to the sponsor",
+    "accept": "Approve",
+    "reject": "Reject",
+    "markPaid": "Mark as paid",
+    "markPaidOrgAdmin": "An Organization Admin marks the invoice paid when the money has arrived.",
+    "review": {
+      "note": "Note (required, logged)",
+      "price": "Agreed price (kr, optional)",
+      "priceHint": "Empty = the package price {price}.",
+      "approve": "Approve and send invoice",
+      "decline": "Decline"
+    },
+    "fields": {
+      "name": "Name",
+      "price": "Price (kr excl. mva)",
+      "description": "Short description",
+      "deliverables": "Deliverables",
+      "deliverablesHint": "One per line.",
+      "logoLevel": "Logo size on the website",
+      "qrCodes": "Number of QR codes",
+      "tier": "Order",
+      "active": "Show on “Become a sponsor”"
+    },
+    "levels": {
+      "1": "1 – largest",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5 – smallest"
+    },
+    "columns": {
+      "sponsor": "Sponsor",
+      "package": "Package",
+      "price": "Price",
+      "status": "Status",
+      "registered": "Registered"
+    },
+    "status": {
+      "inquiry": "Waiting for an answer",
+      "confirmed": "Approved",
+      "invoiced": "Invoiced",
+      "paid": "Paid",
+      "cancelled": "Declined"
+    },
+    "notices": {
+      "package": "The package is saved.",
+      "approved": "The sponsorship is approved and the invoice is made.",
+      "declined": "The sponsorship is declined.",
+      "deliverable": "The deliverable is updated.",
+      "asset_accepted": "The material is approved.",
+      "asset_rejected": "The material is rejected; the sponsor sees the feedback.",
+      "paid": "The invoice is marked as paid."
+    },
+    "errors": {
+      "failed": "That did not work. Try again.",
+      "package": "Check the name, price, logo level (1–5) and number of QR codes (0–20).",
+      "duplicate": "A package with that name already exists.",
+      "note": "Enter a note.",
+      "price": "Enter the price in kroner.",
+      "feedback": "Enter feedback when you reject.",
+      "paid": "Only an Organization Admin can mark the invoice as paid."
     }
   }
 }

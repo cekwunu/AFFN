@@ -174,29 +174,62 @@ export async function exportRows(
         });
     }
     case 'invoices': {
-      const { data, error } = await supabase
-        .from('invoices')
-        .select(
-          'invoice_number, kind, issued_at, due_at, vendor_id, subtotal_ore, mva_ore, total_ore, status, settled_by_deduction',
-        )
-        .eq('event_id', eventId)
-        .gte('issued_at', f)
-        .lt('issued_at', t)
-        .order('invoice_number');
-      if (error) throw error;
-      return data.map((i) => [
-        text(i.invoice_number === null ? '' : String(i.invoice_number)),
-        text(label('invoiceKinds', i.kind)),
-        time(i.issued_at),
-        time(i.due_at),
-        text(vendor(i.vendor_id).display_name),
-        text(vendor(i.vendor_id).org_number),
-        money(i.subtotal_ore),
-        money(i.mva_ore),
-        money(i.total_ore),
-        text(label('invoiceStatus', i.status)),
-        text(label('yesNo', i.settled_by_deduction ? 'yes' : 'no')),
+      // AFFN's invoices to vendors (commission, stall fees) and to sponsors: one number series.
+      const [vendorInvoices, sponsorInvoices] = await Promise.all([
+        supabase
+          .from('invoices')
+          .select(
+            'invoice_number, kind, issued_at, due_at, vendor_id, subtotal_ore, mva_ore, total_ore, status, settled_by_deduction',
+          )
+          .eq('event_id', eventId)
+          .gte('issued_at', f)
+          .lt('issued_at', t),
+        supabase
+          .from('sponsor_invoices')
+          .select(
+            'invoice_number, issued_at, due_at, subtotal_ore, mva_ore, total_ore, status, sponsor:sponsors(name, org_number)',
+          )
+          .eq('event_id', eventId)
+          .gte('issued_at', f)
+          .lt('issued_at', t),
       ]);
+      if (vendorInvoices.error) throw vendorInvoices.error;
+      if (sponsorInvoices.error) throw sponsorInvoices.error;
+      const rows: [number, string[]][] = [
+        ...vendorInvoices.data.map((i): [number, string[]] => [
+          i.invoice_number,
+          [
+            text(String(i.invoice_number)),
+            text(label('invoiceKinds', i.kind)),
+            time(i.issued_at),
+            time(i.due_at),
+            text(vendor(i.vendor_id).display_name),
+            text(vendor(i.vendor_id).org_number),
+            money(i.subtotal_ore),
+            money(i.mva_ore),
+            money(i.total_ore),
+            text(label('invoiceStatus', i.status)),
+            text(label('yesNo', i.settled_by_deduction ? 'yes' : 'no')),
+          ],
+        ]),
+        ...sponsorInvoices.data.map((i): [number, string[]] => [
+          i.invoice_number,
+          [
+            text(String(i.invoice_number)),
+            text(label('invoiceKinds', 'sponsorship')),
+            time(i.issued_at),
+            time(i.due_at),
+            text(i.sponsor?.name ?? ''),
+            text(i.sponsor?.org_number ?? ''),
+            money(i.subtotal_ore),
+            money(i.mva_ore),
+            money(i.total_ore),
+            text(label('invoiceStatus', i.status)),
+            text(label('yesNo', 'no')),
+          ],
+        ]),
+      ];
+      return rows.sort(([a], [b]) => a - b).map(([, row]) => row);
     }
   }
 }
