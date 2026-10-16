@@ -586,6 +586,8 @@ export const MATRIX: TableSpec[] = [
     read: { own: [] },
   },
   { table: 'invoices', rows: byId('a2000000'), read: vendorEventRead },
+  // Generated documents (P15): written by server code only, never changed.
+  { table: 'documents', rows: byId('a7000000'), read: vendorEventRead },
   {
     table: 'invoice_counters',
     pk: 'organization_id',

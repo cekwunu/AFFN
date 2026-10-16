@@ -177,6 +177,29 @@ describe('review actions (REV-02)', () => {
 });
 
 describe('approval (STL-04, COM-03)', () => {
+  it('uses the event’s mva rate on stall fees (configurable until the accountant confirms)', async () => {
+    await asOwner(async (c) => {
+      await c.query(
+        `update public.events set stall_fee_mva_bp = 1500 where id = '20000000-0000-4000-8000-000000000001'`,
+      );
+      const ids = await submittedApplication(c);
+      await become(c, USERS.eventAdmin);
+      const { rows } = await review(c, ids.eventVendorId, 'approved', 'Welcome');
+      await c.query('reset role');
+      const invoice = await c.query(
+        `select subtotal_ore::int, mva_ore::int, total_ore::int from public.invoices where id = $1`,
+        [rows[0]!.result.invoice_id],
+      );
+      // kr 2 500 + 15 % = kr 375 mva.
+      expect(invoice.rows[0]).toEqual({ subtotal_ore: 250000, mva_ore: 37500, total_ore: 287500 });
+      const audit = await c.query(
+        `select new_data ->> 'stall_fee_mva_bp' as bp from public.audit_log
+          where table_name = 'events' and row_id = '20000000-0000-4000-8000-000000000001'`,
+      );
+      expect(audit.rows.map((r) => r.bp)).toContain('1500');
+    });
+  });
+
   it('issues the stall fee with 25 % mva and a numbered invoice', async () => {
     await asOwner(async (c) => {
       const ids = await submittedApplication(c);
