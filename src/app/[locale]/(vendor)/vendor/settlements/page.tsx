@@ -6,6 +6,7 @@ import { myVendor } from '@/lib/catalogue/server';
 import { formatDateTimeOslo, formatNok } from '@/lib/format';
 import { ore } from '@/lib/money';
 import { myVendorSettlements } from '@/lib/settlements/server';
+import { DocumentLinks } from '@/components/document-links';
 import { NoVendor } from '../products/no-vendor';
 
 export const metadata: Metadata = { robots: { index: false } };
@@ -83,6 +84,26 @@ export default async function VendorSettlementsPage({
                   <span>{tS('lines.net')}</span>
                   <span className="tabular-nums">{money(l.net_payout_ore)}</span>
                 </p>
+                {['releasing', 'completed', 'completed_with_failures'].includes(
+                  l.settlement!.status,
+                ) && (
+                  <DocumentLinks
+                    links={[
+                      { kind: 'vendor_statement', id: l.id, label: t('statementPdf') },
+                      { kind: 'statement_orders_csv', id: l.id, label: t('ordersCsv') },
+                      ...(l.invoice
+                        ? [
+                            {
+                              kind: 'commission_invoice' as const,
+                              id: l.invoice.id,
+                              label: t('invoicePdf', { number: l.invoice.invoice_number }),
+                            },
+                          ]
+                        : []),
+                    ]}
+                    english={t('english')}
+                  />
+                )}
               </li>
             );
           })}

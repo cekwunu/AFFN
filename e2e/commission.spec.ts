@@ -139,14 +139,20 @@ test('the vendor sees its balance from the ledger', async ({ page }) => {
   await signIn(page, 'vendor@affn.test');
   await expect(page).toHaveURL(/\/vendor$/);
   await page.goto('/vendor/payouts');
-  const [balance] = await sql<{ pending: number }>(
-    `select pending_ore::int as pending from public.vendor_balances('20000000-0000-4000-8000-000000000001')
-      where vendor_id = '40000000-0000-4000-8000-000000000001'`,
-  );
   const kr = (o: number) =>
-    `kr ${Math.floor(o / 100)
+    `kr ${Math.floor(o / 100)
       .toLocaleString('nb-NO')
-      .replace(/\s/g, ' ')},${String(o % 100).padStart(2, '0')}`;
-  await expect(page.getByTestId('balance-pending')).toHaveText(kr(balance!.pending));
+      .replace(/\s/g, ' ')},${String(o % 100).padStart(2, '0')}`;
+  // The settlement tests pay this vendor in parallel: compare page and ledger at the same moment.
+  await expect(async () => {
+    const [balance] = await sql<{ pending: number }>(
+      `select pending_ore::int as pending from public.vendor_balances('20000000-0000-4000-8000-000000000001')
+        where vendor_id = '40000000-0000-4000-8000-000000000001'`,
+    );
+    await page.reload();
+    await expect(page.getByTestId('balance-pending')).toHaveText(kr(balance!.pending), {
+      timeout: 2_000,
+    });
+  }).toPass({ timeout: 20_000 });
   await expect(axe(page)).resolves.toEqual([]);
 });

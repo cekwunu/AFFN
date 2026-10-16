@@ -228,5 +228,23 @@ extra) change the mock report so mismatches can be injected. CSV exports at `/ad
 in `docs/exports.md` (update it when a column changes). The reconciliation e2e is its own
 Playwright project after `kitchen`.
 
+Documents (P15): AFFN's company details for its invoices live on `organizations` (legal name, org
+number, MVA flag, address, bank account) and are edited at `/admin/settings` (Org Admin, audited);
+documents refuse to generate (`MissingSellerDetails`) until legal name and org number are filled in.
+The stall-fee mva rate is `events.stall_fee_mva_bp` (25 % until the accountant confirms), used by
+`review_application`; every invoice stores its `mva_rate_bp`. At release, `issue_commission_invoices`
+(service role, idempotent, one per vendor per batch, settled by deduction, net of reversed commission,
+equal to the ledger) runs, then `issueSettlementDocuments` (`src/lib/documents/server.ts`) stores each
+vendor's statement PDF, order CSV and invoice. PDFs: `src/lib/pdf/kit.ts` (pdf-lib + fontkit; Inter
+embedded whole because pdf-lib's subsetter breaks it, Fraunces subset; fonts in `src/lib/pdf/fonts`,
+traced via `outputFileTracingIncludes`) renders pure models from `src/lib/documents/models.ts` (texts in
+the `Documents` messages; field checklist tests read the PDF back with pdfjs-dist). Documents are
+stored immutably in table `documents` (append-only) + private bucket `documents`, path
+`{org}/{kind}/{subject id}/{locale}/v{n}`; `ensureDocument` stores a new version only when the bytes
+change (rendering is deterministic), `regenerateDocument` always does. Downloads: `/api/documents/for?kind=&id=&lang=`
+(subject read under RLS, generated on first request), `/api/documents/[id]`, and the customer's
+`/api/receipts/[token]`. Invoice numbers come from one gapless counter per organization
+(`invoice_counters`, row lock in `private.assign_invoice_number`; DB test with concurrent connections).
+
 Public pages stay light: their client islands get translated strings as props and use
 `@/i18n/link` and `clsx` — no `useTranslations`, `cn` or Radix overlays in public client code.

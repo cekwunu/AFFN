@@ -1036,7 +1036,10 @@
     "mapAlt": "Kart over festivalområdet med din stand markert",
     "pin": "Stand {number}",
     "paymentFailed": "Betalingen kunne ikke startes. Prøv igjen.",
-    "paymentDescription": "Standavgift {event}"
+    "paymentDescription": "Standavgift {event}",
+    "invoicePdf": "Faktura nr. {number} (PDF)",
+    "receiptPdf": "Kvittering (PDF)",
+    "english": "English"
   },
   "Stalls": {
     "nav": {
@@ -1524,7 +1527,8 @@
       "cancelledReason": "Selgeren har kansellert bestillingen: {reason}",
       "refunded": "{amount} er betalt tilbake til deg.",
       "refundPending": "Pengene betales tilbake til deg."
-    }
+    },
+    "downloadPdf": "Last ned kvittering (PDF)"
   },
   "VendorQr": {
     "title": "QR-kode",
@@ -1772,7 +1776,7 @@
       "title": "Må ordnes før godkjenning",
       "none": "Ingenting hindrer dette oppgjøret.",
       "kinds": {
-        "unreconciled": "{amount} transaksjoner er ikke avstemt mot betalingsleverandøren.",
+        "unreconciled": "{count, plural, one {# transaksjon} other {# transaksjoner}} er ikke avstemt mot betalingsleverandøren.",
         "no_lines": "Oppgjøret har ingen leverandører med saldo.",
         "dispute": "{vendor} har en åpen innsigelse på {amount}.",
         "payout_account": "{vendor} har ikke aktivert utbetaling (skal ha {amount}).",
@@ -1781,7 +1785,8 @@
       "fix": {
         "payout_account": "Kontakt leverandøren",
         "negative": "Legg inn justering",
-        "dispute": "Se leverandøren"
+        "dispute": "Se leverandøren",
+        "unreconciled": "Gå til avstemming"
       }
     },
     "actions": {
@@ -1857,7 +1862,9 @@
       "released": "Alle utbetalinger er gjennomført.",
       "dispute_open": "Testmodus: en innsigelse er åpnet.",
       "dispute_won": "Testmodus: innsigelsen er vunnet.",
-      "dispute_lost": "Testmodus: innsigelsen er tapt."
+      "dispute_lost": "Testmodus: innsigelsen er tapt.",
+      "documents": "Dokumentene er laget.",
+      "regenerated": "En ny versjon av dokumentene er laget."
     },
     "errors": {
       "failed": "Det gikk ikke. Prøv igjen.",
@@ -1866,7 +1873,25 @@
       "same_person": "Den som klargjorde (eller la inn), kan ikke også godkjenne.",
       "amount": "Skriv et beløp i kroner.",
       "reason": "Skriv en begrunnelse.",
-      "payouts_failed": "{count, plural, one {# utbetaling feilet} other {# utbetalinger feilet}}. Ordne årsaken og prøv igjen."
+      "payouts_failed": "{count, plural, one {# utbetaling feilet} other {# utbetalinger feilet}}. Ordne årsaken og prøv igjen.",
+      "seller": "Fyll inn AFFNs firmaopplysninger (juridisk navn og org.nr.) under Innstillinger før dokumentene kan lages.",
+      "documents": "Dokumentene kunne ikke lages. Prøv igjen."
+    },
+    "documents": {
+      "title": "Dokumenter",
+      "intro": "Oppstilling, ordrelinjer (CSV) og AFFNs provisjonsfaktura for hver leverandør. Dokumentene lagres og endres aldri; en ny versjon lagres ved siden av den gamle.",
+      "vendor": "Leverandør",
+      "statement": "Oppstilling",
+      "csv": "Ordrelinjer",
+      "invoice": "Faktura",
+      "invoiceNumber": "Nr. {number}",
+      "noInvoice": "Ingen provisjon",
+      "english": "English",
+      "versions": "{count, plural, one {# versjon} other {# versjoner}}",
+      "make": "Lag manglende dokumenter",
+      "regenerate": "Lag ny versjon",
+      "sellerMissing": "AFFNs firmaopplysninger mangler. Fyll dem inn under Innstillinger, så kan dokumentene lages.",
+      "settings": "Gå til innstillinger"
     }
   },
   "VendorSettlements": {
@@ -1875,7 +1900,11 @@
     "empty": "Ingen oppgjør ennå. De kommer etter festivalen.",
     "period": "{from} – {to}",
     "until": "Til og med {to}",
-    "paidAt": "Betalt {time}"
+    "paidAt": "Betalt {time}",
+    "statementPdf": "Oppstilling (PDF)",
+    "ordersCsv": "Ordrelinjer (CSV)",
+    "invoicePdf": "Faktura nr. {number} (PDF)",
+    "english": "English"
   },
   "Transactions": {
     "title": "Transaksjoner",
@@ -2138,6 +2167,185 @@
       "yesNo": {
         "yes": "Ja",
         "no": "Nei"
+      }
+    }
+  },
+  "Documents": {
+    "orgNumber": "Org.nr. {number}",
+    "bankAccount": "Kontonr. {account}",
+    "page": "Side {page} av {pages}",
+    "from": "Fra",
+    "to": "Til",
+    "vendor": "Leverandør",
+    "event": "Festival",
+    "date": "Dato",
+    "amount": "Beløp",
+    "reason": "Begrunnelse",
+    "status": "Status",
+    "periodLabel": "Periode",
+    "period": "{from} – {to}",
+    "periodUntil": "Til og med {to}",
+    "payoutStatus": {
+      "pending": "Venter",
+      "in_transit": "Underveis",
+      "paid": "Utbetalt",
+      "failed": "Feilet"
+    },
+    "methods": {
+      "vipps": "Vipps",
+      "card": "Kort",
+      "apple_pay": "Apple Pay",
+      "google_pay": "Google Pay"
+    },
+    "statement": {
+      "title": "Oppgjørsoppstilling",
+      "reference": "Oppgjør",
+      "item": "Post",
+      "gross": "Brutto salg",
+      "refunds": "Refusjoner (din andel)",
+      "commission": "Provisjon",
+      "mva": "Mva på provisjon (25 %)",
+      "adjustments": "Justeringer",
+      "net": "Til utbetaling",
+      "adjustmentsHeading": "Justeringer",
+      "payoutsHeading": "Utbetalinger",
+      "payoutReference": "Utbetalingsreferanse",
+      "csvNote": "Ordrelinjene for perioden ligger i den vedlagte CSV-filen.",
+      "invoiceNote": "Provisjonen og mva er fakturert på egen faktura fra AFFN og gjort opp ved trekk i utbetalingen."
+    },
+    "invoice": {
+      "title": "Faktura",
+      "number": "Fakturanr.",
+      "date": "Fakturadato",
+      "due": "Forfall",
+      "description": "Gjelder",
+      "commissionDescription": "Provisjon {event}",
+      "stallFeeDescription": "Standleie {event}",
+      "line": "Beskrivelse",
+      "net": "Netto",
+      "mvaLine": "Mva {rate}",
+      "subtotal": "Sum eks. mva",
+      "mvaTotal": "Mva {rate}",
+      "total": "Å betale",
+      "settledByDeduction": "Gjort opp ved trekk i utbetaling. Ingenting å betale.",
+      "paid": "Betalt.",
+      "payBy": "Betales innen {date}.",
+      "payTo": "Kontonummer {account}, merk betalingen med fakturanr. {number}.",
+      "payLink": "Du kan også betale med betalingslenken i leverandørportalen.",
+      "lines": {
+        "commission": "Provisjon på salg",
+        "commission_reversed": "Tilbakeført provisjon ved refusjoner"
+      },
+      "totalInclMva": "Totalt inkl. mva"
+    },
+    "feeReceipt": {
+      "title": "Kvittering",
+      "paid": "Betalt",
+      "paidAt": "Betalt",
+      "reference": "Betalingsreferanse",
+      "total": "Betalt beløp",
+      "thanks": "Takk for betalingen."
+    },
+    "receipt": {
+      "title": "Kvittering",
+      "order": "Ordre",
+      "seller": "Selger",
+      "details": "Kjøp",
+      "method": "Betalt med {method}",
+      "customer": "Kunde: {name}",
+      "item": "Vare",
+      "quantity": "Antall",
+      "unitPrice": "Pris",
+      "mvaIncluded": "Herav mva {rate}",
+      "noMva": "Mva (selger er ikke mva-registrert)",
+      "refunded": "Refundert",
+      "total": "Totalt betalt",
+      "sellerOfRecord": "Selger er leverandøren over. Betalingen er formidlet av {marketplace}."
+    },
+    "csv": {
+      "time": "Tidspunkt",
+      "order": "Ordre",
+      "gross": "Brutto",
+      "refunded": "Refundert",
+      "commission": "Provisjon",
+      "mva": "Mva på provisjon",
+      "vendorShare": "Til leverandør"
+    },
+    "fileNames": {
+      "vendor_statement": "oppgjor",
+      "statement_orders_csv": "ordrelinjer",
+      "commission_invoice": "faktura",
+      "stall_fee_invoice": "faktura",
+      "stall_fee_receipt": "kvittering",
+      "customer_receipt": "kvittering"
+    },
+    "errors": {
+      "sellerMissing": "AFFN har ikke fylt inn firmaopplysningene sine ennå, så dokumentet kan ikke lages. Prøv igjen senere.",
+      "notReady": "Dokumentet er ikke klart ennå.",
+      "failed": "Dokumentet kunne ikke lages. Prøv igjen."
+    }
+  },
+  "Settings": {
+    "title": "Innstillinger",
+    "intro": "AFFNs firmaopplysninger skrives ut på fakturaer, kvitteringer og oppgjørsoppstillinger. Endringer logges.",
+    "missing": "Juridisk navn og organisasjonsnummer mangler. Fakturaer og oppstillinger kan ikke lages før de er fylt inn.",
+    "readOnly": "Bare organisasjonsadministratorer kan endre innstillingene.",
+    "save": "Lagre",
+    "saving": "Lagrer …",
+    "saved": "Innstillingene er lagret.",
+    "mvaEvent": "Mva-satsen på standleie gjelder {event}. Endringen gjelder nye fakturaer; utstedte fakturaer endres ikke.",
+    "errors": {
+      "forbidden": "Bare organisasjonsadministratorer kan endre innstillingene.",
+      "failed": "Det gikk ikke å lagre. Prøv igjen."
+    },
+    "fields": {
+      "legalName": {
+        "label": "Juridisk navn",
+        "hint": "Slik det står i Brønnøysundregistrene, f.eks. «African Food Festival Norway AS».",
+        "required": "Skriv det juridiske navnet."
+      },
+      "orgNumber": {
+        "label": "Organisasjonsnummer",
+        "hint": "Ni siffer.",
+        "required": "Skriv organisasjonsnummeret.",
+        "invalid": "Organisasjonsnummeret er ikke gyldig."
+      },
+      "invoiceEmail": {
+        "label": "E-post for faktura",
+        "hint": "Vises på fakturaene. Valgfritt.",
+        "invalid": "Skriv en gyldig e-postadresse."
+      },
+      "addressLine": {
+        "label": "Adresse",
+        "hint": "Gate og nummer. Valgfritt."
+      },
+      "postalCode": {
+        "label": "Postnummer",
+        "hint": "Fire siffer.",
+        "invalid": "Postnummeret har fire siffer."
+      },
+      "city": {
+        "label": "Poststed",
+        "hint": ""
+      },
+      "bankAccount": {
+        "label": "Kontonummer",
+        "hint": "Elleve siffer. Vises på fakturaer som skal betales til AFFN.",
+        "invalid": "Kontonummeret er ikke gyldig."
+      },
+      "invoiceDueDays": {
+        "label": "Betalingsfrist (dager)",
+        "hint": "Antall dager til forfall på nye fakturaer.",
+        "invalid": "Skriv et tall fra 0 til 90."
+      },
+      "stallFeeMva": {
+        "label": "Mva på standleie (%)",
+        "hint": "25 % til regnskapsfører har bekreftet satsen.",
+        "invalid": "Skriv en sats fra 0 til 100."
+      },
+      "vatRegistered": {
+        "label": "Registrert i Merverdiavgiftsregisteret",
+        "hint": "Da står «MVA» etter organisasjonsnummeret på fakturaene."
       }
     }
   }

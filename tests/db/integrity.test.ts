@@ -227,14 +227,15 @@ describe('numbering', () => {
 
   it('invoice numbers are sequential per organization', async () => {
     await asOwner(async (c) => {
-      const insert = () =>
+      // One commission invoice per vendor per settlement, so two vendors without one yet.
+      const insert = (vendor: number) =>
         c.query(
           `insert into public.invoices (organization_id, event_id, kind, vendor_id, settlement_id, subtotal_ore, total_ore)
            values ($1, $2, 'commission', $3, $4, 100, 100) returning invoice_number`,
-          [ORG1, EVENT1, VENDOR(1), SETTLEMENT(1)],
+          [ORG1, EVENT1, VENDOR(vendor), SETTLEMENT(1)],
         );
-      const first = Number((await insert()).rows[0].invoice_number);
-      const second = Number((await insert()).rows[0].invoice_number);
+      const first = Number((await insert(3)).rows[0].invoice_number);
+      const second = Number((await insert(5)).rows[0].invoice_number);
       expect(second).toBe(first + 1);
     });
   });

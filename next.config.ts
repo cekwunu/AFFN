@@ -12,6 +12,8 @@ const localSupabase = !!supabase && ['127.0.0.1', 'localhost'].includes(supabase
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Invoices, statements and receipts embed these fonts, read from disk (src/lib/pdf/kit.ts).
+  outputFileTracingIncludes: { '/**': ['./src/lib/pdf/fonts/*.ttf'] },
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: supabase

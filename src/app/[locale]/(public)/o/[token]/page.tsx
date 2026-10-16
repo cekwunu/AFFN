@@ -166,9 +166,18 @@ export default async function OrderPage({
           className="grid gap-4 rounded-2xl border border-border bg-card p-6"
           data-testid="receipt"
         >
-          <h2 id="receipt" className="text-heading-md font-semibold">
-            {t('receipt')} · {t('title', { number: receipt.order_code })}
-          </h2>
+          <div className="flex flex-wrap items-baseline justify-between gap-2">
+            <h2 id="receipt" className="text-heading-md font-semibold">
+              {t('receipt')} · {t('title', { number: receipt.order_code })}
+            </h2>
+            <a
+              href={`/api/receipts/${token}${locale === 'en' ? '?lang=en' : ''}`}
+              className="text-body-sm font-medium text-link underline-offset-4 hover:underline"
+              data-testid="receipt-pdf"
+            >
+              {t('downloadPdf')}
+            </a>
+          </div>
           <dl className="grid gap-1 text-body-sm">
             <div className="flex flex-wrap gap-x-2">
               <dt className="font-semibold">{t('seller')}:</dt>

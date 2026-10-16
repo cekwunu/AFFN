@@ -47,8 +47,12 @@ select gen_random_uuid(), u.id, u.id::text, 'email',
  where u.email like '%@affn.test';
 
 -- Tenancy -----------------------------------------------------------------------------------------
-insert into public.organizations (id, name, slug, org_number) values
-  ('10000000-0000-4000-8000-000000000001', 'African Food Festival Norway', 'affn', '923456781');
+-- Company details printed on AFFN's invoices (P15; fictitious, local development only).
+insert into public.organizations (id, name, slug, org_number, legal_name, address_line, postal_code,
+  city, bank_account, invoice_email) values
+  ('10000000-0000-4000-8000-000000000001', 'African Food Festival Norway', 'affn', '987654325',
+   'African Food Festival Norway AS', 'Tøyengata 1', '0578', 'Oslo', '12345678903',
+   'faktura@affn.test');
 
 insert into public.events (id, organization_id, name, slug, status, starts_at, ends_at, venue_name, venue_address, description) values
   ('20000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000001',
