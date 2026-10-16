@@ -246,5 +246,22 @@ change (rendering is deterministic), `regenerateDocument` always does. Downloads
 `/api/receipts/[token]`. Invoice numbers come from one gapless counter per organization
 (`invoice_counters`, row lock in `private.assign_invoice_number`; DB test with concurrent connections).
 
+Sponsors (P16): packages per event (`sponsor_packages`: price, deliverables, `logo_level` 1–5,
+`qr_code_count`; no fixed tiers) are managed at `/admin/sponsors` and listed on the public
+`/become-a-sponsor`. Sign-up as sponsor (pending membership) → `/sponsor/register` (Brreg lookup) →
+`public.register_sponsor` (service role: sponsor + active membership + `inquiry`). Staff decide at
+`/admin/sponsors/[id]` via `public.review_sponsorship` (invoker wrapper; note required, audited):
+approval creates `sponsorship_deliverables`, the QR `tracked_links` plus one `link`, and a
+`sponsor_invoices` row (event `sponsor_mva_bp`, 25 % default, set on `/admin/settings`; numbered from
+the same gapless counter as `invoices`; paid by bank transfer, marked by an Org Admin with
+`mark_sponsor_invoice_paid`). Assets upload from the browser to the private `sponsor-assets`
+bucket under `{sponsor_id}/` (50 MB, `src/lib/sponsors/assets.ts`); staff accept or reject with
+feedback, and an accepted logo is copied to the public `sponsor-media` bucket (`sponsors.logo_path`)
+and shown by level on `/` and `/sponsors` (`SponsorLogos`). `/s/[code]` (excluded from the proxy:
+no cookies) calls `public.record_link_hit` with a coarse device class (`src/lib/sponsors/device.ts`)
+and redirects; `/sponsors/[id]` records a page view with `sponsor_id`. The report
+(`src/lib/sponsors/report.ts`, pure, unit-tested) is stored as `sponsor_report_pdf` / `_csv`
+documents. Seed user `newsponsor@affn.test` is a pending sponsor sign-up for the e2e.
+
 Public pages stay light: their client islands get translated strings as props and use
 `@/i18n/link` and `clsx` — no `useTranslations`, `cn` or Radix overlays in public client code.

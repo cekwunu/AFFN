@@ -26,6 +26,7 @@ export function PublicShell({
   const nav: NavItem[] = [
     { href: '/', label: t('public.home') },
     { href: '/become-a-vendor', label: t('public.forVendors') },
+    { href: '/sponsors', label: t('public.sponsors') },
     { href: '/become-a-sponsor', label: t('public.forSponsors') },
   ];
   const Header = embedded ? 'div' : 'header';

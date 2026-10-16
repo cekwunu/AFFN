@@ -38,8 +38,9 @@ test.describe('sign-up and email verification (AUTH-01, AUTH-03)', () => {
     const email = uniqueEmail('sponsor');
     const mail = await signUpAndVerify(page, { email, role: 'sponsor', locale: 'en' });
     expect(mail.text).toContain('Thank you for signing up');
-    await expect(page).toHaveURL(/\/en\/sponsor$/);
-    await expect(page.getByRole('heading', { name: 'Welcome!' })).toBeVisible();
+    // A new sponsor registers the company first (SPO-01).
+    await expect(page).toHaveURL(/\/en\/sponsor\/register$/);
+    await expect(page.getByRole('heading', { name: 'Register your sponsorship' })).toBeVisible();
   });
 
   test('cannot sign in before confirming the email', async ({ page }) => {
