@@ -2140,5 +2140,107 @@
         "no": "No"
       }
     }
+  },
+  "Documents": {
+    "orgNumber": "Org. no. {number}",
+    "bankAccount": "Account {account}",
+    "page": "Page {page} of {pages}",
+    "from": "From",
+    "to": "To",
+    "vendor": "Vendor",
+    "event": "Festival",
+    "date": "Date",
+    "amount": "Amount",
+    "reason": "Reason",
+    "status": "Status",
+    "periodLabel": "Period",
+    "period": "{from} – {to}",
+    "periodUntil": "Up to {to}",
+    "payoutStatus": {
+      "pending": "Pending",
+      "in_transit": "In transit",
+      "paid": "Paid",
+      "failed": "Failed"
+    },
+    "methods": {
+      "vipps": "Vipps",
+      "card": "Card",
+      "apple_pay": "Apple Pay",
+      "google_pay": "Google Pay"
+    },
+    "statement": {
+      "title": "Settlement statement",
+      "reference": "Settlement",
+      "item": "Item",
+      "gross": "Gross sales",
+      "refunds": "Refunds (your share)",
+      "commission": "Commission",
+      "mva": "Mva on commission (25 %)",
+      "adjustments": "Adjustments",
+      "net": "Net payout",
+      "adjustmentsHeading": "Adjustments",
+      "payoutsHeading": "Payouts",
+      "payoutReference": "Payout reference",
+      "csvNote": "The order lines for the period are in the attached CSV file.",
+      "invoiceNote": "The commission and mva are invoiced on a separate AFFN invoice and settled by deduction from the payout."
+    },
+    "invoice": {
+      "title": "Invoice",
+      "number": "Invoice no.",
+      "date": "Invoice date",
+      "due": "Due",
+      "description": "Regarding",
+      "commissionDescription": "Commission {event}",
+      "stallFeeDescription": "Stall fee {event}",
+      "line": "Description",
+      "net": "Net",
+      "mvaLine": "Mva {rate}",
+      "subtotal": "Total excl. mva",
+      "mvaTotal": "Mva {rate}",
+      "total": "Amount due",
+      "settledByDeduction": "Settled by deduction from payout. Nothing to pay.",
+      "paid": "Paid.",
+      "payBy": "Please pay by {date}.",
+      "payTo": "Account number {account}, mark the payment with invoice no. {number}.",
+      "payLink": "You can also pay with the payment link in the vendor portal.",
+      "lines": {
+        "commission": "Commission on sales",
+        "commission_reversed": "Commission given back on refunds"
+      },
+      "totalInclMva": "Total incl. mva"
+    },
+    "feeReceipt": {
+      "title": "Receipt",
+      "paid": "Paid",
+      "paidAt": "Paid",
+      "reference": "Payment reference",
+      "total": "Amount paid",
+      "thanks": "Thank you for your payment."
+    },
+    "receipt": {
+      "title": "Receipt",
+      "order": "Order",
+      "seller": "Seller",
+      "details": "Purchase",
+      "method": "Paid with {method}",
+      "customer": "Customer: {name}",
+      "item": "Item",
+      "quantity": "Qty",
+      "unitPrice": "Price",
+      "mvaIncluded": "Incl. mva {rate}",
+      "noMva": "Mva (seller not mva-registered)",
+      "refunded": "Refunded",
+      "total": "Total paid",
+      "sellerOfRecord": "The seller is the vendor above. The payment was handled by {marketplace}."
+    },
+    "csv": {
+      "time": "Time",
+      "order": "Order",
+      "gross": "Gross",
+      "refunded": "Refunded",
+      "commission": "Commission",
+      "mva": "Mva on commission",
+      "vendorShare": "To vendor"
+    }
   }
 }

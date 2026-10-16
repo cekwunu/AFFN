@@ -47,7 +47,9 @@ alter table public.invoices
   add column description text,
   add column period_from timestamptz,
   add column period_to timestamptz,
-  add column lines jsonb not null default '[]'::jsonb check (jsonb_typeof(lines) = 'array');
+  add column lines jsonb not null default '[]'::jsonb check (jsonb_typeof(lines) = 'array'),
+  -- The mva rate charged (mva itself is rounded per order line, so it cannot be derived).
+  add column mva_rate_bp integer check (mva_rate_bp between 0 and 10000);
 -- One commission invoice per vendor per settlement.
 create unique index invoices_commission_once_idx on public.invoices (settlement_id, vendor_id)
   where kind = 'commission';
@@ -141,10 +143,10 @@ begin
 
     insert into public.invoices (
       organization_id, event_id, kind, vendor_id, stall_fee_id, subtotal_ore, mva_ore,
-      total_ore, due_at
+      total_ore, due_at, mva_rate_bp
     ) values (
       v_ev.organization_id, v_ev.event_id, 'stall_fee', v_ev.vendor_id, v_stall_fee_id, v_fee,
-      v_mva, v_fee + v_mva, now() + interval '14 days'
+      v_mva, v_fee + v_mva, now() + interval '14 days', v_mva_bp
     ) returning id, invoice_number into v_invoice_id, v_invoice_number;
 
     if p_commission_rate_bp is not null then
@@ -225,12 +227,12 @@ begin
     insert into public.invoices (
       organization_id, event_id, kind, vendor_id, settlement_id, subtotal_ore, mva_ore,
       total_ore, status, settled_by_deduction, issued_at, due_at, description, period_from,
-      period_to, lines
+      period_to, mva_rate_bp, lines
     ) values (
       v_settlement.organization_id, v_settlement.event_id, 'commission', v_line.vendor_id,
       v_settlement.id, v_line.charged - v_line.reversed, v_line.mva_charged - v_line.mva_reversed,
       v_line.charged - v_line.reversed + v_line.mva_charged - v_line.mva_reversed, 'paid', true,
-      now(), now(), 'commission:' || v_event_name, v_line.period_start, v_line.cutoff_at,
+      now(), now(), 'commission:' || v_event_name, v_line.period_start, v_line.cutoff_at, 2500,
       jsonb_build_array(
         jsonb_build_object('key', 'commission', 'amount_ore', v_line.charged,
                            'mva_ore', v_line.mva_charged)

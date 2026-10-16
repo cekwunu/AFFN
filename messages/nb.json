@@ -2140,5 +2140,107 @@
         "no": "Nei"
       }
     }
+  },
+  "Documents": {
+    "orgNumber": "Org.nr. {number}",
+    "bankAccount": "Kontonr. {account}",
+    "page": "Side {page} av {pages}",
+    "from": "Fra",
+    "to": "Til",
+    "vendor": "Leverandør",
+    "event": "Festival",
+    "date": "Dato",
+    "amount": "Beløp",
+    "reason": "Begrunnelse",
+    "status": "Status",
+    "periodLabel": "Periode",
+    "period": "{from} – {to}",
+    "periodUntil": "Til og med {to}",
+    "payoutStatus": {
+      "pending": "Venter",
+      "in_transit": "Underveis",
+      "paid": "Utbetalt",
+      "failed": "Feilet"
+    },
+    "methods": {
+      "vipps": "Vipps",
+      "card": "Kort",
+      "apple_pay": "Apple Pay",
+      "google_pay": "Google Pay"
+    },
+    "statement": {
+      "title": "Oppgjørsoppstilling",
+      "reference": "Oppgjør",
+      "item": "Post",
+      "gross": "Brutto salg",
+      "refunds": "Refusjoner (din andel)",
+      "commission": "Provisjon",
+      "mva": "Mva på provisjon (25 %)",
+      "adjustments": "Justeringer",
+      "net": "Til utbetaling",
+      "adjustmentsHeading": "Justeringer",
+      "payoutsHeading": "Utbetalinger",
+      "payoutReference": "Utbetalingsreferanse",
+      "csvNote": "Ordrelinjene for perioden ligger i den vedlagte CSV-filen.",
+      "invoiceNote": "Provisjonen og mva er fakturert på egen faktura fra AFFN og gjort opp ved trekk i utbetalingen."
+    },
+    "invoice": {
+      "title": "Faktura",
+      "number": "Fakturanr.",
+      "date": "Fakturadato",
+      "due": "Forfall",
+      "description": "Gjelder",
+      "commissionDescription": "Provisjon {event}",
+      "stallFeeDescription": "Standleie {event}",
+      "line": "Beskrivelse",
+      "net": "Netto",
+      "mvaLine": "Mva {rate}",
+      "subtotal": "Sum eks. mva",
+      "mvaTotal": "Mva {rate}",
+      "total": "Å betale",
+      "settledByDeduction": "Gjort opp ved trekk i utbetaling. Ingenting å betale.",
+      "paid": "Betalt.",
+      "payBy": "Betales innen {date}.",
+      "payTo": "Kontonummer {account}, merk betalingen med fakturanr. {number}.",
+      "payLink": "Du kan også betale med betalingslenken i leverandørportalen.",
+      "lines": {
+        "commission": "Provisjon på salg",
+        "commission_reversed": "Tilbakeført provisjon ved refusjoner"
+      },
+      "totalInclMva": "Totalt inkl. mva"
+    },
+    "feeReceipt": {
+      "title": "Kvittering",
+      "paid": "Betalt",
+      "paidAt": "Betalt",
+      "reference": "Betalingsreferanse",
+      "total": "Betalt beløp",
+      "thanks": "Takk for betalingen."
+    },
+    "receipt": {
+      "title": "Kvittering",
+      "order": "Ordre",
+      "seller": "Selger",
+      "details": "Kjøp",
+      "method": "Betalt med {method}",
+      "customer": "Kunde: {name}",
+      "item": "Vare",
+      "quantity": "Antall",
+      "unitPrice": "Pris",
+      "mvaIncluded": "Herav mva {rate}",
+      "noMva": "Mva (selger er ikke mva-registrert)",
+      "refunded": "Refundert",
+      "total": "Totalt betalt",
+      "sellerOfRecord": "Selger er leverandøren over. Betalingen er formidlet av {marketplace}."
+    },
+    "csv": {
+      "time": "Tidspunkt",
+      "order": "Ordre",
+      "gross": "Brutto",
+      "refunded": "Refundert",
+      "commission": "Provisjon",
+      "mva": "Mva på provisjon",
+      "vendorShare": "Til leverandør"
+    }
   }
 }
