@@ -1891,11 +1891,7 @@
       "make": "Lag manglende dokumenter",
       "regenerate": "Lag ny versjon",
       "sellerMissing": "AFFNs firmaopplysninger mangler. Fyll dem inn under Innstillinger, så kan dokumentene lages.",
-      "settings": "Gå til innstillinger",
-      "released": {
-        "seller": "Utbetalingen er gjort, men dokumentene mangler: fyll inn AFFNs firmaopplysninger under Innstillinger og lag dem her.",
-        "failed": "Utbetalingen er gjort, men dokumentene kunne ikke lages. Prøv «Lag manglende dokumenter»."
-      }
+      "settings": "Gå til innstillinger"
     }
   },
   "VendorSettlements": {

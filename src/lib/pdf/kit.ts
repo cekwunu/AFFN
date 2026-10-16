@@ -336,7 +336,8 @@ export async function renderPdf(model: DocumentModel): Promise<Uint8Array> {
   const pdf = await PDFDocument.create({ updateMetadata: false });
   pdf.registerFontkit(fontkit);
   const [regularBytes, strongBytes, displayBytes] = await loadFonts();
-  // Inter is embedded whole: pdf-lib's subsetter drops its glyphs. Fraunces subsets cleanly.
+  // The font files are already Latin subsets (fonttools); Inter is embedded as is because
+  // pdf-lib's own subsetter drops its glyphs. Fraunces subsets cleanly.
   const fonts: Fonts = {
     regular: await pdf.embedFont(regularBytes, { subset: false }),
     strong: await pdf.embedFont(strongBytes, { subset: false }),

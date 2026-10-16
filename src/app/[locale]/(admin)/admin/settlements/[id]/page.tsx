@@ -559,14 +559,6 @@ export default async function SettlementPage({
             {t('documents.title')}
           </h2>
           <p className="max-w-3xl text-body-sm text-muted-foreground">{t('documents.intro')}</p>
-          {typeof query.documents === 'string' && (
-            <p
-              role="alert"
-              className="rounded-lg bg-warning-subtle px-4 py-3 text-body-sm font-medium text-warning-subtle-foreground"
-            >
-              {t(`documents.released.${query.documents === 'seller' ? 'seller' : 'failed'}`)}
-            </p>
-          )}
           {!settlement.sellerReady ? (
             <p className="flex flex-wrap items-center gap-3 rounded-lg border border-border bg-card px-4 py-3 text-body-sm">
               {t('documents.sellerMissing')}

@@ -3,6 +3,7 @@
 import { getLocale } from 'next-intl/server';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { after } from 'next/server';
 import { localizePath } from '@/i18n/paths';
 import type { Locale } from '@/i18n/routing';
 import { getCurrentUser } from '@/lib/auth/server';
@@ -229,20 +230,18 @@ export async function releaseSettlement(formData: FormData) {
     });
   }
   revalidatePath('/vendor/settlements');
-  // Statements, order CSVs and commission invoices (SET-04). A missing AFFN detail does not undo
-  // the release: the batch page asks for it and the documents are made afterwards.
-  let documents = '';
-  try {
-    const user = await getCurrentUser();
-    await issueSettlementDocuments(id, user?.id ?? null);
-  } catch (e) {
-    documents = e instanceof MissingSellerDetails ? '&documents=seller' : '&documents=failed';
-    if (!(e instanceof MissingSellerDetails)) console.error('Settlement documents failed', e);
-  }
-  return back(
-    id,
-    (failed ? `error=payouts_failed&count=${failed}` : 'notice=released') + documents,
-  );
+  // Statements, order CSVs and commission invoices (SET-04), made after the response so the
+  // release does not wait for them. A missing AFFN detail does not undo the release: the batch
+  // page asks for it, and documents are also made on first download.
+  const user = await getCurrentUser();
+  after(async () => {
+    try {
+      await issueSettlementDocuments(id, user?.id ?? null);
+    } catch (e) {
+      if (!(e instanceof MissingSellerDetails)) console.error('Settlement documents failed', e);
+    }
+  });
+  return back(id, failed ? `error=payouts_failed&count=${failed}` : 'notice=released');
 }
 
 /**

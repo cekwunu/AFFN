@@ -1891,11 +1891,7 @@
       "make": "Make missing documents",
       "regenerate": "Make new version",
       "sellerMissing": "AFFN’s company details are missing. Fill them in under Settings, then the documents can be made.",
-      "settings": "Go to settings",
-      "released": {
-        "seller": "The payout is done, but the documents are missing: fill in AFFN’s company details under Settings and make them here.",
-        "failed": "The payout is done, but the documents could not be made. Try “Make missing documents”."
-      }
+      "settings": "Go to settings"
     }
   },
   "VendorSettlements": {
