@@ -50,6 +50,25 @@ export async function GET(request: Request) {
       allowed = !!data;
       break;
     }
+    case 'sponsor_invoice': {
+      const { data } = await supabase
+        .from('sponsor_invoices')
+        .select('id')
+        .eq('id', id)
+        .maybeSingle();
+      allowed = !!data;
+      break;
+    }
+    case 'sponsor_report_pdf':
+    case 'sponsor_report_csv': {
+      const { data } = await supabase
+        .from('sponsorships')
+        .select('status')
+        .eq('id', id)
+        .maybeSingle();
+      allowed = !!data && ['confirmed', 'invoiced', 'paid'].includes(data.status);
+      break;
+    }
     default:
       allowed = false;
   }

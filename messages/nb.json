@@ -25,7 +25,8 @@
       "home": "Forside",
       "forVendors": "For leverandører",
       "forSponsors": "For sponsorer",
-      "signIn": "Logg inn"
+      "signIn": "Logg inn",
+      "sponsors": "Sponsorer"
     },
     "footer": {
       "tagline": "Handel, leverandører og sponsorer for African Food Festival Norway.",
@@ -64,7 +65,8 @@
       "settlements": "Oppgjør",
       "transactions": "Transaksjoner",
       "reconciliation": "Avstemming",
-      "exports": "Eksport"
+      "exports": "Eksport",
+      "sponsors": "Sponsorer"
     },
     "storefront": {
       "viewCart": "Se handlekurv ({count, plural, one {# vare} other {# varer}})"
@@ -2131,7 +2133,7 @@
         "kind": "Type",
         "issued": "Utstedt",
         "due": "Forfall",
-        "vendor": "Leverandør",
+        "vendor": "Kunde",
         "orgNumber": "Org.nr.",
         "subtotal": "Netto",
         "mva": "Mva",
@@ -2157,7 +2159,8 @@
       },
       "invoiceKinds": {
         "commission": "Provisjon",
-        "stall_fee": "Standleie"
+        "stall_fee": "Standleie",
+        "sponsorship": "Sponsorat"
       },
       "invoiceStatus": {
         "issued": "Utstedt",
@@ -2236,7 +2239,8 @@
         "commission": "Provisjon på salg",
         "commission_reversed": "Tilbakeført provisjon ved refusjoner"
       },
-      "totalInclMva": "Totalt inkl. mva"
+      "totalInclMva": "Totalt inkl. mva",
+      "sponsorDescription": "Sponsorpakke {package}, {event}"
     },
     "feeReceipt": {
       "title": "Kvittering",
@@ -2277,12 +2281,64 @@
       "commission_invoice": "faktura",
       "stall_fee_invoice": "faktura",
       "stall_fee_receipt": "kvittering",
-      "customer_receipt": "kvittering"
+      "customer_receipt": "kvittering",
+      "sponsor_invoice": "faktura",
+      "sponsor_report_pdf": "sponsorrapport",
+      "sponsor_report_csv": "sponsorrapport"
     },
     "errors": {
       "sellerMissing": "AFFN har ikke fylt inn firmaopplysningene sine ennå, så dokumentet kan ikke lages. Prøv igjen senere.",
       "notReady": "Dokumentet er ikke klart ennå.",
       "failed": "Dokumentet kunne ikke lages. Prøv igjen."
+    },
+    "report": {
+      "title": "Sponsorrapport",
+      "sponsor": "Sponsor",
+      "sponsorLabel": "Sponsor",
+      "package": "Pakke",
+      "price": "Pris eks. mva",
+      "deliverables": "Leveranser",
+      "deliverable": "Leveranse",
+      "deliverableStatus": {
+        "pending": "Ikke startet",
+        "in_progress": "Pågår",
+        "delivered": "Levert"
+      },
+      "reach": "Skanninger, klikk og visninger",
+      "scans": "QR-skanninger",
+      "clicks": "Klikk på lenker",
+      "pageViews": "Visninger av sponsorsiden",
+      "day": "Dag",
+      "byHour": "Per time på døgnet",
+      "hour": "Time",
+      "byLink": "Per kode og lenke",
+      "link": "Kode/lenke",
+      "kind": "Type",
+      "count": "Antall",
+      "kinds": {
+        "qr": "QR-kode",
+        "link": "Lenke"
+      },
+      "festival": "Festivalen i tall",
+      "orders": "Betalte bestillinger",
+      "vendors": "Leverandører",
+      "sales": "Omsetning (brutto)",
+      "privacy": "Tallene er telt uten personopplysninger: bare tidspunkt og enhetstype (mobil, nettbrett, PC), ingen IP-adresser og ingen informasjonskapsler.",
+      "csv": {
+        "day": "Dag",
+        "hour": "Time",
+        "total": "Totalt",
+        "festivalOrders": "Festivalen: betalte bestillinger",
+        "festivalVendors": "Festivalen: leverandører",
+        "festivalSales": "Festivalen: omsetning (kr)",
+        "columns": {
+          "period": "Periode",
+          "when": "Når",
+          "scans": "QR-skanninger",
+          "clicks": "Klikk",
+          "pageViews": "Sidevisninger"
+        }
+      }
     }
   },
   "Settings": {
@@ -2293,7 +2349,7 @@
     "save": "Lagre",
     "saving": "Lagrer …",
     "saved": "Innstillingene er lagret.",
-    "mvaEvent": "Mva-satsen på standleie gjelder {event}. Endringen gjelder nye fakturaer; utstedte fakturaer endres ikke.",
+    "mvaEvent": "Mva-satsene gjelder {event}. Endringer gjelder nye fakturaer; utstedte fakturaer endres ikke.",
     "errors": {
       "forbidden": "Bare organisasjonsadministratorer kan endre innstillingene.",
       "failed": "Det gikk ikke å lagre. Prøv igjen."
@@ -2346,7 +2402,281 @@
       "vatRegistered": {
         "label": "Registrert i Merverdiavgiftsregisteret",
         "hint": "Da står «MVA» etter organisasjonsnummeret på fakturaene."
+      },
+      "sponsorMva": {
+        "label": "Mva på sponsorfakturaer (%)",
+        "hint": "25 % som standard.",
+        "invalid": "Skriv en sats fra 0 til 100."
       }
+    }
+  },
+  "Sponsors": {
+    "title": "Sponsorer",
+    "intro": "Disse gjør festivalen mulig. Takk!",
+    "logosTitle": "Våre sponsorer",
+    "becomeOne": "Bli sponsor",
+    "sponsorOf": "{package} · {event}",
+    "thanks": "{sponsor} er med og gjør {event} mulig. Takk for støtten!",
+    "visit": "Besøk {sponsor}",
+    "allSponsors": "Alle sponsorer"
+  },
+  "BecomeSponsor": {
+    "metaTitle": "Bli sponsor",
+    "metaDescription": "Bli sponsor for {event}: pakker, synlighet og rapport etter festivalen.",
+    "title": "Bli sponsor for African Food Festival Norway",
+    "intro": "Nå tusenvis av matglade besøkende. Velg en pakke, registrer bedriften og last opp logoen din. Etter festivalen får du en rapport med skanninger, klikk og visninger.",
+    "register": "Registrer bedriften",
+    "signIn": "Har du allerede konto? Logg inn",
+    "packagesTitle": "Pakker",
+    "noPackages": "Pakkene for neste festival er ikke klare ennå. Kom tilbake snart.",
+    "exMva": "eks. mva",
+    "qrCodes": "{count, plural, one {# sporbar QR-kode} other {# sporbare QR-koder}}",
+    "report": "Rapport etter festivalen (PDF og CSV)",
+    "privacy": "Vi teller skanninger og klikk uten personopplysninger: bare tidspunkt og enhetstype, ingen IP-adresser og ingen informasjonskapsler."
+  },
+  "SponsorPortal": {
+    "title": "Sponsorportal",
+    "english": "English",
+    "registered": "Takk! Registreringen er sendt. AFFN gir beskjed når sponsoratet er godkjent.",
+    "noSponsorship": "Dere har ikke noe sponsorat for festivalen ennå.",
+    "package": "Pakke: {name}",
+    "status": {
+      "inquiry": "Venter på godkjenning",
+      "confirmed": "Godkjent",
+      "invoiced": "Godkjent – faktura sendt",
+      "paid": "Betalt",
+      "cancelled": "Avslått"
+    },
+    "statusText": {
+      "inquiry": "AFFN ser på registreringen og gir beskjed snart.",
+      "confirmed": "Sponsoratet er godkjent.",
+      "invoiced": "Sponsoratet er godkjent. Fakturaen ligger under; betal til kontonummeret som står på den.",
+      "paid": "Betalingen er mottatt. Takk!",
+      "cancelled": "Sponsoratet ble ikke godkjent."
+    },
+    "deliverable": {
+      "pending": "Ikke startet",
+      "in_progress": "Pågår",
+      "delivered": "Levert"
+    },
+    "invoice": {
+      "title": "Faktura nr. {number}",
+      "summary": "{total} inkl. {mva} mva, forfaller {due}.",
+      "pdf": "Faktura (PDF)",
+      "status": {
+        "issued": "Ikke betalt",
+        "paid": "Betalt",
+        "credited": "Kreditert"
+      }
+    },
+    "links": {
+      "title": "QR-koder og lenker",
+      "intro": "Bruk QR-kodene på trykksaker og lenken i kampanjer. Hver skanning og hvert klikk telles uten personopplysninger.",
+      "qr": "QR-kode «{label}»",
+      "link": "Sporbar lenke",
+      "scans": "{count, plural, one {# skanning} other {# skanninger}}",
+      "clicks": "{count, plural, one {# klikk} other {# klikk}}",
+      "png": "PNG",
+      "pdf": "Utskrift (PDF)"
+    },
+    "assets": {
+      "title": "Logo og materiell",
+      "intro": "Last opp logo (SVG eller PNG), bannere og video (maks 50 MB). AFFN ser gjennom alt før det brukes; godkjent logo vises på festivalens nettside.",
+      "uploadTitle": "Last opp",
+      "kind": "Type",
+      "file": "Fil",
+      "upload": "Last opp",
+      "uploading": "Laster opp …",
+      "uploaded": "Filen er lastet opp og venter på godkjenning.",
+      "remove": "Trekk tilbake",
+      "feedback": "Tilbakemelding fra AFFN: {text}",
+      "kinds": {
+        "logo": "Logo",
+        "banner": "Banner",
+        "video": "Video",
+        "other": "Annet"
+      },
+      "status": {
+        "pending": "Venter på godkjenning",
+        "accepted": "Godkjent",
+        "rejected": "Avvist"
+      },
+      "hints": {
+        "logo": "SVG eller PNG, helst med gjennomsiktig bakgrunn.",
+        "banner": "PNG, JPG, WebP, SVG eller PDF.",
+        "video": "MP4, WebM eller MOV, maks 50 MB. Større filer: send en lenke til AFFN.",
+        "other": "PNG, JPG, WebP, SVG eller PDF."
+      },
+      "errors": {
+        "required": "Velg en fil.",
+        "type": "Filtypen passer ikke for denne typen materiell.",
+        "size": "Filen er større enn 50 MB.",
+        "upload_failed": "Opplastingen feilet. Prøv igjen.",
+        "failed": "Det gikk ikke. Prøv igjen.",
+        "forbidden": "Du har ikke tilgang til dette.",
+        "kind": "Velg en type."
+      }
+    },
+    "report": {
+      "title": "Rapport",
+      "intro": "Pakke, leveranser, skanninger og klikk per dag og time, visninger av sponsorsiden og festivalen i tall. Rapporten oppdateres til festivalen er over.",
+      "pdf": "Rapport (PDF)",
+      "csv": "Tall (CSV)"
+    },
+    "register": {
+      "title": "Registrer sponsoratet",
+      "intro": "Fyll inn bedriften, kontaktpersonen og fakturaopplysningene, og velg pakke. Vi sjekker organisasjonsnummeret i Brønnøysundregistrene.",
+      "noPackages": "Pakkene for neste festival er ikke klare ennå.",
+      "optional": "(valgfritt)",
+      "package": "Pakke",
+      "groups": {
+        "company": "Bedriften",
+        "contact": "Kontaktperson",
+        "invoice": "Faktura"
+      },
+      "submit": "Send registreringen",
+      "submitting": "Sender …",
+      "fields": {
+        "orgNumber": {
+          "label": "Organisasjonsnummer",
+          "hint": "Ni siffer. Navnet hentes fra Brønnøysundregistrene."
+        },
+        "name": {
+          "label": "Navn slik det skal vises",
+          "hint": "Hvis tomt brukes navnet fra registeret."
+        },
+        "websiteUrl": {
+          "label": "Nettside",
+          "hint": "Skanninger og klikk sendes hit, f.eks. https://firma.no."
+        },
+        "contactName": {
+          "label": "Navn",
+          "hint": ""
+        },
+        "contactEmail": {
+          "label": "E-post",
+          "hint": ""
+        },
+        "contactPhone": {
+          "label": "Telefon",
+          "hint": ""
+        },
+        "invoiceEmail": {
+          "label": "E-post for faktura",
+          "hint": "Fakturaen sendes hit."
+        },
+        "invoiceAddress": {
+          "label": "Fakturaadresse",
+          "hint": ""
+        },
+        "invoiceReference": {
+          "label": "Fakturareferanse",
+          "hint": "F.eks. bestillingsnummer eller navn."
+        }
+      },
+      "errors": {
+        "required": "Fyll inn dette feltet.",
+        "invalid": "Sjekk at dette er riktig.",
+        "package": "Velg en pakke.",
+        "not_found": "Fant ikke organisasjonsnummeret i Brønnøysundregistrene.",
+        "deleted": "Enheten er slettet i Brønnøysundregistrene.",
+        "bankrupt": "Enheten er konkurs.",
+        "dissolving": "Enheten er under avvikling.",
+        "unavailable": "Brønnøysundregistrene svarer ikke akkurat nå. Prøv igjen om litt.",
+        "rate_limited": "For mange forsøk. Vent litt og prøv igjen.",
+        "unknown": "Logg inn på nytt og prøv igjen.",
+        "failed": "Det gikk ikke å registrere. Prøv igjen."
+      }
+    }
+  },
+  "AdminSponsors": {
+    "title": "Sponsorer",
+    "intro": "Pakker for festivalen og sponsorater som venter på svar. Pakkene vises på «Bli sponsor»-siden.",
+    "noEvent": "Ingen festival er aktiv.",
+    "queue": "Sponsorater",
+    "noSponsorships": "Ingen sponsorer har registrert seg ennå.",
+    "packages": "Pakker",
+    "newPackage": "Ny pakke",
+    "createPackage": "Lag pakke",
+    "savePackage": "Lagre pakken",
+    "inactive": "Skjult",
+    "summary": "Logonivå {level} · {qr} QR-koder",
+    "back": "← Alle sponsorer",
+    "package": "Pakke: {name}",
+    "contact": "Kontakt",
+    "invoiceTo": "Faktura til",
+    "website": "Nettside",
+    "note": "Notat",
+    "deliverables": "Leveranser",
+    "deliverableStatus": "Status for {title}",
+    "deliverableNote": "Notat for {title}",
+    "notePlaceholder": "Notat (valgfritt)",
+    "save": "Lagre",
+    "assets": "Materiell",
+    "noAssets": "Sponsoren har ikke lastet opp noe ennå.",
+    "preview": "Forhåndsvisning av {name}",
+    "open": "Åpne {name}",
+    "feedback": "Tilbakemelding til sponsoren",
+    "accept": "Godkjenn",
+    "reject": "Avvis",
+    "markPaid": "Marker som betalt",
+    "markPaidOrgAdmin": "En organisasjonsadministrator markerer fakturaen som betalt når pengene er på konto.",
+    "review": {
+      "note": "Notat (påkrevd, logges)",
+      "price": "Avtalt pris (kr, valgfritt)",
+      "priceHint": "Tomt = pakkeprisen {price}.",
+      "approve": "Godkjenn og send faktura",
+      "decline": "Avslå"
+    },
+    "fields": {
+      "name": "Navn",
+      "price": "Pris (kr eks. mva)",
+      "description": "Kort beskrivelse",
+      "deliverables": "Leveranser",
+      "deliverablesHint": "Én per linje.",
+      "logoLevel": "Logostørrelse på nettsiden",
+      "qrCodes": "Antall QR-koder",
+      "tier": "Rekkefølge",
+      "active": "Vis på «Bli sponsor»"
+    },
+    "levels": {
+      "1": "1 – størst",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5 – minst"
+    },
+    "columns": {
+      "sponsor": "Sponsor",
+      "package": "Pakke",
+      "price": "Pris",
+      "status": "Status",
+      "registered": "Registrert"
+    },
+    "status": {
+      "inquiry": "Venter på svar",
+      "confirmed": "Godkjent",
+      "invoiced": "Fakturert",
+      "paid": "Betalt",
+      "cancelled": "Avslått"
+    },
+    "notices": {
+      "package": "Pakken er lagret.",
+      "approved": "Sponsoratet er godkjent, og fakturaen er laget.",
+      "declined": "Sponsoratet er avslått.",
+      "deliverable": "Leveransen er oppdatert.",
+      "asset_accepted": "Materiellet er godkjent.",
+      "asset_rejected": "Materiellet er avvist, og sponsoren ser tilbakemeldingen.",
+      "paid": "Fakturaen er markert som betalt."
+    },
+    "errors": {
+      "failed": "Det gikk ikke. Prøv igjen.",
+      "package": "Sjekk navn, pris, logonivå (1–5) og antall QR-koder (0–20).",
+      "duplicate": "Det finnes allerede en pakke med det navnet.",
+      "note": "Skriv et notat.",
+      "price": "Skriv prisen i kroner.",
+      "feedback": "Skriv en tilbakemelding når du avviser.",
+      "paid": "Bare en organisasjonsadministrator kan markere fakturaen som betalt."
     }
   }
 }

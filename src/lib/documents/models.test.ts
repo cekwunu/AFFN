@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import en from '../../../messages/en.json';
 import nb from '../../../messages/nb.json';
 import { renderPdf } from '@/lib/pdf/kit';
+import { normaliseText, pdfText } from '@/lib/pdf/test-text';
 import {
   customerReceiptModel,
   feeReceiptModel,
@@ -24,18 +25,7 @@ const tr = (locale: 'nb' | 'en'): Translate =>
     namespace: 'Documents',
   }) as unknown as Translate;
 
-/** All text of a PDF, whitespace (incl. non-breaking spaces) collapsed. */
-async function pdfText(bytes: Uint8Array): Promise<string> {
-  const pdfjs = await import('pdfjs-dist/legacy/build/pdf.mjs');
-  const doc = await pdfjs.getDocument({ data: bytes.slice(), useSystemFonts: false }).promise;
-  const parts: string[] = [];
-  for (let i = 1; i <= doc.numPages; i++) {
-    const content = await (await doc.getPage(i)).getTextContent();
-    for (const item of content.items) if ('str' in item) parts.push(item.str);
-  }
-  return normalise(parts.join(' '));
-}
-const normalise = (s: string) => s.replace(/[\s  ]+/g, ' ');
+const normalise = normaliseText;
 const expectFields = (text: string, fields: string[]) => {
   const missing = fields.filter((f) => !text.includes(normalise(f)));
   expect(missing).toEqual([]);

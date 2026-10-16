@@ -204,7 +204,8 @@ describe('approval (STL-04, COM-03)', () => {
     await asOwner(async (c) => {
       const ids = await submittedApplication(c);
       const before = await c.query(
-        `select coalesce(max(invoice_number), 0)::int as n from public.invoices
+        // One series per organization, shared with sponsor invoices.
+        `select coalesce(last_number, 0)::int as n from public.invoice_counters
           where organization_id = '10000000-0000-4000-8000-000000000001'`,
       );
       await become(c, USERS.eventAdmin);

@@ -43,5 +43,6 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   // Everything except API routes, Next.js internals and files with an extension.
-  matcher: '/((?!api|_next|_vercel|.*\\..*).*)',
+  // /s/[code] (sponsor links) is left alone: it records a hit and redirects, setting no cookies.
+  matcher: '/((?!api|s/|_next|_vercel|.*\\..*).*)',
 };

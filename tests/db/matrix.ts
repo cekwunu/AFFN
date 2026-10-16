@@ -693,6 +693,14 @@ export const MATRIX: TableSpec[] = [
     update: { allowed: ['sponsor', ...EDITORS], target: 'own', set: () => 'file_name = file_name' },
     delete: { allowed: ['sponsor', ...EDITORS], target: 'own' },
   },
+  // Sponsorship deliverables and invoices (P16): the sponsor reads its own; staff update status.
+  {
+    table: 'sponsorship_deliverables',
+    rows: byId('a8000000'),
+    read: sponsorEventRead,
+    update: { allowed: EDITORS, target: 'own', set: () => 'note = note' },
+  },
+  { table: 'sponsor_invoices', rows: byId('a9000000'), read: sponsorEventRead },
   {
     table: 'tracked_links',
     rows: byId('83000000'), // own: sponsor 1's QR, other: vendor 2's QR
