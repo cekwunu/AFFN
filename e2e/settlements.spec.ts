@@ -2,6 +2,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { devices, expect, test, type Browser, type Page } from '@playwright/test';
 import { signIn } from './support/auth';
 import { AFFN_2027, sql } from './support/db';
+import { pdfText } from './support/pdf';
 import { freshTotp, SEED_TOTP_SECRET } from './support/totp';
 
 // Settlement engine (SET-01 … SET-05): a batch is blocked until fixed, an adjustment and the batch
@@ -149,6 +150,8 @@ test('a second admin approves; the preparer cannot (four eyes)', async ({ browse
 test('a failed payout is retried; paid amounts equal the ledger to the øre (SET-03)', async ({
   page,
 }) => {
+  // Release, retry and the documents (PDF rendering) in one test.
+  test.slow();
   const id = batchUrl.split('/').at(-1)!;
   // Jollof House's payout account is restricted after approval: its payout fails.
   await sql(`update public.event_vendors set psp_account_status = 'restricted' where id = $1`, [
@@ -212,6 +215,75 @@ test('a failed payout is retried; paid amounts equal the ledger to the øre (SET
   );
   expect(totals!.paid).toBe(totals!.settled);
   void AFFN_2027;
+
+  // Documents (SET-04): a statement, order CSV and commission invoice per vendor, stored.
+  const documents = page.getByTestId('documents');
+  await expect(documents.getByTestId('document-row')).toHaveCount(lines.length);
+  const row = documents.getByTestId('document-row').filter({ hasText: 'Jollof House Oslo' });
+  const statement = await page.request.get(
+    (await row.getByRole('link', { name: 'Oppstilling', exact: true }).getAttribute('href'))!,
+  );
+  expect(statement.headers()['content-type']).toBe('application/pdf');
+  const statementText = await pdfText(await statement.body());
+  for (const field of [
+    'Oppgjørsoppstilling',
+    'Jollof House',
+    'Brutto salg',
+    'Provisjon',
+    'Mva på provisjon',
+    'Til utbetaling',
+    'Org.nr. 987 654 325 MVA',
+  ]) {
+    expect(statementText).toContain(field);
+  }
+  const invoiceLink = row.getByRole('link', { name: /^Nr\. \d+$/ });
+  const invoice = await page.request.get((await invoiceLink.getAttribute('href'))!);
+  const invoiceText = await pdfText(await invoice.body());
+  for (const field of [
+    'Faktura',
+    'African Food Festival Norway AS',
+    'Mva 25 %',
+    'Gjort opp ved trekk i utbetaling',
+  ]) {
+    expect(invoiceText).toContain(field);
+  }
+  // The invoice totals equal the ledger's commission and mva for the vendor's period.
+  const invoices = await sql<{
+    subtotal: number;
+    mva: number;
+    commission: number;
+    ledger_mva: number;
+  }>(
+    `select i.subtotal_ore::int as subtotal, i.mva_ore::int as mva,
+            coalesce(sum(case when e.direction = 'credit' then e.amount_ore else -e.amount_ore end)
+                     filter (where e.account = 'commission_revenue'), 0)::int as commission,
+            coalesce(sum(case when e.direction = 'credit' then e.amount_ore else -e.amount_ore end)
+                     filter (where e.account = 'mva_payable'), 0)::int as ledger_mva
+       from public.invoices i
+       join public.ledger_entries e on e.event_id = i.event_id and e.vendor_id = i.vendor_id
+        and e.created_at > coalesce(i.period_from, '-infinity') and e.created_at <= i.period_to
+      where i.settlement_id = $1 and i.kind = 'commission'
+      group by i.id`,
+    [id],
+  );
+  expect(invoices.length).toBe(lines.length);
+  for (const i of invoices) expect([i.subtotal, i.mva]).toEqual([i.commission, i.ledger_mva]);
+  const csv = await page.request.get(
+    (await row.getByRole('link', { name: 'Ordrelinjer', exact: true }).getAttribute('href'))!,
+  );
+  expect((await csv.text()).split('\r\n')[0]).toContain('Tidspunkt;Ordre;Brutto');
+
+  // Regenerating stores a new version next to the old one, never overwriting it.
+  await documents.getByRole('button', { name: 'Lag ny versjon' }).click();
+  await expect(page.getByText('En ny versjon av dokumentene er laget.')).toBeVisible();
+  await expect(
+    page
+      .getByTestId('document-row')
+      .filter({ hasText: 'Jollof House Oslo' })
+      .getByText(/\d versjoner/)
+      .first(),
+  ).toBeVisible();
+  await expect(axe(page)).resolves.toEqual([]);
 });
 
 test('the vendor sees the settlement and that it is paid (SET-01)', async ({ page }) => {
@@ -222,4 +294,18 @@ test('the vendor sees the settlement and that it is paid (SET-01)', async ({ pag
   await expect(latest).toHaveAttribute('data-status', 'paid');
   await expect(latest).toContainText('Justeringer');
   await expect(axe(page)).resolves.toEqual([]);
+  // The vendor downloads its statement and AFFN's invoice, in English on request.
+  const links = latest.getByTestId('document-links');
+  const pdf = await page.request.get(
+    (await links.getByRole('link', { name: 'Oppstilling (PDF)' }).getAttribute('href'))!,
+  );
+  expect(await pdfText(await pdf.body())).toContain('Til utbetaling');
+  const english = await page.request.get(
+    (await links.getByRole('link', { name: 'English' }).first().getAttribute('href'))!,
+  );
+  expect(await pdfText(await english.body())).toContain('Settlement statement');
+  const invoice = await page.request.get(
+    (await links.getByRole('link', { name: /^Faktura nr\. \d+/ }).getAttribute('href'))!,
+  );
+  expect(await pdfText(await invoice.body())).toContain('Gjort opp ved trekk i utbetaling');
 });

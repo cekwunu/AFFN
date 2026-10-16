@@ -8,6 +8,8 @@ import type { Locale } from '@/i18n/routing';
 import { getCurrentUser } from '@/lib/auth/server';
 import { osloLocalToUtc } from '@/lib/format';
 import { kronerToOre } from '@/lib/money';
+import { MissingSellerDetails } from '@/lib/documents/models';
+import { issueSettlementDocuments, regenerateDocument } from '@/lib/documents/server';
 import { getMockProvider, getPaymentProvider } from '@/lib/payments';
 import { processWebhook } from '@/lib/payments/webhooks';
 import { createAdminClient } from '@/lib/supabase/admin';
@@ -227,7 +229,72 @@ export async function releaseSettlement(formData: FormData) {
     });
   }
   revalidatePath('/vendor/settlements');
-  return back(id, failed ? `error=payouts_failed&count=${failed}` : 'notice=released');
+  // Statements, order CSVs and commission invoices (SET-04). A missing AFFN detail does not undo
+  // the release: the batch page asks for it and the documents are made afterwards.
+  let documents = '';
+  try {
+    const user = await getCurrentUser();
+    await issueSettlementDocuments(id, user?.id ?? null);
+  } catch (e) {
+    documents = e instanceof MissingSellerDetails ? '&documents=seller' : '&documents=failed';
+    if (!(e instanceof MissingSellerDetails)) console.error('Settlement documents failed', e);
+  }
+  return back(
+    id,
+    (failed ? `error=payouts_failed&count=${failed}` : 'notice=released') + documents,
+  );
+}
+
+/**
+ * Documents for a released batch: make the missing ones, or a new version of every statement,
+ * order CSV and invoice ("regenerate", never overwriting). Event staff (read under RLS).
+ */
+export async function makeSettlementDocuments(formData: FormData) {
+  const id = text(formData, 'id');
+  const supabase = await createClient();
+  const { data: settlement } = await supabase
+    .from('settlements')
+    .select('id, status')
+    .eq('id', id)
+    .maybeSingle();
+  if (
+    !settlement ||
+    !['releasing', 'completed', 'completed_with_failures'].includes(settlement.status)
+  ) {
+    return back(id, 'error=forbidden');
+  }
+  const user = await getCurrentUser();
+  try {
+    await issueSettlementDocuments(id, user?.id ?? null);
+    if (formData.get('mode') === 'regenerate') {
+      const admin = createAdminClient();
+      const [{ data: lines }, { data: invoices }] = await Promise.all([
+        admin.from('settlement_lines').select('id').eq('settlement_id', id),
+        admin.from('invoices').select('id').eq('settlement_id', id).eq('kind', 'commission'),
+      ]);
+      for (const line of lines ?? []) {
+        await regenerateDocument({ kind: 'vendor_statement', id: line.id }, 'nb', user?.id ?? null);
+        await regenerateDocument(
+          { kind: 'statement_orders_csv', id: line.id },
+          'nb',
+          user?.id ?? null,
+        );
+      }
+      for (const invoice of invoices ?? []) {
+        await regenerateDocument(
+          { kind: 'commission_invoice', id: invoice.id },
+          'nb',
+          user?.id ?? null,
+        );
+      }
+    }
+  } catch (e) {
+    if (e instanceof MissingSellerDetails) return back(id, 'error=seller');
+    console.error('Settlement documents failed', e);
+    return back(id, 'error=documents');
+  }
+  revalidatePath('/vendor/settlements');
+  return back(id, `notice=${formData.get('mode') === 'regenerate' ? 'regenerated' : 'documents'}`);
 }
 
 /**

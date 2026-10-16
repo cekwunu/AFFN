@@ -1036,7 +1036,10 @@
     "mapAlt": "Kart over festivalområdet med din stand markert",
     "pin": "Stand {number}",
     "paymentFailed": "Betalingen kunne ikke startes. Prøv igjen.",
-    "paymentDescription": "Standavgift {event}"
+    "paymentDescription": "Standavgift {event}",
+    "invoicePdf": "Faktura nr. {number} (PDF)",
+    "receiptPdf": "Kvittering (PDF)",
+    "english": "English"
   },
   "Stalls": {
     "nav": {
@@ -1524,7 +1527,8 @@
       "cancelledReason": "Selgeren har kansellert bestillingen: {reason}",
       "refunded": "{amount} er betalt tilbake til deg.",
       "refundPending": "Pengene betales tilbake til deg."
-    }
+    },
+    "downloadPdf": "Last ned kvittering (PDF)"
   },
   "VendorQr": {
     "title": "QR-kode",
@@ -1857,7 +1861,9 @@
       "released": "Alle utbetalinger er gjennomført.",
       "dispute_open": "Testmodus: en innsigelse er åpnet.",
       "dispute_won": "Testmodus: innsigelsen er vunnet.",
-      "dispute_lost": "Testmodus: innsigelsen er tapt."
+      "dispute_lost": "Testmodus: innsigelsen er tapt.",
+      "documents": "Dokumentene er laget.",
+      "regenerated": "En ny versjon av dokumentene er laget."
     },
     "errors": {
       "failed": "Det gikk ikke. Prøv igjen.",
@@ -1866,7 +1872,29 @@
       "same_person": "Den som klargjorde (eller la inn), kan ikke også godkjenne.",
       "amount": "Skriv et beløp i kroner.",
       "reason": "Skriv en begrunnelse.",
-      "payouts_failed": "{count, plural, one {# utbetaling feilet} other {# utbetalinger feilet}}. Ordne årsaken og prøv igjen."
+      "payouts_failed": "{count, plural, one {# utbetaling feilet} other {# utbetalinger feilet}}. Ordne årsaken og prøv igjen.",
+      "seller": "Fyll inn AFFNs firmaopplysninger (juridisk navn og org.nr.) under Innstillinger før dokumentene kan lages.",
+      "documents": "Dokumentene kunne ikke lages. Prøv igjen."
+    },
+    "documents": {
+      "title": "Dokumenter",
+      "intro": "Oppstilling, ordrelinjer (CSV) og AFFNs provisjonsfaktura for hver leverandør. Dokumentene lagres og endres aldri; en ny versjon lagres ved siden av den gamle.",
+      "vendor": "Leverandør",
+      "statement": "Oppstilling",
+      "csv": "Ordrelinjer",
+      "invoice": "Faktura",
+      "invoiceNumber": "Nr. {number}",
+      "noInvoice": "Ingen provisjon",
+      "english": "English",
+      "versions": "{count, plural, one {# versjon} other {# versjoner}}",
+      "make": "Lag manglende dokumenter",
+      "regenerate": "Lag ny versjon",
+      "sellerMissing": "AFFNs firmaopplysninger mangler. Fyll dem inn under Innstillinger, så kan dokumentene lages.",
+      "settings": "Gå til innstillinger",
+      "released": {
+        "seller": "Utbetalingen er gjort, men dokumentene mangler: fyll inn AFFNs firmaopplysninger under Innstillinger og lag dem her.",
+        "failed": "Utbetalingen er gjort, men dokumentene kunne ikke lages. Prøv «Lag manglende dokumenter»."
+      }
     }
   },
   "VendorSettlements": {
@@ -1875,7 +1903,11 @@
     "empty": "Ingen oppgjør ennå. De kommer etter festivalen.",
     "period": "{from} – {to}",
     "until": "Til og med {to}",
-    "paidAt": "Betalt {time}"
+    "paidAt": "Betalt {time}",
+    "statementPdf": "Oppstilling (PDF)",
+    "ordersCsv": "Ordrelinjer (CSV)",
+    "invoicePdf": "Faktura nr. {number} (PDF)",
+    "english": "English"
   },
   "Transactions": {
     "title": "Transaksjoner",
@@ -2241,6 +2273,83 @@
       "commission": "Provisjon",
       "mva": "Mva på provisjon",
       "vendorShare": "Til leverandør"
+    },
+    "fileNames": {
+      "vendor_statement": "oppgjor",
+      "statement_orders_csv": "ordrelinjer",
+      "commission_invoice": "faktura",
+      "stall_fee_invoice": "faktura",
+      "stall_fee_receipt": "kvittering",
+      "customer_receipt": "kvittering"
+    },
+    "errors": {
+      "sellerMissing": "AFFN har ikke fylt inn firmaopplysningene sine ennå, så dokumentet kan ikke lages. Prøv igjen senere.",
+      "notReady": "Dokumentet er ikke klart ennå.",
+      "failed": "Dokumentet kunne ikke lages. Prøv igjen."
+    }
+  },
+  "Settings": {
+    "title": "Innstillinger",
+    "intro": "AFFNs firmaopplysninger skrives ut på fakturaer, kvitteringer og oppgjørsoppstillinger. Endringer logges.",
+    "missing": "Juridisk navn og organisasjonsnummer mangler. Fakturaer og oppstillinger kan ikke lages før de er fylt inn.",
+    "readOnly": "Bare organisasjonsadministratorer kan endre innstillingene.",
+    "save": "Lagre",
+    "saving": "Lagrer …",
+    "saved": "Innstillingene er lagret.",
+    "mvaEvent": "Mva-satsen på standleie gjelder {event}. Endringen gjelder nye fakturaer; utstedte fakturaer endres ikke.",
+    "errors": {
+      "forbidden": "Bare organisasjonsadministratorer kan endre innstillingene.",
+      "failed": "Det gikk ikke å lagre. Prøv igjen."
+    },
+    "fields": {
+      "legalName": {
+        "label": "Juridisk navn",
+        "hint": "Slik det står i Brønnøysundregistrene, f.eks. «African Food Festival Norway AS».",
+        "required": "Skriv det juridiske navnet."
+      },
+      "orgNumber": {
+        "label": "Organisasjonsnummer",
+        "hint": "Ni siffer.",
+        "required": "Skriv organisasjonsnummeret.",
+        "invalid": "Organisasjonsnummeret er ikke gyldig."
+      },
+      "invoiceEmail": {
+        "label": "E-post for faktura",
+        "hint": "Vises på fakturaene. Valgfritt.",
+        "invalid": "Skriv en gyldig e-postadresse."
+      },
+      "addressLine": {
+        "label": "Adresse",
+        "hint": "Gate og nummer. Valgfritt."
+      },
+      "postalCode": {
+        "label": "Postnummer",
+        "hint": "Fire siffer.",
+        "invalid": "Postnummeret har fire siffer."
+      },
+      "city": {
+        "label": "Poststed",
+        "hint": ""
+      },
+      "bankAccount": {
+        "label": "Kontonummer",
+        "hint": "Elleve siffer. Vises på fakturaer som skal betales til AFFN.",
+        "invalid": "Kontonummeret er ikke gyldig."
+      },
+      "invoiceDueDays": {
+        "label": "Betalingsfrist (dager)",
+        "hint": "Antall dager til forfall på nye fakturaer.",
+        "invalid": "Skriv et tall fra 0 til 90."
+      },
+      "stallFeeMva": {
+        "label": "Mva på standleie (%)",
+        "hint": "25 % til regnskapsfører har bekreftet satsen.",
+        "invalid": "Skriv en sats fra 0 til 100."
+      },
+      "vatRegistered": {
+        "label": "Registrert i Merverdiavgiftsregisteret",
+        "hint": "Da står «MVA» etter organisasjonsnummeret på fakturaene."
+      }
     }
   }
 }

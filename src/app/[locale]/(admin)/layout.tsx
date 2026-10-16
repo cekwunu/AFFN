@@ -4,6 +4,7 @@ import {
   ClipboardCheck,
   FileSpreadsheet,
   Scale,
+  Settings2,
   HandCoins,
   LayoutDashboard,
   MapPinned,
@@ -39,6 +40,7 @@ export default async function AdminLayout({ children, params }: LayoutProps<'/[l
           { href: '/admin/reconciliation', label: t('reconciliation'), icon: <Scale /> },
           { href: '/admin/exports', label: t('exports'), icon: <FileSpreadsheet /> },
           { href: '/admin/team', label: t('team'), icon: <Users /> },
+          { href: '/admin/settings', label: t('settings'), icon: <Settings2 /> },
         ]}
       >
         {children}

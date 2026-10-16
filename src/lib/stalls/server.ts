@@ -75,7 +75,7 @@ export async function getMyStall(eventVendorId: string) {
     supabase
       .from('stall_fees')
       .select(
-        'id, amount_ore, mva_ore, total_ore, status, due_at, paid_at, invoices(invoice_number, status, issued_at)',
+        'id, amount_ore, mva_ore, total_ore, status, due_at, paid_at, invoices(id, invoice_number, status, issued_at), fee_payments(id, paid_at)',
       )
       .eq('event_vendor_id', eventVendorId)
       .neq('status', 'cancelled')
@@ -96,6 +96,7 @@ export async function getMyStall(eventVendorId: string) {
   const fee = fees.data && {
     ...fees.data,
     invoice: fees.data.invoices.at(-1) ?? null,
+    payment: fees.data.fee_payments.at(-1) ?? null,
   };
   const paid = fee?.status === 'paid';
   return { fee, stall: paid ? (assignment.data?.stall ?? null) : null };

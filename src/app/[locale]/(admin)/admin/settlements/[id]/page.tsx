@@ -26,6 +26,7 @@ import {
   addAdjustment,
   approveAdjustment,
   deleteAdjustment,
+  makeSettlementDocuments,
   refreshLines,
   releaseSettlement,
   setSettlementStatus,
@@ -545,6 +546,117 @@ export default async function SettlementPage({
               </TableBody>
             </Table>
           </div>
+        </section>
+      )}
+
+      {['releasing', 'completed', 'completed_with_failures'].includes(status) && (
+        <section aria-labelledby="documents" className="grid gap-3" data-testid="documents">
+          <h2 id="documents" className="text-heading-md font-semibold">
+            {t('documents.title')}
+          </h2>
+          <p className="max-w-3xl text-body-sm text-muted-foreground">{t('documents.intro')}</p>
+          {typeof query.documents === 'string' && (
+            <p
+              role="alert"
+              className="rounded-lg bg-warning-subtle px-4 py-3 text-body-sm font-medium text-warning-subtle-foreground"
+            >
+              {t(`documents.released.${query.documents === 'seller' ? 'seller' : 'failed'}`)}
+            </p>
+          )}
+          {!settlement.sellerReady ? (
+            <p className="flex flex-wrap items-center gap-3 rounded-lg border border-border bg-card px-4 py-3 text-body-sm">
+              {t('documents.sellerMissing')}
+              <Link href="/admin/settings" className="text-link underline-offset-4 hover:underline">
+                {t('documents.settings')}
+              </Link>
+            </p>
+          ) : (
+            <>
+              <div className="overflow-x-auto rounded-xl border border-border bg-card">
+                <Table>
+                  <TableCaption className="sr-only">{t('documents.title')}</TableCaption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>{t('documents.vendor')}</TableHead>
+                      <TableHead>{t('documents.statement')}</TableHead>
+                      <TableHead>{t('documents.csv')}</TableHead>
+                      <TableHead>{t('documents.invoice')}</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {settlement.lines.map((l) => {
+                      const invoice = settlement.invoices.find((i) => i.vendor_id === l.vendor_id);
+                      const versions = (kind: string, subject: string) =>
+                        settlement.documents.filter(
+                          (d) => d.kind === kind && d.subject_key === subject && d.locale === 'nb',
+                        ).length;
+                      const links = (kind: string, subject: string, label: string) => (
+                        <span className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                          <a
+                            href={`/api/documents/for?kind=${kind}&id=${subject}`}
+                            className="text-link underline-offset-4 hover:underline"
+                          >
+                            {label}
+                          </a>
+                          <a
+                            href={`/api/documents/for?kind=${kind}&id=${subject}&lang=en`}
+                            lang="en"
+                            className="text-caption text-link underline-offset-4 hover:underline"
+                          >
+                            {t('documents.english')}
+                          </a>
+                          {versions(kind, subject) > 0 && (
+                            <span className="text-caption text-muted-foreground">
+                              {t('documents.versions', { count: versions(kind, subject) })}
+                            </span>
+                          )}
+                        </span>
+                      );
+                      return (
+                        <TableRow key={l.id} data-testid="document-row">
+                          <TableCell>{l.name}</TableCell>
+                          <TableCell>
+                            {links('vendor_statement', l.id, t('documents.statement'))}
+                          </TableCell>
+                          <TableCell>
+                            {links('statement_orders_csv', l.id, t('documents.csv'))}
+                          </TableCell>
+                          <TableCell>
+                            {invoice ? (
+                              links(
+                                'commission_invoice',
+                                invoice.id,
+                                t('documents.invoiceNumber', { number: invoice.invoice_number }),
+                              )
+                            ) : (
+                              <span className="text-muted-foreground">
+                                {t('documents.noInvoice')}
+                              </span>
+                            )}
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <form action={makeSettlementDocuments}>
+                  {hidden}
+                  <button type="submit" className={buttonVariants({ variant: 'outline' })}>
+                    {t('documents.make')}
+                  </button>
+                </form>
+                <form action={makeSettlementDocuments}>
+                  {hidden}
+                  <input type="hidden" name="mode" value="regenerate" />
+                  <button type="submit" className={buttonVariants({ variant: 'ghost' })}>
+                    {t('documents.regenerate')}
+                  </button>
+                </form>
+              </div>
+            </>
+          )}
         </section>
       )}
     </div>

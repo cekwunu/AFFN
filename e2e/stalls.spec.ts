@@ -3,6 +3,7 @@ import { expect, test, type Page } from '@playwright/test';
 import { submittedApplicant } from './support/applicants';
 import { signIn, signOut } from './support/auth';
 import { sql } from './support/db';
+import { pdfText } from './support/pdf';
 import { solidPng } from './support/png';
 
 // Stalls and stall fees (STL-01 … STL-04). Done when a seeded vendor is approved, pays the
@@ -136,4 +137,28 @@ test('stalls: inventory, CSV import, layout, approval, payment via the stub and 
     [applicant.eventVendorId, applicant.vendorId],
   );
   expect(money).toEqual({ payments: '1', invoice: 'paid', ledger: '0' });
+
+  // Stall fee invoice and receipt as PDF (SET-04), with the event's mva rate on stall fees.
+  const links = page.getByTestId('document-links');
+  const invoice = await page.request.get(
+    (await links.getByRole('link', { name: /^Faktura nr\. \d+ \(PDF\)$/ }).getAttribute('href'))!,
+  );
+  expect(invoice.headers()['content-type']).toBe('application/pdf');
+  const invoiceText = await pdfText(await invoice.body());
+  for (const field of [
+    'Faktura',
+    'Standleie',
+    'Mva 25 %',
+    'kr 3 125,00',
+    'Org.nr. 987 654 325 MVA',
+  ]) {
+    expect(invoiceText).toContain(field);
+  }
+  const receipt = await page.request.get(
+    (await links.getByRole('link', { name: 'Kvittering (PDF)' }).getAttribute('href'))!,
+  );
+  const receiptText = await pdfText(await receipt.body());
+  for (const field of ['Kvittering', 'Betalt beløp', 'kr 3 125,00']) {
+    expect(receiptText).toContain(field);
+  }
 });

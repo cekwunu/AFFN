@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import type { ReactNode } from 'react';
 import { PayStallFee } from '@/components/vendor/pay-stall-fee';
+import { DocumentLinks } from '@/components/document-links';
 import { Badge } from '@/components/ui/badge';
 import { initRequestLocale } from '@/i18n/server';
 import { formatDateOslo, formatNok } from '@/lib/format';
@@ -150,6 +151,29 @@ export default async function VendorStallPage({ params }: PageProps<'/[locale]/v
                 ? [[t('due'), formatDateOslo(fee.due_at, locale)] as [string, ReactNode]]
                 : []),
             ]}
+          />
+          <DocumentLinks
+            links={[
+              ...(fee.invoice
+                ? [
+                    {
+                      kind: 'stall_fee_invoice' as const,
+                      id: fee.invoice.id,
+                      label: t('invoicePdf', { number: fee.invoice.invoice_number }),
+                    },
+                  ]
+                : []),
+              ...(fee.payment
+                ? [
+                    {
+                      kind: 'stall_fee_receipt' as const,
+                      id: fee.payment.id,
+                      label: t('receiptPdf'),
+                    },
+                  ]
+                : []),
+            ]}
+            english={t('english')}
           />
           {paid ? (
             <p className="text-body text-success-subtle-foreground">

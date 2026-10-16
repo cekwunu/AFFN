@@ -67,6 +67,24 @@ export async function getSettlement(id: string) {
       .order('created_at'),
   ]);
   for (const r of [lines, blockers, adjustments, payouts]) if (r.error) throw r.error;
+  // Documents (SET-04): commission invoices and stored statements, invoices and order CSVs.
+  const [invoices, documents, organization] = await Promise.all([
+    supabase
+      .from('invoices')
+      .select('id, vendor_id, invoice_number, total_ore')
+      .eq('settlement_id', id)
+      .eq('kind', 'commission'),
+    supabase
+      .from('documents')
+      .select('id, kind, subject_key, locale, version, created_at')
+      .eq('settlement_id', id)
+      .order('version', { ascending: false }),
+    supabase
+      .from('organizations')
+      .select('legal_name, org_number')
+      .eq('id', settlement.organization_id)
+      .single(),
+  ]);
   const vendorIds = [
     ...new Set([
       ...lines.data!.map((l) => l.vendor_id),
@@ -90,6 +108,9 @@ export async function getSettlement(id: string) {
     blockers: blockers.data!.map((b) => ({ ...b, name: name(b.vendor_id) })),
     adjustments: adjustments.data!.map((a) => ({ ...a, name: name(a.vendor_id)! })),
     payouts: payouts.data!.map((p) => ({ ...p, name: name(p.vendor_id)! })),
+    invoices: invoices.data ?? [],
+    documents: documents.data ?? [],
+    sellerReady: !!organization.data?.legal_name && !!organization.data.org_number,
   };
 }
 export type SettlementDetail = NonNullable<Awaited<ReturnType<typeof getSettlement>>>;
@@ -126,5 +147,21 @@ export async function myVendorSettlements(vendorId: string) {
     .eq('vendor_id', vendorId)
     .order('cutoff_at', { ascending: false });
   if (error) throw error;
-  return data.filter((l) => l.settlement && l.settlement.status !== 'cancelled');
+  const lines = data.filter((l) => l.settlement && l.settlement.status !== 'cancelled');
+  // The AFFN commission invoice for each released line (SET-04).
+  const { data: invoices } = lines.length
+    ? await supabase
+        .from('invoices')
+        .select('id, settlement_id, invoice_number')
+        .eq('vendor_id', vendorId)
+        .eq('kind', 'commission')
+        .in(
+          'settlement_id',
+          lines.map((l) => l.settlement!.id),
+        )
+    : { data: [] };
+  return lines.map((l) => ({
+    ...l,
+    invoice: (invoices ?? []).find((i) => i.settlement_id === l.settlement!.id) ?? null,
+  }));
 }

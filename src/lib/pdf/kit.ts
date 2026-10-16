@@ -7,7 +7,7 @@
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import fontkit from '@pdf-lib/fontkit';
-import { PDFDocument, rgb, type PDFFont, type PDFPage } from 'pdf-lib';
+import { PDFDocument, rgb as pdfColour, type PDFFont, type PDFPage } from 'pdf-lib';
 import { EMAIL_COLOURS } from '@/lib/email/theme';
 
 export type Align = 'left' | 'right';
@@ -47,7 +47,7 @@ const MARGIN = 48;
 const FOOTER = 40;
 
 const colour = (hex: string) =>
-  rgb(
+  pdfColour(
     parseInt(hex.slice(1, 3), 16) / 255,
     parseInt(hex.slice(3, 5), 16) / 255,
     parseInt(hex.slice(5, 7), 16) / 255,

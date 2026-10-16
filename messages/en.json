@@ -1036,7 +1036,10 @@
     "mapAlt": "Map of the festival area with your stall marked",
     "pin": "Stall {number}",
     "paymentFailed": "The payment could not be started. Please try again.",
-    "paymentDescription": "Stall fee {event}"
+    "paymentDescription": "Stall fee {event}",
+    "invoicePdf": "Invoice no. {number} (PDF)",
+    "receiptPdf": "Receipt (PDF)",
+    "english": "English"
   },
   "Stalls": {
     "nav": {
@@ -1524,7 +1527,8 @@
       "cancelledReason": "The vendor cancelled your order: {reason}",
       "refunded": "{amount} has been refunded to you.",
       "refundPending": "Your money is being refunded."
-    }
+    },
+    "downloadPdf": "Download receipt (PDF)"
   },
   "VendorQr": {
     "title": "QR code",
@@ -1857,7 +1861,9 @@
       "released": "All payouts are done.",
       "dispute_open": "Test mode: a dispute was opened.",
       "dispute_won": "Test mode: the dispute was won.",
-      "dispute_lost": "Test mode: the dispute was lost."
+      "dispute_lost": "Test mode: the dispute was lost.",
+      "documents": "The documents are made.",
+      "regenerated": "A new version of the documents is made."
     },
     "errors": {
       "failed": "That did not work. Try again.",
@@ -1866,7 +1872,29 @@
       "same_person": "The person who prepared (or added) it cannot also approve it.",
       "amount": "Enter an amount in kroner.",
       "reason": "Enter a reason.",
-      "payouts_failed": "{count, plural, one {# payout failed} other {# payouts failed}}. Fix the cause and retry."
+      "payouts_failed": "{count, plural, one {# payout failed} other {# payouts failed}}. Fix the cause and retry.",
+      "seller": "Fill in AFFN’s company details (legal name and org. no.) under Settings before the documents can be made.",
+      "documents": "The documents could not be made. Try again."
+    },
+    "documents": {
+      "title": "Documents",
+      "intro": "Statement, order lines (CSV) and AFFN’s commission invoice for each vendor. Documents are stored and never changed; a new version is stored next to the old one.",
+      "vendor": "Vendor",
+      "statement": "Statement",
+      "csv": "Order lines",
+      "invoice": "Invoice",
+      "invoiceNumber": "No. {number}",
+      "noInvoice": "No commission",
+      "english": "English",
+      "versions": "{count, plural, one {# version} other {# versions}}",
+      "make": "Make missing documents",
+      "regenerate": "Make new version",
+      "sellerMissing": "AFFN’s company details are missing. Fill them in under Settings, then the documents can be made.",
+      "settings": "Go to settings",
+      "released": {
+        "seller": "The payout is done, but the documents are missing: fill in AFFN’s company details under Settings and make them here.",
+        "failed": "The payout is done, but the documents could not be made. Try “Make missing documents”."
+      }
     }
   },
   "VendorSettlements": {
@@ -1875,7 +1903,11 @@
     "empty": "No settlements yet. They come after the festival.",
     "period": "{from} – {to}",
     "until": "Up to {to}",
-    "paidAt": "Paid {time}"
+    "paidAt": "Paid {time}",
+    "statementPdf": "Statement (PDF)",
+    "ordersCsv": "Order lines (CSV)",
+    "invoicePdf": "Invoice no. {number} (PDF)",
+    "english": "English"
   },
   "Transactions": {
     "title": "Transactions",
@@ -2241,6 +2273,83 @@
       "commission": "Commission",
       "mva": "Mva on commission",
       "vendorShare": "To vendor"
+    },
+    "fileNames": {
+      "vendor_statement": "statement",
+      "statement_orders_csv": "order-lines",
+      "commission_invoice": "invoice",
+      "stall_fee_invoice": "invoice",
+      "stall_fee_receipt": "receipt",
+      "customer_receipt": "receipt"
+    },
+    "errors": {
+      "sellerMissing": "AFFN has not filled in its company details yet, so the document cannot be made. Please try again later.",
+      "notReady": "The document is not ready yet.",
+      "failed": "The document could not be made. Please try again."
+    }
+  },
+  "Settings": {
+    "title": "Settings",
+    "intro": "AFFN’s company details are printed on invoices, receipts and settlement statements. Changes are logged.",
+    "missing": "The legal name and organization number are missing. Invoices and statements cannot be made until they are filled in.",
+    "readOnly": "Only Organization Admins can change the settings.",
+    "save": "Save",
+    "saving": "Saving …",
+    "saved": "The settings are saved.",
+    "mvaEvent": "The mva rate on stall fees applies to {event}. The change applies to new invoices; issued invoices do not change.",
+    "errors": {
+      "forbidden": "Only Organization Admins can change the settings.",
+      "failed": "Saving did not work. Try again."
+    },
+    "fields": {
+      "legalName": {
+        "label": "Legal name",
+        "hint": "As registered in Brønnøysundregistrene, e.g. “African Food Festival Norway AS”.",
+        "required": "Enter the legal name."
+      },
+      "orgNumber": {
+        "label": "Organization number",
+        "hint": "Nine digits.",
+        "required": "Enter the organization number.",
+        "invalid": "The organization number is not valid."
+      },
+      "invoiceEmail": {
+        "label": "Invoice email",
+        "hint": "Shown on the invoices. Optional.",
+        "invalid": "Enter a valid email address."
+      },
+      "addressLine": {
+        "label": "Address",
+        "hint": "Street and number. Optional."
+      },
+      "postalCode": {
+        "label": "Postal code",
+        "hint": "Four digits.",
+        "invalid": "The postal code has four digits."
+      },
+      "city": {
+        "label": "City",
+        "hint": ""
+      },
+      "bankAccount": {
+        "label": "Bank account",
+        "hint": "Eleven digits. Shown on invoices to be paid to AFFN.",
+        "invalid": "The bank account number is not valid."
+      },
+      "invoiceDueDays": {
+        "label": "Payment terms (days)",
+        "hint": "Days until new invoices are due.",
+        "invalid": "Enter a number from 0 to 90."
+      },
+      "stallFeeMva": {
+        "label": "Mva on stall fees (%)",
+        "hint": "25 % until the accountant confirms the rate.",
+        "invalid": "Enter a rate from 0 to 100."
+      },
+      "vatRegistered": {
+        "label": "Registered for mva (Merverdiavgiftsregisteret)",
+        "hint": "Then “MVA” follows the organization number on invoices."
+      }
     }
   }
 }
