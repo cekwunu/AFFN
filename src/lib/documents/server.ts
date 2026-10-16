@@ -6,6 +6,7 @@ import { money, text, time, toCsv } from '@/lib/exports/csv';
 import { renderPdf } from '@/lib/pdf/kit';
 import { createAdminClient } from '@/lib/supabase/admin';
 import type { Database } from '@/lib/supabase/database.types';
+import { reportCsv, reportModel, type ReportData } from '@/lib/sponsors/report';
 import {
   customerReceiptModel,
   feeReceiptModel,
@@ -36,6 +37,8 @@ type Built = {
     invoice_id?: string | null;
     order_id?: string | null;
     fee_payment_id?: string | null;
+    sponsor_id?: string | null;
+    sponsorship_id?: string | null;
   };
 };
 
@@ -441,6 +444,192 @@ async function buildCustomerReceipt(orderId: string, locale: Locale): Promise<Bu
   };
 }
 
+async function sponsorBusiness(sponsorId: string): Promise<Business> {
+  const { data } = await createAdminClient()
+    .from('sponsors')
+    .select('name, legal_name, org_number')
+    .eq('id', sponsorId)
+    .single();
+  return { name: data!.name, legalName: data!.legal_name, orgNumber: data!.org_number };
+}
+
+/** AFFN's invoice to a sponsor (AFFN revenue, paid by bank transfer). */
+async function buildSponsorInvoice(invoiceId: string, locale: Locale): Promise<Built> {
+  const { data: invoice, error } = await createAdminClient()
+    .from('sponsor_invoices')
+    .select('*')
+    .eq('id', invoiceId)
+    .single();
+  if (error) throw error;
+  const [s, buyer, event, t] = await Promise.all([
+    seller(invoice.organization_id),
+    sponsorBusiness(invoice.sponsor_id),
+    eventName(invoice.event_id),
+    translator(locale),
+  ]);
+  const description = t('invoice.sponsorDescription', { package: invoice.description, event });
+  const model = invoiceModel(
+    {
+      seller: s,
+      buyer,
+      kind: 'sponsorship',
+      packageName: invoice.description,
+      number: invoice.invoice_number,
+      issuedAt: invoice.issued_at,
+      dueAt: invoice.due_at,
+      eventName: event,
+      periodFrom: null,
+      periodTo: null,
+      lines: [{ description, amount: invoice.subtotal_ore, mva: invoice.mva_ore }],
+      subtotal: invoice.subtotal_ore,
+      mva: invoice.mva_ore,
+      total: invoice.total_ore,
+      mvaRateBp: invoice.mva_rate_bp,
+      settledByDeduction: false,
+      status: invoice.status,
+    },
+    t,
+    locale,
+  );
+  return {
+    bytes: await renderPdf(model),
+    contentType: 'application/pdf',
+    refs: {
+      organization_id: invoice.organization_id,
+      event_id: invoice.event_id,
+      sponsor_id: invoice.sponsor_id,
+      sponsorship_id: invoice.sponsorship_id,
+    },
+  };
+}
+
+/** The post-event report (SPO-04), as PDF or CSV, from the sponsorship's links and views. */
+async function buildSponsorReport(
+  sponsorshipId: string,
+  locale: Locale,
+  csv: boolean,
+): Promise<Built> {
+  const admin = createAdminClient();
+  const { data: sponsorship, error } = await admin
+    .from('sponsorships')
+    .select(
+      `id, organization_id, event_id, sponsor_id, agreed_price_ore,
+       package:sponsor_packages!sponsorships_package_id_organization_id_fkey(name, price_ore),
+       event:events!sponsorships_event_id_organization_id_fkey(name, ends_at)`,
+    )
+    .eq('id', sponsorshipId)
+    .single();
+  if (error) throw error;
+  const [
+    { data: org },
+    { data: sponsor },
+    { data: deliverables },
+    { data: links },
+    { data: views },
+    t,
+  ] = await Promise.all([
+    admin
+      .from('organizations')
+      .select('legal_name, org_number')
+      .eq('id', sponsorship.organization_id)
+      .single(),
+    admin
+      .from('sponsors')
+      .select('name, legal_name, org_number')
+      .eq('id', sponsorship.sponsor_id)
+      .single(),
+    admin
+      .from('sponsorship_deliverables')
+      .select('title, status')
+      .eq('sponsorship_id', sponsorship.id)
+      .order('position'),
+    admin
+      .from('tracked_links')
+      .select('id, kind, label, qr_scans(scanned_at)')
+      .eq('sponsorship_id', sponsorship.id),
+    admin
+      .from('page_views')
+      .select('viewed_at')
+      .eq('sponsor_id', sponsorship.sponsor_id)
+      .eq('event_id', sponsorship.event_id)
+      .order('viewed_at'),
+    translator(locale),
+  ]);
+  const festival = await festivalTotals(sponsorship.event_id);
+  const issuer = requireSeller(
+    org && {
+      legalName: org.legal_name ?? '',
+      orgNumber: org.org_number ?? '',
+      vatRegistered: true,
+      addressLine: null,
+      postalCode: null,
+      city: null,
+      bankAccount: null,
+      invoiceEmail: null,
+    },
+  );
+  const hits = (links ?? [])
+    .flatMap((l) => l.qr_scans.map((s) => ({ at: s.scanned_at, kind: l.kind, label: l.label })))
+    .sort((a, b) => a.at.localeCompare(b.at));
+  const pageViews = (views ?? []).map((v) => v.viewed_at);
+  const last = [hits.at(-1)?.at, pageViews.at(-1)].filter(Boolean).sort().at(-1);
+  const end = sponsorship.event.ends_at ?? new Date(0).toISOString();
+  const data: ReportData = {
+    issuer,
+    sponsor: {
+      name: sponsor!.name,
+      legalName: sponsor!.legal_name,
+      orgNumber: sponsor!.org_number,
+    },
+    eventName: sponsorship.event.name,
+    packageName: sponsorship.package.name,
+    priceOre: sponsorship.agreed_price_ore ?? sponsorship.package.price_ore,
+    deliverables: deliverables ?? [],
+    hits,
+    pageViews,
+    festival,
+    date: last && last > end ? last : end,
+  };
+  const refs = {
+    organization_id: sponsorship.organization_id,
+    event_id: sponsorship.event_id,
+    sponsor_id: sponsorship.sponsor_id,
+    sponsorship_id: sponsorship.id,
+  };
+  if (csv) {
+    return { bytes: new TextEncoder().encode(reportCsv(data, t)), contentType: 'text/csv', refs };
+  }
+  return {
+    bytes: await renderPdf(reportModel(data, t, locale)),
+    contentType: 'application/pdf',
+    refs,
+  };
+}
+
+/** Festival totals for context in sponsor reports: paid orders, vendors, gross sales. */
+export async function festivalTotals(eventId: string) {
+  const admin = createAdminClient();
+  const [orders, vendors, { data: totals }] = await Promise.all([
+    admin
+      .from('orders')
+      .select('id', { count: 'exact', head: true })
+      .eq('event_id', eventId)
+      .not('paid_at', 'is', null),
+    admin
+      .from('event_vendors')
+      .select('id', { count: 'exact', head: true })
+      .eq('event_id', eventId)
+      .eq('status', 'approved'),
+    admin.rpc('event_money_totals', { p_event_id: eventId }),
+  ]);
+  const ledger = (totals ?? []).find((r) => r.source === 'orders');
+  return {
+    orders: orders.count ?? 0,
+    vendors: vendors.count ?? 0,
+    grossOre: ledger?.gross_ore ?? 0,
+  };
+}
+
 function build({ kind, id }: DocumentSubject, locale: Locale): Promise<Built> {
   switch (kind) {
     case 'vendor_statement':
@@ -454,6 +643,11 @@ function build({ kind, id }: DocumentSubject, locale: Locale): Promise<Built> {
       return buildFeeReceipt(id, locale);
     case 'customer_receipt':
       return buildCustomerReceipt(id, locale);
+    case 'sponsor_invoice':
+      return buildSponsorInvoice(id, locale);
+    case 'sponsor_report_pdf':
+    case 'sponsor_report_csv':
+      return buildSponsorReport(id, locale, kind === 'sponsor_report_csv');
   }
 }
 

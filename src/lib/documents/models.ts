@@ -217,7 +217,9 @@ export function statementModel(data: StatementData, t: Translate, locale: Locale
 export type InvoiceData = {
   seller: Seller;
   buyer: Business;
-  kind: 'commission' | 'stall_fee';
+  kind: 'commission' | 'stall_fee' | 'sponsorship';
+  /** Sponsorship: the package name. */
+  packageName?: string;
   number: number;
   issuedAt: string;
   dueAt: string | null;
@@ -244,7 +246,12 @@ export function invoiceModel(data: InvoiceData, t: Translate, locale: Locale): D
   const description =
     data.kind === 'commission'
       ? t('invoice.commissionDescription', { event: data.eventName })
-      : t('invoice.stallFeeDescription', { event: data.eventName });
+      : data.kind === 'sponsorship'
+        ? t('invoice.sponsorDescription', {
+            package: data.packageName ?? '',
+            event: data.eventName,
+          })
+        : t('invoice.stallFeeDescription', { event: data.eventName });
   const facts: [string, string][] = [[t('invoice.description'), description]];
   if (data.periodTo) {
     facts.push([

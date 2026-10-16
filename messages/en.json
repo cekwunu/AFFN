@@ -2236,7 +2236,8 @@
         "commission": "Commission on sales",
         "commission_reversed": "Commission given back on refunds"
       },
-      "totalInclMva": "Total incl. mva"
+      "totalInclMva": "Total incl. mva",
+      "sponsorDescription": "Sponsor package {package}, {event}"
     },
     "feeReceipt": {
       "title": "Receipt",
@@ -2277,12 +2278,64 @@
       "commission_invoice": "invoice",
       "stall_fee_invoice": "invoice",
       "stall_fee_receipt": "receipt",
-      "customer_receipt": "receipt"
+      "customer_receipt": "receipt",
+      "sponsor_invoice": "invoice",
+      "sponsor_report_pdf": "sponsor-report",
+      "sponsor_report_csv": "sponsor-report"
     },
     "errors": {
       "sellerMissing": "AFFN has not filled in its company details yet, so the document cannot be made. Please try again later.",
       "notReady": "The document is not ready yet.",
       "failed": "The document could not be made. Please try again."
+    },
+    "report": {
+      "title": "Sponsor report",
+      "sponsor": "Sponsor",
+      "sponsorLabel": "Sponsor",
+      "package": "Package",
+      "price": "Price excl. mva",
+      "deliverables": "Deliverables",
+      "deliverable": "Deliverable",
+      "deliverableStatus": {
+        "pending": "Not started",
+        "in_progress": "In progress",
+        "delivered": "Delivered"
+      },
+      "reach": "Scans, clicks and views",
+      "scans": "QR scans",
+      "clicks": "Link clicks",
+      "pageViews": "Sponsor page views",
+      "day": "Day",
+      "byHour": "By hour of day",
+      "hour": "Hour",
+      "byLink": "By code and link",
+      "link": "Code/link",
+      "kind": "Type",
+      "count": "Count",
+      "kinds": {
+        "qr": "QR code",
+        "link": "Link"
+      },
+      "festival": "The festival in numbers",
+      "orders": "Paid orders",
+      "vendors": "Vendors",
+      "sales": "Sales (gross)",
+      "privacy": "Counted without personal data: only the time and the device type (mobile, tablet, computer), no IP addresses and no cookies.",
+      "csv": {
+        "day": "Day",
+        "hour": "Hour",
+        "total": "Total",
+        "festivalOrders": "Festival: paid orders",
+        "festivalVendors": "Festival: vendors",
+        "festivalSales": "Festival: sales (kr)",
+        "columns": {
+          "period": "Period",
+          "when": "When",
+          "scans": "QR scans",
+          "clicks": "Clicks",
+          "pageViews": "Page views"
+        }
+      }
     }
   },
   "Settings": {

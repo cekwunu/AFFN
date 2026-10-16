@@ -141,14 +141,14 @@ isOneToOne: false
                   ]
                 },"documents": {
                   Row: {
-                    "byte_size": number,"content_type": string,"created_at": string,"created_by": string | null,"event_id": string | null,"fee_payment_id": string | null,"id": string,"invoice_id": string | null,"kind": Database["public"]['Enums']["document_kind"],"locale": string,"order_id": string | null,"organization_id": string,"settlement_id": string | null,"sha256": string,"storage_path": string,"subject_key": string,"vendor_id": string | null,"version": number
+                    "byte_size": number,"content_type": string,"created_at": string,"created_by": string | null,"event_id": string | null,"fee_payment_id": string | null,"id": string,"invoice_id": string | null,"kind": Database["public"]['Enums']["document_kind"],"locale": string,"order_id": string | null,"organization_id": string,"settlement_id": string | null,"sha256": string,"sponsor_id": string | null,"sponsorship_id": string | null,"storage_path": string,"subject_key": string,"vendor_id": string | null,"version": number
                   }
                   ComputedFields: never
                   Insert: {
-                    "byte_size": number,"content_type": string,"created_at"?: string,"created_by"?: string | null,"event_id"?: string | null,"fee_payment_id"?: string | null,"id"?: string,"invoice_id"?: string | null,"kind": Database["public"]['Enums']["document_kind"],"locale": string,"order_id"?: string | null,"organization_id": string,"settlement_id"?: string | null,"sha256": string,"storage_path": string,"subject_key": string,"vendor_id"?: string | null,"version": number
+                    "byte_size": number,"content_type": string,"created_at"?: string,"created_by"?: string | null,"event_id"?: string | null,"fee_payment_id"?: string | null,"id"?: string,"invoice_id"?: string | null,"kind": Database["public"]['Enums']["document_kind"],"locale": string,"order_id"?: string | null,"organization_id": string,"settlement_id"?: string | null,"sha256": string,"sponsor_id"?: string | null,"sponsorship_id"?: string | null,"storage_path": string,"subject_key": string,"vendor_id"?: string | null,"version": number
                   }
                   Update: {
-                    "byte_size"?: number,"content_type"?: string,"created_at"?: string,"created_by"?: string | null,"event_id"?: string | null,"fee_payment_id"?: string | null,"id"?: string,"invoice_id"?: string | null,"kind"?: Database["public"]['Enums']["document_kind"],"locale"?: string,"order_id"?: string | null,"organization_id"?: string,"settlement_id"?: string | null,"sha256"?: string,"storage_path"?: string,"subject_key"?: string,"vendor_id"?: string | null,"version"?: number
+                    "byte_size"?: number,"content_type"?: string,"created_at"?: string,"created_by"?: string | null,"event_id"?: string | null,"fee_payment_id"?: string | null,"id"?: string,"invoice_id"?: string | null,"kind"?: Database["public"]['Enums']["document_kind"],"locale"?: string,"order_id"?: string | null,"organization_id"?: string,"settlement_id"?: string | null,"sha256"?: string,"sponsor_id"?: string | null,"sponsorship_id"?: string | null,"storage_path"?: string,"subject_key"?: string,"vendor_id"?: string | null,"version"?: number
                   }
                   Relationships: [
                     {
@@ -187,6 +187,12 @@ isOneToOne: false
 isOneToOne: false
       referencedRelation: "settlements"
       referencedColumns: ["id","organization_id"]
+    },{
+      foreignKeyName: "documents_sponsor_id_fkey"
+      columns: ["sponsor_id"]
+isOneToOne: false
+      referencedRelation: "sponsors"
+      referencedColumns: ["id"]
     },{
       foreignKeyName: "documents_vendor_id_fkey"
       columns: ["vendor_id"]
@@ -249,14 +255,14 @@ isOneToOne: false
                   ]
                 },"events": {
                   Row: {
-                    "application_deadline": string | null,"applications_open_at": string | null,"created_at": string,"decisions_by": string | null,"description": string | null,"ends_at": string | null,"id": string,"name": string,"organization_id": string,"slug": string,"stall_fee_mva_bp": number,"starts_at": string | null,"status": Database["public"]['Enums']["event_status"],"updated_at": string,"venue_address": string | null,"venue_map_path": string | null,"venue_name": string | null
+                    "application_deadline": string | null,"applications_open_at": string | null,"created_at": string,"decisions_by": string | null,"description": string | null,"ends_at": string | null,"id": string,"name": string,"organization_id": string,"slug": string,"sponsor_mva_bp": number,"stall_fee_mva_bp": number,"starts_at": string | null,"status": Database["public"]['Enums']["event_status"],"updated_at": string,"venue_address": string | null,"venue_map_path": string | null,"venue_name": string | null
                   }
                   ComputedFields: never
                   Insert: {
-                    "application_deadline"?: string | null,"applications_open_at"?: string | null,"created_at"?: string,"decisions_by"?: string | null,"description"?: string | null,"ends_at"?: string | null,"id"?: string,"name": string,"organization_id": string,"slug": string,"stall_fee_mva_bp"?: number,"starts_at"?: string | null,"status"?: Database["public"]['Enums']["event_status"],"updated_at"?: string,"venue_address"?: string | null,"venue_map_path"?: string | null,"venue_name"?: string | null
+                    "application_deadline"?: string | null,"applications_open_at"?: string | null,"created_at"?: string,"decisions_by"?: string | null,"description"?: string | null,"ends_at"?: string | null,"id"?: string,"name": string,"organization_id": string,"slug": string,"sponsor_mva_bp"?: number,"stall_fee_mva_bp"?: number,"starts_at"?: string | null,"status"?: Database["public"]['Enums']["event_status"],"updated_at"?: string,"venue_address"?: string | null,"venue_map_path"?: string | null,"venue_name"?: string | null
                   }
                   Update: {
-                    "application_deadline"?: string | null,"applications_open_at"?: string | null,"created_at"?: string,"decisions_by"?: string | null,"description"?: string | null,"ends_at"?: string | null,"id"?: string,"name"?: string,"organization_id"?: string,"slug"?: string,"stall_fee_mva_bp"?: number,"starts_at"?: string | null,"status"?: Database["public"]['Enums']["event_status"],"updated_at"?: string,"venue_address"?: string | null,"venue_map_path"?: string | null,"venue_name"?: string | null
+                    "application_deadline"?: string | null,"applications_open_at"?: string | null,"created_at"?: string,"decisions_by"?: string | null,"description"?: string | null,"ends_at"?: string | null,"id"?: string,"name"?: string,"organization_id"?: string,"slug"?: string,"sponsor_mva_bp"?: number,"stall_fee_mva_bp"?: number,"starts_at"?: string | null,"status"?: Database["public"]['Enums']["event_status"],"updated_at"?: string,"venue_address"?: string | null,"venue_map_path"?: string | null,"venue_name"?: string | null
                   }
                   Relationships: [
                     {
@@ -667,14 +673,14 @@ isOneToOne: false
                   ]
                 },"page_views": {
                   Row: {
-                    "device_class": string | null,"event_id": string | null,"id": string,"organization_id": string,"path": string,"vendor_id": string | null,"viewed_at": string
+                    "device_class": string | null,"event_id": string | null,"id": string,"organization_id": string,"path": string,"sponsor_id": string | null,"vendor_id": string | null,"viewed_at": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "device_class"?: string | null,"event_id"?: string | null,"id"?: string,"organization_id": string,"path": string,"vendor_id"?: string | null,"viewed_at"?: string
+                    "device_class"?: string | null,"event_id"?: string | null,"id"?: string,"organization_id": string,"path": string,"sponsor_id"?: string | null,"vendor_id"?: string | null,"viewed_at"?: string
                   }
                   Update: {
-                    "device_class"?: string | null,"event_id"?: string | null,"id"?: string,"organization_id"?: string,"path"?: string,"vendor_id"?: string | null,"viewed_at"?: string
+                    "device_class"?: string | null,"event_id"?: string | null,"id"?: string,"organization_id"?: string,"path"?: string,"sponsor_id"?: string | null,"vendor_id"?: string | null,"viewed_at"?: string
                   }
                   Relationships: [
                     {
@@ -688,6 +694,12 @@ isOneToOne: false
       columns: ["organization_id"]
 isOneToOne: false
       referencedRelation: "organizations"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "page_views_sponsor_id_fkey"
+      columns: ["sponsor_id"]
+isOneToOne: false
+      referencedRelation: "sponsors"
       referencedColumns: ["id"]
     },{
       foreignKeyName: "page_views_vendor_id_fkey"
@@ -1175,14 +1187,14 @@ isOneToOne: false
                   ]
                 },"sponsor_assets": {
                   Row: {
-                    "created_at": string,"event_id": string,"file_name": string,"id": string,"kind": Database["public"]['Enums']["asset_kind"],"organization_id": string,"reviewed_at": string | null,"reviewed_by": string | null,"sponsor_id": string,"sponsorship_id": string,"status": Database["public"]['Enums']["review_status"],"storage_path": string,"updated_at": string,"uploaded_by": string | null
+                    "byte_size": number | null,"created_at": string,"event_id": string,"feedback": string | null,"file_name": string,"id": string,"kind": Database["public"]['Enums']["asset_kind"],"mime_type": string | null,"organization_id": string,"reviewed_at": string | null,"reviewed_by": string | null,"sponsor_id": string,"sponsorship_id": string,"status": Database["public"]['Enums']["review_status"],"storage_path": string,"updated_at": string,"uploaded_by": string | null
                   }
                   ComputedFields: never
                   Insert: {
-                    "created_at"?: string,"event_id": string,"file_name": string,"id"?: string,"kind": Database["public"]['Enums']["asset_kind"],"organization_id": string,"reviewed_at"?: string | null,"reviewed_by"?: string | null,"sponsor_id": string,"sponsorship_id": string,"status"?: Database["public"]['Enums']["review_status"],"storage_path": string,"updated_at"?: string,"uploaded_by"?: string | null
+                    "byte_size"?: number | null,"created_at"?: string,"event_id": string,"feedback"?: string | null,"file_name": string,"id"?: string,"kind": Database["public"]['Enums']["asset_kind"],"mime_type"?: string | null,"organization_id": string,"reviewed_at"?: string | null,"reviewed_by"?: string | null,"sponsor_id": string,"sponsorship_id": string,"status"?: Database["public"]['Enums']["review_status"],"storage_path": string,"updated_at"?: string,"uploaded_by"?: string | null
                   }
                   Update: {
-                    "created_at"?: string,"event_id"?: string,"file_name"?: string,"id"?: string,"kind"?: Database["public"]['Enums']["asset_kind"],"organization_id"?: string,"reviewed_at"?: string | null,"reviewed_by"?: string | null,"sponsor_id"?: string,"sponsorship_id"?: string,"status"?: Database["public"]['Enums']["review_status"],"storage_path"?: string,"updated_at"?: string,"uploaded_by"?: string | null
+                    "byte_size"?: number | null,"created_at"?: string,"event_id"?: string,"feedback"?: string | null,"file_name"?: string,"id"?: string,"kind"?: Database["public"]['Enums']["asset_kind"],"mime_type"?: string | null,"organization_id"?: string,"reviewed_at"?: string | null,"reviewed_by"?: string | null,"sponsor_id"?: string,"sponsorship_id"?: string,"status"?: Database["public"]['Enums']["review_status"],"storage_path"?: string,"updated_at"?: string,"uploaded_by"?: string | null
                   }
                   Relationships: [
                     {
@@ -1205,16 +1217,48 @@ isOneToOne: false
       referencedColumns: ["id","sponsor_id"]
     }
                   ]
-                },"sponsor_packages": {
+                },"sponsor_invoices": {
                   Row: {
-                    "created_at": string,"deliverables": (string)[],"description": string | null,"event_id": string,"id": string,"is_active": boolean,"max_sponsors": number | null,"name": string,"organization_id": string,"price_ore": number,"tier": number,"updated_at": string
+                    "created_at": string,"description": string,"due_at": string,"event_id": string,"id": string,"invoice_number": number,"issued_at": string,"mva_ore": number,"mva_rate_bp": number,"organization_id": string,"paid_at": string | null,"paid_marked_by": string | null,"sponsor_id": string,"sponsorship_id": string,"status": Database["public"]['Enums']["invoice_status"],"subtotal_ore": number,"total_ore": number,"updated_at": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "created_at"?: string,"deliverables"?: (string)[],"description"?: string | null,"event_id": string,"id"?: string,"is_active"?: boolean,"max_sponsors"?: number | null,"name": string,"organization_id": string,"price_ore": number,"tier"?: number,"updated_at"?: string
+                    "created_at"?: string,"description": string,"due_at": string,"event_id": string,"id"?: string,"invoice_number"?: number,"issued_at"?: string,"mva_ore": number,"mva_rate_bp": number,"organization_id": string,"paid_at"?: string | null,"paid_marked_by"?: string | null,"sponsor_id": string,"sponsorship_id": string,"status"?: Database["public"]['Enums']["invoice_status"],"subtotal_ore": number,"total_ore": number,"updated_at"?: string
                   }
                   Update: {
-                    "created_at"?: string,"deliverables"?: (string)[],"description"?: string | null,"event_id"?: string,"id"?: string,"is_active"?: boolean,"max_sponsors"?: number | null,"name"?: string,"organization_id"?: string,"price_ore"?: number,"tier"?: number,"updated_at"?: string
+                    "created_at"?: string,"description"?: string,"due_at"?: string,"event_id"?: string,"id"?: string,"invoice_number"?: number,"issued_at"?: string,"mva_ore"?: number,"mva_rate_bp"?: number,"organization_id"?: string,"paid_at"?: string | null,"paid_marked_by"?: string | null,"sponsor_id"?: string,"sponsorship_id"?: string,"status"?: Database["public"]['Enums']["invoice_status"],"subtotal_ore"?: number,"total_ore"?: number,"updated_at"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "sponsor_invoices_event_id_organization_id_fkey"
+      columns: ["event_id","organization_id"]
+isOneToOne: false
+      referencedRelation: "events"
+      referencedColumns: ["id","organization_id"]
+    },{
+      foreignKeyName: "sponsor_invoices_sponsorship_id_organization_id_fkey"
+      columns: ["sponsorship_id","organization_id"]
+isOneToOne: false
+      referencedRelation: "sponsorships"
+      referencedColumns: ["id","organization_id"]
+    },{
+      foreignKeyName: "sponsor_invoices_sponsorship_id_sponsor_id_fkey"
+      columns: ["sponsorship_id","sponsor_id"]
+isOneToOne: false
+      referencedRelation: "sponsorships"
+      referencedColumns: ["id","sponsor_id"]
+    }
+                  ]
+                },"sponsor_packages": {
+                  Row: {
+                    "created_at": string,"deliverables": (string)[],"description": string | null,"event_id": string,"id": string,"is_active": boolean,"logo_level": number,"max_sponsors": number | null,"name": string,"organization_id": string,"price_ore": number,"qr_code_count": number,"tier": number,"updated_at": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"deliverables"?: (string)[],"description"?: string | null,"event_id": string,"id"?: string,"is_active"?: boolean,"logo_level"?: number,"max_sponsors"?: number | null,"name": string,"organization_id": string,"price_ore": number,"qr_code_count"?: number,"tier"?: number,"updated_at"?: string
+                  }
+                  Update: {
+                    "created_at"?: string,"deliverables"?: (string)[],"description"?: string | null,"event_id"?: string,"id"?: string,"is_active"?: boolean,"logo_level"?: number,"max_sponsors"?: number | null,"name"?: string,"organization_id"?: string,"price_ore"?: number,"qr_code_count"?: number,"tier"?: number,"updated_at"?: string
                   }
                   Relationships: [
                     {
@@ -1227,14 +1271,14 @@ isOneToOne: false
                   ]
                 },"sponsors": {
                   Row: {
-                    "contact_email": string | null,"contact_name": string | null,"contact_phone": string | null,"created_at": string,"id": string,"invoice_address": string | null,"invoice_email": string | null,"invoice_reference": string | null,"logo_path": string | null,"name": string,"org_number": string | null,"organization_id": string,"updated_at": string,"website_url": string | null
+                    "brreg_verified_at": string | null,"contact_email": string | null,"contact_name": string | null,"contact_phone": string | null,"created_at": string,"id": string,"invoice_address": string | null,"invoice_email": string | null,"invoice_reference": string | null,"legal_name": string | null,"logo_path": string | null,"name": string,"org_number": string | null,"organization_id": string,"updated_at": string,"website_url": string | null
                   }
                   ComputedFields: never
                   Insert: {
-                    "contact_email"?: string | null,"contact_name"?: string | null,"contact_phone"?: string | null,"created_at"?: string,"id"?: string,"invoice_address"?: string | null,"invoice_email"?: string | null,"invoice_reference"?: string | null,"logo_path"?: string | null,"name": string,"org_number"?: string | null,"organization_id": string,"updated_at"?: string,"website_url"?: string | null
+                    "brreg_verified_at"?: string | null,"contact_email"?: string | null,"contact_name"?: string | null,"contact_phone"?: string | null,"created_at"?: string,"id"?: string,"invoice_address"?: string | null,"invoice_email"?: string | null,"invoice_reference"?: string | null,"legal_name"?: string | null,"logo_path"?: string | null,"name": string,"org_number"?: string | null,"organization_id": string,"updated_at"?: string,"website_url"?: string | null
                   }
                   Update: {
-                    "contact_email"?: string | null,"contact_name"?: string | null,"contact_phone"?: string | null,"created_at"?: string,"id"?: string,"invoice_address"?: string | null,"invoice_email"?: string | null,"invoice_reference"?: string | null,"logo_path"?: string | null,"name"?: string,"org_number"?: string | null,"organization_id"?: string,"updated_at"?: string,"website_url"?: string | null
+                    "brreg_verified_at"?: string | null,"contact_email"?: string | null,"contact_name"?: string | null,"contact_phone"?: string | null,"created_at"?: string,"id"?: string,"invoice_address"?: string | null,"invoice_email"?: string | null,"invoice_reference"?: string | null,"legal_name"?: string | null,"logo_path"?: string | null,"name"?: string,"org_number"?: string | null,"organization_id"?: string,"updated_at"?: string,"website_url"?: string | null
                   }
                   Relationships: [
                     {
@@ -1243,6 +1287,38 @@ isOneToOne: false
 isOneToOne: false
       referencedRelation: "organizations"
       referencedColumns: ["id"]
+    }
+                  ]
+                },"sponsorship_deliverables": {
+                  Row: {
+                    "created_at": string,"delivered_at": string | null,"event_id": string,"id": string,"note": string | null,"organization_id": string,"position": number,"sponsor_id": string,"sponsorship_id": string,"status": Database["public"]['Enums']["deliverable_status"],"title": string,"updated_at": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"delivered_at"?: string | null,"event_id": string,"id"?: string,"note"?: string | null,"organization_id": string,"position": number,"sponsor_id": string,"sponsorship_id": string,"status"?: Database["public"]['Enums']["deliverable_status"],"title": string,"updated_at"?: string
+                  }
+                  Update: {
+                    "created_at"?: string,"delivered_at"?: string | null,"event_id"?: string,"id"?: string,"note"?: string | null,"organization_id"?: string,"position"?: number,"sponsor_id"?: string,"sponsorship_id"?: string,"status"?: Database["public"]['Enums']["deliverable_status"],"title"?: string,"updated_at"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "sponsorship_deliverables_event_id_organization_id_fkey"
+      columns: ["event_id","organization_id"]
+isOneToOne: false
+      referencedRelation: "events"
+      referencedColumns: ["id","organization_id"]
+    },{
+      foreignKeyName: "sponsorship_deliverables_sponsorship_id_organization_id_fkey"
+      columns: ["sponsorship_id","organization_id"]
+isOneToOne: false
+      referencedRelation: "sponsorships"
+      referencedColumns: ["id","organization_id"]
+    },{
+      foreignKeyName: "sponsorship_deliverables_sponsorship_id_sponsor_id_fkey"
+      columns: ["sponsorship_id","sponsor_id"]
+isOneToOne: false
+      referencedRelation: "sponsorships"
+      referencedColumns: ["id","sponsor_id"]
     }
                   ]
                 },"sponsorships": {
@@ -1651,6 +1727,9 @@ isOneToOne: false
 "issue_commission_invoices":
 { Args: { "p_settlement_id": string }; Returns: number
                            },
+"mark_sponsor_invoice_paid":
+{ Args: { "p_invoice_id": string }; Returns: undefined
+                           },
 "prepare_settlement_lines":
 { Args: { "p_settlement_id": string,"p_vendor_ids": (string)[] }; Returns: number
                            },
@@ -1665,6 +1744,9 @@ isOneToOne: false
                            },
 "record_fee_payment":
 { Args: { "p_amount_ore": number,"p_provider": Database["public"]['Enums']["payment_provider"],"p_provider_payment_id": string,"p_stall_fee_id": string }; Returns: string
+                           },
+"record_link_hit":
+{ Args: { "p_device_class": string,"p_slug": string }; Returns: string
                            },
 "record_order_payment":
 { Args: { "p_amount_ore": number,"p_method": Database["public"]['Enums']["payment_method"],"p_platform_fee_ore": number,"p_provider": Database["public"]['Enums']["payment_provider"],"p_provider_payment_id": string,"p_reason": string,"p_succeeded": boolean }; Returns: string
@@ -1686,11 +1768,17 @@ isOneToOne: false
 "record_refund_result":
 { Args: { "p_provider_refund_id": string,"p_succeeded": boolean }; Returns: boolean
                            },
+"register_sponsor":
+{ Args: { "p_contact_email": string,"p_contact_name": string,"p_contact_phone": string,"p_invoice_address": string,"p_invoice_email": string,"p_invoice_reference": string,"p_legal_name": string,"p_name": string,"p_org_number": string,"p_package_id": string,"p_user_id": string,"p_website_url": string }; Returns: string
+                           },
 "reorder_products":
 { Args: { "p_ids": (string)[],"p_vendor_id": string }; Returns: undefined
                            },
 "review_application":
 { Args: { "p_commission_rate_bp"?: number,"p_commission_reason"?: string,"p_decision": Database["public"]['Enums']["application_status"],"p_event_vendor_id": string,"p_note": string }; Returns: Json
+                           },
+"review_sponsorship":
+{ Args: { "p_approve": boolean,"p_note": string,"p_price_ore"?: number,"p_sponsorship_id": string }; Returns: string
                            },
 "set_payment_account":
 { Args: { "p_account_id": string,"p_actor": string,"p_event_vendor_id": string,"p_status": Database["public"]['Enums']["psp_account_status"] }; Returns: undefined
@@ -1719,7 +1807,7 @@ isOneToOne: false
                            }
           }
           Enums: {
-            "allergen": "gluten"|"crustaceans"|"eggs"|"fish"|"peanuts"|"soybeans"|"milk"|"nuts"|"celery"|"mustard"|"sesame"|"sulphites"|"lupin"|"molluscs","application_status": "draft"|"submitted"|"under_review"|"more_info_requested"|"approved"|"rejected"|"waitlisted"|"withdrawn","asset_kind": "logo"|"banner"|"video"|"other","assignment_status": "active"|"released","audit_action": "insert"|"update"|"delete","commission_scope": "organization"|"event"|"category"|"vendor","commission_type": "percentage"|"fixed"|"hybrid","dietary_tag": "vegetarian"|"vegan"|"halal"|"gluten_free"|"dairy_free"|"spicy","dispute_status": "open"|"won"|"lost","document_kind": "vendor_statement"|"statement_orders_csv"|"commission_invoice"|"stall_fee_invoice"|"stall_fee_receipt"|"customer_receipt","document_type": "mattilsynet_registration"|"insurance"|"other","event_status": "draft"|"published"|"closed"|"archived","invoice_kind": "commission"|"stall_fee","invoice_status": "issued"|"paid"|"credited","lead_kind": "contact"|"catering"|"quote","lead_status": "new"|"contacted"|"closed","ledger_account": "psp_clearing"|"vendor_payable"|"vendor_receivable"|"commission_revenue"|"mva_payable"|"psp_fee_expense"|"adjustments","ledger_direction": "debit"|"credit","ledger_entry_type": "sale"|"commission"|"commission_mva"|"psp_fee"|"refund"|"refund_commission_reversal"|"payout"|"adjustment"|"dispute","link_kind": "qr"|"link","membership_role": "org_admin"|"event_admin"|"vendor"|"sponsor","membership_status": "pending"|"active","order_status": "pending_payment"|"new"|"accepted"|"preparing"|"ready"|"collected"|"cancelled","payment_method": "vipps"|"card"|"apple_pay"|"google_pay","payment_provider": "mock"|"stripe"|"swedbank","payment_status": "pending"|"succeeded"|"failed"|"cancelled","payout_status": "pending"|"in_transit"|"paid"|"failed","psp_account_status": "not_started"|"pending"|"eligible"|"restricted","reconciliation_kind": "missing_ours"|"missing_theirs"|"amount_differs"|"fee_differs","reconciliation_status": "open"|"assigned"|"resolved","refund_status": "pending"|"succeeded"|"failed","review_status": "pending"|"accepted"|"rejected","settlement_status": "draft"|"prepared"|"approved"|"releasing"|"completed"|"completed_with_failures"|"cancelled","sponsorship_status": "inquiry"|"confirmed"|"invoiced"|"paid"|"cancelled","stall_fee_status": "open"|"invoiced"|"paid"|"cancelled","transaction_kind": "payment"|"refund"|"payout","webhook_outcome": "processed"|"ignored"|"failed"
+            "allergen": "gluten"|"crustaceans"|"eggs"|"fish"|"peanuts"|"soybeans"|"milk"|"nuts"|"celery"|"mustard"|"sesame"|"sulphites"|"lupin"|"molluscs","application_status": "draft"|"submitted"|"under_review"|"more_info_requested"|"approved"|"rejected"|"waitlisted"|"withdrawn","asset_kind": "logo"|"banner"|"video"|"other","assignment_status": "active"|"released","audit_action": "insert"|"update"|"delete","commission_scope": "organization"|"event"|"category"|"vendor","commission_type": "percentage"|"fixed"|"hybrid","deliverable_status": "pending"|"in_progress"|"delivered","dietary_tag": "vegetarian"|"vegan"|"halal"|"gluten_free"|"dairy_free"|"spicy","dispute_status": "open"|"won"|"lost","document_kind": "vendor_statement"|"statement_orders_csv"|"commission_invoice"|"stall_fee_invoice"|"stall_fee_receipt"|"customer_receipt"|"sponsor_invoice"|"sponsor_report_pdf"|"sponsor_report_csv","document_type": "mattilsynet_registration"|"insurance"|"other","event_status": "draft"|"published"|"closed"|"archived","invoice_kind": "commission"|"stall_fee","invoice_status": "issued"|"paid"|"credited","lead_kind": "contact"|"catering"|"quote","lead_status": "new"|"contacted"|"closed","ledger_account": "psp_clearing"|"vendor_payable"|"vendor_receivable"|"commission_revenue"|"mva_payable"|"psp_fee_expense"|"adjustments","ledger_direction": "debit"|"credit","ledger_entry_type": "sale"|"commission"|"commission_mva"|"psp_fee"|"refund"|"refund_commission_reversal"|"payout"|"adjustment"|"dispute","link_kind": "qr"|"link","membership_role": "org_admin"|"event_admin"|"vendor"|"sponsor","membership_status": "pending"|"active","order_status": "pending_payment"|"new"|"accepted"|"preparing"|"ready"|"collected"|"cancelled","payment_method": "vipps"|"card"|"apple_pay"|"google_pay","payment_provider": "mock"|"stripe"|"swedbank","payment_status": "pending"|"succeeded"|"failed"|"cancelled","payout_status": "pending"|"in_transit"|"paid"|"failed","psp_account_status": "not_started"|"pending"|"eligible"|"restricted","reconciliation_kind": "missing_ours"|"missing_theirs"|"amount_differs"|"fee_differs","reconciliation_status": "open"|"assigned"|"resolved","refund_status": "pending"|"succeeded"|"failed","review_status": "pending"|"accepted"|"rejected","settlement_status": "draft"|"prepared"|"approved"|"releasing"|"completed"|"completed_with_failures"|"cancelled","sponsorship_status": "inquiry"|"confirmed"|"invoiced"|"paid"|"cancelled","stall_fee_status": "open"|"invoiced"|"paid"|"cancelled","transaction_kind": "payment"|"refund"|"payout","webhook_outcome": "processed"|"ignored"|"failed"
           }
           CompositeTypes: {
             [_ in never]: never
@@ -1835,7 +1923,7 @@ export type CompositeTypes<
 export const Constants = {
   "public": {
           Enums: {
-            "allergen": ["gluten", "crustaceans", "eggs", "fish", "peanuts", "soybeans", "milk", "nuts", "celery", "mustard", "sesame", "sulphites", "lupin", "molluscs"],"application_status": ["draft", "submitted", "under_review", "more_info_requested", "approved", "rejected", "waitlisted", "withdrawn"],"asset_kind": ["logo", "banner", "video", "other"],"assignment_status": ["active", "released"],"audit_action": ["insert", "update", "delete"],"commission_scope": ["organization", "event", "category", "vendor"],"commission_type": ["percentage", "fixed", "hybrid"],"dietary_tag": ["vegetarian", "vegan", "halal", "gluten_free", "dairy_free", "spicy"],"dispute_status": ["open", "won", "lost"],"document_kind": ["vendor_statement", "statement_orders_csv", "commission_invoice", "stall_fee_invoice", "stall_fee_receipt", "customer_receipt"],"document_type": ["mattilsynet_registration", "insurance", "other"],"event_status": ["draft", "published", "closed", "archived"],"invoice_kind": ["commission", "stall_fee"],"invoice_status": ["issued", "paid", "credited"],"lead_kind": ["contact", "catering", "quote"],"lead_status": ["new", "contacted", "closed"],"ledger_account": ["psp_clearing", "vendor_payable", "vendor_receivable", "commission_revenue", "mva_payable", "psp_fee_expense", "adjustments"],"ledger_direction": ["debit", "credit"],"ledger_entry_type": ["sale", "commission", "commission_mva", "psp_fee", "refund", "refund_commission_reversal", "payout", "adjustment", "dispute"],"link_kind": ["qr", "link"],"membership_role": ["org_admin", "event_admin", "vendor", "sponsor"],"membership_status": ["pending", "active"],"order_status": ["pending_payment", "new", "accepted", "preparing", "ready", "collected", "cancelled"],"payment_method": ["vipps", "card", "apple_pay", "google_pay"],"payment_provider": ["mock", "stripe", "swedbank"],"payment_status": ["pending", "succeeded", "failed", "cancelled"],"payout_status": ["pending", "in_transit", "paid", "failed"],"psp_account_status": ["not_started", "pending", "eligible", "restricted"],"reconciliation_kind": ["missing_ours", "missing_theirs", "amount_differs", "fee_differs"],"reconciliation_status": ["open", "assigned", "resolved"],"refund_status": ["pending", "succeeded", "failed"],"review_status": ["pending", "accepted", "rejected"],"settlement_status": ["draft", "prepared", "approved", "releasing", "completed", "completed_with_failures", "cancelled"],"sponsorship_status": ["inquiry", "confirmed", "invoiced", "paid", "cancelled"],"stall_fee_status": ["open", "invoiced", "paid", "cancelled"],"transaction_kind": ["payment", "refund", "payout"],"webhook_outcome": ["processed", "ignored", "failed"]
+            "allergen": ["gluten", "crustaceans", "eggs", "fish", "peanuts", "soybeans", "milk", "nuts", "celery", "mustard", "sesame", "sulphites", "lupin", "molluscs"],"application_status": ["draft", "submitted", "under_review", "more_info_requested", "approved", "rejected", "waitlisted", "withdrawn"],"asset_kind": ["logo", "banner", "video", "other"],"assignment_status": ["active", "released"],"audit_action": ["insert", "update", "delete"],"commission_scope": ["organization", "event", "category", "vendor"],"commission_type": ["percentage", "fixed", "hybrid"],"deliverable_status": ["pending", "in_progress", "delivered"],"dietary_tag": ["vegetarian", "vegan", "halal", "gluten_free", "dairy_free", "spicy"],"dispute_status": ["open", "won", "lost"],"document_kind": ["vendor_statement", "statement_orders_csv", "commission_invoice", "stall_fee_invoice", "stall_fee_receipt", "customer_receipt", "sponsor_invoice", "sponsor_report_pdf", "sponsor_report_csv"],"document_type": ["mattilsynet_registration", "insurance", "other"],"event_status": ["draft", "published", "closed", "archived"],"invoice_kind": ["commission", "stall_fee"],"invoice_status": ["issued", "paid", "credited"],"lead_kind": ["contact", "catering", "quote"],"lead_status": ["new", "contacted", "closed"],"ledger_account": ["psp_clearing", "vendor_payable", "vendor_receivable", "commission_revenue", "mva_payable", "psp_fee_expense", "adjustments"],"ledger_direction": ["debit", "credit"],"ledger_entry_type": ["sale", "commission", "commission_mva", "psp_fee", "refund", "refund_commission_reversal", "payout", "adjustment", "dispute"],"link_kind": ["qr", "link"],"membership_role": ["org_admin", "event_admin", "vendor", "sponsor"],"membership_status": ["pending", "active"],"order_status": ["pending_payment", "new", "accepted", "preparing", "ready", "collected", "cancelled"],"payment_method": ["vipps", "card", "apple_pay", "google_pay"],"payment_provider": ["mock", "stripe", "swedbank"],"payment_status": ["pending", "succeeded", "failed", "cancelled"],"payout_status": ["pending", "in_transit", "paid", "failed"],"psp_account_status": ["not_started", "pending", "eligible", "restricted"],"reconciliation_kind": ["missing_ours", "missing_theirs", "amount_differs", "fee_differs"],"reconciliation_status": ["open", "assigned", "resolved"],"refund_status": ["pending", "succeeded", "failed"],"review_status": ["pending", "accepted", "rejected"],"settlement_status": ["draft", "prepared", "approved", "releasing", "completed", "completed_with_failures", "cancelled"],"sponsorship_status": ["inquiry", "confirmed", "invoiced", "paid", "cancelled"],"stall_fee_status": ["open", "invoiced", "paid", "cancelled"],"transaction_kind": ["payment", "refund", "payout"],"webhook_outcome": ["processed", "ignored", "failed"]
           }
         }
 } as const

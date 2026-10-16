@@ -2236,7 +2236,8 @@
         "commission": "Provisjon på salg",
         "commission_reversed": "Tilbakeført provisjon ved refusjoner"
       },
-      "totalInclMva": "Totalt inkl. mva"
+      "totalInclMva": "Totalt inkl. mva",
+      "sponsorDescription": "Sponsorpakke {package}, {event}"
     },
     "feeReceipt": {
       "title": "Kvittering",
@@ -2277,12 +2278,64 @@
       "commission_invoice": "faktura",
       "stall_fee_invoice": "faktura",
       "stall_fee_receipt": "kvittering",
-      "customer_receipt": "kvittering"
+      "customer_receipt": "kvittering",
+      "sponsor_invoice": "faktura",
+      "sponsor_report_pdf": "sponsorrapport",
+      "sponsor_report_csv": "sponsorrapport"
     },
     "errors": {
       "sellerMissing": "AFFN har ikke fylt inn firmaopplysningene sine ennå, så dokumentet kan ikke lages. Prøv igjen senere.",
       "notReady": "Dokumentet er ikke klart ennå.",
       "failed": "Dokumentet kunne ikke lages. Prøv igjen."
+    },
+    "report": {
+      "title": "Sponsorrapport",
+      "sponsor": "Sponsor",
+      "sponsorLabel": "Sponsor",
+      "package": "Pakke",
+      "price": "Pris eks. mva",
+      "deliverables": "Leveranser",
+      "deliverable": "Leveranse",
+      "deliverableStatus": {
+        "pending": "Ikke startet",
+        "in_progress": "Pågår",
+        "delivered": "Levert"
+      },
+      "reach": "Skanninger, klikk og visninger",
+      "scans": "QR-skanninger",
+      "clicks": "Klikk på lenker",
+      "pageViews": "Visninger av sponsorsiden",
+      "day": "Dag",
+      "byHour": "Per time på døgnet",
+      "hour": "Time",
+      "byLink": "Per kode og lenke",
+      "link": "Kode/lenke",
+      "kind": "Type",
+      "count": "Antall",
+      "kinds": {
+        "qr": "QR-kode",
+        "link": "Lenke"
+      },
+      "festival": "Festivalen i tall",
+      "orders": "Betalte bestillinger",
+      "vendors": "Leverandører",
+      "sales": "Omsetning (brutto)",
+      "privacy": "Tallene er telt uten personopplysninger: bare tidspunkt og enhetstype (mobil, nettbrett, PC), ingen IP-adresser og ingen informasjonskapsler.",
+      "csv": {
+        "day": "Dag",
+        "hour": "Time",
+        "total": "Totalt",
+        "festivalOrders": "Festivalen: betalte bestillinger",
+        "festivalVendors": "Festivalen: leverandører",
+        "festivalSales": "Festivalen: omsetning (kr)",
+        "columns": {
+          "period": "Periode",
+          "when": "Når",
+          "scans": "QR-skanninger",
+          "clicks": "Klikk",
+          "pageViews": "Sidevisninger"
+        }
+      }
     }
   },
   "Settings": {

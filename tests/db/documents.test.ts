@@ -101,7 +101,7 @@ describe('gapless invoice numbers', () => {
     );
     const owner = clients[0]!;
     const { rows: start } = await owner.query(
-      `select coalesce(max(invoice_number), 0)::int as n from public.invoices where organization_id = $1`,
+      `select coalesce((select last_number from public.invoice_counters where organization_id = $1), 0)::int as n`,
       [ORG1],
     );
     try {
@@ -129,10 +129,12 @@ describe('gapless invoice numbers', () => {
       expect(committed).toHaveLength(8);
       // Consecutive after the previous highest number: no holes left by the rollbacks.
       expect(committed).toEqual(committed.map((_, i) => start[0].n + 1 + i));
-      // And the whole organization's series has no holes.
+      // And the whole organization's series (vendor and sponsor invoices) has no holes.
       const { rows: series } = await owner.query(
-        `select count(*)::int as count, max(invoice_number)::int as max from public.invoices
-          where organization_id = $1`,
+        `select count(*)::int as count, max(n)::int as max from (
+           select invoice_number as n from public.invoices where organization_id = $1
+           union all
+           select invoice_number from public.sponsor_invoices where organization_id = $1) s`,
         [ORG1],
       );
       expect(series[0].count).toBe(series[0].max);
