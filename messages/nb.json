@@ -1776,7 +1776,7 @@
       "title": "Må ordnes før godkjenning",
       "none": "Ingenting hindrer dette oppgjøret.",
       "kinds": {
-        "unreconciled": "{amount} transaksjoner er ikke avstemt mot betalingsleverandøren.",
+        "unreconciled": "{count, plural, one {# transaksjon} other {# transaksjoner}} er ikke avstemt mot betalingsleverandøren.",
         "no_lines": "Oppgjøret har ingen leverandører med saldo.",
         "dispute": "{vendor} har en åpen innsigelse på {amount}.",
         "payout_account": "{vendor} har ikke aktivert utbetaling (skal ha {amount}).",
@@ -1785,7 +1785,8 @@
       "fix": {
         "payout_account": "Kontakt leverandøren",
         "negative": "Legg inn justering",
-        "dispute": "Se leverandøren"
+        "dispute": "Se leverandøren",
+        "unreconciled": "Gå til avstemming"
       }
     },
     "actions": {

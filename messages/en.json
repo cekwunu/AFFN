@@ -1776,7 +1776,7 @@
       "title": "To fix before approval",
       "none": "Nothing blocks this settlement.",
       "kinds": {
-        "unreconciled": "{amount} transactions are not reconciled with the payment provider.",
+        "unreconciled": "{count, plural, one {# transaction is} other {# transactions are}} not reconciled with the payment provider.",
         "no_lines": "The settlement has no vendors with a balance.",
         "dispute": "{vendor} has an open dispute of {amount}.",
         "payout_account": "{vendor} has not enabled payouts (owed {amount}).",
@@ -1785,7 +1785,8 @@
       "fix": {
         "payout_account": "Contact the vendor",
         "negative": "Add an adjustment",
-        "dispute": "See the vendor"
+        "dispute": "See the vendor",
+        "unreconciled": "Go to reconciliation"
       }
     },
     "actions": {

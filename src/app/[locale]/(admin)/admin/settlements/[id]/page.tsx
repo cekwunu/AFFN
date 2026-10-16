@@ -70,13 +70,15 @@ export default async function SettlementPage({
   const hidden = <input type="hidden" name="id" value={settlement.id} />;
   const stepIndex = STEPS.indexOf(status === 'completed_with_failures' ? 'releasing' : status);
   const fixLink = (kind: string, eventVendorId: string | null) =>
-    kind === 'payout_account' && eventVendorId
-      ? { href: `/admin/applications/${eventVendorId}`, label: t('blockers.fix.payout_account') }
-      : kind === 'negative'
-        ? { href: '#adjustments', label: t('blockers.fix.negative') }
-        : kind === 'dispute' && eventVendorId
-          ? { href: `/admin/applications/${eventVendorId}`, label: t('blockers.fix.dispute') }
-          : null;
+    kind === 'unreconciled'
+      ? { href: '/admin/reconciliation', label: t('blockers.fix.unreconciled') }
+      : kind === 'payout_account' && eventVendorId
+        ? { href: `/admin/applications/${eventVendorId}`, label: t('blockers.fix.payout_account') }
+        : kind === 'negative'
+          ? { href: '#adjustments', label: t('blockers.fix.negative') }
+          : kind === 'dispute' && eventVendorId
+            ? { href: `/admin/applications/${eventVendorId}`, label: t('blockers.fix.dispute') }
+            : null;
 
   const statusButton = (
     to: string,
@@ -179,6 +181,8 @@ export default async function SettlementPage({
                       {t(`blockers.kinds.${b.kind as 'dispute'}`, {
                         vendor: b.name ?? '',
                         amount: b.amount_ore === null ? '' : money(b.amount_ore),
+                        // For unreconciled transactions the value is a count, not øre.
+                        count: b.amount_ore ?? 0,
                       })}
                     </span>
                     {fix &&

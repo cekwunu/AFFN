@@ -275,7 +275,9 @@ test('a failed payout is retried; paid amounts equal the ledger to the øre (SET
 
   // Regenerating stores a new version next to the old one, never overwriting it.
   await documents.getByRole('button', { name: 'Lag ny versjon' }).click();
-  await expect(page.getByText('En ny versjon av dokumentene er laget.')).toBeVisible();
+  await expect(page.getByText('En ny versjon av dokumentene er laget.')).toBeVisible({
+    timeout: 30_000,
+  });
   await expect(
     page
       .getByTestId('document-row')

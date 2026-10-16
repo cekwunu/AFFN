@@ -265,9 +265,12 @@ export async function makeSettlementDocuments(formData: FormData) {
   }
   const user = await getCurrentUser();
   try {
-    await issueSettlementDocuments(id, user?.id ?? null);
-    if (formData.get('mode') === 'regenerate') {
+    if (formData.get('mode') !== 'regenerate') {
+      await issueSettlementDocuments(id, user?.id ?? null);
+    } else {
       const admin = createAdminClient();
+      const { error } = await admin.rpc('issue_commission_invoices', { p_settlement_id: id });
+      if (error) throw error;
       const [{ data: lines }, { data: invoices }] = await Promise.all([
         admin.from('settlement_lines').select('id').eq('settlement_id', id),
         admin.from('invoices').select('id').eq('settlement_id', id).eq('kind', 'commission'),
